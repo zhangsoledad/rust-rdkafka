@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `FutureProducerTopic` struct in crate `rdkafka`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, FutureProducerTopic">
+
+    <title>rdkafka::producer::FutureProducerTopic - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>producer</a></p><script>window.sidebarCurrent = {name: 'FutureProducerTopic', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>producer</a>::<wbr><a class='struct' href=''>FutureProducerTopic</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/rdkafka/producer.rs.html#406-408' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct FutureProducerTopic&lt;C:&nbsp;<a class='trait' href='../../rdkafka/client/trait.Context.html' title='trait rdkafka::client::Context'>Context</a> + 'static&gt; { /* fields omitted */ }</pre><div class='docblock'><p>Represents a Kafka topic with an associated <code>FutureProducer</code>.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;C:&nbsp;<a class='trait' href='../../rdkafka/client/trait.Context.html' title='trait rdkafka::client::Context'>Context</a> + 'static&gt; <a class='struct' href='../../rdkafka/producer/struct.FutureProducerTopic.html' title='struct rdkafka::producer::FutureProducerTopic'>FutureProducerTopic</a>&lt;C&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rdkafka/producer.rs.html#410-440' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(producer: <a class='struct' href='../../rdkafka/producer/struct.FutureProducer.html' title='struct rdkafka::producer::FutureProducer'>FutureProducer</a>&lt;C&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; topic_config: &amp;<a class='struct' href='../../rdkafka/config/struct.TopicConfig.html' title='struct rdkafka::config::TopicConfig'>TopicConfig</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../rdkafka/error/type.KafkaResult.html' title='type rdkafka::error::KafkaResult'>KafkaResult</a>&lt;<a class='struct' href='../../rdkafka/producer/struct.FutureProducerTopic.html' title='struct rdkafka::producer::FutureProducerTopic'>FutureProducerTopic</a>&lt;C&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Creates the <code>FutureProducerTopic</code>. The <code>FutureProducerTopic</code> can be used to produce data to
+the specified topic.</p>
+</div><h4 id='method.send_copy' class='method'><span id='send_copy.v' class='invisible'><code>fn <a href='#method.send_copy' class='fnname'>send_copy</a>&lt;P, K&gt;(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; partition: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='enum core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; payload: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='enum core::option::Option'>Option</a>&lt;&amp;P&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; key: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='enum core::option::Option'>Option</a>&lt;&amp;K&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timestamp: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='enum core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../rdkafka/error/type.KafkaResult.html' title='type rdkafka::error::KafkaResult'>KafkaResult</a>&lt;<a class='struct' href='../../rdkafka/producer/struct.DeliveryFuture.html' title='struct rdkafka::producer::DeliveryFuture'>DeliveryFuture</a>&gt; <span class='where fmt-newline'>where K: <a class='trait' href='../../rdkafka/message/trait.ToBytes.html' title='trait rdkafka::message::ToBytes'>ToBytes</a>, P: <a class='trait' href='../../rdkafka/message/trait.ToBytes.html' title='trait rdkafka::message::ToBytes'>ToBytes</a></span></code></span></h4>
+<div class='docblock'><p>Sends a copy of the payload and key provided to the specified topic. When no partition is
+specified the underlying Kafka library picks a partition based on the key.
+Returns a <code>DeliveryFuture</code> or an error.</p>
+</div><h4 id='method.name' class='method'><span id='name.v' class='invisible'><code>fn <a href='#method.name' class='fnname'>name</a>(&amp;self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='struct collections::string::String'>String</a></code></span></h4>
+<div class='docblock'><p>Get topic&#39;s name.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rdkafka";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

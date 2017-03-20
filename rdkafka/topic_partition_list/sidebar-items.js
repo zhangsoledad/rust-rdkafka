@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Partition","Configuration of a partition"],["TopicPartitionList","Map of topics with optionally partition configuration."]],"type":[["Topics","A map of topic names to partitions."]]});

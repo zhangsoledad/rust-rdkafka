@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Broker",""],["ConsumerGroup",""],["Partition",""],["Statistics",""],["Topic",""],["TopicPartition",""],["Window",""]]});

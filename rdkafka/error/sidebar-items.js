@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["KafkaError","Represents all Kafka errors."]],"fn":[["resp_err_description","Returns a string containing a description of the error."]],"trait":[["IsError","Verify if the value represents an error condition."]],"type":[["KafkaResult","Kafka result."]]});

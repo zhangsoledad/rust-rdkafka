@@ -211,6 +211,8 @@
 <span id="166">166</span>
 <span id="167">167</span>
 <span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! A data structure representing topic, partitions and offsets, compatible with the</span>
 <span class='doccomment'>//! `RDKafkaTopicPartitionList` exported by `rdkafka-sys`.</span>
@@ -224,8 +226,10 @@
 <span class='kw'>use</span> <span class='ident'>rdsys</span>;
 <span class='kw'>use</span> <span class='ident'>rdsys</span>::<span class='ident'>types</span>::<span class='kw-2'>*</span>;
 
-<span class='comment'>// TODO: Add offset conversion</span>
-<span class='comment'>// pub const OFFSET_INVALID: i64 = rdsys::RD_KAFKA_OFFSET_INVALID as i64;</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>OFFSET_BEGINNING</span>: <span class='ident'>i64</span> <span class='op'>=</span> <span class='ident'>rdsys</span>::<span class='ident'>RD_KAFKA_OFFSET_BEGINNING</span> <span class='kw'>as</span> <span class='ident'>i64</span>;
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>OFFSET_END</span>: <span class='ident'>i64</span> <span class='op'>=</span> <span class='ident'>rdsys</span>::<span class='ident'>RD_KAFKA_OFFSET_END</span> <span class='kw'>as</span> <span class='ident'>i64</span>;
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>OFFSET_STORED</span>: <span class='ident'>i64</span> <span class='op'>=</span> <span class='ident'>rdsys</span>::<span class='ident'>RD_KAFKA_OFFSET_STORED</span> <span class='kw'>as</span> <span class='ident'>i64</span>;
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>OFFSET_INVALID</span>: <span class='ident'>i64</span> <span class='op'>=</span> <span class='ident'>rdsys</span>::<span class='ident'>RD_KAFKA_OFFSET_INVALID</span> <span class='kw'>as</span> <span class='ident'>i64</span>;
 
 <span class='doccomment'>/// Configuration of a partition</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Debug</span>, <span class='ident'>PartialEq</span>)]</span>

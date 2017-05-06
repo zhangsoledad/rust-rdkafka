@@ -222,6 +222,12 @@
 <span id="177">177</span>
 <span id="178">178</span>
 <span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Base trait and common functionality for all consumers.</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>base_consumer</span>;
@@ -381,14 +387,20 @@
         <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>committed</span>(<span class='ident'>timeout_ms</span>)
     }
 
+    <span class='doccomment'>/// Lookup the offsets for this consumer&#39;s partitions by timestamp.</span>
+    <span class='kw'>fn</span> <span class='ident'>offsets_for_timestamp</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>timestamp</span>: <span class='ident'>i64</span>, <span class='ident'>timeout_ms</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>TopicPartitionList</span><span class='op'>&gt;</span> {
+        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>offsets_for_timestamp</span>(<span class='ident'>timestamp</span>, <span class='ident'>timeout_ms</span>)
+    }
+
     <span class='doccomment'>/// Retrieve current positions (offsets) for topics and partitions.</span>
     <span class='kw'>fn</span> <span class='ident'>position</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>TopicPartitionList</span><span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>position</span>()
     }
 
-    <span class='doccomment'>/// Returns the metadata information for all the topics in the cluster.</span>
-    <span class='kw'>fn</span> <span class='ident'>fetch_metadata</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>timeout_ms</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>Metadata</span><span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>fetch_metadata</span>(<span class='ident'>timeout_ms</span>)
+    <span class='doccomment'>/// Returns the metadata information for the specified topic, or for all topics in the cluster</span>
+    <span class='doccomment'>/// if no topic is specified.</span>
+    <span class='kw'>fn</span> <span class='ident'>fetch_metadata</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>topic</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>str</span><span class='op'>&gt;</span>, <span class='ident'>timeout_ms</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>Metadata</span><span class='op'>&gt;</span> {
+        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>fetch_metadata</span>(<span class='ident'>topic</span>, <span class='ident'>timeout_ms</span>)
     }
 
     <span class='doccomment'>/// Returns the metadata information for all the topics in the cluster.</span>

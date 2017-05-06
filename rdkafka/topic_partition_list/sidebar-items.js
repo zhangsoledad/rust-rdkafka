@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Partition","Configuration of a partition"],["TopicPartitionList","Map of topics with optionally partition configuration."]],"type":[["Topics","A map of topic names to partitions."]]});
+initSidebarItems({"constant":[["OFFSET_BEGINNING",""],["OFFSET_END",""],["OFFSET_INVALID",""],["OFFSET_STORED",""]],"struct":[["Partition","Configuration of a partition"],["TopicPartitionList","Map of topics with optionally partition configuration."]],"type":[["Topics","A map of topic names to partitions."]]});

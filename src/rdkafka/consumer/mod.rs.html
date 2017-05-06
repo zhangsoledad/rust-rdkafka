@@ -216,6 +216,16 @@
 <span id="171">171</span>
 <span id="172">172</span>
 <span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Base trait and common functionality for all consumers.</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>base_consumer</span>;
@@ -241,7 +251,7 @@
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>Rebalance</span> {
     <span class='ident'>Assign</span>(<span class='ident'>TopicPartitionList</span>),
     <span class='ident'>Revoke</span>,
-    <span class='ident'>Error</span>(<span class='ident'>String</span>)
+    <span class='ident'>Error</span>(<span class='ident'>String</span>),
 }
 
 <span class='doccomment'>/// Consumer specific Context. This user-defined object can be used to provide custom callbacks to</span>
@@ -250,18 +260,20 @@
     <span class='doccomment'>/// Implements the default rebalancing strategy and calls the `pre_rebalance` and</span>
     <span class='doccomment'>/// `post_rebalance` methods. If this method is overridden, it will be responsibility</span>
     <span class='doccomment'>/// of the user to call them if needed.</span>
-    <span class='kw'>fn</span> <span class='ident'>rebalance</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>native_client</span>: <span class='kw-2'>&amp;</span><span class='ident'>NativeClient</span>, <span class='ident'>err</span>: <span class='ident'>RDKafkaRespErr</span>,
-                 <span class='ident'>partitions_ptr</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafkaTopicPartitionList</span>) {
+    <span class='kw'>fn</span> <span class='ident'>rebalance</span>(
+        <span class='kw-2'>&amp;</span><span class='self'>self</span>,
+        <span class='ident'>native_client</span>: <span class='kw-2'>&amp;</span><span class='ident'>NativeClient</span>,
+        <span class='ident'>err</span>: <span class='ident'>RDKafkaRespErr</span>,
+        <span class='ident'>partitions_ptr</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafkaTopicPartitionList</span>,
+    ) {
 
         <span class='kw'>let</span> <span class='ident'>rebalance</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>err</span> {
             <span class='ident'>RDKafkaRespErr</span>::<span class='ident'>RD_KAFKA_RESP_ERR__ASSIGN_PARTITIONS</span> <span class='op'>=&gt;</span> {
                 <span class='comment'>// TODO: this might be expensive</span>
                 <span class='kw'>let</span> <span class='ident'>topic_partition_list</span> <span class='op'>=</span> <span class='ident'>TopicPartitionList</span>::<span class='ident'>from_rdkafka</span>(<span class='ident'>partitions_ptr</span>);
                 <span class='ident'>Rebalance</span>::<span class='ident'>Assign</span>(<span class='ident'>topic_partition_list</span>)
-            },
-            <span class='ident'>RDKafkaRespErr</span>::<span class='ident'>RD_KAFKA_RESP_ERR__REVOKE_PARTITIONS</span> <span class='op'>=&gt;</span> {
-                <span class='ident'>Rebalance</span>::<span class='ident'>Revoke</span>
-            },
+            }
+            <span class='ident'>RDKafkaRespErr</span>::<span class='ident'>RD_KAFKA_RESP_ERR__REVOKE_PARTITIONS</span> <span class='op'>=&gt;</span> <span class='ident'>Rebalance</span>::<span class='ident'>Revoke</span>,
             _ <span class='op'>=&gt;</span> {
                 <span class='kw'>let</span> <span class='ident'>error</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>cstr_to_owned</span>(<span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_err2str</span>(<span class='ident'>err</span>)) };
                 <span class='macro'>error</span><span class='macro'>!</span>(<span class='string'>&quot;Error rebalancing: {}&quot;</span>, <span class='ident'>error</span>);
@@ -276,10 +288,10 @@
             <span class='kw'>match</span> <span class='ident'>err</span> {
                 <span class='ident'>RDKafkaRespErr</span>::<span class='ident'>RD_KAFKA_RESP_ERR__ASSIGN_PARTITIONS</span> <span class='op'>=&gt;</span> {
                     <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_assign</span>(<span class='ident'>native_client</span>.<span class='ident'>ptr</span>(), <span class='ident'>partitions_ptr</span>);
-                },
+                }
                 <span class='ident'>RDKafkaRespErr</span>::<span class='ident'>RD_KAFKA_RESP_ERR__REVOKE_PARTITIONS</span> <span class='op'>=&gt;</span> {
                     <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_assign</span>(<span class='ident'>native_client</span>.<span class='ident'>ptr</span>(), <span class='ident'>ptr</span>::<span class='ident'>null</span>());
-                },
+                }
                 _ <span class='op'>=&gt;</span> {
                     <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_assign</span>(<span class='ident'>native_client</span>.<span class='ident'>ptr</span>(), <span class='ident'>ptr</span>::<span class='ident'>null</span>());
                 }
@@ -290,23 +302,26 @@
 
     <span class='doccomment'>/// Pre-rebalance callback. This method will run before the rebalance and should</span>
     <span class='doccomment'>/// terminate its execution quickly.</span>
-    <span class='kw'>fn</span> <span class='ident'>pre_rebalance</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>_rebalance</span>: <span class='kw-2'>&amp;</span><span class='ident'>Rebalance</span>) { }
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>unused_variables</span>)]</span>
+    <span class='kw'>fn</span> <span class='ident'>pre_rebalance</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>rebalance</span>: <span class='kw-2'>&amp;</span><span class='ident'>Rebalance</span>) {}
 
     <span class='doccomment'>/// Post-rebalance callback. This method will run after the rebalance and should</span>
     <span class='doccomment'>/// terminate its execution quickly.</span>
-    <span class='kw'>fn</span> <span class='ident'>post_rebalance</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>_rebalance</span>: <span class='kw-2'>&amp;</span><span class='ident'>Rebalance</span>) { }
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>unused_variables</span>)]</span>
+    <span class='kw'>fn</span> <span class='ident'>post_rebalance</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>rebalance</span>: <span class='kw-2'>&amp;</span><span class='ident'>Rebalance</span>) {}
 
     <span class='doccomment'>/// Post commit callback. This method will run after a group of offsets was committed to the</span>
     <span class='doccomment'>/// offset store.</span>
-    <span class='kw'>fn</span> <span class='ident'>commit_callback</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>_result</span>: <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span>, <span class='ident'>_offsets</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafkaTopicPartitionList</span>) { }
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>unused_variables</span>)]</span>
+    <span class='kw'>fn</span> <span class='ident'>commit_callback</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>result</span>: <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span>, <span class='ident'>offsets</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafkaTopicPartitionList</span>) {}
 }
 
 <span class='doccomment'>/// An empty consumer context that can be user when no context is needed.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>EmptyConsumerContext</span>;
 
-<span class='kw'>impl</span> <span class='ident'>Context</span> <span class='kw'>for</span> <span class='ident'>EmptyConsumerContext</span> { }
-<span class='kw'>impl</span> <span class='ident'>ConsumerContext</span> <span class='kw'>for</span> <span class='ident'>EmptyConsumerContext</span> { }
+<span class='kw'>impl</span> <span class='ident'>Context</span> <span class='kw'>for</span> <span class='ident'>EmptyConsumerContext</span> {}
+<span class='kw'>impl</span> <span class='ident'>ConsumerContext</span> <span class='kw'>for</span> <span class='ident'>EmptyConsumerContext</span> {}
 
 <span class='doccomment'>/// Specifies if the commit should be performed synchronously</span>
 <span class='doccomment'>/// or asynchronously.</span>
@@ -338,7 +353,8 @@
     <span class='doccomment'>/// If mode is set to CommitMode::Sync, the call will block until</span>
     <span class='doccomment'>/// the message has been successfully committed.</span>
     <span class='kw'>fn</span> <span class='ident'>commit</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>topic_partition_list</span>: <span class='kw-2'>&amp;</span><span class='ident'>TopicPartitionList</span>, <span class='ident'>mode</span>: <span class='ident'>CommitMode</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>commit</span>(<span class='ident'>topic_partition_list</span>, <span class='ident'>mode</span>)
+        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>()
+            .<span class='ident'>commit</span>(<span class='ident'>topic_partition_list</span>, <span class='ident'>mode</span>)
     }
 
     <span class='doccomment'>/// Commit a specific message. If mode is set to CommitMode::Sync,</span>
@@ -365,7 +381,8 @@
 
     <span class='doccomment'>/// Lookup the offsets for this consumer&#39;s partitions by timestamp.</span>
     <span class='kw'>fn</span> <span class='ident'>offsets_for_timestamp</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>timestamp</span>: <span class='ident'>i64</span>, <span class='ident'>timeout_ms</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>TopicPartitionList</span><span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>offsets_for_timestamp</span>(<span class='ident'>timestamp</span>, <span class='ident'>timeout_ms</span>)
+        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>()
+            .<span class='ident'>offsets_for_timestamp</span>(<span class='ident'>timestamp</span>, <span class='ident'>timeout_ms</span>)
     }
 
     <span class='doccomment'>/// Retrieve current positions (offsets) for topics and partitions.</span>
@@ -376,18 +393,21 @@
     <span class='doccomment'>/// Returns the metadata information for the specified topic, or for all topics in the cluster</span>
     <span class='doccomment'>/// if no topic is specified.</span>
     <span class='kw'>fn</span> <span class='ident'>fetch_metadata</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>topic</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>str</span><span class='op'>&gt;</span>, <span class='ident'>timeout_ms</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>Metadata</span><span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>fetch_metadata</span>(<span class='ident'>topic</span>, <span class='ident'>timeout_ms</span>)
+        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>()
+            .<span class='ident'>fetch_metadata</span>(<span class='ident'>topic</span>, <span class='ident'>timeout_ms</span>)
     }
 
     <span class='doccomment'>/// Returns the metadata information for all the topics in the cluster.</span>
     <span class='kw'>fn</span> <span class='ident'>fetch_watermarks</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>topic</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>partition</span>: <span class='ident'>i32</span>, <span class='ident'>timeout_ms</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>(<span class='ident'>i64</span>, <span class='ident'>i64</span>)<span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>fetch_watermarks</span>(<span class='ident'>topic</span>, <span class='ident'>partition</span>, <span class='ident'>timeout_ms</span>)
+        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>()
+            .<span class='ident'>fetch_watermarks</span>(<span class='ident'>topic</span>, <span class='ident'>partition</span>, <span class='ident'>timeout_ms</span>)
     }
 
     <span class='doccomment'>/// Returns the group membership information for the given group. If no group is</span>
     <span class='doccomment'>/// specified, all groups will be returned.</span>
     <span class='kw'>fn</span> <span class='ident'>fetch_group_list</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>group</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>str</span><span class='op'>&gt;</span>, <span class='ident'>timeout_ms</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>GroupList</span><span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>fetch_group_list</span>(<span class='ident'>group</span>, <span class='ident'>timeout_ms</span>)
+        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>()
+            .<span class='ident'>fetch_group_list</span>(<span class='ident'>group</span>, <span class='ident'>timeout_ms</span>)
     }
 }
 </pre>

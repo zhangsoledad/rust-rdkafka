@@ -213,6 +213,8 @@
 <span id="168">168</span>
 <span id="169">169</span>
 <span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! A data structure representing topic, partitions and offsets, compatible with the</span>
 <span class='doccomment'>//! `RDKafkaTopicPartitionList` exported by `rdkafka-sys`.</span>
@@ -247,6 +249,8 @@
     <span class='kw'>pub</span> <span class='ident'>topics</span>: <span class='ident'>Topics</span>
 }
 
+<span class='comment'>// TODO: we should support accessing RDKafkaTopicPartitionList directly, without having to</span>
+<span class='comment'>// build the Rust data structures.</span>
 <span class='kw'>impl</span> <span class='ident'>TopicPartitionList</span> {
     <span class='doccomment'>/// Create list based on a list from the rdkafka side.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_rdkafka</span>(<span class='ident'>tp_list</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>RDKafkaTopicPartitionList</span>) <span class='op'>-&gt;</span> <span class='ident'>TopicPartitionList</span> {

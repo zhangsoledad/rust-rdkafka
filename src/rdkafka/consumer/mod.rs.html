@@ -226,6 +226,12 @@
 <span id="181">181</span>
 <span id="182">182</span>
 <span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Base trait and common functionality for all consumers.</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>base_consumer</span>;
@@ -349,10 +355,10 @@
         <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>assign</span>(<span class='ident'>assignment</span>)
     }
 
-    <span class='doccomment'>/// Commit offsets on broker for the provided list of partitions.</span>
+    <span class='doccomment'>/// Commit offsets on broker for the provided list of partitions, or the underlying consumers state if `None`.</span>
     <span class='doccomment'>/// If mode is set to CommitMode::Sync, the call will block until</span>
     <span class='doccomment'>/// the message has been successfully committed.</span>
-    <span class='kw'>fn</span> <span class='ident'>commit</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>topic_partition_list</span>: <span class='kw-2'>&amp;</span><span class='ident'>TopicPartitionList</span>, <span class='ident'>mode</span>: <span class='ident'>CommitMode</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
+    <span class='kw'>fn</span> <span class='ident'>commit</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>topic_partition_list</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>TopicPartitionList</span><span class='op'>&gt;</span>, <span class='ident'>mode</span>: <span class='ident'>CommitMode</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>()
             .<span class='ident'>commit</span>(<span class='ident'>topic_partition_list</span>, <span class='ident'>mode</span>)
     }
@@ -362,6 +368,12 @@
     <span class='doccomment'>/// committed.</span>
     <span class='kw'>fn</span> <span class='ident'>commit_message</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>message</span>: <span class='kw-2'>&amp;</span><span class='ident'>Message</span>, <span class='ident'>mode</span>: <span class='ident'>CommitMode</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>commit_message</span>(<span class='ident'>message</span>, <span class='ident'>mode</span>)
+    }
+
+    <span class='doccomment'>/// Store offset for this message to be used on the next (auto)commit.</span>
+    <span class='doccomment'>/// When using this `enable.auto.offset.store` should be set to `false` in the config.</span>
+    <span class='kw'>fn</span> <span class='ident'>store_offset</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>message</span>: <span class='kw-2'>&amp;</span><span class='ident'>Message</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
+        <span class='self'>self</span>.<span class='ident'>get_base_consumer</span>().<span class='ident'>store_offset</span>(<span class='ident'>message</span>)
     }
 
     <span class='doccomment'>/// Returns the current topic subscription.</span>

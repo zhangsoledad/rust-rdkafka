@@ -182,30 +182,48 @@
 <span id="137">137</span>
 <span id="138">138</span>
 <span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Stream-based consumer implementation.</span>
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>Arc</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>atomic</span>::{<span class='ident'>AtomicBool</span>, <span class='ident'>Ordering</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>::<span class='ident'>JoinHandle</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>;
-
 <span class='kw'>use</span> <span class='ident'>futures</span>::{<span class='ident'>Future</span>, <span class='ident'>Poll</span>, <span class='ident'>Sink</span>};
 <span class='kw'>use</span> <span class='ident'>futures</span>::<span class='ident'>stream</span>::<span class='ident'>Stream</span>;
 <span class='kw'>use</span> <span class='ident'>futures</span>::<span class='ident'>sync</span>::<span class='ident'>mpsc</span>;
 
 <span class='kw'>use</span> <span class='ident'>config</span>::{<span class='ident'>FromClientConfig</span>, <span class='ident'>FromClientConfigAndContext</span>, <span class='ident'>ClientConfig</span>};
-<span class='kw'>use</span> <span class='ident'>error</span>::<span class='ident'>KafkaResult</span>;
-<span class='kw'>use</span> <span class='ident'>message</span>::<span class='ident'>Message</span>;
-
-<span class='kw'>use</span> <span class='ident'>consumer</span>::{<span class='ident'>Consumer</span>, <span class='ident'>ConsumerContext</span>, <span class='ident'>EmptyConsumerContext</span>};
 <span class='kw'>use</span> <span class='ident'>consumer</span>::<span class='ident'>base_consumer</span>::<span class='ident'>BaseConsumer</span>;
+<span class='kw'>use</span> <span class='ident'>consumer</span>::{<span class='ident'>Consumer</span>, <span class='ident'>ConsumerContext</span>, <span class='ident'>EmptyConsumerContext</span>};
+<span class='kw'>use</span> <span class='ident'>error</span>::{<span class='ident'>KafkaError</span>, <span class='ident'>KafkaResult</span>};
+<span class='kw'>use</span> <span class='ident'>message</span>::<span class='ident'>Message</span>;
+<span class='kw'>use</span> <span class='ident'>util</span>::<span class='ident'>duration_to_millis</span>;
+
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>Arc</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>atomic</span>::{<span class='ident'>AtomicBool</span>, <span class='ident'>Ordering</span>};
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>::{<span class='self'>self</span>, <span class='ident'>JoinHandle</span>};
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>time</span>::<span class='ident'>Duration</span>;
 
 
 <span class='doccomment'>/// A Consumer with an associated polling thread. This consumer doesn&#39;t need to</span>
 <span class='doccomment'>/// be polled and it will return all consumed messages as a `Stream`.</span>
 <span class='doccomment'>/// Due to the asynchronous nature of the stream, some messages might be consumed by the consumer</span>
 <span class='doccomment'>/// without being processed on the other end of the stream. If auto commit is used, it might cause</span>
-<span class='doccomment'>/// message loss after consumer restart. Manual offset commit should be used instead.</span>
+<span class='doccomment'>/// message loss after consumer restart. Manual offset storing should be used, see the `store_offset`</span>
+<span class='doccomment'>/// function on `Consumer`.</span>
 <span class='attribute'>#[<span class='ident'>must_use</span> <span class='op'>=</span> <span class='string'>&quot;Consumer polling thread will stop immediately if unused&quot;</span>]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>StreamConsumer</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>ConsumerContext</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> {
     <span class='ident'>consumer</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>BaseConsumer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;&gt;</span>,
@@ -258,14 +276,25 @@
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>ConsumerContext</span><span class='op'>&gt;</span> <span class='ident'>StreamConsumer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Starts the StreamConsumer, returning a MessageStream.</span>
+    <span class='doccomment'>/// Starts the StreamConsumer with default configuration (100ms polling interval and no</span>
+    <span class='doccomment'>/// `NoMessageReceived` notifications).</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>start</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>MessageStream</span> {
+        <span class='self'>self</span>.<span class='ident'>start_with</span>(<span class='ident'>Duration</span>::<span class='ident'>from_millis</span>(<span class='number'>100</span>), <span class='bool-val'>false</span>)
+    }
+
+    <span class='doccomment'>/// Starts the StreamConsumer with the specified poll interval. Additionally, if</span>
+    <span class='doccomment'>/// `no_message_error` is set to true, it will return an error of type</span>
+    <span class='doccomment'>/// `KafkaError::NoMessageReceived` every time the poll interval is reached and no message</span>
+    <span class='doccomment'>/// has been received.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>start_with</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>poll_interval</span>: <span class='ident'>Duration</span>, <span class='ident'>no_message_error</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>MessageStream</span> {
         <span class='kw'>let</span> (<span class='ident'>sender</span>, <span class='ident'>receiver</span>) <span class='op'>=</span> <span class='ident'>mpsc</span>::<span class='ident'>channel</span>(<span class='number'>0</span>);
         <span class='kw'>let</span> <span class='ident'>consumer</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>consumer</span>.<span class='ident'>clone</span>();
         <span class='kw'>let</span> <span class='ident'>should_stop</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>should_stop</span>.<span class='ident'>clone</span>();
         <span class='kw'>let</span> <span class='ident'>handle</span> <span class='op'>=</span> <span class='ident'>thread</span>::<span class='ident'>Builder</span>::<span class='ident'>new</span>()
             .<span class='ident'>name</span>(<span class='string'>&quot;poll&quot;</span>.<span class='ident'>to_string</span>())
-            .<span class='ident'>spawn</span>(<span class='kw'>move</span> <span class='op'>||</span> { <span class='ident'>poll_loop</span>(<span class='ident'>consumer</span>, <span class='ident'>sender</span>, <span class='ident'>should_stop</span>); })
+            .<span class='ident'>spawn</span>(<span class='kw'>move</span> <span class='op'>||</span> {
+                <span class='ident'>poll_loop</span>(<span class='ident'>consumer</span>, <span class='ident'>sender</span>, <span class='ident'>should_stop</span>, <span class='ident'>poll_interval</span>, <span class='ident'>no_message_error</span>);
+            })
             .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to start polling thread&quot;</span>);
         <span class='self'>self</span>.<span class='ident'>handle</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>handle</span>);
         <span class='ident'>MessageStream</span>::<span class='ident'>new</span>(<span class='ident'>receiver</span>)
@@ -278,11 +307,7 @@
             <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Stopping polling&quot;</span>);
             <span class='self'>self</span>.<span class='ident'>should_stop</span>.<span class='ident'>store</span>(<span class='bool-val'>true</span>, <span class='ident'>Ordering</span>::<span class='ident'>Relaxed</span>);
             <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Waiting for polling thread termination&quot;</span>);
-            <span class='kw'>let</span> <span class='ident'>thread_result</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>handle</span>
-                .<span class='ident'>take</span>()
-                .<span class='ident'>expect</span>(<span class='string'>&quot;no handle present in consumer context&quot;</span>)
-                .<span class='ident'>join</span>();
-            <span class='kw'>match</span> <span class='ident'>thread_result</span> {
+            <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>handle</span>.<span class='ident'>take</span>().<span class='ident'>expect</span>(<span class='string'>&quot;no handle present in consumer context&quot;</span>).<span class='ident'>join</span>() {
                 <span class='prelude-val'>Ok</span>(()) <span class='op'>=&gt;</span> <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Polling stopped&quot;</span>),
                 <span class='prelude-val'>Err</span>(<span class='ident'>e</span>) <span class='op'>=&gt;</span> <span class='macro'>warn</span><span class='macro'>!</span>(<span class='string'>&quot;Failure while terminating thread: {:?}&quot;</span>, <span class='ident'>e</span>),
             };
@@ -302,13 +327,22 @@
     <span class='ident'>consumer</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>BaseConsumer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;&gt;</span>,
     <span class='ident'>sender</span>: <span class='ident'>mpsc</span>::<span class='ident'>Sender</span><span class='op'>&lt;</span><span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>Message</span><span class='op'>&gt;&gt;</span>,
     <span class='ident'>should_stop</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>AtomicBool</span><span class='op'>&gt;</span>,
+    <span class='ident'>poll_interval</span>: <span class='ident'>Duration</span>,
+    <span class='ident'>no_message_error</span>: <span class='ident'>bool</span>,
 ) {
     <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Polling thread loop started&quot;</span>);
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>curr_sender</span> <span class='op'>=</span> <span class='ident'>sender</span>;
+    <span class='kw'>let</span> <span class='ident'>poll_interval_ms</span> <span class='op'>=</span> <span class='ident'>duration_to_millis</span>(<span class='ident'>poll_interval</span>) <span class='kw'>as</span> <span class='ident'>i32</span>;
     <span class='kw'>while</span> <span class='op'>!</span><span class='ident'>should_stop</span>.<span class='ident'>load</span>(<span class='ident'>Ordering</span>::<span class='ident'>Relaxed</span>) {
         <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Polling base consumer&quot;</span>);
-        <span class='kw'>let</span> <span class='ident'>future_sender</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>consumer</span>.<span class='ident'>poll</span>(<span class='number'>100</span>) {
-            <span class='prelude-val'>Ok</span>(<span class='prelude-val'>None</span>) <span class='op'>=&gt;</span> <span class='kw'>continue</span>,   <span class='comment'>// TODO: check stream closed</span>
+        <span class='kw'>let</span> <span class='ident'>future_sender</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>consumer</span>.<span class='ident'>poll</span>(<span class='ident'>poll_interval_ms</span>) {
+            <span class='prelude-val'>Ok</span>(<span class='prelude-val'>None</span>) <span class='op'>=&gt;</span> {
+                <span class='kw'>if</span> <span class='ident'>no_message_error</span> {
+                    <span class='ident'>curr_sender</span>.<span class='ident'>send</span>(<span class='prelude-val'>Err</span>(<span class='ident'>KafkaError</span>::<span class='ident'>NoMessageReceived</span>))
+                } <span class='kw'>else</span> {
+                    <span class='kw'>continue</span> <span class='comment'>// TODO: check stream closed</span>
+                }
+            },
             <span class='prelude-val'>Ok</span>(<span class='prelude-val'>Some</span>(<span class='ident'>m</span>)) <span class='op'>=&gt;</span> <span class='ident'>curr_sender</span>.<span class='ident'>send</span>(<span class='prelude-val'>Ok</span>(<span class='ident'>m</span>)),
             <span class='prelude-val'>Err</span>(<span class='ident'>e</span>) <span class='op'>=&gt;</span> <span class='ident'>curr_sender</span>.<span class='ident'>send</span>(<span class='prelude-val'>Err</span>(<span class='ident'>e</span>)),
         };

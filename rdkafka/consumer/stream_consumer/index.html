@@ -48,7 +48,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../../src/rdkafka/consumer/stream_consumer.rs.html#1-139' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../../src/rdkafka/consumer/stream_consumer.rs.html#1-156' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Stream-based consumer implementation.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
@@ -67,7 +67,8 @@
 be polled and it will return all consumed messages as a <code>Stream</code>.
 Due to the asynchronous nature of the stream, some messages might be consumed by the consumer
 without being processed on the other end of the stream. If auto commit is used, it might cause
-message loss after consumer restart. Manual offset commit should be used instead.</p>
+message loss after consumer restart. Manual offset storing should be used, see the <code>store_offset</code>
+function on <code>Consumer</code>.</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>

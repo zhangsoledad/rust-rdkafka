@@ -335,6 +335,24 @@
 <span id="290">290</span>
 <span id="291">291</span>
 <span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Low level consumer wrapper.</span>
 <span class='kw'>use</span> <span class='ident'>rdsys</span>;
@@ -354,6 +372,7 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
 
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> <span class='kw'>fn</span> <span class='ident'>native_commit_cb</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>ConsumerContext</span><span class='op'>&gt;</span>(
     <span class='ident'>_conf</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafka</span>,
@@ -477,12 +496,18 @@
         <span class='prelude-val'>Ok</span>(<span class='prelude-val'>Some</span>(<span class='ident'>kafka_message</span>))
     }
 
-    <span class='doccomment'>/// Commits the provided list of partitions. The commit can be sync (blocking), or async.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>commit</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>topic_partition_list</span>: <span class='kw-2'>&amp;</span><span class='ident'>TopicPartitionList</span>, <span class='ident'>mode</span>: <span class='ident'>CommitMode</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>tp_list</span> <span class='op'>=</span> <span class='ident'>topic_partition_list</span>.<span class='ident'>create_native_topic_partition_list</span>();
+    <span class='doccomment'>/// Commits the provided list of partitions, or the underlying consumers state if `None`.</span>
+    <span class='doccomment'>/// The commit can be sync (blocking), or async.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>commit</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>topic_partition_list</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>TopicPartitionList</span><span class='op'>&gt;</span>, <span class='ident'>mode</span>: <span class='ident'>CommitMode</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>tp_list</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>topic_partition_list</span> {
+            <span class='prelude-val'>Some</span>(<span class='ident'>tpl</span>) <span class='op'>=&gt;</span> <span class='ident'>tpl</span>.<span class='ident'>create_native_topic_partition_list</span>(),
+            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='ident'>ptr</span>::<span class='ident'>null_mut</span>()
+        };
         <span class='kw'>let</span> <span class='ident'>error</span> <span class='op'>=</span> <span class='kw'>unsafe</span> {
             <span class='kw'>let</span> <span class='ident'>e</span> <span class='op'>=</span> <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_commit</span>(<span class='self'>self</span>.<span class='ident'>client</span>.<span class='ident'>native_ptr</span>(), <span class='ident'>tp_list</span>, <span class='ident'>mode</span> <span class='kw'>as</span> <span class='ident'>i32</span>);
-            <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_topic_partition_list_destroy</span>(<span class='ident'>tp_list</span>);
+            <span class='kw'>if</span> <span class='op'>!</span><span class='ident'>tp_list</span>.<span class='ident'>is_null</span>() {
+                <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_topic_partition_list_destroy</span>(<span class='ident'>tp_list</span>);
+            }
             <span class='ident'>e</span>
         };
         <span class='kw'>if</span> <span class='ident'>error</span>.<span class='ident'>is_error</span>() {
@@ -497,6 +522,17 @@
         <span class='kw'>let</span> <span class='ident'>error</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_commit_message</span>(<span class='self'>self</span>.<span class='ident'>client</span>.<span class='ident'>native_ptr</span>(), <span class='ident'>message</span>.<span class='ident'>ptr</span>(), <span class='ident'>mode</span> <span class='kw'>as</span> <span class='ident'>i32</span>) };
         <span class='kw'>if</span> <span class='ident'>error</span>.<span class='ident'>is_error</span>() {
             <span class='prelude-val'>Err</span>(<span class='ident'>KafkaError</span>::<span class='ident'>ConsumerCommit</span>(<span class='ident'>error</span>))
+        } <span class='kw'>else</span> {
+            <span class='prelude-val'>Ok</span>(())
+        }
+    }
+
+    <span class='doccomment'>/// Store offset for this message to be used on the next (auto)commit.</span>
+    <span class='doccomment'>/// When using this `enable.auto.offset.store` should be set to `false` in the config.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>store_offset</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>message</span>: <span class='kw-2'>&amp;</span><span class='ident'>Message</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>error</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_offset_store</span>(<span class='ident'>message</span>.<span class='ident'>topic_ptr</span>(), <span class='ident'>message</span>.<span class='ident'>partition</span>(), <span class='ident'>message</span>.<span class='ident'>offset</span>()) };
+        <span class='kw'>if</span> <span class='ident'>error</span>.<span class='ident'>is_error</span>() {
+            <span class='prelude-val'>Err</span>(<span class='ident'>KafkaError</span>::<span class='ident'>StoreOffset</span>(<span class='ident'>error</span>))
         } <span class='kw'>else</span> {
             <span class='prelude-val'>Ok</span>(())
         }

@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `base_consumer` mod in crate `rdkafka`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, base_consumer">
+    <meta name="description" content="API documentation for the Rust `duration_to_millis` fn in crate `rdkafka`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, duration_to_millis">
 
-    <title>rdkafka::consumer::base_consumer - Rust</title>
+    <title>rdkafka::util::duration_to_millis - Rust</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../../../main.css">
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
     
 
     
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../../index.html'>rdkafka</a>::<wbr><a href='../index.html'>consumer</a></p><script>window.sidebarCurrent = {name: 'base_consumer', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>util</a></p><script>window.sidebarCurrent = {name: 'duration_to_millis', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,31 +43,14 @@
         </form>
     </nav>
 
-    <section id='main' class="content mod">
-<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>rdkafka</a>::<wbr><a href='../index.html'>consumer</a>::<wbr><a class='mod' href=''>base_consumer</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content fn">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>util</a>::<wbr><a class='fn' href=''>duration_to_millis</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../../src/rdkafka/consumer/base_consumer.rs.html#1-310' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>Low level consumer wrapper.</p>
-</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
-<table>
-                       <tr class=' module-item'>
-                           <td><a class='struct' href='struct.BaseConsumer.html'
-                                  title='struct rdkafka::consumer::base_consumer::BaseConsumer'>BaseConsumer</a></td>
-                           <td class='docblock-short'>
-                                <p>Low level wrapper around the librdkafka consumer. This consumer requires to be periodically polled
-to make progress on rebalance, callbacks and to receive messages.</p>
-                           </td>
-                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
-<table>
-                       <tr class=' module-item'>
-                           <td><a class='fn' href='fn.native_commit_cb.html'
-                                  title='fn rdkafka::consumer::base_consumer::native_commit_cb'>native_commit_cb</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr></table></section>
+               </span><a class='srclink' href='../../src/rdkafka/util.rs.html#16-19' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub fn duration_to_millis(duration: <a class='struct' href='https://doc.rust-lang.org/nightly/std/time/duration/struct.Duration.html' title='struct std::time::duration::Duration'>Duration</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></pre><div class='docblock'><p>Converts a Duration into milliseconds</p>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -121,11 +104,11 @@ to make progress on rebalance, callbacks and to receive messages.</p>
     
 
     <script>
-        window.rootPath = "../../../";
+        window.rootPath = "../../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../../../jquery.js"></script>
-    <script src="../../../main.js"></script>
-    <script defer src="../../../search-index.js"></script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

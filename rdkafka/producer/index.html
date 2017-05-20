@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc mod">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>rdkafka</a></p><script>window.sidebarCurrent = {name: 'producer', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'>Module producer</p><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a></p><script>window.sidebarCurrent = {name: 'producer', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,8 +43,8 @@
         </form>
     </nav>
 
-    <section id='main' class="content mod">
-<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>rdkafka</a>::<wbr><a class='mod' href=''>producer</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>rdkafka</a>::<wbr><a class="mod" href=''>producer</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
@@ -53,7 +53,7 @@
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='struct' href='struct.BaseProducer.html'
+                           <td><a class="struct" href="struct.BaseProducer.html"
                                   title='struct rdkafka::producer::BaseProducer'>BaseProducer</a></td>
                            <td class='docblock-short'>
                                 <p>Simple Kafka producer. This producer needs to be <code>poll</code>ed at regular intervals in order to
@@ -63,7 +63,7 @@ create a new reference to the same underlying producer. Data production should b
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='struct' href='struct.DeliveryFuture.html'
+                           <td><a class="struct" href="struct.DeliveryFuture.html"
                                   title='struct rdkafka::producer::DeliveryFuture'>DeliveryFuture</a></td>
                            <td class='docblock-short'>
                                 <p>A future that will receive a <code>DeliveryReport</code> containing information on the
@@ -71,7 +71,7 @@ delivery status of the message.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='struct' href='struct.DeliveryReport.html'
+                           <td><a class="struct" href="struct.DeliveryReport.html"
                                   title='struct rdkafka::producer::DeliveryReport'>DeliveryReport</a></td>
                            <td class='docblock-short'>
                                 <p>Information returned by the producer after a message has been delivered
@@ -79,14 +79,14 @@ or failed to be delivered.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='struct' href='struct.EmptyProducerContext.html'
+                           <td><a class="struct" href="struct.EmptyProducerContext.html"
                                   title='struct rdkafka::producer::EmptyProducerContext'>EmptyProducerContext</a></td>
                            <td class='docblock-short'>
                                 <p>Simple empty producer context that can be use when the producer context is not required.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='struct' href='struct.FutureProducer.html'
+                           <td><a class="struct" href="struct.FutureProducer.html"
                                   title='struct rdkafka::producer::FutureProducer'>FutureProducer</a></td>
                            <td class='docblock-short'>
                                 <p>A producer with an internal running thread. This producer doesn&#39;t need to be polled.
@@ -96,7 +96,7 @@ The internal thread can be terminated with the <code>stop</code> method or movin
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='struct' href='struct.FutureProducerContext.html'
+                           <td><a class="struct" href="struct.FutureProducerContext.html"
                                   title='struct rdkafka::producer::FutureProducerContext'>FutureProducerContext</a></td>
                            <td class='docblock-short'>
                                 <p>The <code>ProducerContext</code> used by the <code>FutureProducer</code>. This context will use a Future as its
@@ -105,7 +105,7 @@ The internal thread can be terminated with the <code>stop</code> method or movin
                        </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='trait' href='trait.ProducerContext.html'
+                           <td><a class="trait" href="trait.ProducerContext.html"
                                   title='trait rdkafka::producer::ProducerContext'>ProducerContext</a></td>
                            <td class='docblock-short'>
                                 <p>A <code>ProducerContext</code> is a <code>Context</code> specific for producers. It can be used to store user-specified
@@ -168,7 +168,6 @@ callbacks, such as <code>delivery</code>.</p>
         window.rootPath = "../../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["OFFSET_BEGINNING",""],["OFFSET_END",""],["OFFSET_INVALID",""],["OFFSET_STORED",""]],"struct":[["Partition","Configuration of a partition"],["TopicPartitionList","Map of topics with optionally partition configuration."]],"type":[["Topics","A map of topic names to partitions."]]});
+initSidebarItems({"enum":[["Offset","A librdkafka offset."]],"struct":[["TopicPartitionList","A structure to store and manipulate a list of topics and partitions with optional offsets."],["TopicPartitionListElem","One element of the topic partition list."]]});

@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc mod">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'></p><script>window.sidebarCurrent = {name: 'rdkafka', ty: 'mod', relpath: '../'};</script>
+        <p class='location'>Crate rdkafka</p><div class="block items"><ul><li><a href="#reexports">Reexports</a></li><li><a href="#modules">Modules</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'rdkafka', ty: 'mod', relpath: '../'};</script>
     </nav>
 
     <nav class="sub">
@@ -43,15 +43,15 @@
         </form>
     </nav>
 
-    <section id='main' class="content mod">
-<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>rdkafka</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>rdkafka</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/rdkafka/lib.rs.html#1-175' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/rdkafka/lib.rs.html#1-177' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'>
 <h1 id='rust-rdkafka' class='section-header'><a href='#rust-rdkafka'>rust-rdkafka</a></h1>
-<p>Kafka client library for Rust based on <a href="https://github.com/edenhill/librdkafka">librdkafka</a>.</p>
+<p>A fully asynchronous, <a href="https://github.com/alexcrichton/futures-rs">futures</a>-based Kafka client library for Rust based on <a href="https://github.com/edenhill/librdkafka">librdkafka</a>.</p>
 
 <h2 id='the-library' class='section-header'><a href='#the-library'>The library</a></h2>
 <p><code>rust-rdkafka</code> provides a safe Rust interface to librdkafka. It is currently based on librdkafka 0.9.5.</p>
@@ -67,15 +67,15 @@
 <p>The main features provided at the moment are:</p>
 
 <ul>
-<li>Support for Kafka 0.8.x, 0.9.x and 0.10.x (timestamp support coming soon). For more information about  broker compatibility options, check the <a href="https://github.com/edenhill/librdkafka/wiki/Broker-version-compatibility">librdkafka documentation</a>.</li>
+<li>Support for Kafka 0.8.x, 0.9.x and 0.10.x. For more information about broker compatibility options, check the <a href="https://github.com/edenhill/librdkafka/wiki/Broker-version-compatibility">librdkafka documentation</a>.</li>
 <li>Consume from single or multiple topics.</li>
 <li>Automatic consumer rebalancing.</li>
 <li>Customizable rebalance, with pre and post rebalance callbacks.</li>
-<li>Offset commit.</li>
-<li>Message production.</li>
+<li>Synchronous or asynchronous message production.</li>
+<li>Customizable offset commit.</li>
 <li>Access to cluster metadata (list of topic-partitions, replicas, active brokers etc).</li>
 <li>Access to group metadata (list groups, list members of groups, hostnames etc).</li>
-<li>Access to producer and consumer metrics and statistics.</li>
+<li>Access to producer and consumer metrics, errors and callbacks.</li>
 </ul>
 
 <h3 id='client-types' class='section-header'><a href='#client-types'>Client types</a></h3>
@@ -156,14 +156,14 @@ features = [&quot;ssl&quot;, &quot;sasl&quot;]
 <pre><code class="language-bash">cargo test --lib
 </code></pre>
 
-<h3 id='integration-tests' class='section-header'><a href='#integration-tests'>Integration tests</a></h3>
-<p>rust-rdkafka contains a suite of integration tests which is automatically executed by travis in
-docker container. Given the frequent interaction with C code that rust-rdkafka has to do, tests
+<h3 id='automatic-testing' class='section-header'><a href='#automatic-testing'>Automatic testing</a></h3>
+<p>rust-rdkafka contains a suite of tests which is automatically executed by travis in
+docker-compose. Given the interaction with C code that rust-rdkafka has to do, tests
 are executed in valgrind to check eventual memory errors and leaks.</p>
 
 <p>To run the full suite using docker-compose:</p>
 
-<pre><code class="language-bash">./integration_tests.sh.
+<pre><code class="language-bash">./test_suite.sh
 </code></pre>
 
 <p>To run locally, instead:</p>
@@ -175,73 +175,73 @@ are executed in valgrind to check eventual memory errors and leaks.</p>
 The broker must be configured with default partition number 3 and topic autocreation in order
 for the tests to succeed.</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>pub use message::<a class='struct' href='../rdkafka/message/struct.Message.html' title='struct rdkafka::message::Message'>Message</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr><td><code>pub use message::<a class="struct" href="../rdkafka/message/struct.Message.html" title="struct rdkafka::message::Message">Message</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='client/index.html'
+                           <td><a class="mod" href="client/index.html"
                                   title='mod rdkafka::client'>client</a></td>
                            <td class='docblock-short'>
                                 <p>Common client functionalities.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='config/index.html'
+                           <td><a class="mod" href="config/index.html"
                                   title='mod rdkafka::config'>config</a></td>
                            <td class='docblock-short'>
                                 <p>Configuration to create a Consumer or Producer.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='consumer/index.html'
+                           <td><a class="mod" href="consumer/index.html"
                                   title='mod rdkafka::consumer'>consumer</a></td>
                            <td class='docblock-short'>
                                 <p>Base trait and common functionality for all consumers.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='error/index.html'
+                           <td><a class="mod" href="error/index.html"
                                   title='mod rdkafka::error'>error</a></td>
                            <td class='docblock-short'>
                                 <p>Error manipulations.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='groups/index.html'
+                           <td><a class="mod" href="groups/index.html"
                                   title='mod rdkafka::groups'>groups</a></td>
                            <td class='docblock-short'>
                                 <p>Group membership API.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='message/index.html'
+                           <td><a class="mod" href="message/index.html"
                                   title='mod rdkafka::message'>message</a></td>
                            <td class='docblock-short'>
                                 <p>Store and manipulate Kafka messages.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='metadata/index.html'
+                           <td><a class="mod" href="metadata/index.html"
                                   title='mod rdkafka::metadata'>metadata</a></td>
                            <td class='docblock-short'>
                                 <p>Cluster metadata.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='producer/index.html'
+                           <td><a class="mod" href="producer/index.html"
                                   title='mod rdkafka::producer'>producer</a></td>
                            <td class='docblock-short'>
                                 <p>Producer implementations.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='statistics/index.html'
+                           <td><a class="mod" href="statistics/index.html"
                                   title='mod rdkafka::statistics'>statistics</a></td>
                            <td class='docblock-short'>
                                 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='topic_partition_list/index.html'
+                           <td><a class="mod" href="topic_partition_list/index.html"
                                   title='mod rdkafka::topic_partition_list'>topic_partition_list</a></td>
                            <td class='docblock-short'>
                                 <p>A data structure representing topic, partitions and offsets, compatible with the
@@ -249,14 +249,14 @@ for the tests to succeed.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='types/index.html'
+                           <td><a class="mod" href="types/index.html"
                                   title='mod rdkafka::types'>types</a></td>
                            <td class='docblock-short'>
                                 <p>This module contains type aliases for types defined in the auto-generated bindings.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='util/index.html'
+                           <td><a class="mod" href="util/index.html"
                                   title='mod rdkafka::util'>util</a></td>
                            <td class='docblock-short'>
                                 <p>Utility functions.</p>
@@ -318,7 +318,6 @@ for the tests to succeed.</p>
         window.rootPath = "../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     <script defer src="../search-index.js"></script>
 </body>

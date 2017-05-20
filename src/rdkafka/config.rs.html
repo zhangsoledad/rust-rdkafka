@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -317,279 +317,279 @@
 <span id="272">272</span>
 <span id="273">273</span>
 <span id="274">274</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Configuration to create a Consumer or Producer.</span>
-<span class='kw'>use</span> <span class='ident'>log</span>::<span class='ident'>LogLevel</span>;
-<span class='kw'>use</span> <span class='ident'>rdsys</span>::<span class='ident'>types</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>rdsys</span>;
+</pre><pre class="rust ">
+<span class="doccomment">//! Configuration to create a Consumer or Producer.</span>
+<span class="kw">use</span> <span class="ident">log</span>::<span class="ident">LogLevel</span>;
+<span class="kw">use</span> <span class="ident">rdsys</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">rdsys</span>;
 
-<span class='kw'>use</span> <span class='ident'>client</span>::<span class='ident'>Context</span>;
-<span class='kw'>use</span> <span class='ident'>error</span>::{<span class='ident'>KafkaError</span>, <span class='ident'>KafkaResult</span>, <span class='ident'>IsError</span>};
-<span class='kw'>use</span> <span class='ident'>util</span>::<span class='ident'>bytes_cstr_to_owned</span>;
+<span class="kw">use</span> <span class="ident">client</span>::<span class="ident">Context</span>;
+<span class="kw">use</span> <span class="ident">error</span>::{<span class="ident">KafkaError</span>, <span class="ident">KafkaResult</span>, <span class="ident">IsError</span>};
+<span class="kw">use</span> <span class="ident">util</span>::<span class="ident">bytes_cstr_to_owned</span>;
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>CString</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashMap</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CString</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 
-<span class='kw'>const</span> <span class='ident'>ERR_LEN</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>256</span>;
+<span class="kw">const</span> <span class="ident">ERR_LEN</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">256</span>;
 
 
-<span class='doccomment'>/// The log levels supported by librdkafka.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>RDKafkaLogLevel</span> {
-    <span class='doccomment'>/// Higher priority then LogLevel::Error from the log crate.</span>
-    <span class='ident'>Emerg</span> <span class='op'>=</span> <span class='number'>0</span>,
-    <span class='doccomment'>/// Higher priority then LogLevel::Error from the log crate.</span>
-    <span class='ident'>Alert</span> <span class='op'>=</span> <span class='number'>1</span>,
-    <span class='doccomment'>/// Higher priority then LogLevel::Error from the log crate.</span>
-    <span class='ident'>Critical</span> <span class='op'>=</span> <span class='number'>2</span>,
-    <span class='doccomment'>/// Equivalent to LogLevel::Error from the log crate.</span>
-    <span class='ident'>Error</span> <span class='op'>=</span> <span class='number'>3</span>,
-    <span class='doccomment'>/// Equivalent to LogLevel::Warning from the log crate.</span>
-    <span class='ident'>Warning</span> <span class='op'>=</span> <span class='number'>4</span>,
-    <span class='doccomment'>/// Higher priority then LogLevel::Info from the log crate.</span>
-    <span class='ident'>Notice</span> <span class='op'>=</span> <span class='number'>5</span>,
-    <span class='doccomment'>/// Equivalent to LogLevel::Info from the log crate.</span>
-    <span class='ident'>Info</span> <span class='op'>=</span> <span class='number'>6</span>,
-    <span class='doccomment'>/// Equivalent to LogLevel::Debug from the log crate.</span>
-    <span class='ident'>Debug</span> <span class='op'>=</span> <span class='number'>7</span>,
+<span class="doccomment">/// The log levels supported by librdkafka.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RDKafkaLogLevel</span> {
+    <span class="doccomment">/// Higher priority then LogLevel::Error from the log crate.</span>
+    <span class="ident">Emerg</span> <span class="op">=</span> <span class="number">0</span>,
+    <span class="doccomment">/// Higher priority then LogLevel::Error from the log crate.</span>
+    <span class="ident">Alert</span> <span class="op">=</span> <span class="number">1</span>,
+    <span class="doccomment">/// Higher priority then LogLevel::Error from the log crate.</span>
+    <span class="ident">Critical</span> <span class="op">=</span> <span class="number">2</span>,
+    <span class="doccomment">/// Equivalent to LogLevel::Error from the log crate.</span>
+    <span class="ident">Error</span> <span class="op">=</span> <span class="number">3</span>,
+    <span class="doccomment">/// Equivalent to LogLevel::Warning from the log crate.</span>
+    <span class="ident">Warning</span> <span class="op">=</span> <span class="number">4</span>,
+    <span class="doccomment">/// Higher priority then LogLevel::Info from the log crate.</span>
+    <span class="ident">Notice</span> <span class="op">=</span> <span class="number">5</span>,
+    <span class="doccomment">/// Equivalent to LogLevel::Info from the log crate.</span>
+    <span class="ident">Info</span> <span class="op">=</span> <span class="number">6</span>,
+    <span class="doccomment">/// Equivalent to LogLevel::Debug from the log crate.</span>
+    <span class="ident">Debug</span> <span class="op">=</span> <span class="number">7</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>RDKafkaLogLevel</span> {
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_int</span>(<span class='ident'>level</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>RDKafkaLogLevel</span> {
-        <span class='kw'>match</span> <span class='ident'>level</span> {
-            <span class='number'>0</span> <span class='op'>=&gt;</span> <span class='ident'>RDKafkaLogLevel</span>::<span class='ident'>Emerg</span>,
-            <span class='number'>1</span> <span class='op'>=&gt;</span> <span class='ident'>RDKafkaLogLevel</span>::<span class='ident'>Alert</span>,
-            <span class='number'>2</span> <span class='op'>=&gt;</span> <span class='ident'>RDKafkaLogLevel</span>::<span class='ident'>Critical</span>,
-            <span class='number'>3</span> <span class='op'>=&gt;</span> <span class='ident'>RDKafkaLogLevel</span>::<span class='ident'>Error</span>,
-            <span class='number'>4</span> <span class='op'>=&gt;</span> <span class='ident'>RDKafkaLogLevel</span>::<span class='ident'>Warning</span>,
-            <span class='number'>5</span> <span class='op'>=&gt;</span> <span class='ident'>RDKafkaLogLevel</span>::<span class='ident'>Notice</span>,
-            <span class='number'>6</span> <span class='op'>=&gt;</span> <span class='ident'>RDKafkaLogLevel</span>::<span class='ident'>Info</span>,
-            _ <span class='op'>=&gt;</span> <span class='ident'>RDKafkaLogLevel</span>::<span class='ident'>Debug</span>,
+<span class="kw">impl</span> <span class="ident">RDKafkaLogLevel</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_int</span>(<span class="ident">level</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="ident">RDKafkaLogLevel</span> {
+        <span class="kw">match</span> <span class="ident">level</span> {
+            <span class="number">0</span> <span class="op">=&gt;</span> <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Emerg</span>,
+            <span class="number">1</span> <span class="op">=&gt;</span> <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Alert</span>,
+            <span class="number">2</span> <span class="op">=&gt;</span> <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Critical</span>,
+            <span class="number">3</span> <span class="op">=&gt;</span> <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Error</span>,
+            <span class="number">4</span> <span class="op">=&gt;</span> <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Warning</span>,
+            <span class="number">5</span> <span class="op">=&gt;</span> <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Notice</span>,
+            <span class="number">6</span> <span class="op">=&gt;</span> <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Info</span>,
+            _ <span class="op">=&gt;</span> <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Debug</span>,
         }
     }
 }
 
-<span class='comment'>//</span>
-<span class='comment'>// ********** CLIENT CONFIG **********</span>
-<span class='comment'>//</span>
+<span class="comment">//</span>
+<span class="comment">// ********** CLIENT CONFIG **********</span>
+<span class="comment">//</span>
 
-<span class='doccomment'>/// A native rdkafka-sys client config.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>NativeClientConfig</span> {
-    <span class='ident'>ptr</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafkaConf</span>,
+<span class="doccomment">/// A native rdkafka-sys client config.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NativeClientConfig</span> {
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaConf</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>NativeClientConfig</span> {
-    <span class='doccomment'>/// Wraps a pointer to an `RDKafkaConfig` object and returns a new `NativeClientConfig`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_ptr</span>(<span class='ident'>ptr</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafkaConf</span>) <span class='op'>-&gt;</span> <span class='ident'>NativeClientConfig</span> {
-        <span class='ident'>NativeClientConfig</span> {<span class='ident'>ptr</span>: <span class='ident'>ptr</span>}
+<span class="kw">impl</span> <span class="ident">NativeClientConfig</span> {
+    <span class="doccomment">/// Wraps a pointer to an `RDKafkaConfig` object and returns a new `NativeClientConfig`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_ptr</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaConf</span>) <span class="op">-&gt;</span> <span class="ident">NativeClientConfig</span> {
+        <span class="ident">NativeClientConfig</span> {<span class="ident">ptr</span>: <span class="ident">ptr</span>}
     }
 
-    <span class='doccomment'>/// Returns the pointer to the librdkafka RDKafkaConf structure.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>ptr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafkaConf</span> {
-        <span class='self'>self</span>.<span class='ident'>ptr</span>
+    <span class="doccomment">/// Returns the pointer to the librdkafka RDKafkaConf structure.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaConf</span> {
+        <span class="self">self</span>.<span class="ident">ptr</span>
     }
 
-    <span class='doccomment'>/// Returns the pointer to the librdkafka RDKafkaConf structure. This method should be used when</span>
-    <span class='doccomment'>/// the native pointer is intended to be moved. The destructor won&#39;t be executed automatically;</span>
-    <span class='doccomment'>/// the caller should take care of deallocating the resource when no longer needed.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>ptr_move</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafkaConf</span> {
-        <span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>ptr</span>;
-        <span class='ident'>mem</span>::<span class='ident'>forget</span>(<span class='self'>self</span>);
-        <span class='ident'>ptr</span>
-    }
-}
-
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>NativeClientConfig</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Drop NativeClientConfig {:p}&quot;</span>, <span class='self'>self</span>.<span class='ident'>ptr</span>());
-        <span class='kw'>unsafe</span> { <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_conf_destroy</span>(<span class='self'>self</span>.<span class='ident'>ptr</span>) }
+    <span class="doccomment">/// Returns the pointer to the librdkafka RDKafkaConf structure. This method should be used when</span>
+    <span class="doccomment">/// the native pointer is intended to be moved. The destructor won&#39;t be executed automatically;</span>
+    <span class="doccomment">/// the caller should take care of deallocating the resource when no longer needed.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ptr_move</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaConf</span> {
+        <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">ptr</span>;
+        <span class="ident">mem</span>::<span class="ident">forget</span>(<span class="self">self</span>);
+        <span class="ident">ptr</span>
     }
 }
 
-<span class='doccomment'>/// Client configuration.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ClientConfig</span> {
-    <span class='ident'>conf_map</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span>,
-    <span class='ident'>default_topic_config</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>TopicConfig</span><span class='op'>&gt;</span>,
-    <span class='kw'>pub</span> <span class='ident'>log_level</span>: <span class='ident'>RDKafkaLogLevel</span>,
-}
-
-<span class='kw'>impl</span> <span class='ident'>Default</span> <span class='kw'>for</span> <span class='ident'>ClientConfig</span> {
-    <span class='kw'>fn</span> <span class='ident'>default</span>() <span class='op'>-&gt;</span> <span class='self'>Self</span> {
-        <span class='self'>Self</span>::<span class='ident'>new</span>()
+<span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">NativeClientConfig</span> {
+    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Drop NativeClientConfig {:p}&quot;</span>, <span class="self">self</span>.<span class="ident">ptr</span>());
+        <span class="kw">unsafe</span> { <span class="ident">rdsys</span>::<span class="ident">rd_kafka_conf_destroy</span>(<span class="self">self</span>.<span class="ident">ptr</span>) }
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>ClientConfig</span> {
-    <span class='doccomment'>/// Creates a new empty configuration.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='ident'>ClientConfig</span> {
-        <span class='ident'>ClientConfig</span> {
-            <span class='ident'>conf_map</span>: <span class='ident'>HashMap</span>::<span class='ident'>new</span>(),
-            <span class='ident'>default_topic_config</span>: <span class='prelude-val'>None</span>,
-            <span class='ident'>log_level</span>: <span class='ident'>log_level_from_global_config</span>(),
+<span class="doccomment">/// Client configuration.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ClientConfig</span> {
+    <span class="ident">conf_map</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="ident">default_topic_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TopicConfig</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">log_level</span>: <span class="ident">RDKafkaLogLevel</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">ClientConfig</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>::<span class="ident">new</span>()
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">ClientConfig</span> {
+    <span class="doccomment">/// Creates a new empty configuration.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">ClientConfig</span> {
+        <span class="ident">ClientConfig</span> {
+            <span class="ident">conf_map</span>: <span class="ident">HashMap</span>::<span class="ident">new</span>(),
+            <span class="ident">default_topic_config</span>: <span class="prelude-val">None</span>,
+            <span class="ident">log_level</span>: <span class="ident">log_level_from_global_config</span>(),
         }
     }
 
-    <span class='doccomment'>/// Sets a new parameter in the configuration.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>key</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>ClientConfig</span> {
-        <span class='self'>self</span>.<span class='ident'>conf_map</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>.<span class='ident'>to_string</span>(), <span class='ident'>value</span>.<span class='ident'>to_string</span>());
-        <span class='self'>self</span>
+    <span class="doccomment">/// Sets a new parameter in the configuration.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">ClientConfig</span> {
+        <span class="self">self</span>.<span class="ident">conf_map</span>.<span class="ident">insert</span>(<span class="ident">key</span>.<span class="ident">to_string</span>(), <span class="ident">value</span>.<span class="ident">to_string</span>());
+        <span class="self">self</span>
     }
 
-    <span class='doccomment'>/// Sets the default topic configuration to use for automatically subscribed</span>
-    <span class='doccomment'>/// topics (e.g., through pattern-matched topics).</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_default_topic_config</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>default_topic_config</span>: <span class='ident'>TopicConfig</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ClientConfig</span> {
-        <span class='self'>self</span>.<span class='ident'>default_topic_config</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>default_topic_config</span>);
-        <span class='self'>self</span>
+    <span class="doccomment">/// Sets the default topic configuration to use for automatically subscribed</span>
+    <span class="doccomment">/// topics (e.g., through pattern-matched topics).</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_default_topic_config</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">default_topic_config</span>: <span class="ident">TopicConfig</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ClientConfig</span> {
+        <span class="self">self</span>.<span class="ident">default_topic_config</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">default_topic_config</span>);
+        <span class="self">self</span>
     }
 
-    <span class='doccomment'>/// Sets the log level of the client. If not specified, the log level will be calculated based</span>
-    <span class='doccomment'>/// on the global log level of the log crate.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_log_level</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>log_level</span>: <span class='ident'>RDKafkaLogLevel</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ClientConfig</span> {
-        <span class='self'>self</span>.<span class='ident'>log_level</span> <span class='op'>=</span> <span class='ident'>log_level</span>;
-        <span class='self'>self</span>
+    <span class="doccomment">/// Sets the log level of the client. If not specified, the log level will be calculated based</span>
+    <span class="doccomment">/// on the global log level of the log crate.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_log_level</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">log_level</span>: <span class="ident">RDKafkaLogLevel</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ClientConfig</span> {
+        <span class="self">self</span>.<span class="ident">log_level</span> <span class="op">=</span> <span class="ident">log_level</span>;
+        <span class="self">self</span>
     }
 
-    <span class='doccomment'>/// Returns the native rdkafka-sys configuration.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>create_native_config</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>NativeClientConfig</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>conf</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_conf_new</span>() };
-        <span class='kw'>let</span> <span class='ident'>errstr</span> <span class='op'>=</span> [<span class='number'>0</span>; <span class='ident'>ERR_LEN</span>];
-        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>conf_map</span> {
-            <span class='kw'>let</span> <span class='ident'>key_c</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>key</span>.<span class='ident'>to_string</span>())<span class='question-mark'>?</span>;
-            <span class='kw'>let</span> <span class='ident'>value_c</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>value</span>.<span class='ident'>to_string</span>())<span class='question-mark'>?</span>;
-            <span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span> {
-                <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_conf_set</span>(<span class='ident'>conf</span>, <span class='ident'>key_c</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>value_c</span>.<span class='ident'>as_ptr</span>(),
-                                           <span class='ident'>errstr</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>i8</span>, <span class='ident'>errstr</span>.<span class='ident'>len</span>())
+    <span class="doccomment">/// Returns the native rdkafka-sys configuration.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_native_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">NativeClientConfig</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">conf</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">rdsys</span>::<span class="ident">rd_kafka_conf_new</span>() };
+        <span class="kw">let</span> <span class="ident">errstr</span> <span class="op">=</span> [<span class="number">0</span>; <span class="ident">ERR_LEN</span>];
+        <span class="kw">for</span> (<span class="ident">key</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">conf_map</span> {
+            <span class="kw">let</span> <span class="ident">key_c</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">key</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">value_c</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">value</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> {
+                <span class="ident">rdsys</span>::<span class="ident">rd_kafka_conf_set</span>(<span class="ident">conf</span>, <span class="ident">key_c</span>.<span class="ident">as_ptr</span>(), <span class="ident">value_c</span>.<span class="ident">as_ptr</span>(),
+                                           <span class="ident">errstr</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">i8</span>, <span class="ident">errstr</span>.<span class="ident">len</span>())
             };
-            <span class='kw'>if</span> <span class='ident'>ret</span>.<span class='ident'>is_error</span>() {
-                <span class='kw'>let</span> <span class='ident'>descr</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>bytes_cstr_to_owned</span>(<span class='kw-2'>&amp;</span><span class='ident'>errstr</span>) };
-                <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>KafkaError</span>::<span class='ident'>ClientConfig</span>(<span class='ident'>ret</span>, <span class='ident'>descr</span>, <span class='ident'>key</span>.<span class='ident'>to_string</span>(), <span class='ident'>value</span>.<span class='ident'>to_string</span>()));
+            <span class="kw">if</span> <span class="ident">ret</span>.<span class="ident">is_error</span>() {
+                <span class="kw">let</span> <span class="ident">descr</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">bytes_cstr_to_owned</span>(<span class="kw-2">&amp;</span><span class="ident">errstr</span>) };
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">ClientConfig</span>(<span class="ident">ret</span>, <span class="ident">descr</span>, <span class="ident">key</span>.<span class="ident">to_string</span>(), <span class="ident">value</span>.<span class="ident">to_string</span>()));
             }
         }
-        <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>topic_config</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>default_topic_config</span> {
-            <span class='kw'>let</span> <span class='ident'>native_topic_config</span> <span class='op'>=</span> <span class='ident'>topic_config</span>.<span class='ident'>create_native_config</span>()<span class='question-mark'>?</span>;
-            <span class='kw'>unsafe</span> { <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_conf_set_default_topic_conf</span>(<span class='ident'>conf</span>, <span class='ident'>native_topic_config</span>.<span class='ident'>ptr_move</span>()) };
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">topic_config</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">default_topic_config</span> {
+            <span class="kw">let</span> <span class="ident">native_topic_config</span> <span class="op">=</span> <span class="ident">topic_config</span>.<span class="ident">create_native_config</span>()<span class="question-mark">?</span>;
+            <span class="kw">unsafe</span> { <span class="ident">rdsys</span>::<span class="ident">rd_kafka_conf_set_default_topic_conf</span>(<span class="ident">conf</span>, <span class="ident">native_topic_config</span>.<span class="ident">ptr_move</span>()) };
         };
-        <span class='prelude-val'>Ok</span>(<span class='ident'>NativeClientConfig</span>::<span class='ident'>from_ptr</span>(<span class='ident'>conf</span>))
+        <span class="prelude-val">Ok</span>(<span class="ident">NativeClientConfig</span>::<span class="ident">from_ptr</span>(<span class="ident">conf</span>))
     }
 
-    <span class='doccomment'>/// Uses the current configuration to create a new Consumer or Producer.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>create</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>FromClientConfig</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
-        <span class='ident'>T</span>::<span class='ident'>from_config</span>(<span class='self'>self</span>)
+    <span class="doccomment">/// Uses the current configuration to create a new Consumer or Producer.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromClientConfig</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+        <span class="ident">T</span>::<span class="ident">from_config</span>(<span class="self">self</span>)
     }
 
-    <span class='doccomment'>/// Uses the current configuration and the provided context to create a new Consumer or Producer.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>create_with_context</span><span class='op'>&lt;</span><span class='ident'>C</span>, <span class='ident'>T</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>context</span>: <span class='ident'>C</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
-            <span class='kw'>where</span> <span class='ident'>C</span>: <span class='ident'>Context</span>,
-                  <span class='ident'>T</span>: <span class='ident'>FromClientConfigAndContext</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-        <span class='ident'>T</span>::<span class='ident'>from_config_and_context</span>(<span class='self'>self</span>, <span class='ident'>context</span>)
-    }
-}
-
-<span class='doccomment'>/// Return the log level</span>
-<span class='kw'>fn</span> <span class='ident'>log_level_from_global_config</span>() <span class='op'>-&gt;</span> <span class='ident'>RDKafkaLogLevel</span> {
-    <span class='kw'>if</span> <span class='macro'>log_enabled</span><span class='macro'>!</span>(<span class='ident'>LogLevel</span>::<span class='ident'>Debug</span>) {
-        <span class='ident'>RDKafkaLogLevel</span>::<span class='ident'>Debug</span>
-    } <span class='kw'>else</span> <span class='kw'>if</span> <span class='macro'>log_enabled</span><span class='macro'>!</span>(<span class='ident'>LogLevel</span>::<span class='ident'>Info</span>) {
-        <span class='ident'>RDKafkaLogLevel</span>::<span class='ident'>Info</span>
-    } <span class='kw'>else</span> <span class='kw'>if</span> <span class='macro'>log_enabled</span><span class='macro'>!</span>(<span class='ident'>LogLevel</span>::<span class='ident'>Warn</span>) {
-        <span class='ident'>RDKafkaLogLevel</span>::<span class='ident'>Warning</span>
-    } <span class='kw'>else</span> {
-        <span class='ident'>RDKafkaLogLevel</span>::<span class='ident'>Error</span>
+    <span class="doccomment">/// Uses the current configuration and the provided context to create a new Consumer or Producer.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_with_context</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">context</span>: <span class="ident">C</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+            <span class="kw">where</span> <span class="ident">C</span>: <span class="ident">Context</span>,
+                  <span class="ident">T</span>: <span class="ident">FromClientConfigAndContext</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+        <span class="ident">T</span>::<span class="ident">from_config_and_context</span>(<span class="self">self</span>, <span class="ident">context</span>)
     }
 }
 
-<span class='doccomment'>/// Create a new client based on the provided configuration.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>FromClientConfig</span>: <span class='ident'>Sized</span> {
-    <span class='kw'>fn</span> <span class='ident'>from_config</span>(<span class='kw-2'>&amp;</span><span class='ident'>ClientConfig</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='self'>Self</span><span class='op'>&gt;</span>;
-}
-
-<span class='doccomment'>/// Create a new client based on the provided configuration and context.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>FromClientConfigAndContext</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>Context</span><span class='op'>&gt;</span>: <span class='ident'>Sized</span> {
-    <span class='kw'>fn</span> <span class='ident'>from_config_and_context</span>(<span class='kw-2'>&amp;</span><span class='ident'>ClientConfig</span>, <span class='ident'>C</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='self'>Self</span><span class='op'>&gt;</span>;
-}
-
-<span class='comment'>//</span>
-<span class='comment'>// ********** TOPIC CONFIG **********</span>
-<span class='comment'>//</span>
-
-<span class='doccomment'>/// A native rdkafka-sys client config.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>NativeTopicConfig</span> {
-    <span class='ident'>ptr</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafkaTopicConf</span>,
-}
-
-<span class='kw'>impl</span> <span class='ident'>NativeTopicConfig</span> {
-    <span class='doccomment'>/// Wraps a pointer to an `RDKafkaTopicConf` object and returns a new `NativeTopicConfig`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_ptr</span>(<span class='ident'>ptr</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafkaTopicConf</span>) <span class='op'>-&gt;</span> <span class='ident'>NativeTopicConfig</span> {
-        <span class='ident'>NativeTopicConfig</span> {<span class='ident'>ptr</span>: <span class='ident'>ptr</span>}
-    }
-
-    <span class='doccomment'>/// Returns the pointer to the librdkafka RDKafkaTopicConf structure.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>ptr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafkaTopicConf</span> {
-        <span class='self'>self</span>.<span class='ident'>ptr</span>
-    }
-
-    <span class='doccomment'>/// Returns the pointer to the librdkafka RDKafkaTopicConf structure. This method should be used</span>
-    <span class='doccomment'>/// when the native pointer is intended to be moved. The destructor won&#39;t be executed</span>
-    <span class='doccomment'>/// automatically; the caller should take care of deallocating the resource when no longer needed.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>ptr_move</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafkaTopicConf</span> {
-        <span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>ptr</span>;
-        <span class='ident'>mem</span>::<span class='ident'>forget</span>(<span class='self'>self</span>);
-        <span class='ident'>ptr</span>
+<span class="doccomment">/// Return the log level</span>
+<span class="kw">fn</span> <span class="ident">log_level_from_global_config</span>() <span class="op">-&gt;</span> <span class="ident">RDKafkaLogLevel</span> {
+    <span class="kw">if</span> <span class="macro">log_enabled</span><span class="macro">!</span>(<span class="ident">LogLevel</span>::<span class="ident">Debug</span>) {
+        <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Debug</span>
+    } <span class="kw">else</span> <span class="kw">if</span> <span class="macro">log_enabled</span><span class="macro">!</span>(<span class="ident">LogLevel</span>::<span class="ident">Info</span>) {
+        <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Info</span>
+    } <span class="kw">else</span> <span class="kw">if</span> <span class="macro">log_enabled</span><span class="macro">!</span>(<span class="ident">LogLevel</span>::<span class="ident">Warn</span>) {
+        <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Warning</span>
+    } <span class="kw">else</span> {
+        <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Error</span>
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>NativeTopicConfig</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Drop NativeTopicConfig {:p}&quot;</span>, <span class='self'>self</span>.<span class='ident'>ptr</span>);
-        <span class='kw'>unsafe</span> { <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_topic_conf_destroy</span>(<span class='self'>self</span>.<span class='ident'>ptr</span>) }
+<span class="doccomment">/// Create a new client based on the provided configuration.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FromClientConfig</span>: <span class="ident">Sized</span> {
+    <span class="kw">fn</span> <span class="ident">from_config</span>(<span class="kw-2">&amp;</span><span class="ident">ClientConfig</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+}
+
+<span class="doccomment">/// Create a new client based on the provided configuration and context.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FromClientConfigAndContext</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span><span class="op">&gt;</span>: <span class="ident">Sized</span> {
+    <span class="kw">fn</span> <span class="ident">from_config_and_context</span>(<span class="kw-2">&amp;</span><span class="ident">ClientConfig</span>, <span class="ident">C</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+}
+
+<span class="comment">//</span>
+<span class="comment">// ********** TOPIC CONFIG **********</span>
+<span class="comment">//</span>
+
+<span class="doccomment">/// A native rdkafka-sys client config.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NativeTopicConfig</span> {
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaTopicConf</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">NativeTopicConfig</span> {
+    <span class="doccomment">/// Wraps a pointer to an `RDKafkaTopicConf` object and returns a new `NativeTopicConfig`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_ptr</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaTopicConf</span>) <span class="op">-&gt;</span> <span class="ident">NativeTopicConfig</span> {
+        <span class="ident">NativeTopicConfig</span> {<span class="ident">ptr</span>: <span class="ident">ptr</span>}
+    }
+
+    <span class="doccomment">/// Returns the pointer to the librdkafka RDKafkaTopicConf structure.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaTopicConf</span> {
+        <span class="self">self</span>.<span class="ident">ptr</span>
+    }
+
+    <span class="doccomment">/// Returns the pointer to the librdkafka RDKafkaTopicConf structure. This method should be used</span>
+    <span class="doccomment">/// when the native pointer is intended to be moved. The destructor won&#39;t be executed</span>
+    <span class="doccomment">/// automatically; the caller should take care of deallocating the resource when no longer needed.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ptr_move</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaTopicConf</span> {
+        <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">ptr</span>;
+        <span class="ident">mem</span>::<span class="ident">forget</span>(<span class="self">self</span>);
+        <span class="ident">ptr</span>
     }
 }
 
-<span class='doccomment'>/// Topic configuration.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Default</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TopicConfig</span> {
-    <span class='ident'>conf_map</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span>,
+<span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">NativeTopicConfig</span> {
+    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Drop NativeTopicConfig {:p}&quot;</span>, <span class="self">self</span>.<span class="ident">ptr</span>);
+        <span class="kw">unsafe</span> { <span class="ident">rdsys</span>::<span class="ident">rd_kafka_topic_conf_destroy</span>(<span class="self">self</span>.<span class="ident">ptr</span>) }
+    }
 }
 
-<span class='kw'>impl</span> <span class='ident'>TopicConfig</span> {
-    <span class='doccomment'>/// Returns a new TopicConfig.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='ident'>TopicConfig</span> {
-        <span class='ident'>TopicConfig</span> {
-            <span class='ident'>conf_map</span>: <span class='ident'>HashMap</span>::<span class='ident'>new</span>(),
+<span class="doccomment">/// Topic configuration.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TopicConfig</span> {
+    <span class="ident">conf_map</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">TopicConfig</span> {
+    <span class="doccomment">/// Returns a new TopicConfig.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">TopicConfig</span> {
+        <span class="ident">TopicConfig</span> {
+            <span class="ident">conf_map</span>: <span class="ident">HashMap</span>::<span class="ident">new</span>(),
         }
     }
 
-    <span class='doccomment'>/// Adds a new key-value pair in the topic configuration.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>key</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>TopicConfig</span> {
-        <span class='self'>self</span>.<span class='ident'>conf_map</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>.<span class='ident'>to_string</span>(), <span class='ident'>value</span>.<span class='ident'>to_string</span>());
-        <span class='self'>self</span>
+    <span class="doccomment">/// Adds a new key-value pair in the topic configuration.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">TopicConfig</span> {
+        <span class="self">self</span>.<span class="ident">conf_map</span>.<span class="ident">insert</span>(<span class="ident">key</span>.<span class="ident">to_string</span>(), <span class="ident">value</span>.<span class="ident">to_string</span>());
+        <span class="self">self</span>
     }
 
-    <span class='doccomment'>/// Finalizes the creation of the topic configuration. Useful at the end of a chain of setters,</span>
-    <span class='doccomment'>/// if you need to store the resulting topic configuration before its use.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>finalize</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>TopicConfig</span> {
-        <span class='ident'>TopicConfig</span> { <span class='ident'>conf_map</span>: <span class='self'>self</span>.<span class='ident'>conf_map</span>.<span class='ident'>clone</span>() }
+    <span class="doccomment">/// Finalizes the creation of the topic configuration. Useful at the end of a chain of setters,</span>
+    <span class="doccomment">/// if you need to store the resulting topic configuration before its use.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">finalize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">TopicConfig</span> {
+        <span class="ident">TopicConfig</span> { <span class="ident">conf_map</span>: <span class="self">self</span>.<span class="ident">conf_map</span>.<span class="ident">clone</span>() }
     }
 
-    <span class='doccomment'>/// Creates a native rdkafka-sys topic configuration.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>create_native_config</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>NativeTopicConfig</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>config_ptr</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_topic_conf_new</span>() };
-        <span class='kw'>let</span> <span class='ident'>errstr</span> <span class='op'>=</span> [<span class='number'>0</span>; <span class='ident'>ERR_LEN</span>];
-        <span class='kw'>for</span> (<span class='ident'>name</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>conf_map</span> {
-            <span class='kw'>let</span> <span class='ident'>name_c</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>name</span>.<span class='ident'>to_string</span>())<span class='question-mark'>?</span>;
-            <span class='kw'>let</span> <span class='ident'>value_c</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>value</span>.<span class='ident'>to_string</span>())<span class='question-mark'>?</span>;
-            <span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>unsafe</span> {
-                <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_topic_conf_set</span>(<span class='ident'>config_ptr</span>, <span class='ident'>name_c</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>value_c</span>.<span class='ident'>as_ptr</span>(),
-                                                 <span class='ident'>errstr</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>i8</span>, <span class='ident'>errstr</span>.<span class='ident'>len</span>())
+    <span class="doccomment">/// Creates a native rdkafka-sys topic configuration.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_native_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">NativeTopicConfig</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">config_ptr</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">rdsys</span>::<span class="ident">rd_kafka_topic_conf_new</span>() };
+        <span class="kw">let</span> <span class="ident">errstr</span> <span class="op">=</span> [<span class="number">0</span>; <span class="ident">ERR_LEN</span>];
+        <span class="kw">for</span> (<span class="ident">name</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">conf_map</span> {
+            <span class="kw">let</span> <span class="ident">name_c</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">name</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">value_c</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">value</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">unsafe</span> {
+                <span class="ident">rdsys</span>::<span class="ident">rd_kafka_topic_conf_set</span>(<span class="ident">config_ptr</span>, <span class="ident">name_c</span>.<span class="ident">as_ptr</span>(), <span class="ident">value_c</span>.<span class="ident">as_ptr</span>(),
+                                                 <span class="ident">errstr</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">i8</span>, <span class="ident">errstr</span>.<span class="ident">len</span>())
             };
-            <span class='kw'>if</span> <span class='ident'>ret</span>.<span class='ident'>is_error</span>() {
-                <span class='kw'>let</span> <span class='ident'>descr</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>bytes_cstr_to_owned</span>(<span class='kw-2'>&amp;</span><span class='ident'>errstr</span>) };
-                <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>KafkaError</span>::<span class='ident'>TopicConfig</span>(<span class='ident'>ret</span>, <span class='ident'>descr</span>, <span class='ident'>name</span>.<span class='ident'>to_string</span>(), <span class='ident'>value</span>.<span class='ident'>to_string</span>()));
+            <span class="kw">if</span> <span class="ident">ret</span>.<span class="ident">is_error</span>() {
+                <span class="kw">let</span> <span class="ident">descr</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">bytes_cstr_to_owned</span>(<span class="kw-2">&amp;</span><span class="ident">errstr</span>) };
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">TopicConfig</span>(<span class="ident">ret</span>, <span class="ident">descr</span>, <span class="ident">name</span>.<span class="ident">to_string</span>(), <span class="ident">value</span>.<span class="ident">to_string</span>()));
             }
         }
-        <span class='prelude-val'>Ok</span>(<span class='ident'>NativeTopicConfig</span>::<span class='ident'>from_ptr</span>(<span class='ident'>config_ptr</span>))
+        <span class="prelude-val">Ok</span>(<span class="ident">NativeTopicConfig</span>::<span class="ident">from_ptr</span>(<span class="ident">config_ptr</span>))
     }
 }
 </pre>
@@ -650,7 +650,6 @@
         window.rootPath = "../../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

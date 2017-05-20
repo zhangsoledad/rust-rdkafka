@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc struct">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>statistics</a></p><script>window.sidebarCurrent = {name: 'Partition', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct Partition</p><div class="block items"><ul><li><a href="#fields">Fields</a></li><li><a href="#implementations">Trait Implementations</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>statistics</a></p><script>window.sidebarCurrent = {name: 'Partition', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,111 +43,111 @@
         </form>
     </nav>
 
-    <section id='main' class="content struct">
-<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>statistics</a>::<wbr><a class='struct' href=''>Partition</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>statistics</a>::<wbr><a class="struct" href=''>Partition</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../src/rdkafka/statistics.rs.html#73-98' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Partition {
-    pub partition: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>,
-    pub leader: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>,
-    pub desired: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>,
-    pub unknown: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>,
-    pub msgq_cnt: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub msgq_bytes: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub xmit_msgq_cnt: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub xmit_msgq_bytes: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub fetchq_cnt: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub fetchq_size: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub fetch_state: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='struct collections::string::String'>String</a>,
-    pub query_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub next_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub app_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub stored_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub committed_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub eof_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub lo_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub hi_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub consumer_lag: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub txmsgs: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub txbytes: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub msgs: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-    pub rx_ver_drops: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>,
-}</pre><h2 class='fields'>Fields</h2><span id='structfield.partition' class='structfield'>
+    pub partition: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+    pub leader: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+    pub desired: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub unknown: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub msgq_cnt: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub msgq_bytes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub xmit_msgq_cnt: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub xmit_msgq_bytes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub fetchq_cnt: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub fetchq_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub fetch_state: <a class="struct" href="https://doc.rust-lang.org/nightly/collections/string/struct.String.html" title="struct collections::string::String">String</a>,
+    pub query_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub next_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub app_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub stored_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub committed_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub eof_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub lo_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub hi_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub consumer_lag: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub txmsgs: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub txbytes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub msgs: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub rx_ver_drops: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+}</pre><h2 id='fields' class='fields'>Fields</h2><span id='structfield.partition' class="structfield">
                            <span id='partition.v' class='invisible'>
-                           <code>partition: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code>
-                           </span></span><span id='structfield.leader' class='structfield'>
+                           <code>partition: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code>
+                           </span></span><span id='structfield.leader' class="structfield">
                            <span id='leader.v' class='invisible'>
-                           <code>leader: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code>
-                           </span></span><span id='structfield.desired' class='structfield'>
+                           <code>leader: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code>
+                           </span></span><span id='structfield.desired' class="structfield">
                            <span id='desired.v' class='invisible'>
-                           <code>desired: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code>
-                           </span></span><span id='structfield.unknown' class='structfield'>
+                           <code>desired: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><span id='structfield.unknown' class="structfield">
                            <span id='unknown.v' class='invisible'>
-                           <code>unknown: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code>
-                           </span></span><span id='structfield.msgq_cnt' class='structfield'>
+                           <code>unknown: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><span id='structfield.msgq_cnt' class="structfield">
                            <span id='msgq_cnt.v' class='invisible'>
-                           <code>msgq_cnt: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.msgq_bytes' class='structfield'>
+                           <code>msgq_cnt: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.msgq_bytes' class="structfield">
                            <span id='msgq_bytes.v' class='invisible'>
-                           <code>msgq_bytes: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.xmit_msgq_cnt' class='structfield'>
+                           <code>msgq_bytes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.xmit_msgq_cnt' class="structfield">
                            <span id='xmit_msgq_cnt.v' class='invisible'>
-                           <code>xmit_msgq_cnt: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.xmit_msgq_bytes' class='structfield'>
+                           <code>xmit_msgq_cnt: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.xmit_msgq_bytes' class="structfield">
                            <span id='xmit_msgq_bytes.v' class='invisible'>
-                           <code>xmit_msgq_bytes: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.fetchq_cnt' class='structfield'>
+                           <code>xmit_msgq_bytes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.fetchq_cnt' class="structfield">
                            <span id='fetchq_cnt.v' class='invisible'>
-                           <code>fetchq_cnt: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.fetchq_size' class='structfield'>
+                           <code>fetchq_cnt: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.fetchq_size' class="structfield">
                            <span id='fetchq_size.v' class='invisible'>
-                           <code>fetchq_size: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.fetch_state' class='structfield'>
+                           <code>fetchq_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.fetch_state' class="structfield">
                            <span id='fetch_state.v' class='invisible'>
-                           <code>fetch_state: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='struct collections::string::String'>String</a></code>
-                           </span></span><span id='structfield.query_offset' class='structfield'>
+                           <code>fetch_state: <a class="struct" href="https://doc.rust-lang.org/nightly/collections/string/struct.String.html" title="struct collections::string::String">String</a></code>
+                           </span></span><span id='structfield.query_offset' class="structfield">
                            <span id='query_offset.v' class='invisible'>
-                           <code>query_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.next_offset' class='structfield'>
+                           <code>query_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.next_offset' class="structfield">
                            <span id='next_offset.v' class='invisible'>
-                           <code>next_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.app_offset' class='structfield'>
+                           <code>next_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.app_offset' class="structfield">
                            <span id='app_offset.v' class='invisible'>
-                           <code>app_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.stored_offset' class='structfield'>
+                           <code>app_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.stored_offset' class="structfield">
                            <span id='stored_offset.v' class='invisible'>
-                           <code>stored_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.committed_offset' class='structfield'>
+                           <code>stored_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.committed_offset' class="structfield">
                            <span id='committed_offset.v' class='invisible'>
-                           <code>committed_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.eof_offset' class='structfield'>
+                           <code>committed_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.eof_offset' class="structfield">
                            <span id='eof_offset.v' class='invisible'>
-                           <code>eof_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.lo_offset' class='structfield'>
+                           <code>eof_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.lo_offset' class="structfield">
                            <span id='lo_offset.v' class='invisible'>
-                           <code>lo_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.hi_offset' class='structfield'>
+                           <code>lo_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.hi_offset' class="structfield">
                            <span id='hi_offset.v' class='invisible'>
-                           <code>hi_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.consumer_lag' class='structfield'>
+                           <code>hi_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.consumer_lag' class="structfield">
                            <span id='consumer_lag.v' class='invisible'>
-                           <code>consumer_lag: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.txmsgs' class='structfield'>
+                           <code>consumer_lag: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.txmsgs' class="structfield">
                            <span id='txmsgs.v' class='invisible'>
-                           <code>txmsgs: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.txbytes' class='structfield'>
+                           <code>txmsgs: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.txbytes' class="structfield">
                            <span id='txbytes.v' class='invisible'>
-                           <code>txbytes: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.msgs' class='structfield'>
+                           <code>txbytes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.msgs' class="structfield">
                            <span id='msgs.v' class='invisible'>
-                           <code>msgs: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><span id='structfield.rx_ver_drops' class='structfield'>
+                           <code>msgs: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><span id='structfield.rx_ver_drops' class="structfield">
                            <span id='rx_ver_drops.v' class='invisible'>
-                           <code>rx_ver_drops: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a></code>
-                           </span></span><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='trait core::fmt::Debug'>Debug</a> for <a class='struct' href='../../rdkafka/statistics/struct.Partition.html' title='struct rdkafka::statistics::Partition'>Partition</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rdkafka/statistics.rs.html#72' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='struct core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='type core::fmt::Result'>Result</a></code></span></h4>
+                           <code>rx_ver_drops: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="../../rdkafka/statistics/struct.Partition.html" title="struct rdkafka::statistics::Partition">Partition</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rdkafka/statistics.rs.html#72' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span></h4>
 <div class='docblock'><p>Formats the value using the given formatter.</p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
@@ -206,7 +206,6 @@
         window.rootPath = "../../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

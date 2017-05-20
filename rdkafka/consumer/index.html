@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc mod">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>rdkafka</a></p><script>window.sidebarCurrent = {name: 'consumer', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'>Module consumer</p><div class="block items"><ul><li><a href="#reexports">Reexports</a></li><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a></p><script>window.sidebarCurrent = {name: 'consumer', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,25 +43,25 @@
         </form>
     </nav>
 
-    <section id='main' class="content mod">
-<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>rdkafka</a>::<wbr><a class='mod' href=''>consumer</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>rdkafka</a>::<wbr><a class="mod" href=''>consumer</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../src/rdkafka/consumer/mod.rs.html#1-189' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../src/rdkafka/consumer/mod.rs.html#1-187' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Base trait and common functionality for all consumers.</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>pub use consumer::base_consumer::<a class='struct' href='../../rdkafka/consumer/base_consumer/struct.BaseConsumer.html' title='struct rdkafka::consumer::base_consumer::BaseConsumer'>BaseConsumer</a>;</code></td></tr><tr><td><code>pub use topic_partition_list::<a class='struct' href='../../rdkafka/topic_partition_list/struct.TopicPartitionList.html' title='struct rdkafka::topic_partition_list::TopicPartitionList'>TopicPartitionList</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr><td><code>pub use consumer::base_consumer::<a class="struct" href="../../rdkafka/consumer/base_consumer/struct.BaseConsumer.html" title="struct rdkafka::consumer::base_consumer::BaseConsumer">BaseConsumer</a>;</code></td></tr><tr><td><code>pub use topic_partition_list::<a class="struct" href="../../rdkafka/topic_partition_list/struct.TopicPartitionList.html" title="struct rdkafka::topic_partition_list::TopicPartitionList">TopicPartitionList</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='base_consumer/index.html'
+                           <td><a class="mod" href="base_consumer/index.html"
                                   title='mod rdkafka::consumer::base_consumer'>base_consumer</a></td>
                            <td class='docblock-short'>
                                 <p>Low level consumer wrapper.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='stream_consumer/index.html'
+                           <td><a class="mod" href="stream_consumer/index.html"
                                   title='mod rdkafka::consumer::stream_consumer'>stream_consumer</a></td>
                            <td class='docblock-short'>
                                 <p>Stream-based consumer implementation.</p>
@@ -69,7 +69,7 @@
                        </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='struct' href='struct.EmptyConsumerContext.html'
+                           <td><a class="struct" href="struct.EmptyConsumerContext.html"
                                   title='struct rdkafka::consumer::EmptyConsumerContext'>EmptyConsumerContext</a></td>
                            <td class='docblock-short'>
                                 <p>An empty consumer context that can be user when no context is needed.</p>
@@ -77,7 +77,7 @@
                        </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='enum' href='enum.CommitMode.html'
+                           <td><a class="enum" href="enum.CommitMode.html"
                                   title='enum rdkafka::consumer::CommitMode'>CommitMode</a></td>
                            <td class='docblock-short'>
                                 <p>Specifies if the commit should be performed synchronously
@@ -85,7 +85,7 @@ or asynchronously.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='enum' href='enum.Rebalance.html'
+                           <td><a class="enum" href="enum.Rebalance.html"
                                   title='enum rdkafka::consumer::Rebalance'>Rebalance</a></td>
                            <td class='docblock-short'>
                                 <p>Rebalance information.</p>
@@ -93,14 +93,14 @@ or asynchronously.</p>
                        </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='trait' href='trait.Consumer.html'
+                           <td><a class="trait" href="trait.Consumer.html"
                                   title='trait rdkafka::consumer::Consumer'>Consumer</a></td>
                            <td class='docblock-short'>
                                 <p>Common trait for all consumers.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='trait' href='trait.ConsumerContext.html'
+                           <td><a class="trait" href="trait.ConsumerContext.html"
                                   title='trait rdkafka::consumer::ConsumerContext'>ConsumerContext</a></td>
                            <td class='docblock-short'>
                                 <p>Consumer specific Context. This user-defined object can be used to provide custom callbacks to
@@ -163,7 +163,6 @@ consumer events. Refer to the list of methods to check which callbacks can be sp
         window.rootPath = "../../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

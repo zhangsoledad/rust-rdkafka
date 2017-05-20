@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -538,139 +538,139 @@
 <span id="493">493</span>
 <span id="494">494</span>
 <span id="495">495</span>
-</pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
+</pre><pre class="rust ">
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashMap</span>;
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Deserialize</span>,<span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Statistics</span> {
-    <span class='kw'>pub</span> <span class='ident'>name</span>: <span class='ident'>String</span>,
-    <span class='attribute'>#[<span class='ident'>serde</span>(<span class='ident'>rename</span> <span class='op'>=</span> <span class='string'>&quot;type&quot;</span>)]</span>
-    <span class='kw'>pub</span> <span class='ident'>client_type</span>: <span class='ident'>String</span>,
-    <span class='kw'>pub</span> <span class='ident'>ts</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>time</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>replyq</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>msg_cnt</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>msg_size</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>msg_max</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>msg_size_max</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>simple_cnt</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>brokers</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>Broker</span><span class='op'>&gt;</span>,
-    <span class='kw'>pub</span> <span class='ident'>topics</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>Topic</span><span class='op'>&gt;</span>,
-    <span class='kw'>pub</span> <span class='ident'>cgrp</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>ConsumerGroup</span><span class='op'>&gt;</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>,<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Statistics</span> {
+    <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">client_type</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">ts</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">time</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">replyq</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">msg_cnt</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">msg_size</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">msg_max</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">msg_size_max</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">simple_cnt</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">brokers</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Broker</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">topics</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Topic</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">cgrp</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ConsumerGroup</span><span class="op">&gt;</span>
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Deserialize</span>,<span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Broker</span> {
-    <span class='kw'>pub</span> <span class='ident'>name</span>: <span class='ident'>String</span>,
-    <span class='kw'>pub</span> <span class='ident'>nodeid</span>: <span class='ident'>i32</span>,
-    <span class='kw'>pub</span> <span class='ident'>state</span>: <span class='ident'>String</span>,
-    <span class='kw'>pub</span> <span class='ident'>stateage</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>outbuf_cnt</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>outbuf_msg_cnt</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>waitresp_cnt</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>waitresp_msg_cnt</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>tx</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>txbytes</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>txerrs</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>txretries</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>req_timeouts</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>rx</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>rxbytes</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>rxerrs</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>rxcorriderrs</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>rxpartial</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>zbuf_grow</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>buf_grow</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>wakeups</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>i64</span><span class='op'>&gt;</span>,
-    <span class='kw'>pub</span> <span class='ident'>int_latency</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Window</span><span class='op'>&gt;</span>,
-    <span class='kw'>pub</span> <span class='ident'>rtt</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Window</span><span class='op'>&gt;</span>,
-    <span class='kw'>pub</span> <span class='ident'>throttle</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Window</span><span class='op'>&gt;</span>,
-    <span class='kw'>pub</span> <span class='ident'>toppars</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>TopicPartition</span><span class='op'>&gt;</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>,<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Broker</span> {
+    <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">nodeid</span>: <span class="ident">i32</span>,
+    <span class="kw">pub</span> <span class="ident">state</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">stateage</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">outbuf_cnt</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">outbuf_msg_cnt</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">waitresp_cnt</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">waitresp_msg_cnt</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">tx</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">txbytes</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">txerrs</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">txretries</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">req_timeouts</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">rx</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">rxbytes</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">rxerrs</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">rxcorriderrs</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">rxpartial</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">zbuf_grow</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">buf_grow</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">wakeups</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i64</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">int_latency</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">rtt</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">throttle</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">toppars</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">TopicPartition</span><span class="op">&gt;</span>
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Deserialize</span>,<span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Window</span> {
-    <span class='kw'>pub</span> <span class='ident'>min</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>max</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>avg</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>sum</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>cnt</span>: <span class='ident'>i64</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>,<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Window</span> {
+    <span class="kw">pub</span> <span class="ident">min</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">max</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">avg</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">sum</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">cnt</span>: <span class="ident">i64</span>
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Deserialize</span>,<span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TopicPartition</span> {
-    <span class='kw'>pub</span> <span class='ident'>topic</span>: <span class='ident'>String</span>,
-    <span class='kw'>pub</span> <span class='ident'>partition</span>: <span class='ident'>i32</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>,<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TopicPartition</span> {
+    <span class="kw">pub</span> <span class="ident">topic</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">partition</span>: <span class="ident">i32</span>
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Deserialize</span>,<span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Topic</span> {
-    <span class='kw'>pub</span> <span class='ident'>topic</span>: <span class='ident'>String</span>,
-    <span class='kw'>pub</span> <span class='ident'>metadata_age</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>partitions</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>i32</span>, <span class='ident'>Partition</span><span class='op'>&gt;</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>,<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Topic</span> {
+    <span class="kw">pub</span> <span class="ident">topic</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">metadata_age</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">partitions</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">i32</span>, <span class="ident">Partition</span><span class="op">&gt;</span>
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Deserialize</span>,<span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Partition</span> {
-    <span class='kw'>pub</span> <span class='ident'>partition</span>: <span class='ident'>i32</span>,
-    <span class='kw'>pub</span> <span class='ident'>leader</span>: <span class='ident'>i32</span>,
-    <span class='kw'>pub</span> <span class='ident'>desired</span>: <span class='ident'>bool</span>,
-    <span class='kw'>pub</span> <span class='ident'>unknown</span>: <span class='ident'>bool</span>,
-    <span class='kw'>pub</span> <span class='ident'>msgq_cnt</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>msgq_bytes</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>xmit_msgq_cnt</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>xmit_msgq_bytes</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>fetchq_cnt</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>fetchq_size</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>fetch_state</span>: <span class='ident'>String</span>,
-    <span class='kw'>pub</span> <span class='ident'>query_offset</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>next_offset</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>app_offset</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>stored_offset</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>committed_offset</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>eof_offset</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>lo_offset</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>hi_offset</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>consumer_lag</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>txmsgs</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>txbytes</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>msgs</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>rx_ver_drops</span>: <span class='ident'>i64</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>,<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Partition</span> {
+    <span class="kw">pub</span> <span class="ident">partition</span>: <span class="ident">i32</span>,
+    <span class="kw">pub</span> <span class="ident">leader</span>: <span class="ident">i32</span>,
+    <span class="kw">pub</span> <span class="ident">desired</span>: <span class="ident">bool</span>,
+    <span class="kw">pub</span> <span class="ident">unknown</span>: <span class="ident">bool</span>,
+    <span class="kw">pub</span> <span class="ident">msgq_cnt</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">msgq_bytes</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">xmit_msgq_cnt</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">xmit_msgq_bytes</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">fetchq_cnt</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">fetchq_size</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">fetch_state</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">query_offset</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">next_offset</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">app_offset</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">stored_offset</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">committed_offset</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">eof_offset</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">lo_offset</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">hi_offset</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">consumer_lag</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">txmsgs</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">txbytes</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">msgs</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">rx_ver_drops</span>: <span class="ident">i64</span>
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Deserialize</span>,<span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ConsumerGroup</span> {
-    <span class='kw'>pub</span> <span class='ident'>rebalance_age</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>rebalance_cnt</span>: <span class='ident'>i64</span>,
-    <span class='kw'>pub</span> <span class='ident'>assignment_size</span>: <span class='ident'>i32</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>,<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ConsumerGroup</span> {
+    <span class="kw">pub</span> <span class="ident">rebalance_age</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">rebalance_cnt</span>: <span class="ident">i64</span>,
+    <span class="kw">pub</span> <span class="ident">assignment_size</span>: <span class="ident">i32</span>
 }
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
-<span class='kw'>mod</span> <span class='ident'>tests</span> {
-    <span class='kw'>use</span> <span class='ident'>serde_json</span>;
-    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='kw-2'>*</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="kw">use</span> <span class="ident">serde_json</span>;
+    <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 
-    <span class='attribute'>#[<span class='ident'>test</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>test_statistics</span>() {
-        <span class='kw'>let</span> <span class='ident'>stats</span>: <span class='ident'>Statistics</span> <span class='op'>=</span> <span class='ident'>serde_json</span>::<span class='ident'>from_str</span>(<span class='ident'>EXAMPLE</span>).<span class='ident'>unwrap</span>();
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_statistics</span>() {
+        <span class="kw">let</span> <span class="ident">stats</span>: <span class="ident">Statistics</span> <span class="op">=</span> <span class="ident">serde_json</span>::<span class="ident">from_str</span>(<span class="ident">EXAMPLE</span>).<span class="ident">unwrap</span>();
 
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stats</span>.<span class='ident'>name</span>, <span class='string'>&quot;rdkafka#consumer-1&quot;</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stats</span>.<span class='ident'>client_type</span>, <span class='string'>&quot;consumer&quot;</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stats</span>.<span class='ident'>ts</span>, <span class='number'>895747604205</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stats</span>.<span class='ident'>time</span>, <span class='number'>1479659343</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stats</span>.<span class='ident'>replyq</span>, <span class='number'>0</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stats</span>.<span class='ident'>msg_cnt</span>, <span class='number'>0</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stats</span>.<span class='ident'>msg_size</span>, <span class='number'>0</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stats</span>.<span class='ident'>msg_max</span>, <span class='number'>0</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stats</span>.<span class='ident'>msg_size_max</span>, <span class='number'>0</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stats</span>.<span class='ident'>simple_cnt</span>, <span class='number'>0</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stats</span>.<span class="ident">name</span>, <span class="string">&quot;rdkafka#consumer-1&quot;</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stats</span>.<span class="ident">client_type</span>, <span class="string">&quot;consumer&quot;</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stats</span>.<span class="ident">ts</span>, <span class="number">895747604205</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stats</span>.<span class="ident">time</span>, <span class="number">1479659343</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stats</span>.<span class="ident">replyq</span>, <span class="number">0</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stats</span>.<span class="ident">msg_cnt</span>, <span class="number">0</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stats</span>.<span class="ident">msg_size</span>, <span class="number">0</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stats</span>.<span class="ident">msg_max</span>, <span class="number">0</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stats</span>.<span class="ident">msg_size_max</span>, <span class="number">0</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stats</span>.<span class="ident">simple_cnt</span>, <span class="number">0</span>);
 
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stats</span>.<span class='ident'>brokers</span>.<span class='ident'>len</span>(), <span class='number'>4</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stats</span>.<span class='ident'>topics</span>.<span class='ident'>len</span>(), <span class='number'>1</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stats</span>.<span class="ident">brokers</span>.<span class="ident">len</span>(), <span class="number">4</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stats</span>.<span class="ident">topics</span>.<span class="ident">len</span>(), <span class="number">1</span>);
     }
 
-    <span class='comment'>// Example from https://github.com/edenhill/librdkafka/wiki/Statistics</span>
-    <span class='kw'>const</span> <span class='ident'>EXAMPLE</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span> <span class='op'>=</span> <span class='string'>r#&quot;
+    <span class="comment">// Example from https://github.com/edenhill/librdkafka/wiki/Statistics</span>
+    <span class="kw">const</span> <span class="ident">EXAMPLE</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">r#&quot;
         {
           &quot;name&quot;: &quot;rdkafka#consumer-1&quot;,
           &quot;type&quot;: &quot;consumer&quot;,
@@ -1092,7 +1092,6 @@
         window.rootPath = "../../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -149,111 +149,111 @@
 <span id="104">104</span>
 <span id="105">105</span>
 <span id="106">106</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Group membership API.</span>
-<span class='kw'>use</span> <span class='ident'>rdsys</span>;
-<span class='kw'>use</span> <span class='ident'>rdsys</span>::<span class='ident'>types</span>::<span class='kw-2'>*</span>;
+</pre><pre class="rust ">
+<span class="doccomment">//! Group membership API.</span>
+<span class="kw">use</span> <span class="ident">rdsys</span>;
+<span class="kw">use</span> <span class="ident">rdsys</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>CStr</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CStr</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 
-<span class='doccomment'>/// Group member information container.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>GroupMemberInfo</span>(<span class='ident'>RDKafkaGroupMemberInfo</span>);
+<span class="doccomment">/// Group member information container.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GroupMemberInfo</span>(<span class="ident">RDKafkaGroupMemberInfo</span>);
 
-<span class='kw'>impl</span> <span class='ident'>GroupMemberInfo</span> {
-    <span class='doccomment'>/// Return the id of the member.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>id</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>member_id</span>).<span class='ident'>to_str</span>()
-                .<span class='ident'>expect</span>(<span class='string'>&quot;Member id is not a valid UTF-8 string&quot;</span>)
+<span class="kw">impl</span> <span class="ident">GroupMemberInfo</span> {
+    <span class="doccomment">/// Return the id of the member.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">member_id</span>).<span class="ident">to_str</span>()
+                .<span class="ident">expect</span>(<span class="string">&quot;Member id is not a valid UTF-8 string&quot;</span>)
         }
     }
 
-    <span class='doccomment'>/// Return the client id of the member.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>client_id</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>client_id</span>).<span class='ident'>to_str</span>()
-                .<span class='ident'>expect</span>(<span class='string'>&quot;Client id is not a valid UTF-8 string&quot;</span>)
+    <span class="doccomment">/// Return the client id of the member.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">client_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">client_id</span>).<span class="ident">to_str</span>()
+                .<span class="ident">expect</span>(<span class="string">&quot;Client id is not a valid UTF-8 string&quot;</span>)
         }
     }
 
-    <span class='doccomment'>/// Return the client host of the member.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>client_host</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>client_host</span>).<span class='ident'>to_str</span>()
-                .<span class='ident'>expect</span>(<span class='string'>&quot;Member host is not a valid UTF-8 string&quot;</span>)
-        }
-    }
-}
-
-<span class='doccomment'>/// Group information container.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>GroupInfo</span>(<span class='ident'>RDKafkaGroupInfo</span>);
-
-<span class='kw'>impl</span> <span class='ident'>GroupInfo</span> {
-    <span class='doccomment'>/// Return the name of the group.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>group</span>).<span class='ident'>to_str</span>()
-                .<span class='ident'>expect</span>(<span class='string'>&quot;Group name is not a valid UTF-8 string&quot;</span>)
-        }
-    }
-
-    <span class='doccomment'>/// Returns the members of the group.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>members</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>GroupMemberInfo</span>] {
-        <span class='kw'>unsafe</span> { <span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>members</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>GroupMemberInfo</span>, <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>member_cnt</span> <span class='kw'>as</span> <span class='ident'>usize</span>) }
-    }
-
-    <span class='doccomment'>/// Returns the state of the group.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>state</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>state</span>).<span class='ident'>to_str</span>()
-                .<span class='ident'>expect</span>(<span class='string'>&quot;State is not a valid UTF-8 string&quot;</span>)
-        }
-    }
-
-    <span class='doccomment'>/// Returns the protocol of the group.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>protocol</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>protocol</span>).<span class='ident'>to_str</span>()
-                .<span class='ident'>expect</span>(<span class='string'>&quot;Protocol name is not a valid UTF-8 string&quot;</span>)
-        }
-    }
-
-    <span class='doccomment'>/// Returns the protocol type of the group.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>protocol_type</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>protocol_type</span>).<span class='ident'>to_str</span>()
-                .<span class='ident'>expect</span>(<span class='string'>&quot;Protocol type is not a valid UTF-8 string&quot;</span>)
+    <span class="doccomment">/// Return the client host of the member.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">client_host</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">client_host</span>).<span class="ident">to_str</span>()
+                .<span class="ident">expect</span>(<span class="string">&quot;Member host is not a valid UTF-8 string&quot;</span>)
         }
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Debug</span> <span class='kw'>for</span> <span class='ident'>GroupInfo</span> {
-    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
-        <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;{}&quot;</span>, <span class='self'>self</span>.<span class='ident'>name</span>())
+<span class="doccomment">/// Group information container.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GroupInfo</span>(<span class="ident">RDKafkaGroupInfo</span>);
+
+<span class="kw">impl</span> <span class="ident">GroupInfo</span> {
+    <span class="doccomment">/// Return the name of the group.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">group</span>).<span class="ident">to_str</span>()
+                .<span class="ident">expect</span>(<span class="string">&quot;Group name is not a valid UTF-8 string&quot;</span>)
+        }
+    }
+
+    <span class="doccomment">/// Returns the members of the group.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">members</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">GroupMemberInfo</span>] {
+        <span class="kw">unsafe</span> { <span class="ident">slice</span>::<span class="ident">from_raw_parts</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">members</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GroupMemberInfo</span>, <span class="self">self</span>.<span class="number">0</span>.<span class="ident">member_cnt</span> <span class="kw">as</span> <span class="ident">usize</span>) }
+    }
+
+    <span class="doccomment">/// Returns the state of the group.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">state</span>).<span class="ident">to_str</span>()
+                .<span class="ident">expect</span>(<span class="string">&quot;State is not a valid UTF-8 string&quot;</span>)
+        }
+    }
+
+    <span class="doccomment">/// Returns the protocol of the group.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">protocol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">protocol</span>).<span class="ident">to_str</span>()
+                .<span class="ident">expect</span>(<span class="string">&quot;Protocol name is not a valid UTF-8 string&quot;</span>)
+        }
+    }
+
+    <span class="doccomment">/// Returns the protocol type of the group.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">protocol_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">protocol_type</span>).<span class="ident">to_str</span>()
+                .<span class="ident">expect</span>(<span class="string">&quot;Protocol type is not a valid UTF-8 string&quot;</span>)
+        }
     }
 }
 
-<span class='doccomment'>/// List of groups. This structure wraps the  pointer returned by rdkafka-sys, and deallocates all</span>
-<span class='doccomment'>/// the native resources when dropped.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>GroupList</span>(<span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>RDKafkaGroupList</span>);
-
-<span class='kw'>impl</span> <span class='ident'>GroupList</span> {
-    <span class='doccomment'>/// Creates a new group list given a pointer to the native rdkafka-sys group list structure.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_ptr</span>(<span class='ident'>ptr</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>RDKafkaGroupList</span>) <span class='op'>-&gt;</span> <span class='ident'>GroupList</span> {
-        <span class='ident'>GroupList</span>(<span class='ident'>ptr</span>)
-    }
-
-    <span class='doccomment'>/// Returns all the groups in the list.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>groups</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>GroupInfo</span>] {
-        <span class='kw'>unsafe</span> { <span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>((<span class='kw-2'>*</span><span class='self'>self</span>.<span class='number'>0</span>).<span class='ident'>groups</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>GroupInfo</span>, (<span class='kw-2'>*</span><span class='self'>self</span>.<span class='number'>0</span>).<span class='ident'>group_cnt</span> <span class='kw'>as</span> <span class='ident'>usize</span>) }
+<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">GroupInfo</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="self">self</span>.<span class="ident">name</span>())
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>GroupList</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> { <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_group_list_destroy</span>(<span class='self'>self</span>.<span class='number'>0</span>) };
+<span class="doccomment">/// List of groups. This structure wraps the  pointer returned by rdkafka-sys, and deallocates all</span>
+<span class="doccomment">/// the native resources when dropped.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GroupList</span>(<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">RDKafkaGroupList</span>);
+
+<span class="kw">impl</span> <span class="ident">GroupList</span> {
+    <span class="doccomment">/// Creates a new group list given a pointer to the native rdkafka-sys group list structure.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_ptr</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">RDKafkaGroupList</span>) <span class="op">-&gt;</span> <span class="ident">GroupList</span> {
+        <span class="ident">GroupList</span>(<span class="ident">ptr</span>)
+    }
+
+    <span class="doccomment">/// Returns all the groups in the list.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">groups</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">GroupInfo</span>] {
+        <span class="kw">unsafe</span> { <span class="ident">slice</span>::<span class="ident">from_raw_parts</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">groups</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GroupInfo</span>, (<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">group_cnt</span> <span class="kw">as</span> <span class="ident">usize</span>) }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">GroupList</span> {
+    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="kw">unsafe</span> { <span class="ident">rdsys</span>::<span class="ident">rd_kafka_group_list_destroy</span>(<span class="self">self</span>.<span class="number">0</span>) };
     }
 }
 </pre>
@@ -314,7 +314,6 @@
         window.rootPath = "../../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

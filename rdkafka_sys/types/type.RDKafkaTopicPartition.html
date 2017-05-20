@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `OFFSET_END` constant in crate `rdkafka`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, OFFSET_END">
+    <meta name="description" content="API documentation for the Rust `RDKafkaTopicPartition` type in crate `rdkafka_sys`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, RDKafkaTopicPartition">
 
-    <title>rdkafka::topic_partition_list::OFFSET_END - Rust</title>
+    <title>rdkafka_sys::types::RDKafkaTopicPartition - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc type">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>topic_partition_list</a></p><script>window.sidebarCurrent = {name: 'OFFSET_END', ty: 'constant', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>rdkafka_sys</a>::<wbr><a href='index.html'>types</a></p><script>window.sidebarCurrent = {name: 'RDKafkaTopicPartition', ty: 'type', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,13 +43,14 @@
         </form>
     </nav>
 
-    <section id='main' class="content constant">
-<h1 class='fqn'><span class='in-band'>Constant <a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>topic_partition_list</a>::<wbr><a class='constant' href=''>OFFSET_END</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Type Definition <a href='../index.html'>rdkafka_sys</a>::<wbr><a href='index.html'>types</a>::<wbr><a class="type" href=''>RDKafkaTopicPartition</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../src/rdkafka/topic_partition_list.rs.html#14' title='goto source code'>[src]</a></span></h1>
-<pre class='rust const'>pub const OFFSET_END: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a><code> = </code><code>rdsys::RD_KAFKA_OFFSET_END as i64</code></pre></section>
+               </span><a class='srclink' href='../../src/rdkafka_sys/types.rs.html#22' title='goto source code'>[src]</a></span></h1>
+<pre class='rust typedef'>type RDKafkaTopicPartition = <a class="type" href="../../rdkafka_sys/bindings/type.rd_kafka_topic_partition_t.html" title="type rdkafka_sys::bindings::rd_kafka_topic_partition_t">rd_kafka_topic_partition_t</a>;</pre><div class='docblock'><p>Native rdkafka topic partition</p>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -104,9 +105,8 @@
 
     <script>
         window.rootPath = "../../";
-        window.currentCrate = "rdkafka";
+        window.currentCrate = "rdkafka_sys";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

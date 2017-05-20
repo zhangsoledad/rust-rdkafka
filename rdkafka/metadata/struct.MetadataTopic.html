@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc struct">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>metadata</a></p><script>window.sidebarCurrent = {name: 'MetadataTopic', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct MetadataTopic</p><div class="block items"><ul><li><a href="#methods">Methods</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>metadata</a></p><script>window.sidebarCurrent = {name: 'MetadataTopic', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,19 +43,19 @@
         </form>
     </nav>
 
-    <section id='main' class="content struct">
-<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>metadata</a>::<wbr><a class='struct' href=''>MetadataTopic</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>metadata</a>::<wbr><a class="struct" href=''>MetadataTopic</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../src/rdkafka/metadata.rs.html#69' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct MetadataTopic(_);</pre><div class='docblock'><p>Topic metadata information.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../rdkafka/metadata/struct.MetadataTopic.html' title='struct rdkafka::metadata::MetadataTopic'>MetadataTopic</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rdkafka/metadata.rs.html#71-94' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.name' class='method'><span id='name.v' class='invisible'><code>fn <a href='#method.name' class='fnname'>name</a>(&amp;self) -&gt; &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></span></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class="struct" href="../../rdkafka/metadata/struct.MetadataTopic.html" title="struct rdkafka::metadata::MetadataTopic">MetadataTopic</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rdkafka/metadata.rs.html#71-94' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.name' class="method"><span id='name.v' class='invisible'><code>fn <a href='#method.name' class='fnname'>name</a>(&amp;self) -&gt; &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a></code></span></h4>
 <div class='docblock'><p>Returns the name of the topic.</p>
-</div><h4 id='method.partitions' class='method'><span id='partitions.v' class='invisible'><code>fn <a href='#method.partitions' class='fnname'>partitions</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='struct' href='../../rdkafka/metadata/struct.MetadataPartition.html' title='struct rdkafka::metadata::MetadataPartition'>MetadataPartition</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></span></h4>
+</div><h4 id='method.partitions' class="method"><span id='partitions.v' class='invisible'><code>fn <a href='#method.partitions' class='fnname'>partitions</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="struct" href="../../rdkafka/metadata/struct.MetadataPartition.html" title="struct rdkafka::metadata::MetadataPartition">MetadataPartition</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a></code></span></h4>
 <div class='docblock'><p>Returns the partition metadata information for all the partitions.</p>
-</div><h4 id='method.error' class='method'><span id='error.v' class='invisible'><code>fn <a href='#method.error' class='fnname'>error</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='enum core::option::Option'>Option</a>&lt;<a class='enum' href='../../rdkafka/types/enum.rd_kafka_resp_err_t.html' title='enum rdkafka::types::rd_kafka_resp_err_t'>RDKafkaRespErr</a>&gt;</code></span></h4>
+</div><h4 id='method.error' class="method"><span id='error.v' class='invisible'><code>fn <a href='#method.error' class='fnname'>error</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../../rdkafka/types/enum.rd_kafka_resp_err_t.html" title="enum rdkafka::types::rd_kafka_resp_err_t">RDKafkaRespErr</a>&gt;</code></span></h4>
 <div class='docblock'><p>Returns the metadata error, or None if there was no error.</p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
@@ -114,7 +114,6 @@
         window.rootPath = "../../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

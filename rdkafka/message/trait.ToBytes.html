@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>message</a></p><script>window.sidebarCurrent = {name: 'ToBytes', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait ToBytes</p><div class="block items"><ul><li><a href="#required-methods">Required Methods</a></li><li><a href="#implementors">Implementors</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>message</a></p><script>window.sidebarCurrent = {name: 'ToBytes', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,28 +43,28 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>message</a>::<wbr><a class='trait' href=''>ToBytes</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>message</a>::<wbr><a class="trait" href=''>ToBytes</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../src/rdkafka/message.rs.html#152-154' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ToBytes {
-    fn <a href='#tymethod.to_bytes' class='fnname'>to_bytes</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.to_bytes' class='fnname'>to_bytes</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>;
 }</pre><div class='docblock'><p>Given some data, returns the byte representation of that data.
 No copy of the data should be performed.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.to_bytes' class='method'><span id='to_bytes.v' class='invisible'><code>fn <a href='#tymethod.to_bytes' class='fnname'>to_bytes</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></span></h3></div>
+        <h3 id='tymethod.to_bytes' class='method'><span id='to_bytes.v' class='invisible'><code>fn <a href='#tymethod.to_bytes' class='fnname'>to_bytes</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a></code></span></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl ToBytes for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></li>
-<li><code>impl ToBytes for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></li>
-<li><code>impl ToBytes for <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='struct collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;</code></li>
-<li><code>impl ToBytes for <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='struct collections::string::String'>String</a></code></li>
-<li><code>impl&lt;'a, T:&nbsp;<a class='trait' href='../../rdkafka/message/trait.ToBytes.html' title='trait rdkafka::message::ToBytes'>ToBytes</a>&gt; ToBytes for &amp;'a T</code></li>
-<li><code>impl ToBytes for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a></code></li>
+    <li><code>impl ToBytes for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a></code></li>
+<li><code>impl ToBytes for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a></code></li>
+<li><code>impl ToBytes for <a class="struct" href="https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html" title="struct collections::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;</code></li>
+<li><code>impl ToBytes for <a class="struct" href="https://doc.rust-lang.org/nightly/collections/string/struct.String.html" title="struct collections::string::String">String</a></code></li>
+<li><code>impl&lt;'a, T:&nbsp;<a class="trait" href="../../rdkafka/message/trait.ToBytes.html" title="trait rdkafka::message::ToBytes">ToBytes</a>&gt; ToBytes for &amp;'a T</code></li>
+<li><code>impl ToBytes for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a></code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/rdkafka/message/trait.ToBytes.js">
                  </script></section>
@@ -124,7 +124,6 @@ No copy of the data should be performed.</p>
         window.rootPath = "../../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

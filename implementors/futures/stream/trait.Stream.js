@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors["rdkafka"] = ["impl <a class='trait' href='https://docs.rs/futures/0.1/futures/stream/trait.Stream.html' title='trait futures::stream::Stream'>Stream</a> for <a class='struct' href='rdkafka/consumer/stream_consumer/struct.MessageStream.html' title='struct rdkafka::consumer::stream_consumer::MessageStream'>MessageStream</a>",];
+implementors["rdkafka"] = ["impl <a class=\"trait\" href=\"https://docs.rs/futures/0.1/futures/stream/trait.Stream.html\" title=\"trait futures::stream::Stream\">Stream</a> for <a class=\"struct\" href=\"rdkafka/consumer/stream_consumer/struct.MessageStream.html\" title=\"struct rdkafka::consumer::stream_consumer::MessageStream\">MessageStream</a>",];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>config</a></p><script>window.sidebarCurrent = {name: 'FromClientConfigAndContext', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait FromClientConfigAndContext</p><div class="block items"><ul><li><a href="#required-methods">Required Methods</a></li><li><a href="#implementors">Implementors</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>config</a></p><script>window.sidebarCurrent = {name: 'FromClientConfigAndContext', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,25 +43,25 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>config</a>::<wbr><a class='trait' href=''>FromClientConfigAndContext</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>rdkafka</a>::<wbr><a href='index.html'>config</a>::<wbr><a class="trait" href=''>FromClientConfigAndContext</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../src/rdkafka/config.rs.html#189-191' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait FromClientConfigAndContext&lt;C:&nbsp;<a class='trait' href='../../rdkafka/client/trait.Context.html' title='trait rdkafka::client::Context'>Context</a>&gt;: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='trait core::marker::Sized'>Sized</a> {
-    fn <a href='#tymethod.from_config_and_context' class='fnname'>from_config_and_context</a>(_: &amp;<a class='struct' href='../../rdkafka/config/struct.ClientConfig.html' title='struct rdkafka::config::ClientConfig'>ClientConfig</a>, _: C) -&gt; <a class='type' href='../../rdkafka/error/type.KafkaResult.html' title='type rdkafka::error::KafkaResult'>KafkaResult</a>&lt;Self&gt;;
+<pre class='rust trait'>pub trait FromClientConfigAndContext&lt;C:&nbsp;<a class="trait" href="../../rdkafka/client/trait.Context.html" title="trait rdkafka::client::Context">Context</a>&gt;: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a> {
+    fn <a href='#tymethod.from_config_and_context' class='fnname'>from_config_and_context</a>(_: &amp;<a class="struct" href="../../rdkafka/config/struct.ClientConfig.html" title="struct rdkafka::config::ClientConfig">ClientConfig</a>, _: C) -&gt; <a class="type" href="../../rdkafka/error/type.KafkaResult.html" title="type rdkafka::error::KafkaResult">KafkaResult</a>&lt;Self&gt;;
 }</pre><div class='docblock'><p>Create a new client based on the provided configuration and context.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.from_config_and_context' class='method'><span id='from_config_and_context.v' class='invisible'><code>fn <a href='#tymethod.from_config_and_context' class='fnname'>from_config_and_context</a>(_: &amp;<a class='struct' href='../../rdkafka/config/struct.ClientConfig.html' title='struct rdkafka::config::ClientConfig'>ClientConfig</a>, _: C) -&gt; <a class='type' href='../../rdkafka/error/type.KafkaResult.html' title='type rdkafka::error::KafkaResult'>KafkaResult</a>&lt;Self&gt;</code></span></h3></div>
+        <h3 id='tymethod.from_config_and_context' class='method'><span id='from_config_and_context.v' class='invisible'><code>fn <a href='#tymethod.from_config_and_context' class='fnname'>from_config_and_context</a>(_: &amp;<a class="struct" href="../../rdkafka/config/struct.ClientConfig.html" title="struct rdkafka::config::ClientConfig">ClientConfig</a>, _: C) -&gt; <a class="type" href="../../rdkafka/error/type.KafkaResult.html" title="type rdkafka::error::KafkaResult">KafkaResult</a>&lt;Self&gt;</code></span></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;C:&nbsp;<a class='trait' href='../../rdkafka/consumer/trait.ConsumerContext.html' title='trait rdkafka::consumer::ConsumerContext'>ConsumerContext</a>&gt; FromClientConfigAndContext&lt;C&gt; for <a class='struct' href='../../rdkafka/consumer/base_consumer/struct.BaseConsumer.html' title='struct rdkafka::consumer::base_consumer::BaseConsumer'>BaseConsumer</a>&lt;C&gt;</code></li>
-<li><code>impl&lt;C:&nbsp;<a class='trait' href='../../rdkafka/consumer/trait.ConsumerContext.html' title='trait rdkafka::consumer::ConsumerContext'>ConsumerContext</a>&gt; FromClientConfigAndContext&lt;C&gt; for <a class='struct' href='../../rdkafka/consumer/stream_consumer/struct.StreamConsumer.html' title='struct rdkafka::consumer::stream_consumer::StreamConsumer'>StreamConsumer</a>&lt;C&gt;</code></li>
-<li><code>impl&lt;C:&nbsp;<a class='trait' href='../../rdkafka/producer/trait.ProducerContext.html' title='trait rdkafka::producer::ProducerContext'>ProducerContext</a>&gt; FromClientConfigAndContext&lt;C&gt; for <a class='struct' href='../../rdkafka/producer/struct.BaseProducer.html' title='struct rdkafka::producer::BaseProducer'>BaseProducer</a>&lt;C&gt;</code></li>
-<li><code>impl&lt;C:&nbsp;<a class='trait' href='../../rdkafka/client/trait.Context.html' title='trait rdkafka::client::Context'>Context</a> + 'static&gt; FromClientConfigAndContext&lt;C&gt; for <a class='struct' href='../../rdkafka/producer/struct.FutureProducer.html' title='struct rdkafka::producer::FutureProducer'>FutureProducer</a>&lt;C&gt;</code></li>
+    <li><code>impl&lt;C:&nbsp;<a class="trait" href="../../rdkafka/consumer/trait.ConsumerContext.html" title="trait rdkafka::consumer::ConsumerContext">ConsumerContext</a>&gt; FromClientConfigAndContext&lt;C&gt; for <a class="struct" href="../../rdkafka/consumer/base_consumer/struct.BaseConsumer.html" title="struct rdkafka::consumer::base_consumer::BaseConsumer">BaseConsumer</a>&lt;C&gt;</code></li>
+<li><code>impl&lt;C:&nbsp;<a class="trait" href="../../rdkafka/consumer/trait.ConsumerContext.html" title="trait rdkafka::consumer::ConsumerContext">ConsumerContext</a>&gt; FromClientConfigAndContext&lt;C&gt; for <a class="struct" href="../../rdkafka/consumer/stream_consumer/struct.StreamConsumer.html" title="struct rdkafka::consumer::stream_consumer::StreamConsumer">StreamConsumer</a>&lt;C&gt;</code></li>
+<li><code>impl&lt;C:&nbsp;<a class="trait" href="../../rdkafka/producer/trait.ProducerContext.html" title="trait rdkafka::producer::ProducerContext">ProducerContext</a>&gt; FromClientConfigAndContext&lt;C&gt; for <a class="struct" href="../../rdkafka/producer/struct.BaseProducer.html" title="struct rdkafka::producer::BaseProducer">BaseProducer</a>&lt;C&gt;</code></li>
+<li><code>impl&lt;C:&nbsp;<a class="trait" href="../../rdkafka/client/trait.Context.html" title="trait rdkafka::client::Context">Context</a> + 'static&gt; FromClientConfigAndContext&lt;C&gt; for <a class="struct" href="../../rdkafka/producer/struct.FutureProducer.html" title="struct rdkafka::producer::FutureProducer">FutureProducer</a>&lt;C&gt;</code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/rdkafka/config/trait.FromClientConfigAndContext.js">
                  </script></section>
@@ -121,7 +121,6 @@
         window.rootPath = "../../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

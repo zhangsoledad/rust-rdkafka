@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -468,430 +468,430 @@
 <span id="423">423</span>
 <span id="424">424</span>
 <span id="425">425</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Producer implementations.</span>
-<span class='kw'>use</span> <span class='ident'>futures</span>::{<span class='self'>self</span>, <span class='ident'>Canceled</span>, <span class='ident'>Complete</span>, <span class='ident'>Future</span>, <span class='ident'>Poll</span>, <span class='ident'>Oneshot</span>};
-<span class='kw'>use</span> <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_vtype_t</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>rdsys</span>::<span class='ident'>types</span>::<span class='kw-2'>*</span>;
-<span class='kw'>use</span> <span class='ident'>rdsys</span>;
+</pre><pre class="rust ">
+<span class="doccomment">//! Producer implementations.</span>
+<span class="kw">use</span> <span class="ident">futures</span>::{<span class="self">self</span>, <span class="ident">Canceled</span>, <span class="ident">Complete</span>, <span class="ident">Future</span>, <span class="ident">Poll</span>, <span class="ident">Oneshot</span>};
+<span class="kw">use</span> <span class="ident">rdsys</span>::<span class="ident">rd_kafka_vtype_t</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">rdsys</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">rdsys</span>;
 
-<span class='kw'>use</span> <span class='ident'>client</span>::{<span class='ident'>Client</span>, <span class='ident'>Context</span>, <span class='ident'>EmptyContext</span>};
-<span class='kw'>use</span> <span class='ident'>config</span>::{<span class='ident'>ClientConfig</span>, <span class='ident'>FromClientConfig</span>, <span class='ident'>FromClientConfigAndContext</span>, <span class='ident'>RDKafkaLogLevel</span>};
-<span class='kw'>use</span> <span class='ident'>error</span>::{<span class='ident'>KafkaError</span>, <span class='ident'>KafkaResult</span>, <span class='ident'>IsError</span>};
-<span class='kw'>use</span> <span class='ident'>message</span>::<span class='ident'>ToBytes</span>;
-<span class='kw'>use</span> <span class='ident'>statistics</span>::<span class='ident'>Statistics</span>;
+<span class="kw">use</span> <span class="ident">client</span>::{<span class="ident">Client</span>, <span class="ident">Context</span>, <span class="ident">EmptyContext</span>};
+<span class="kw">use</span> <span class="ident">config</span>::{<span class="ident">ClientConfig</span>, <span class="ident">FromClientConfig</span>, <span class="ident">FromClientConfigAndContext</span>, <span class="ident">RDKafkaLogLevel</span>};
+<span class="kw">use</span> <span class="ident">error</span>::{<span class="ident">KafkaError</span>, <span class="ident">KafkaResult</span>, <span class="ident">IsError</span>};
+<span class="kw">use</span> <span class="ident">message</span>::<span class="ident">ToBytes</span>;
+<span class="kw">use</span> <span class="ident">statistics</span>::<span class="ident">Statistics</span>;
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>CString</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>os</span>::<span class='ident'>raw</span>::<span class='ident'>c_void</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>atomic</span>::{<span class='ident'>AtomicBool</span>, <span class='ident'>Ordering</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::{<span class='ident'>Arc</span>, <span class='ident'>RwLock</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>::{<span class='self'>self</span>, <span class='ident'>JoinHandle</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CString</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">os</span>::<span class="ident">raw</span>::<span class="ident">c_void</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">atomic</span>::{<span class="ident">AtomicBool</span>, <span class="ident">Ordering</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::{<span class="ident">Arc</span>, <span class="ident">RwLock</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">thread</span>::{<span class="self">self</span>, <span class="ident">JoinHandle</span>};
 
-<span class='comment'>//</span>
-<span class='comment'>// ********** PRODUCER CONTEXT **********</span>
-<span class='comment'>//</span>
+<span class="comment">//</span>
+<span class="comment">// ********** PRODUCER CONTEXT **********</span>
+<span class="comment">//</span>
 
-<span class='doccomment'>/// A `ProducerContext` is a `Context` specific for producers. It can be used to store user-specified</span>
-<span class='doccomment'>/// callbacks, such as `delivery`.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ProducerContext</span>: <span class='ident'>Context</span> {
-    <span class='doccomment'>/// A DeliveryContext is a user-defined structure that will be passed to the producer when</span>
-    <span class='doccomment'>/// producing a message, and returned to the `delivery` method once the message has been</span>
-    <span class='doccomment'>/// delivered, or failed to.</span>
-    <span class='kw'>type</span> <span class='ident'>DeliveryContext</span>: <span class='ident'>Send</span> <span class='op'>+</span> <span class='ident'>Sync</span>;
+<span class="doccomment">/// A `ProducerContext` is a `Context` specific for producers. It can be used to store user-specified</span>
+<span class="doccomment">/// callbacks, such as `delivery`.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ProducerContext</span>: <span class="ident">Context</span> {
+    <span class="doccomment">/// A DeliveryContext is a user-defined structure that will be passed to the producer when</span>
+    <span class="doccomment">/// producing a message, and returned to the `delivery` method once the message has been</span>
+    <span class="doccomment">/// delivered, or failed to.</span>
+    <span class="kw">type</span> <span class="ident">DeliveryContext</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>;
 
-    <span class='doccomment'>/// This method will be called once the message has been delivered (or failed to). The</span>
-    <span class='doccomment'>/// `DeliveryContext` will be the one provided by the user when calling send.</span>
-    <span class='kw'>fn</span> <span class='ident'>delivery</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>DeliveryReport</span>, <span class='self'>Self</span>::<span class='ident'>DeliveryContext</span>);
+    <span class="doccomment">/// This method will be called once the message has been delivered (or failed to). The</span>
+    <span class="doccomment">/// `DeliveryContext` will be the one provided by the user when calling send.</span>
+    <span class="kw">fn</span> <span class="ident">delivery</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">DeliveryReport</span>, <span class="self">Self</span>::<span class="ident">DeliveryContext</span>);
 }
 
-<span class='doccomment'>/// Simple empty producer context that can be use when the producer context is not required.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>EmptyProducerContext</span>;
+<span class="doccomment">/// Simple empty producer context that can be use when the producer context is not required.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EmptyProducerContext</span>;
 
-<span class='kw'>impl</span> <span class='ident'>Context</span> <span class='kw'>for</span> <span class='ident'>EmptyProducerContext</span> { }
-<span class='kw'>impl</span> <span class='ident'>ProducerContext</span> <span class='kw'>for</span> <span class='ident'>EmptyProducerContext</span> {
-    <span class='kw'>type</span> <span class='ident'>DeliveryContext</span> <span class='op'>=</span> ();
+<span class="kw">impl</span> <span class="ident">Context</span> <span class="kw">for</span> <span class="ident">EmptyProducerContext</span> { }
+<span class="kw">impl</span> <span class="ident">ProducerContext</span> <span class="kw">for</span> <span class="ident">EmptyProducerContext</span> {
+    <span class="kw">type</span> <span class="ident">DeliveryContext</span> <span class="op">=</span> ();
 
-    <span class='kw'>fn</span> <span class='ident'>delivery</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, _: <span class='ident'>DeliveryReport</span>, _: <span class='self'>Self</span>::<span class='ident'>DeliveryContext</span>) { }
+    <span class="kw">fn</span> <span class="ident">delivery</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, _: <span class="ident">DeliveryReport</span>, _: <span class="self">Self</span>::<span class="ident">DeliveryContext</span>) { }
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
-<span class='doccomment'>/// Information returned by the producer after a message has been delivered</span>
-<span class='doccomment'>/// or failed to be delivered.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>DeliveryReport</span> {
-    <span class='ident'>error</span>: <span class='ident'>RDKafkaRespErr</span>,
-    <span class='ident'>partition</span>: <span class='ident'>i32</span>,
-    <span class='ident'>offset</span>: <span class='ident'>i64</span>,
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="doccomment">/// Information returned by the producer after a message has been delivered</span>
+<span class="doccomment">/// or failed to be delivered.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeliveryReport</span> {
+    <span class="ident">error</span>: <span class="ident">RDKafkaRespErr</span>,
+    <span class="ident">partition</span>: <span class="ident">i32</span>,
+    <span class="ident">offset</span>: <span class="ident">i64</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>DeliveryReport</span> {
-    <span class='doccomment'>/// Creates a new `DeliveryReport`. This should only be used in the delivery_cb.</span>
-    <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>err</span>: <span class='ident'>RDKafkaRespErr</span>, <span class='ident'>partition</span>: <span class='ident'>i32</span>, <span class='ident'>offset</span>: <span class='ident'>i64</span>) <span class='op'>-&gt;</span> <span class='ident'>DeliveryReport</span> {
-        <span class='ident'>DeliveryReport</span> {
-            <span class='ident'>error</span>: <span class='ident'>err</span>,
-            <span class='ident'>partition</span>: <span class='ident'>partition</span>,
-            <span class='ident'>offset</span>: <span class='ident'>offset</span>,
+<span class="kw">impl</span> <span class="ident">DeliveryReport</span> {
+    <span class="doccomment">/// Creates a new `DeliveryReport`. This should only be used in the delivery_cb.</span>
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">err</span>: <span class="ident">RDKafkaRespErr</span>, <span class="ident">partition</span>: <span class="ident">i32</span>, <span class="ident">offset</span>: <span class="ident">i64</span>) <span class="op">-&gt;</span> <span class="ident">DeliveryReport</span> {
+        <span class="ident">DeliveryReport</span> {
+            <span class="ident">error</span>: <span class="ident">err</span>,
+            <span class="ident">partition</span>: <span class="ident">partition</span>,
+            <span class="ident">offset</span>: <span class="ident">offset</span>,
         }
     }
 
-    <span class='doccomment'>/// Returns the result of the production of the message.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>result</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>(<span class='ident'>i32</span>, <span class='ident'>i64</span>)<span class='op'>&gt;</span> {
-        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>error</span>.<span class='ident'>is_error</span>() {
-            <span class='prelude-val'>Err</span>(<span class='ident'>KafkaError</span>::<span class='ident'>MessageProduction</span>(<span class='self'>self</span>.<span class='ident'>error</span>))
-        } <span class='kw'>else</span> {
-            <span class='prelude-val'>Ok</span>((<span class='self'>self</span>.<span class='ident'>partition</span>, <span class='self'>self</span>.<span class='ident'>offset</span>))
+    <span class="doccomment">/// Returns the result of the production of the message.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">result</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span>(<span class="ident">i32</span>, <span class="ident">i64</span>)<span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">error</span>.<span class="ident">is_error</span>() {
+            <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">MessageProduction</span>(<span class="self">self</span>.<span class="ident">error</span>))
+        } <span class="kw">else</span> {
+            <span class="prelude-val">Ok</span>((<span class="self">self</span>.<span class="ident">partition</span>, <span class="self">self</span>.<span class="ident">offset</span>))
         }
     }
 
-    <span class='doccomment'>/// Returns the partition of the message.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>partition</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
-        <span class='self'>self</span>.<span class='ident'>partition</span>
+    <span class="doccomment">/// Returns the partition of the message.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">partition</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span> {
+        <span class="self">self</span>.<span class="ident">partition</span>
     }
 
-    <span class='doccomment'>/// Returns the offset of the message.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>offset</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>i64</span> {
-        <span class='self'>self</span>.<span class='ident'>offset</span>
+    <span class="doccomment">/// Returns the offset of the message.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i64</span> {
+        <span class="self">self</span>.<span class="ident">offset</span>
     }
 }
 
-<span class='doccomment'>/// Callback that gets called from librdkafka every time a message succeeds</span>
-<span class='doccomment'>/// or fails to be delivered.</span>
-<span class='kw'>unsafe</span> <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> <span class='kw'>fn</span> <span class='ident'>delivery_cb</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>ProducerContext</span><span class='op'>&gt;</span>(
-        <span class='ident'>_client</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafka</span>, <span class='ident'>msg</span>: <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>RDKafkaMessage</span>, <span class='ident'>_opaque</span>: <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>) {
-    <span class='kw'>let</span> <span class='ident'>context</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>from_raw</span>(<span class='ident'>_opaque</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>C</span>);
-    <span class='kw'>let</span> <span class='ident'>delivery_context</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>from_raw</span>((<span class='kw-2'>*</span><span class='ident'>msg</span>).<span class='ident'>_private</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>C</span>::<span class='ident'>DeliveryContext</span>);
-    <span class='kw'>let</span> <span class='ident'>delivery_status</span> <span class='op'>=</span> <span class='ident'>DeliveryReport</span>::<span class='ident'>new</span>((<span class='kw-2'>*</span><span class='ident'>msg</span>).<span class='ident'>err</span>, (<span class='kw-2'>*</span><span class='ident'>msg</span>).<span class='ident'>partition</span>, (<span class='kw-2'>*</span><span class='ident'>msg</span>).<span class='ident'>offset</span>);
-    <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Delivery event received: {:?}&quot;</span>, <span class='ident'>delivery_status</span>);
-    (<span class='kw-2'>*</span><span class='ident'>context</span>).<span class='ident'>delivery</span>(<span class='ident'>delivery_status</span>, (<span class='kw-2'>*</span><span class='ident'>delivery_context</span>));
-    <span class='ident'>mem</span>::<span class='ident'>forget</span>(<span class='ident'>context</span>);   <span class='comment'>// Do not free the context</span>
+<span class="doccomment">/// Callback that gets called from librdkafka every time a message succeeds</span>
+<span class="doccomment">/// or fails to be delivered.</span>
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">delivery_cb</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">ProducerContext</span><span class="op">&gt;</span>(
+        <span class="ident">_client</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafka</span>, <span class="ident">msg</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">RDKafkaMessage</span>, <span class="ident">_opaque</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>) {
+    <span class="kw">let</span> <span class="ident">context</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">from_raw</span>(<span class="ident">_opaque</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">C</span>);
+    <span class="kw">let</span> <span class="ident">delivery_context</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">from_raw</span>((<span class="kw-2">*</span><span class="ident">msg</span>).<span class="ident">_private</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">C</span>::<span class="ident">DeliveryContext</span>);
+    <span class="kw">let</span> <span class="ident">delivery_status</span> <span class="op">=</span> <span class="ident">DeliveryReport</span>::<span class="ident">new</span>((<span class="kw-2">*</span><span class="ident">msg</span>).<span class="ident">err</span>, (<span class="kw-2">*</span><span class="ident">msg</span>).<span class="ident">partition</span>, (<span class="kw-2">*</span><span class="ident">msg</span>).<span class="ident">offset</span>);
+    <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Delivery event received: {:?}&quot;</span>, <span class="ident">delivery_status</span>);
+    (<span class="kw-2">*</span><span class="ident">context</span>).<span class="ident">delivery</span>(<span class="ident">delivery_status</span>, (<span class="kw-2">*</span><span class="ident">delivery_context</span>));
+    <span class="ident">mem</span>::<span class="ident">forget</span>(<span class="ident">context</span>);   <span class="comment">// Do not free the context</span>
 }
 
-<span class='comment'>//</span>
-<span class='comment'>// ********** BASE PRODUCER **********</span>
-<span class='comment'>//</span>
+<span class="comment">//</span>
+<span class="comment">// ********** BASE PRODUCER **********</span>
+<span class="comment">//</span>
 
-<span class='doccomment'>/// Simple Kafka producer. This producer needs to be `poll`ed at regular intervals in order to</span>
-<span class='doccomment'>/// serve queued delivery report callbacks. This producer can be cheaply cloned to</span>
-<span class='doccomment'>/// create a new reference to the same underlying producer. Data production should be done using the</span>
-<span class='doccomment'>/// `BaseProducerTopic`, that can be created from this producer.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BaseProducer</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>ProducerContext</span><span class='op'>&gt;</span> {
-    <span class='ident'>client_arc</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>Client</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;&gt;</span>,
+<span class="doccomment">/// Simple Kafka producer. This producer needs to be `poll`ed at regular intervals in order to</span>
+<span class="doccomment">/// serve queued delivery report callbacks. This producer can be cheaply cloned to</span>
+<span class="doccomment">/// create a new reference to the same underlying producer. Data production should be done using the</span>
+<span class="doccomment">/// `BaseProducerTopic`, that can be created from this producer.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BaseProducer</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">ProducerContext</span><span class="op">&gt;</span> {
+    <span class="ident">client_arc</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Client</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;&gt;</span>,
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>ProducerContext</span><span class='op'>&gt;</span> <span class='ident'>BaseProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Creates a base producer starting from a Client.</span>
-    <span class='kw'>fn</span> <span class='ident'>from_client</span>(<span class='ident'>client</span>: <span class='ident'>Client</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>BaseProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-        <span class='ident'>BaseProducer</span> { <span class='ident'>client_arc</span>: <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>client</span>) }
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">ProducerContext</span><span class="op">&gt;</span> <span class="ident">BaseProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Creates a base producer starting from a Client.</span>
+    <span class="kw">fn</span> <span class="ident">from_client</span>(<span class="ident">client</span>: <span class="ident">Client</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">BaseProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+        <span class="ident">BaseProducer</span> { <span class="ident">client_arc</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">client</span>) }
     }
 
-    <span class='doccomment'>/// Polls the producer. Regular calls to `poll` are required to process the evens</span>
-    <span class='doccomment'>/// and execute the message delivery callbacks.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>poll</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>timeout_ms</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
-        <span class='kw'>unsafe</span> { <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_poll</span>(<span class='self'>self</span>.<span class='ident'>native_ptr</span>(), <span class='ident'>timeout_ms</span>) }
+    <span class="doccomment">/// Polls the producer. Regular calls to `poll` are required to process the evens</span>
+    <span class="doccomment">/// and execute the message delivery callbacks.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">timeout_ms</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="ident">i32</span> {
+        <span class="kw">unsafe</span> { <span class="ident">rdsys</span>::<span class="ident">rd_kafka_poll</span>(<span class="self">self</span>.<span class="ident">native_ptr</span>(), <span class="ident">timeout_ms</span>) }
     }
 
-    <span class='doccomment'>/// Returns a pointer to the native Kafka client.</span>
-    <span class='kw'>fn</span> <span class='ident'>native_ptr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>RDKafka</span> {
-        <span class='self'>self</span>.<span class='ident'>client_arc</span>.<span class='ident'>native_ptr</span>()
+    <span class="doccomment">/// Returns a pointer to the native Kafka client.</span>
+    <span class="kw">fn</span> <span class="ident">native_ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafka</span> {
+        <span class="self">self</span>.<span class="ident">client_arc</span>.<span class="ident">native_ptr</span>()
     }
 
-    <span class='doccomment'>/// Sends a copy of the payload and key provided to the specified topic. When no partition is</span>
-    <span class='doccomment'>/// specified the underlying Kafka library picks a partition based on the key. If no key is</span>
-    <span class='doccomment'>/// specified, a random partition will be used.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>send_copy</span><span class='op'>&lt;</span><span class='ident'>P</span>, <span class='ident'>K</span><span class='op'>&gt;</span>(
-        <span class='kw-2'>&amp;</span><span class='self'>self</span>,
-        <span class='ident'>topic_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>,
-        <span class='ident'>partition</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span>,
-        <span class='ident'>payload</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>P</span><span class='op'>&gt;</span>,
-        <span class='ident'>key</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>K</span><span class='op'>&gt;</span>,
-        <span class='ident'>delivery_context</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>C</span>::<span class='ident'>DeliveryContext</span><span class='op'>&gt;&gt;</span>,
-        <span class='ident'>timestamp</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>i64</span><span class='op'>&gt;</span>
-    ) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span>
-        <span class='kw'>where</span> <span class='ident'>K</span>: <span class='ident'>ToBytes</span> <span class='op'>+</span> <span class='question-mark'>?</span><span class='ident'>Sized</span>,
-              <span class='ident'>P</span>: <span class='ident'>ToBytes</span> <span class='op'>+</span> <span class='question-mark'>?</span><span class='ident'>Sized</span> {
-        <span class='kw'>let</span> (<span class='ident'>payload_ptr</span>, <span class='ident'>payload_len</span>) <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>payload</span>.<span class='ident'>map</span>(<span class='ident'>P</span>::<span class='ident'>to_bytes</span>) {
-            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> (<span class='ident'>ptr</span>::<span class='ident'>null_mut</span>(), <span class='number'>0</span>),
-            <span class='prelude-val'>Some</span>(<span class='ident'>p</span>) <span class='op'>=&gt;</span> (<span class='ident'>p</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>, <span class='ident'>p</span>.<span class='ident'>len</span>()),
+    <span class="doccomment">/// Sends a copy of the payload and key provided to the specified topic. When no partition is</span>
+    <span class="doccomment">/// specified the underlying Kafka library picks a partition based on the key. If no key is</span>
+    <span class="doccomment">/// specified, a random partition will be used.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_copy</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">K</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">topic_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+        <span class="ident">partition</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>,
+        <span class="ident">payload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
+        <span class="ident">key</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">K</span><span class="op">&gt;</span>,
+        <span class="ident">delivery_context</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">C</span>::<span class="ident">DeliveryContext</span><span class="op">&gt;&gt;</span>,
+        <span class="ident">timestamp</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i64</span><span class="op">&gt;</span>
+    ) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
+        <span class="kw">where</span> <span class="ident">K</span>: <span class="ident">ToBytes</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span>,
+              <span class="ident">P</span>: <span class="ident">ToBytes</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span> {
+        <span class="kw">let</span> (<span class="ident">payload_ptr</span>, <span class="ident">payload_len</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">payload</span>.<span class="ident">map</span>(<span class="ident">P</span>::<span class="ident">to_bytes</span>) {
+            <span class="prelude-val">None</span> <span class="op">=&gt;</span> (<span class="ident">ptr</span>::<span class="ident">null_mut</span>(), <span class="number">0</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">p</span>) <span class="op">=&gt;</span> (<span class="ident">p</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>, <span class="ident">p</span>.<span class="ident">len</span>()),
         };
-        <span class='kw'>let</span> (<span class='ident'>key_ptr</span>, <span class='ident'>key_len</span>) <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>key</span>.<span class='ident'>map</span>(<span class='ident'>K</span>::<span class='ident'>to_bytes</span>) {
-            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> (<span class='ident'>ptr</span>::<span class='ident'>null_mut</span>(), <span class='number'>0</span>),
-            <span class='prelude-val'>Some</span>(<span class='ident'>k</span>) <span class='op'>=&gt;</span> (<span class='ident'>k</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>, <span class='ident'>k</span>.<span class='ident'>len</span>()),
+        <span class="kw">let</span> (<span class="ident">key_ptr</span>, <span class="ident">key_len</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">key</span>.<span class="ident">map</span>(<span class="ident">K</span>::<span class="ident">to_bytes</span>) {
+            <span class="prelude-val">None</span> <span class="op">=&gt;</span> (<span class="ident">ptr</span>::<span class="ident">null_mut</span>(), <span class="number">0</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">k</span>) <span class="op">=&gt;</span> (<span class="ident">k</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>, <span class="ident">k</span>.<span class="ident">len</span>()),
         };
-        <span class='kw'>let</span> <span class='ident'>delivery_context_ptr</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>delivery_context</span> {
-            <span class='prelude-val'>Some</span>(<span class='ident'>context</span>) <span class='op'>=&gt;</span> <span class='ident'>Box</span>::<span class='ident'>into_raw</span>(<span class='ident'>context</span>) <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>,
-            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='ident'>ptr</span>::<span class='ident'>null_mut</span>(),
+        <span class="kw">let</span> <span class="ident">delivery_context_ptr</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">delivery_context</span> {
+            <span class="prelude-val">Some</span>(<span class="ident">context</span>) <span class="op">=&gt;</span> <span class="ident">Box</span>::<span class="ident">into_raw</span>(<span class="ident">context</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>,
+            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
         };
-        <span class='kw'>let</span> <span class='ident'>topic_name_c</span> <span class='op'>=</span> <span class='ident'>CString</span>::<span class='ident'>new</span>(<span class='ident'>topic_name</span>.<span class='ident'>to_owned</span>())<span class='question-mark'>?</span>;
-        <span class='kw'>let</span> <span class='ident'>produce_error</span> <span class='op'>=</span> <span class='kw'>unsafe</span> {
-            <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_producev</span>(
-                <span class='self'>self</span>.<span class='ident'>native_ptr</span>(),
-                <span class='ident'>RD_KAFKA_VTYPE_TOPIC</span>, <span class='ident'>topic_name_c</span>.<span class='ident'>as_ptr</span>(),
-                <span class='ident'>RD_KAFKA_VTYPE_PARTITION</span>, <span class='ident'>partition</span>.<span class='ident'>unwrap_or</span>(<span class='op'>-</span><span class='number'>1</span>),
-                <span class='ident'>RD_KAFKA_VTYPE_MSGFLAGS</span>, <span class='ident'>rdsys</span>::<span class='ident'>RD_KAFKA_MSG_F_COPY</span> <span class='kw'>as</span> <span class='ident'>i32</span>,
-                <span class='ident'>RD_KAFKA_VTYPE_VALUE</span>, <span class='ident'>payload_ptr</span>, <span class='ident'>payload_len</span>,
-                <span class='ident'>RD_KAFKA_VTYPE_KEY</span>, <span class='ident'>key_ptr</span>, <span class='ident'>key_len</span>,
-                <span class='ident'>RD_KAFKA_VTYPE_OPAQUE</span>, <span class='ident'>delivery_context_ptr</span>,
-                <span class='ident'>RD_KAFKA_VTYPE_TIMESTAMP</span>, <span class='ident'>timestamp</span>.<span class='ident'>unwrap_or</span>(<span class='number'>0</span>),
-                <span class='ident'>RD_KAFKA_VTYPE_END</span>
+        <span class="kw">let</span> <span class="ident">topic_name_c</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">topic_name</span>.<span class="ident">to_owned</span>())<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">produce_error</span> <span class="op">=</span> <span class="kw">unsafe</span> {
+            <span class="ident">rdsys</span>::<span class="ident">rd_kafka_producev</span>(
+                <span class="self">self</span>.<span class="ident">native_ptr</span>(),
+                <span class="ident">RD_KAFKA_VTYPE_TOPIC</span>, <span class="ident">topic_name_c</span>.<span class="ident">as_ptr</span>(),
+                <span class="ident">RD_KAFKA_VTYPE_PARTITION</span>, <span class="ident">partition</span>.<span class="ident">unwrap_or</span>(<span class="op">-</span><span class="number">1</span>),
+                <span class="ident">RD_KAFKA_VTYPE_MSGFLAGS</span>, <span class="ident">rdsys</span>::<span class="ident">RD_KAFKA_MSG_F_COPY</span> <span class="kw">as</span> <span class="ident">i32</span>,
+                <span class="ident">RD_KAFKA_VTYPE_VALUE</span>, <span class="ident">payload_ptr</span>, <span class="ident">payload_len</span>,
+                <span class="ident">RD_KAFKA_VTYPE_KEY</span>, <span class="ident">key_ptr</span>, <span class="ident">key_len</span>,
+                <span class="ident">RD_KAFKA_VTYPE_OPAQUE</span>, <span class="ident">delivery_context_ptr</span>,
+                <span class="ident">RD_KAFKA_VTYPE_TIMESTAMP</span>, <span class="ident">timestamp</span>.<span class="ident">unwrap_or</span>(<span class="number">0</span>),
+                <span class="ident">RD_KAFKA_VTYPE_END</span>
             )
         };
-        <span class='kw'>if</span> <span class='ident'>produce_error</span>.<span class='ident'>is_error</span>() {
-            <span class='prelude-val'>Err</span>(<span class='ident'>KafkaError</span>::<span class='ident'>MessageProduction</span>(<span class='ident'>produce_error</span>))
-        } <span class='kw'>else</span> {
-            <span class='prelude-val'>Ok</span>(())
+        <span class="kw">if</span> <span class="ident">produce_error</span>.<span class="ident">is_error</span>() {
+            <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">MessageProduction</span>(<span class="ident">produce_error</span>))
+        } <span class="kw">else</span> {
+            <span class="prelude-val">Ok</span>(())
         }
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>ProducerContext</span><span class='op'>&gt;</span> <span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>BaseProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>BaseProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-        <span class='ident'>BaseProducer</span> { <span class='ident'>client_arc</span>: <span class='self'>self</span>.<span class='ident'>client_arc</span>.<span class='ident'>clone</span>() }
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">ProducerContext</span><span class="op">&gt;</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">BaseProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">BaseProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+        <span class="ident">BaseProducer</span> { <span class="ident">client_arc</span>: <span class="self">self</span>.<span class="ident">client_arc</span>.<span class="ident">clone</span>() }
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>FromClientConfig</span> <span class='kw'>for</span> <span class='ident'>BaseProducer</span><span class='op'>&lt;</span><span class='ident'>EmptyProducerContext</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Creates a new `BaseProducer` starting from a configuration.</span>
-    <span class='kw'>fn</span> <span class='ident'>from_config</span>(<span class='ident'>config</span>: <span class='kw-2'>&amp;</span><span class='ident'>ClientConfig</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>BaseProducer</span><span class='op'>&lt;</span><span class='ident'>EmptyProducerContext</span><span class='op'>&gt;&gt;</span> {
-        <span class='ident'>BaseProducer</span>::<span class='ident'>from_config_and_context</span>(<span class='ident'>config</span>, <span class='ident'>EmptyProducerContext</span>)
+<span class="kw">impl</span> <span class="ident">FromClientConfig</span> <span class="kw">for</span> <span class="ident">BaseProducer</span><span class="op">&lt;</span><span class="ident">EmptyProducerContext</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Creates a new `BaseProducer` starting from a configuration.</span>
+    <span class="kw">fn</span> <span class="ident">from_config</span>(<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">ClientConfig</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">BaseProducer</span><span class="op">&lt;</span><span class="ident">EmptyProducerContext</span><span class="op">&gt;&gt;</span> {
+        <span class="ident">BaseProducer</span>::<span class="ident">from_config_and_context</span>(<span class="ident">config</span>, <span class="ident">EmptyProducerContext</span>)
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>ProducerContext</span><span class='op'>&gt;</span> <span class='ident'>FromClientConfigAndContext</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>BaseProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Creates a new `BaseProducer` starting from a configuration and a context.</span>
-    <span class='kw'>fn</span> <span class='ident'>from_config_and_context</span>(<span class='ident'>config</span>: <span class='kw-2'>&amp;</span><span class='ident'>ClientConfig</span>, <span class='ident'>context</span>: <span class='ident'>C</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>BaseProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>native_config</span> <span class='op'>=</span> <span class='ident'>config</span>.<span class='ident'>create_native_config</span>()<span class='question-mark'>?</span>;
-        <span class='kw'>unsafe</span> { <span class='ident'>rdsys</span>::<span class='ident'>rd_kafka_conf_set_dr_msg_cb</span>(<span class='ident'>native_config</span>.<span class='ident'>ptr</span>(), <span class='prelude-val'>Some</span>(<span class='ident'>delivery_cb</span>::<span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span>)) };
-        <span class='kw'>let</span> <span class='ident'>client</span> <span class='op'>=</span> <span class='ident'>Client</span>::<span class='ident'>new</span>(<span class='ident'>config</span>, <span class='ident'>native_config</span>, <span class='ident'>RDKafkaType</span>::<span class='ident'>RD_KAFKA_PRODUCER</span>, <span class='ident'>context</span>)<span class='question-mark'>?</span>;
-        <span class='prelude-val'>Ok</span>(<span class='ident'>BaseProducer</span>::<span class='ident'>from_client</span>(<span class='ident'>client</span>))
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">ProducerContext</span><span class="op">&gt;</span> <span class="ident">FromClientConfigAndContext</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">BaseProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Creates a new `BaseProducer` starting from a configuration and a context.</span>
+    <span class="kw">fn</span> <span class="ident">from_config_and_context</span>(<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">ClientConfig</span>, <span class="ident">context</span>: <span class="ident">C</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">BaseProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;&gt;</span> {
+        <span class="kw">let</span> <span class="ident">native_config</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">create_native_config</span>()<span class="question-mark">?</span>;
+        <span class="kw">unsafe</span> { <span class="ident">rdsys</span>::<span class="ident">rd_kafka_conf_set_dr_msg_cb</span>(<span class="ident">native_config</span>.<span class="ident">ptr</span>(), <span class="prelude-val">Some</span>(<span class="ident">delivery_cb</span>::<span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>)) };
+        <span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client</span>::<span class="ident">new</span>(<span class="ident">config</span>, <span class="ident">native_config</span>, <span class="ident">RDKafkaType</span>::<span class="ident">RD_KAFKA_PRODUCER</span>, <span class="ident">context</span>)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="ident">BaseProducer</span>::<span class="ident">from_client</span>(<span class="ident">client</span>))
     }
 }
 
-<span class='comment'>//</span>
-<span class='comment'>// ********** FUTURE PRODUCER **********</span>
-<span class='comment'>//</span>
+<span class="comment">//</span>
+<span class="comment">// ********** FUTURE PRODUCER **********</span>
+<span class="comment">//</span>
 
-<span class='doccomment'>/// The `ProducerContext` used by the `FutureProducer`. This context will use a Future as its</span>
-<span class='doccomment'>/// `DeliveryContext` and will complete the future when the message is delivered (or failed to).</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>FutureProducerContext</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>Context</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> {
-    <span class='ident'>wrapped_context</span>: <span class='ident'>C</span>
+<span class="doccomment">/// The `ProducerContext` used by the `FutureProducer`. This context will use a Future as its</span>
+<span class="doccomment">/// `DeliveryContext` and will complete the future when the message is delivered (or failed to).</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FutureProducerContext</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> {
+    <span class="ident">wrapped_context</span>: <span class="ident">C</span>
 }
 
-<span class='comment'>// Delegates all the methods calls to the wrapped context.</span>
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>Context</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> <span class='ident'>Context</span> <span class='kw'>for</span> <span class='ident'>FutureProducerContext</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>log</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>level</span>: <span class='ident'>RDKafkaLogLevel</span>, <span class='ident'>fac</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>log_message</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) {
-        <span class='self'>self</span>.<span class='ident'>wrapped_context</span>.<span class='ident'>log</span>(<span class='ident'>level</span>, <span class='ident'>fac</span>, <span class='ident'>log_message</span>);
+<span class="comment">// Delegates all the methods calls to the wrapped context.</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">Context</span> <span class="kw">for</span> <span class="ident">FutureProducerContext</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">log</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">level</span>: <span class="ident">RDKafkaLogLevel</span>, <span class="ident">fac</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">log_message</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
+        <span class="self">self</span>.<span class="ident">wrapped_context</span>.<span class="ident">log</span>(<span class="ident">level</span>, <span class="ident">fac</span>, <span class="ident">log_message</span>);
     }
 
-    <span class='kw'>fn</span> <span class='ident'>stats</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>statistics</span>: <span class='ident'>Statistics</span>) {
-        <span class='self'>self</span>.<span class='ident'>wrapped_context</span>.<span class='ident'>stats</span>(<span class='ident'>statistics</span>);
-    }
-}
-
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>Context</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> <span class='ident'>ProducerContext</span> <span class='kw'>for</span> <span class='ident'>FutureProducerContext</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-    <span class='kw'>type</span> <span class='ident'>DeliveryContext</span> <span class='op'>=</span> <span class='ident'>Complete</span><span class='op'>&lt;</span><span class='ident'>DeliveryReport</span><span class='op'>&gt;</span>;
-
-    <span class='kw'>fn</span> <span class='ident'>delivery</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>status</span>: <span class='ident'>DeliveryReport</span>, <span class='ident'>tx</span>: <span class='ident'>Complete</span><span class='op'>&lt;</span><span class='ident'>DeliveryReport</span><span class='op'>&gt;</span>) {
-        <span class='ident'>tx</span>.<span class='ident'>complete</span>(<span class='ident'>status</span>);
+    <span class="kw">fn</span> <span class="ident">stats</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">statistics</span>: <span class="ident">Statistics</span>) {
+        <span class="self">self</span>.<span class="ident">wrapped_context</span>.<span class="ident">stats</span>(<span class="ident">statistics</span>);
     }
 }
 
-<span class='doccomment'>/// `FutureProducer` implementation.</span>
-<span class='attribute'>#[<span class='ident'>must_use</span> <span class='op'>=</span> <span class='string'>&quot;Producer polling thread will stop immediately if unused&quot;</span>]</span>
-<span class='kw'>struct</span> <span class='ident'>_FutureProducer</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>Context</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> {
-    <span class='ident'>producer</span>: <span class='ident'>BaseProducer</span><span class='op'>&lt;</span><span class='ident'>FutureProducerContext</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;&gt;</span>,
-    <span class='ident'>should_stop</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>AtomicBool</span><span class='op'>&gt;</span>,
-    <span class='ident'>handle</span>: <span class='ident'>RwLock</span><span class='op'>&lt;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>JoinHandle</span><span class='op'>&lt;</span>()<span class='op'>&gt;&gt;</span><span class='op'>&gt;</span>,
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">ProducerContext</span> <span class="kw">for</span> <span class="ident">FutureProducerContext</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">DeliveryContext</span> <span class="op">=</span> <span class="ident">Complete</span><span class="op">&lt;</span><span class="ident">DeliveryReport</span><span class="op">&gt;</span>;
+
+    <span class="kw">fn</span> <span class="ident">delivery</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">status</span>: <span class="ident">DeliveryReport</span>, <span class="ident">tx</span>: <span class="ident">Complete</span><span class="op">&lt;</span><span class="ident">DeliveryReport</span><span class="op">&gt;</span>) {
+        <span class="ident">tx</span>.<span class="ident">complete</span>(<span class="ident">status</span>);
+    }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>Context</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> <span class='ident'>_FutureProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Starts the polling thread that will drive the producer.</span>
-    <span class='kw'>fn</span> <span class='ident'>start</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) {
-        <span class='kw'>let</span> <span class='ident'>producer_clone</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>producer</span>.<span class='ident'>clone</span>();
-        <span class='kw'>let</span> <span class='ident'>should_stop</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>should_stop</span>.<span class='ident'>clone</span>();
-        <span class='kw'>let</span> <span class='ident'>handle</span> <span class='op'>=</span> <span class='ident'>thread</span>::<span class='ident'>Builder</span>::<span class='ident'>new</span>()
-            .<span class='ident'>name</span>(<span class='string'>&quot;polling thread&quot;</span>.<span class='ident'>to_string</span>())
-            .<span class='ident'>spawn</span>(<span class='kw'>move</span> <span class='op'>||</span> {
-                 <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Polling thread loop started&quot;</span>);
-                 <span class='kw'>loop</span> {
-                     <span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='ident'>producer_clone</span>.<span class='ident'>poll</span>(<span class='number'>100</span>);
-                     <span class='kw'>if</span> <span class='ident'>n</span> <span class='op'>==</span> <span class='number'>0</span> {
-                         <span class='kw'>if</span> <span class='ident'>should_stop</span>.<span class='ident'>load</span>(<span class='ident'>Ordering</span>::<span class='ident'>Relaxed</span>) {
-                             <span class='comment'>// We received nothing and the thread should</span>
-                             <span class='comment'>// stop, so break the loop.</span>
-                             <span class='kw'>break</span>
+<span class="doccomment">/// `FutureProducer` implementation.</span>
+<span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;Producer polling thread will stop immediately if unused&quot;</span>]</span>
+<span class="kw">struct</span> <span class="ident">_FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> {
+    <span class="ident">producer</span>: <span class="ident">BaseProducer</span><span class="op">&lt;</span><span class="ident">FutureProducerContext</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">should_stop</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">AtomicBool</span><span class="op">&gt;</span>,
+    <span class="ident">handle</span>: <span class="ident">RwLock</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">JoinHandle</span><span class="op">&lt;</span>()<span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">_FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Starts the polling thread that will drive the producer.</span>
+    <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">let</span> <span class="ident">producer_clone</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">producer</span>.<span class="ident">clone</span>();
+        <span class="kw">let</span> <span class="ident">should_stop</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">should_stop</span>.<span class="ident">clone</span>();
+        <span class="kw">let</span> <span class="ident">handle</span> <span class="op">=</span> <span class="ident">thread</span>::<span class="ident">Builder</span>::<span class="ident">new</span>()
+            .<span class="ident">name</span>(<span class="string">&quot;polling thread&quot;</span>.<span class="ident">to_string</span>())
+            .<span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">||</span> {
+                 <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Polling thread loop started&quot;</span>);
+                 <span class="kw">loop</span> {
+                     <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">producer_clone</span>.<span class="ident">poll</span>(<span class="number">100</span>);
+                     <span class="kw">if</span> <span class="ident">n</span> <span class="op">==</span> <span class="number">0</span> {
+                         <span class="kw">if</span> <span class="ident">should_stop</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
+                             <span class="comment">// We received nothing and the thread should</span>
+                             <span class="comment">// stop, so break the loop.</span>
+                             <span class="kw">break</span>
                          }
-                     } <span class='kw'>else</span> {
-                         <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Received {} events&quot;</span>, <span class='ident'>n</span>);
+                     } <span class="kw">else</span> {
+                         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Received {} events&quot;</span>, <span class="ident">n</span>);
                      }
                  }
-                 <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Polling thread loop terminated&quot;</span>);
+                 <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Polling thread loop terminated&quot;</span>);
             })
-            .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to start polling thread&quot;</span>);
-        <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>handle</span>.<span class='ident'>write</span>() {
-            <span class='prelude-val'>Ok</span>(<span class='kw-2'>mut</span> <span class='ident'>handle_ref</span>) <span class='op'>=&gt;</span> <span class='kw-2'>*</span><span class='ident'>handle_ref</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>handle</span>),
-            <span class='prelude-val'>Err</span>(_) <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;Poison error&quot;</span>),
+            .<span class="ident">expect</span>(<span class="string">&quot;Failed to start polling thread&quot;</span>);
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">handle</span>.<span class="ident">write</span>() {
+            <span class="prelude-val">Ok</span>(<span class="kw-2">mut</span> <span class="ident">handle_ref</span>) <span class="op">=&gt;</span> <span class="kw-2">*</span><span class="ident">handle_ref</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">handle</span>),
+            <span class="prelude-val">Err</span>(_) <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Poison error&quot;</span>),
         };
     }
 
-    <span class='comment'>// See documentation in FutureProducer</span>
-    <span class='kw'>fn</span> <span class='ident'>stop</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) {
-        <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>handle</span>.<span class='ident'>write</span>() {
-            <span class='prelude-val'>Ok</span>(<span class='kw-2'>mut</span> <span class='ident'>handle</span>) <span class='op'>=&gt;</span> {
-                <span class='kw'>if</span> <span class='ident'>handle</span>.<span class='ident'>is_some</span>() {
-                    <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Stopping polling&quot;</span>);
-                    <span class='self'>self</span>.<span class='ident'>should_stop</span>.<span class='ident'>store</span>(<span class='bool-val'>true</span>, <span class='ident'>Ordering</span>::<span class='ident'>Relaxed</span>);
-                    <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Waiting for polling thread termination&quot;</span>);
-                    <span class='kw'>match</span> <span class='ident'>handle</span>.<span class='ident'>take</span>().<span class='ident'>expect</span>(<span class='string'>&quot;No handle present in producer context&quot;</span>).<span class='ident'>join</span>() {
-                        <span class='prelude-val'>Ok</span>(()) <span class='op'>=&gt;</span> <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Polling stopped&quot;</span>),
-                        <span class='prelude-val'>Err</span>(<span class='ident'>e</span>) <span class='op'>=&gt;</span> <span class='macro'>warn</span><span class='macro'>!</span>(<span class='string'>&quot;Failure while terminating thread: {:?}&quot;</span>, <span class='ident'>e</span>),
+    <span class="comment">// See documentation in FutureProducer</span>
+    <span class="kw">fn</span> <span class="ident">stop</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">handle</span>.<span class="ident">write</span>() {
+            <span class="prelude-val">Ok</span>(<span class="kw-2">mut</span> <span class="ident">handle</span>) <span class="op">=&gt;</span> {
+                <span class="kw">if</span> <span class="ident">handle</span>.<span class="ident">is_some</span>() {
+                    <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Stopping polling&quot;</span>);
+                    <span class="self">self</span>.<span class="ident">should_stop</span>.<span class="ident">store</span>(<span class="bool-val">true</span>, <span class="ident">Ordering</span>::<span class="ident">Relaxed</span>);
+                    <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Waiting for polling thread termination&quot;</span>);
+                    <span class="kw">match</span> <span class="ident">handle</span>.<span class="ident">take</span>().<span class="ident">expect</span>(<span class="string">&quot;No handle present in producer context&quot;</span>).<span class="ident">join</span>() {
+                        <span class="prelude-val">Ok</span>(()) <span class="op">=&gt;</span> <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Polling stopped&quot;</span>),
+                        <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Failure while terminating thread: {:?}&quot;</span>, <span class="ident">e</span>),
                     };
                 }
             },
-            <span class='prelude-val'>Err</span>(_) <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;Poison error&quot;</span>),
+            <span class="prelude-val">Err</span>(_) <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Poison error&quot;</span>),
         };
     }
 
-    <span class='comment'>// See documentation in FutureProducer</span>
-    <span class='kw'>fn</span> <span class='ident'>send_copy</span><span class='op'>&lt;</span><span class='ident'>P</span>, <span class='ident'>K</span><span class='op'>&gt;</span>(
-        <span class='kw-2'>&amp;</span><span class='self'>self</span>,
-        <span class='ident'>topic_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>,
-        <span class='ident'>partition</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span>,
-        <span class='ident'>payload</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>P</span><span class='op'>&gt;</span>,
-        <span class='ident'>key</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>K</span><span class='op'>&gt;</span>,
-        <span class='ident'>timestamp</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>i64</span><span class='op'>&gt;</span>
-    ) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>DeliveryFuture</span><span class='op'>&gt;</span>
-        <span class='kw'>where</span> <span class='ident'>K</span>: <span class='ident'>ToBytes</span> <span class='op'>+</span> <span class='question-mark'>?</span><span class='ident'>Sized</span>,
-              <span class='ident'>P</span>: <span class='ident'>ToBytes</span> <span class='op'>+</span> <span class='question-mark'>?</span><span class='ident'>Sized</span> {
-        <span class='kw'>let</span> (<span class='ident'>tx</span>, <span class='ident'>rx</span>) <span class='op'>=</span> <span class='ident'>futures</span>::<span class='ident'>oneshot</span>();
-        <span class='self'>self</span>.<span class='ident'>producer</span>.<span class='ident'>send_copy</span>(<span class='ident'>topic_name</span>, <span class='ident'>partition</span>, <span class='ident'>payload</span>, <span class='ident'>key</span>, <span class='prelude-val'>Some</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>tx</span>)), <span class='ident'>timestamp</span>)<span class='question-mark'>?</span>;
-        <span class='prelude-val'>Ok</span>(<span class='ident'>DeliveryFuture</span>{<span class='ident'>rx</span>: <span class='ident'>rx</span>})
+    <span class="comment">// See documentation in FutureProducer</span>
+    <span class="kw">fn</span> <span class="ident">send_copy</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">K</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">topic_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+        <span class="ident">partition</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>,
+        <span class="ident">payload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
+        <span class="ident">key</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">K</span><span class="op">&gt;</span>,
+        <span class="ident">timestamp</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i64</span><span class="op">&gt;</span>
+    ) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">DeliveryFuture</span><span class="op">&gt;</span>
+        <span class="kw">where</span> <span class="ident">K</span>: <span class="ident">ToBytes</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span>,
+              <span class="ident">P</span>: <span class="ident">ToBytes</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span> {
+        <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">futures</span>::<span class="ident">oneshot</span>();
+        <span class="self">self</span>.<span class="ident">producer</span>.<span class="ident">send_copy</span>(<span class="ident">topic_name</span>, <span class="ident">partition</span>, <span class="ident">payload</span>, <span class="ident">key</span>, <span class="prelude-val">Some</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">tx</span>)), <span class="ident">timestamp</span>)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="ident">DeliveryFuture</span>{<span class="ident">rx</span>: <span class="ident">rx</span>})
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>Context</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>_FutureProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='macro'>trace</span><span class='macro'>!</span>(<span class='string'>&quot;Destroy _FutureProducer&quot;</span>);
-        <span class='self'>self</span>.<span class='ident'>stop</span>();
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">_FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Destroy _FutureProducer&quot;</span>);
+        <span class="self">self</span>.<span class="ident">stop</span>();
     }
 }
 
-<span class='doccomment'>/// A producer with an internal running thread. This producer doesn&#39;t need to be polled.</span>
-<span class='doccomment'>/// It can be cheaply cloned to get a reference to the same underlying producer.</span>
-<span class='doccomment'>/// The internal thread can be terminated with the `stop` method or moving the</span>
-<span class='doccomment'>/// `FutureProducer` out of scope.</span>
-<span class='attribute'>#[<span class='ident'>must_use</span> <span class='op'>=</span> <span class='string'>&quot;Producer polling thread will stop immediately if unused&quot;</span>]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>FutureProducer</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>Context</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> {
-    <span class='ident'>inner</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>_FutureProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;&gt;</span>,
+<span class="doccomment">/// A producer with an internal running thread. This producer doesn&#39;t need to be polled.</span>
+<span class="doccomment">/// It can be cheaply cloned to get a reference to the same underlying producer.</span>
+<span class="doccomment">/// The internal thread can be terminated with the `stop` method or moving the</span>
+<span class="doccomment">/// `FutureProducer` out of scope.</span>
+<span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;Producer polling thread will stop immediately if unused&quot;</span>]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> {
+    <span class="ident">inner</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">_FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;&gt;</span>,
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>Context</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> <span class='ident'>FutureProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {}
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {}
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>Context</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> <span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>FutureProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>FutureProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-        <span class='ident'>FutureProducer</span> { <span class='ident'>inner</span>: <span class='self'>self</span>.<span class='ident'>inner</span>.<span class='ident'>clone</span>() }
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+        <span class="ident">FutureProducer</span> { <span class="ident">inner</span>: <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">clone</span>() }
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>FromClientConfig</span> <span class='kw'>for</span> <span class='ident'>FutureProducer</span><span class='op'>&lt;</span><span class='ident'>EmptyContext</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>from_config</span>(<span class='ident'>config</span>: <span class='kw-2'>&amp;</span><span class='ident'>ClientConfig</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>FutureProducer</span><span class='op'>&lt;</span><span class='ident'>EmptyContext</span><span class='op'>&gt;&gt;</span> {
-        <span class='ident'>FutureProducer</span>::<span class='ident'>from_config_and_context</span>(<span class='ident'>config</span>, <span class='ident'>EmptyContext</span>)
+<span class="kw">impl</span> <span class="ident">FromClientConfig</span> <span class="kw">for</span> <span class="ident">FutureProducer</span><span class="op">&lt;</span><span class="ident">EmptyContext</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">from_config</span>(<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">ClientConfig</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">FutureProducer</span><span class="op">&lt;</span><span class="ident">EmptyContext</span><span class="op">&gt;&gt;</span> {
+        <span class="ident">FutureProducer</span>::<span class="ident">from_config_and_context</span>(<span class="ident">config</span>, <span class="ident">EmptyContext</span>)
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>Context</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> <span class='ident'>FromClientConfigAndContext</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>FutureProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>from_config_and_context</span>(<span class='ident'>config</span>: <span class='kw-2'>&amp;</span><span class='ident'>ClientConfig</span>, <span class='ident'>context</span>: <span class='ident'>C</span>) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>FutureProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>future_context</span> <span class='op'>=</span> <span class='ident'>FutureProducerContext</span> { <span class='ident'>wrapped_context</span>: <span class='ident'>context</span>};
-        <span class='kw'>let</span> <span class='ident'>inner</span> <span class='op'>=</span> <span class='ident'>_FutureProducer</span> {
-            <span class='ident'>producer</span>: <span class='ident'>BaseProducer</span>::<span class='ident'>from_config_and_context</span>(<span class='ident'>config</span>, <span class='ident'>future_context</span>)<span class='question-mark'>?</span>,
-            <span class='ident'>should_stop</span>: <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>AtomicBool</span>::<span class='ident'>new</span>(<span class='bool-val'>false</span>)),
-            <span class='ident'>handle</span>: <span class='ident'>RwLock</span>::<span class='ident'>new</span>(<span class='prelude-val'>None</span>),
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">FromClientConfigAndContext</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">from_config_and_context</span>(<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">ClientConfig</span>, <span class="ident">context</span>: <span class="ident">C</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;&gt;</span> {
+        <span class="kw">let</span> <span class="ident">future_context</span> <span class="op">=</span> <span class="ident">FutureProducerContext</span> { <span class="ident">wrapped_context</span>: <span class="ident">context</span>};
+        <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="ident">_FutureProducer</span> {
+            <span class="ident">producer</span>: <span class="ident">BaseProducer</span>::<span class="ident">from_config_and_context</span>(<span class="ident">config</span>, <span class="ident">future_context</span>)<span class="question-mark">?</span>,
+            <span class="ident">should_stop</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">AtomicBool</span>::<span class="ident">new</span>(<span class="bool-val">false</span>)),
+            <span class="ident">handle</span>: <span class="ident">RwLock</span>::<span class="ident">new</span>(<span class="prelude-val">None</span>),
         };
-        <span class='ident'>inner</span>.<span class='ident'>start</span>();
-        <span class='prelude-val'>Ok</span>(<span class='ident'>FutureProducer</span> { <span class='ident'>inner</span>: <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>inner</span>) })
+        <span class="ident">inner</span>.<span class="ident">start</span>();
+        <span class="prelude-val">Ok</span>(<span class="ident">FutureProducer</span> { <span class="ident">inner</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">inner</span>) })
     }
 }
 
-<span class='doccomment'>/// A future that will receive a `DeliveryReport` containing information on the</span>
-<span class='doccomment'>/// delivery status of the message.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>DeliveryFuture</span> {
-    <span class='ident'>rx</span>: <span class='ident'>Oneshot</span><span class='op'>&lt;</span><span class='ident'>DeliveryReport</span><span class='op'>&gt;</span>,
+<span class="doccomment">/// A future that will receive a `DeliveryReport` containing information on the</span>
+<span class="doccomment">/// delivery status of the message.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeliveryFuture</span> {
+    <span class="ident">rx</span>: <span class="ident">Oneshot</span><span class="op">&lt;</span><span class="ident">DeliveryReport</span><span class="op">&gt;</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>Future</span> <span class='kw'>for</span> <span class='ident'>DeliveryFuture</span> {
-    <span class='kw'>type</span> <span class='ident'>Item</span> <span class='op'>=</span> <span class='ident'>DeliveryReport</span>;
-    <span class='kw'>type</span> <span class='ident'>Error</span> <span class='op'>=</span> <span class='ident'>Canceled</span>;
+<span class="kw">impl</span> <span class="ident">Future</span> <span class="kw">for</span> <span class="ident">DeliveryFuture</span> {
+    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">DeliveryReport</span>;
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Canceled</span>;
 
-    <span class='kw'>fn</span> <span class='ident'>poll</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Poll</span><span class='op'>&lt;</span><span class='ident'>DeliveryReport</span>, <span class='ident'>Canceled</span><span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>rx</span>.<span class='ident'>poll</span>()
+    <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">DeliveryReport</span>, <span class="ident">Canceled</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">rx</span>.<span class="ident">poll</span>()
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>Context</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> <span class='ident'>FutureProducer</span><span class='op'>&lt;</span><span class='ident'>C</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Sends a copy of the payload and key provided to the specified topic. When no partition is</span>
-    <span class='doccomment'>/// specified the underlying Kafka library picks a partition based on the key.</span>
-    <span class='doccomment'>/// Returns a `DeliveryFuture` or an error.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>send_copy</span><span class='op'>&lt;</span><span class='ident'>P</span>, <span class='ident'>K</span><span class='op'>&gt;</span>(
-        <span class='kw-2'>&amp;</span><span class='self'>self</span>,
-        <span class='ident'>topic_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>,
-        <span class='ident'>partition</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span>,
-        <span class='ident'>payload</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>P</span><span class='op'>&gt;</span>,
-        <span class='ident'>key</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>K</span><span class='op'>&gt;</span>,
-        <span class='ident'>timestamp</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>i64</span><span class='op'>&gt;</span>
-    ) <span class='op'>-&gt;</span> <span class='ident'>KafkaResult</span><span class='op'>&lt;</span><span class='ident'>DeliveryFuture</span><span class='op'>&gt;</span>
-        <span class='kw'>where</span> <span class='ident'>K</span>: <span class='ident'>ToBytes</span> <span class='op'>+</span> <span class='question-mark'>?</span><span class='ident'>Sized</span>,
-              <span class='ident'>P</span>: <span class='ident'>ToBytes</span> <span class='op'>+</span> <span class='question-mark'>?</span><span class='ident'>Sized</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>.<span class='ident'>send_copy</span>(<span class='ident'>topic_name</span>, <span class='ident'>partition</span>, <span class='ident'>payload</span>, <span class='ident'>key</span>, <span class='ident'>timestamp</span>)
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Sends a copy of the payload and key provided to the specified topic. When no partition is</span>
+    <span class="doccomment">/// specified the underlying Kafka library picks a partition based on the key.</span>
+    <span class="doccomment">/// Returns a `DeliveryFuture` or an error.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_copy</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">K</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">topic_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+        <span class="ident">partition</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>,
+        <span class="ident">payload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
+        <span class="ident">key</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">K</span><span class="op">&gt;</span>,
+        <span class="ident">timestamp</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i64</span><span class="op">&gt;</span>
+    ) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">DeliveryFuture</span><span class="op">&gt;</span>
+        <span class="kw">where</span> <span class="ident">K</span>: <span class="ident">ToBytes</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span>,
+              <span class="ident">P</span>: <span class="ident">ToBytes</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span> {
+        <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">send_copy</span>(<span class="ident">topic_name</span>, <span class="ident">partition</span>, <span class="ident">payload</span>, <span class="ident">key</span>, <span class="ident">timestamp</span>)
     }
 
-    <span class='doccomment'>/// Stops the internal polling thread. The thread can also be stopped by moving</span>
-    <span class='doccomment'>/// the `FutureProducer` out of scope.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>stop</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) {
-        <span class='self'>self</span>.<span class='ident'>inner</span>.<span class='ident'>stop</span>();
+    <span class="doccomment">/// Stops the internal polling thread. The thread can also be stopped by moving</span>
+    <span class="doccomment">/// the `FutureProducer` out of scope.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stop</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">stop</span>();
     }
 }
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
-<span class='kw'>mod</span> <span class='ident'>tests</span> {
-    <span class='comment'>// Just test that there are no panics, and that each struct implements the expected</span>
-    <span class='comment'>// traits (Clone, Send, Sync etc.). Behavior is tested in the integrations tests.</span>
-    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='kw-2'>*</span>;
-    <span class='kw'>use</span> <span class='ident'>config</span>::<span class='ident'>ClientConfig</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="comment">// Just test that there are no panics, and that each struct implements the expected</span>
+    <span class="comment">// traits (Clone, Send, Sync etc.). Behavior is tested in the integrations tests.</span>
+    <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="ident">config</span>::<span class="ident">ClientConfig</span>;
 
-    <span class='kw'>struct</span> <span class='ident'>TestContext</span>;
+    <span class="kw">struct</span> <span class="ident">TestContext</span>;
 
-    <span class='kw'>impl</span> <span class='ident'>Context</span> <span class='kw'>for</span> <span class='ident'>TestContext</span> {}
-    <span class='kw'>impl</span> <span class='ident'>ProducerContext</span> <span class='kw'>for</span> <span class='ident'>TestContext</span> {
-        <span class='kw'>type</span> <span class='ident'>DeliveryContext</span> <span class='op'>=</span> <span class='ident'>i32</span>;
+    <span class="kw">impl</span> <span class="ident">Context</span> <span class="kw">for</span> <span class="ident">TestContext</span> {}
+    <span class="kw">impl</span> <span class="ident">ProducerContext</span> <span class="kw">for</span> <span class="ident">TestContext</span> {
+        <span class="kw">type</span> <span class="ident">DeliveryContext</span> <span class="op">=</span> <span class="ident">i32</span>;
 
-        <span class='kw'>fn</span> <span class='ident'>delivery</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, _: <span class='ident'>DeliveryReport</span>, _: <span class='self'>Self</span>::<span class='ident'>DeliveryContext</span>) {
-            <span class='macro'>unimplemented</span><span class='macro'>!</span>()
+        <span class="kw">fn</span> <span class="ident">delivery</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, _: <span class="ident">DeliveryReport</span>, _: <span class="self">Self</span>::<span class="ident">DeliveryContext</span>) {
+            <span class="macro">unimplemented</span><span class="macro">!</span>()
         }
     }
 
-    <span class='comment'>// Verify that the producer is clone, according to documentation.</span>
-    <span class='attribute'>#[<span class='ident'>test</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>test_base_producer_clone</span>() {
-        <span class='kw'>let</span> <span class='ident'>producer</span> <span class='op'>=</span> <span class='ident'>ClientConfig</span>::<span class='ident'>new</span>().<span class='ident'>create</span>::<span class='op'>&lt;</span><span class='ident'>BaseProducer</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>().<span class='ident'>unwrap</span>();
-        <span class='kw'>let</span> <span class='ident'>_producer_clone</span> <span class='op'>=</span> <span class='ident'>producer</span>.<span class='ident'>clone</span>();
+    <span class="comment">// Verify that the producer is clone, according to documentation.</span>
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_base_producer_clone</span>() {
+        <span class="kw">let</span> <span class="ident">producer</span> <span class="op">=</span> <span class="ident">ClientConfig</span>::<span class="ident">new</span>().<span class="ident">create</span>::<span class="op">&lt;</span><span class="ident">BaseProducer</span><span class="op">&lt;</span>_<span class="op">&gt;&gt;</span>().<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">_producer_clone</span> <span class="op">=</span> <span class="ident">producer</span>.<span class="ident">clone</span>();
     }
 
-    <span class='comment'>// Verify that the future producer is clone, according to documentation.</span>
-    <span class='attribute'>#[<span class='ident'>test</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>test_future_producer_clone</span>() {
-        <span class='kw'>let</span> <span class='ident'>producer</span> <span class='op'>=</span> <span class='ident'>ClientConfig</span>::<span class='ident'>new</span>().<span class='ident'>create</span>::<span class='op'>&lt;</span><span class='ident'>FutureProducer</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>().<span class='ident'>unwrap</span>();
-        <span class='kw'>let</span> <span class='ident'>_producer_clone</span> <span class='op'>=</span> <span class='ident'>producer</span>.<span class='ident'>clone</span>();
+    <span class="comment">// Verify that the future producer is clone, according to documentation.</span>
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_future_producer_clone</span>() {
+        <span class="kw">let</span> <span class="ident">producer</span> <span class="op">=</span> <span class="ident">ClientConfig</span>::<span class="ident">new</span>().<span class="ident">create</span>::<span class="op">&lt;</span><span class="ident">FutureProducer</span><span class="op">&lt;</span>_<span class="op">&gt;&gt;</span>().<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">_producer_clone</span> <span class="op">=</span> <span class="ident">producer</span>.<span class="ident">clone</span>();
     }
 
-    <span class='comment'>// Test that the future producer can be cloned even if the context is not Clone.</span>
-    <span class='attribute'>#[<span class='ident'>test</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>test_base_future_topic_send_sync</span>() {
-        <span class='kw'>let</span> <span class='ident'>test_context</span> <span class='op'>=</span> <span class='ident'>TestContext</span>;
-        <span class='kw'>let</span> <span class='ident'>producer</span> <span class='op'>=</span> <span class='ident'>ClientConfig</span>::<span class='ident'>new</span>()
-            .<span class='ident'>create_with_context</span>::<span class='op'>&lt;</span><span class='ident'>TestContext</span>, <span class='ident'>FutureProducer</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>(<span class='ident'>test_context</span>).<span class='ident'>unwrap</span>();
-        <span class='kw'>let</span> <span class='ident'>_producer_clone</span> <span class='op'>=</span> <span class='ident'>producer</span>.<span class='ident'>clone</span>();
+    <span class="comment">// Test that the future producer can be cloned even if the context is not Clone.</span>
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_base_future_topic_send_sync</span>() {
+        <span class="kw">let</span> <span class="ident">test_context</span> <span class="op">=</span> <span class="ident">TestContext</span>;
+        <span class="kw">let</span> <span class="ident">producer</span> <span class="op">=</span> <span class="ident">ClientConfig</span>::<span class="ident">new</span>()
+            .<span class="ident">create_with_context</span>::<span class="op">&lt;</span><span class="ident">TestContext</span>, <span class="ident">FutureProducer</span><span class="op">&lt;</span>_<span class="op">&gt;&gt;</span>(<span class="ident">test_context</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">_producer_clone</span> <span class="op">=</span> <span class="ident">producer</span>.<span class="ident">clone</span>();
     }
 }
 </pre>
@@ -952,7 +952,6 @@
         window.rootPath = "../../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors["rdkafka"] = ["impl <a class='trait' href='https://docs.serde.rs/serde/de/trait.Error.html' title='trait serde::de::Error'>Error</a> for Error",];
+implementors["rdkafka"] = ["impl <a class=\"trait\" href=\"https://docs.serde.rs/serde/de/trait.Error.html\" title=\"trait serde::de::Error\">Error</a> for Error",];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

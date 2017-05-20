@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -100,64 +100,70 @@
 <span id="55">55</span>
 <span id="56">56</span>
 <span id="57">57</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! This module contains type aliases for types defined in the auto-generated bindings.</span>
-<span class='kw'>use</span> <span class='ident'>bindings</span>;
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+</pre><pre class="rust ">
+<span class="doccomment">//! This module contains type aliases for types defined in the auto-generated bindings.</span>
+<span class="kw">use</span> <span class="ident">bindings</span>;
 
-<span class='comment'>// TYPES</span>
+<span class="comment">// TYPES</span>
 
-<span class='doccomment'>/// Native rdkafka client</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafka</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_t</span>;
+<span class="doccomment">/// Native rdkafka client</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafka</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_t</span>;
 
-<span class='doccomment'>/// Native rdkafka configuration</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaConf</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_conf_t</span>;
+<span class="doccomment">/// Native rdkafka configuration</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaConf</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_conf_t</span>;
 
-<span class='doccomment'>/// Native rdkafka message</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaMessage</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_message_t</span>;
+<span class="doccomment">/// Native rdkafka message</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaMessage</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_message_t</span>;
 
-<span class='doccomment'>/// Native rdkafka topic</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaTopic</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_topic_t</span>;
+<span class="doccomment">/// Native rdkafka topic</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaTopic</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_topic_t</span>;
 
-<span class='doccomment'>/// Native rdkafka topic configuration</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaTopicConf</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_topic_conf_t</span>;
+<span class="doccomment">/// Native rdkafka topic configuration</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaTopicConf</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_topic_conf_t</span>;
 
-<span class='doccomment'>/// Native rdkafka topic partition list</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaTopicPartitionList</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_topic_partition_list_t</span>;
+<span class="doccomment">/// Native rdkafka topic partition</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaTopicPartition</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_topic_partition_t</span>;
 
-<span class='doccomment'>/// Native rdkafka metadata container</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaMetadata</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_metadata_t</span>;
+<span class="doccomment">/// Native rdkafka topic partition list</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaTopicPartitionList</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_topic_partition_list_t</span>;
 
-<span class='doccomment'>/// Native rdkafka topic information</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaMetadataTopic</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_metadata_topic_t</span>;
+<span class="doccomment">/// Native rdkafka metadata container</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaMetadata</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_metadata_t</span>;
 
-<span class='doccomment'>/// Native rdkafka partition information</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaMetadataPartition</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_metadata_partition_t</span>;
+<span class="doccomment">/// Native rdkafka topic information</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaMetadataTopic</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_metadata_topic_t</span>;
 
-<span class='doccomment'>/// Native rdkafka broker information</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaMetadataBroker</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_metadata_broker_t</span>;
+<span class="doccomment">/// Native rdkafka partition information</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaMetadataPartition</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_metadata_partition_t</span>;
 
-<span class='doccomment'>/// Native rdkafka state</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaState</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_s</span>;
+<span class="doccomment">/// Native rdkafka broker information</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaMetadataBroker</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_metadata_broker_t</span>;
 
-<span class='doccomment'>/// Native rdkafka list of groups</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaGroupList</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_group_list</span>;
+<span class="doccomment">/// Native rdkafka state</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaState</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_s</span>;
 
-<span class='doccomment'>/// Native rdkafka group information</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaGroupInfo</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_group_info</span>;
+<span class="doccomment">/// Native rdkafka list of groups</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaGroupList</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_group_list</span>;
 
-<span class='doccomment'>/// Native rdkafka group member information</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RDKafkaGroupMemberInfo</span> <span class='op'>=</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_group_member_info</span>;
+<span class="doccomment">/// Native rdkafka group information</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaGroupInfo</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_group_info</span>;
 
-<span class='comment'>// ENUMS</span>
+<span class="doccomment">/// Native rdkafka group member information</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RDKafkaGroupMemberInfo</span> <span class="op">=</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_group_member_info</span>;
 
-<span class='doccomment'>/// Client types</span>
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_type_t</span> <span class='kw'>as</span> <span class='ident'>RDKafkaType</span>;
+<span class="comment">// ENUMS</span>
 
-<span class='doccomment'>/// Configuration result</span>
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_conf_res_t</span> <span class='kw'>as</span> <span class='ident'>RDKafkaConfRes</span>;
+<span class="doccomment">/// Client types</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_type_t</span> <span class="kw">as</span> <span class="ident">RDKafkaType</span>;
 
-<span class='doccomment'>/// Response error</span>
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>bindings</span>::<span class='ident'>rd_kafka_resp_err_t</span> <span class='kw'>as</span> <span class='ident'>RDKafkaRespErr</span>;
+<span class="doccomment">/// Configuration result</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_conf_res_t</span> <span class="kw">as</span> <span class="ident">RDKafkaConfRes</span>;
+
+<span class="doccomment">/// Response error</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">bindings</span>::<span class="ident">rd_kafka_resp_err_t</span> <span class="kw">as</span> <span class="ident">RDKafkaRespErr</span>;
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
@@ -216,7 +222,6 @@
         window.rootPath = "../../";
         window.currentCrate = "rdkafka_sys";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

@@ -220,6 +220,9 @@
 <span id="175">175</span>
 <span id="176">176</span>
 <span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! # rust-rdkafka</span>
 <span class="doccomment">//! A fully asynchronous, [futures]-based Kafka client library for Rust based on [librdkafka].</span>
@@ -397,7 +400,10 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">util</span>;
 
 <span class="comment">// Re-export</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">client</span>::<span class="ident">Context</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">message</span>::<span class="ident">Message</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">topic_partition_list</span>::<span class="ident">TopicPartitionList</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">topic_partition_list</span>::<span class="ident">Offset</span>;
 </pre>
 </section>
     <section id='search' class="content hidden"></section>

@@ -187,6 +187,14 @@
 <span id="142">142</span>
 <span id="143">143</span>
 <span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Error manipulations.</span>
 <span class="kw">use</span> <span class="ident">rdsys</span>;
@@ -242,6 +250,8 @@
     <span class="ident">Subscription</span>(<span class="ident">String</span>),
     <span class="ident">TopicConfig</span>(<span class="ident">RDKafkaConfRes</span>, <span class="ident">String</span>, <span class="ident">String</span>, <span class="ident">String</span>),
     <span class="ident">TopicCreation</span>(<span class="ident">String</span>),
+    <span class="ident">AllBrokersDown</span>(<span class="ident">RDKafkaRespErr</span>),
+    <span class="ident">Global</span>(<span class="ident">RDKafkaRespErr</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">KafkaError</span> {
@@ -263,6 +273,8 @@
             <span class="ident">KafkaError</span>::<span class="ident">Subscription</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Subscription error: {})&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">TopicConfig</span>(_, <span class="kw-2">ref</span> <span class="ident">desc</span>, <span class="kw-2">ref</span> <span class="ident">key</span>, <span class="kw-2">ref</span> <span class="ident">value</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Topic config error: {} {} {})&quot;</span>, <span class="ident">desc</span>, <span class="ident">key</span>, <span class="ident">value</span>),
             <span class="ident">KafkaError</span>::<span class="ident">TopicCreation</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Topic creation error: {})&quot;</span>, <span class="ident">err</span>),
+            <span class="ident">KafkaError</span>::<span class="ident">AllBrokersDown</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (All brokers down error: {})&quot;</span>, <span class="ident">resp_err_description</span>(<span class="ident">err</span>)),
+            <span class="ident">KafkaError</span>::<span class="ident">Global</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Global error: {})&quot;</span>, <span class="ident">resp_err_description</span>(<span class="ident">err</span>)),
         }
     }
 }
@@ -286,6 +298,8 @@
             <span class="ident">KafkaError</span>::<span class="ident">Subscription</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Subscription error: {}&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">TopicConfig</span>(_, <span class="kw-2">ref</span> <span class="ident">desc</span>, <span class="kw-2">ref</span> <span class="ident">key</span>, <span class="kw-2">ref</span> <span class="ident">value</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Topic config error: {} {} {}&quot;</span>, <span class="ident">desc</span>, <span class="ident">key</span>, <span class="ident">value</span>),
             <span class="ident">KafkaError</span>::<span class="ident">TopicCreation</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Topic creation error: {}&quot;</span>, <span class="ident">err</span>),
+            <span class="ident">KafkaError</span>::<span class="ident">AllBrokersDown</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;All brokers down error: {}&quot;</span>, <span class="ident">resp_err_description</span>(<span class="ident">err</span>)),
+            <span class="ident">KafkaError</span>::<span class="ident">Global</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Global error: {}&quot;</span>, <span class="ident">resp_err_description</span>(<span class="ident">err</span>)),
         }
     }
 }
@@ -309,6 +323,8 @@
             <span class="ident">KafkaError</span>::<span class="ident">Subscription</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Subscription error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">TopicConfig</span>(_, _, _, _) <span class="op">=&gt;</span> <span class="string">&quot;Topic config error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">TopicCreation</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Topic creation error&quot;</span>,
+            <span class="ident">KafkaError</span>::<span class="ident">AllBrokersDown</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;All brokers down error&quot;</span>,
+            <span class="ident">KafkaError</span>::<span class="ident">Global</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Global error&quot;</span>,
         }
     }
 

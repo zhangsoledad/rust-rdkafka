@@ -230,10 +230,17 @@
 <span id="185">185</span>
 <span id="186">186</span>
 <span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Base trait and common functionality for all consumers.</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">base_consumer</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">stream_consumer</span>;
+
+<span class="comment">// Re-export</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">base_consumer</span>::<span class="ident">BaseConsumer</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">stream_consumer</span>::{<span class="ident">MessageStream</span>, <span class="ident">StreamConsumer</span>};
 
 <span class="kw">use</span> <span class="ident">rdsys</span>;
 <span class="kw">use</span> <span class="ident">rdsys</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
@@ -247,8 +254,7 @@
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">consumer</span>::<span class="ident">base_consumer</span>::<span class="ident">BaseConsumer</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">topic_partition_list</span>::<span class="ident">TopicPartitionList</span>;
+<span class="kw">use</span> <span class="ident">topic_partition_list</span>::<span class="ident">TopicPartitionList</span>;
 
 <span class="doccomment">/// Rebalance information.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>

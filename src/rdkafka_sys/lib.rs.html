@@ -54,6 +54,8 @@
 <span id="9"> 9</span>
 <span id="10">10</span>
 <span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
 </pre><pre class="rust ">
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;ssl&quot;</span>)]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">openssl_sys</span>;
@@ -62,9 +64,11 @@
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">libz_sys</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">bindings</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">helpers</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">types</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">bindings</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">helpers</span>::<span class="kw-2">*</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">types</span>::<span class="kw-2">*</span>;
 </pre>
 </section>

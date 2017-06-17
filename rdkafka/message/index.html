@@ -48,16 +48,29 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../src/rdkafka/message.rs.html#1-206' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../src/rdkafka/message.rs.html#1-289' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Store and manipulate Kafka messages.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.Message.html"
-                                  title='struct rdkafka::message::Message'>Message</a></td>
+                           <td><a class="struct" href="struct.BorrowedMessage.html"
+                                  title='struct rdkafka::message::BorrowedMessage'>BorrowedMessage</a></td>
                            <td class='docblock-short'>
-                                <p>A native librdkafka message. Since messages cannot outlive the consumer they were received from,
-they hold a phantom reference to it.</p>
+                                <p>A native librdkafka message. The content of the message is stored in the receiving buffer of
+the consumer, to avoid memory allocations. As such, <code>BorrowedMessage</code> cannot outlive the
+consumer it is received from.
+<code>BorrowedMessage</code>s are removed from the consumer buffer once they are dropped. Holding
+references to many messages might cause the memory of the consumer to fill up and stop.
+To transform a <code>BorrowedMessage</code> into a <code>OwnedMessage</code>, use the <code>detach</code> method.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OwnedMessage.html"
+                                  title='struct rdkafka::message::OwnedMessage'>OwnedMessage</a></td>
+                           <td class='docblock-short'>
+                                <p>An <code>OwnedMessage</code> can be created from a <code>BorrowedMessage</code> using the <code>detach</code> method.
+<code>OwnedMessage</code>s don&#39;t hold any reference to the consumer, and don&#39;t use any memory inside the
+consumer buffer.</p>
                            </td>
                        </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
@@ -75,6 +88,13 @@ they hold a phantom reference to it.</p>
                            <td class='docblock-short'>
                                 <p>Given a reference to a byte array, returns a different view of the same data.
 No copy of the data should be performed.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Message.html"
+                                  title='trait rdkafka::message::Message'>Message</a></td>
+                           <td class='docblock-short'>
+                                <p>The <code>Message</code> trait provides access to the fields of a generic Kafka message.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>

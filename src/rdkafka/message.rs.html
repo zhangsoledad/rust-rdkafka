@@ -249,6 +249,89 @@
 <span id="204">204</span>
 <span id="205">205</span>
 <span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Store and manipulate Kafka messages.</span>
 <span class="kw">use</span> <span class="ident">rdsys</span>;
@@ -271,26 +354,63 @@
     <span class="ident">LogAppendTime</span>(<span class="ident">i64</span>)
 }
 
-<span class="doccomment">/// A native librdkafka message. Since messages cannot outlive the consumer they were received from,</span>
-<span class="doccomment">/// they hold a phantom reference to it.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Message</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+<span class="doccomment">/// The `Message` trait provides access to the fields of a generic Kafka message.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Message</span> {
+    <span class="doccomment">/// Returns the key of the message, or None if there is no key.</span>
+    <span class="kw">fn</span> <span class="ident">key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>;
+
+    <span class="doccomment">/// Returns the payload of the message, or None if there is no payload.</span>
+    <span class="kw">fn</span> <span class="ident">payload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>;
+
+    <span class="doccomment">/// Returns the source topic of the message.</span>
+    <span class="kw">fn</span> <span class="ident">topic</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span>;
+
+    <span class="doccomment">/// Returns the partition number where the message is stored.</span>
+    <span class="kw">fn</span> <span class="ident">partition</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span>;
+
+    <span class="doccomment">/// Returns the offset of the message.</span>
+    <span class="kw">fn</span> <span class="ident">offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i64</span>;
+
+    <span class="doccomment">/// Returns the message timestamp for a consumed message if available.</span>
+    <span class="kw">fn</span> <span class="ident">timestamp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Timestamp</span>;
+
+    <span class="doccomment">/// Converts the raw bytes of the payload to a reference of the specified type, that points to the</span>
+    <span class="doccomment">/// same data inside the message and without performing any memory allocation</span>
+    <span class="kw">fn</span> <span class="ident">payload_view</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">FromBytes</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">P</span>::<span class="ident">Error</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="ident">payload</span>().<span class="ident">map</span>(<span class="ident">P</span>::<span class="ident">from_bytes</span>)
+    }
+
+    <span class="doccomment">/// Converts the raw bytes of the key to a reference of the specified type, that points to the</span>
+    <span class="doccomment">/// same data inside the message and without performing any memory allocation</span>
+    <span class="kw">fn</span> <span class="ident">key_view</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">FromBytes</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">K</span>, <span class="ident">K</span>::<span class="ident">Error</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="ident">key</span>().<span class="ident">map</span>(<span class="ident">K</span>::<span class="ident">from_bytes</span>)
+    }
+}
+
+<span class="doccomment">/// A native librdkafka message. The content of the message is stored in the receiving buffer of</span>
+<span class="doccomment">/// the consumer, to avoid memory allocations. As such, `BorrowedMessage` cannot outlive the</span>
+<span class="doccomment">/// consumer it is received from.</span>
+<span class="doccomment">/// `BorrowedMessage`s are removed from the consumer buffer once they are dropped. Holding</span>
+<span class="doccomment">/// references to many messages might cause the memory of the consumer to fill up and stop.</span>
+<span class="doccomment">/// To transform a `BorrowedMessage` into a `OwnedMessage`, use the `detach` method.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaMessage</span>,
     <span class="ident">_p</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">u8</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">Message</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Message {{ ptr: {:?} }}&quot;</span>, <span class="self">self</span>.<span class="ident">ptr</span>())
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Message</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Creates a new Message that wraps the native Kafka message pointer. The lifetime of the</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Creates a new `BorrowedMessage` that wraps the native Kafka message pointer. The lifetime of the</span>
     <span class="doccomment">/// message will be bound to the lifetime of the consumer passed as parameter.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">X</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaMessage</span>, <span class="ident">_consumer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">C</span>) <span class="op">-&gt;</span> <span class="ident">Message</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>
-            <span class="kw">where</span> <span class="ident">X</span>: <span class="ident">ConsumerContext</span>,
-                  <span class="ident">C</span>: <span class="ident">Consumer</span><span class="op">&lt;</span><span class="ident">X</span><span class="op">&gt;</span> {
-        <span class="ident">Message</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">X</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaMessage</span>, <span class="ident">_consumer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">C</span>) <span class="op">-&gt;</span> <span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>
+        <span class="kw">where</span> <span class="ident">X</span>: <span class="ident">ConsumerContext</span>,
+              <span class="ident">C</span>: <span class="ident">Consumer</span><span class="op">&lt;</span><span class="ident">X</span><span class="op">&gt;</span> {
+        <span class="ident">BorrowedMessage</span> {
             <span class="ident">ptr</span>: <span class="ident">ptr</span>,
             <span class="ident">_p</span>: <span class="ident">PhantomData</span>,
         }
@@ -316,8 +436,22 @@
         <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">len</span> }
     }
 
-    <span class="doccomment">/// Returns the key of the message, or None if there is no key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
+    <span class="doccomment">/// Clones the content of the `BorrowedMessage` and returns an `OwnedMessage`, that can</span>
+    <span class="doccomment">/// outlive the consumer. This operation requires memory allocation and can be expensive.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">detach</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">OwnedMessage</span> {
+        <span class="ident">OwnedMessage</span> {
+            <span class="ident">key</span>: <span class="self">self</span>.<span class="ident">key</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">k</span><span class="op">|</span> <span class="ident">k</span>.<span class="ident">to_vec</span>()),
+            <span class="ident">payload</span>: <span class="self">self</span>.<span class="ident">payload</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">to_vec</span>()),
+            <span class="ident">topic</span>: <span class="self">self</span>.<span class="ident">topic</span>().<span class="ident">to_owned</span>(),
+            <span class="ident">timestamp</span>: <span class="self">self</span>.<span class="ident">timestamp</span>(),
+            <span class="ident">partition</span>: <span class="self">self</span>.<span class="ident">partition</span>(),
+            <span class="ident">offset</span>: <span class="self">self</span>.<span class="ident">offset</span>(),
+        }
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Message</span> <span class="kw">for</span> <span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">if</span> (<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">key</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">None</span>
@@ -327,8 +461,7 @@
         }
     }
 
-    <span class="doccomment">/// Returns the payload of the message, or None if there is no payload.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">payload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">payload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">if</span> (<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">payload</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">None</span>
@@ -338,8 +471,7 @@
         }
     }
 
-    <span class="doccomment">/// Returns the source topic of the message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">topic_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">fn</span> <span class="ident">topic</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
          <span class="kw">unsafe</span> {
              <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">rdsys</span>::<span class="ident">rd_kafka_topic_name</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">rkt</span>))
                  .<span class="ident">to_str</span>()
@@ -347,30 +479,15 @@
          }
      }
 
-    <span class="doccomment">/// Converts the raw bytes of the payload to a reference of type &amp;P, pointing to the same data inside</span>
-    <span class="doccomment">/// the message. The returned reference cannot outlive the message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">payload_view</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">FromBytes</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">P</span>::<span class="ident">Error</span><span class="op">&gt;&gt;</span> {
-        <span class="self">self</span>.<span class="ident">payload</span>().<span class="ident">map</span>(<span class="ident">P</span>::<span class="ident">from_bytes</span>)
-    }
-
-    <span class="doccomment">/// Converts the raw bytes of the key to a reference of type &amp;K, pointing to the same data inside</span>
-    <span class="doccomment">/// the message. The returned reference cannot outlive the message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">key_view</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">FromBytes</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">K</span>, <span class="ident">K</span>::<span class="ident">Error</span><span class="op">&gt;&gt;</span> {
-        <span class="self">self</span>.<span class="ident">key</span>().<span class="ident">map</span>(<span class="ident">K</span>::<span class="ident">from_bytes</span>)
-    }
-
-    <span class="doccomment">/// Returns the partition number where the message is stored.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">partition</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span> {
+    <span class="kw">fn</span> <span class="ident">partition</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span> {
         <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">partition</span> }
     }
 
-    <span class="doccomment">/// Returns the offset of the message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i64</span> {
+    <span class="kw">fn</span> <span class="ident">offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i64</span> {
         <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">offset</span> }
     }
 
-    <span class="doccomment">/// Returns the message timestamp for a consumed message if available.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">timestamp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Timestamp</span> {
+    <span class="kw">fn</span> <span class="ident">timestamp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Timestamp</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">timestamp_type</span> <span class="op">=</span> <span class="ident">rdsys</span>::<span class="ident">rd_kafka_timestamp_type_t</span>::<span class="ident">RD_KAFKA_TIMESTAMP_NOT_AVAILABLE</span>;
         <span class="kw">let</span> <span class="ident">timestamp</span> <span class="op">=</span> <span class="kw">unsafe</span> {
             <span class="ident">rdsys</span>::<span class="ident">rd_kafka_message_timestamp</span>(
@@ -387,12 +504,61 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">Message</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Destroying message {:?}&quot;</span>, <span class="self">self</span>);
         <span class="kw">unsafe</span> { <span class="ident">rdsys</span>::<span class="ident">rd_kafka_message_destroy</span>(<span class="self">self</span>.<span class="ident">ptr</span>) };
     }
 }
+
+<span class="comment">//</span>
+<span class="comment">// ********** OWNED MESSAGE **********</span>
+<span class="comment">//</span>
+
+<span class="doccomment">/// An `OwnedMessage` can be created from a `BorrowedMessage` using the `detach` method.</span>
+<span class="doccomment">/// `OwnedMessage`s don&#39;t hold any reference to the consumer, and don&#39;t use any memory inside the</span>
+<span class="doccomment">/// consumer buffer.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OwnedMessage</span> {
+    <span class="ident">payload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">key</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">topic</span>: <span class="ident">String</span>,
+    <span class="ident">timestamp</span>: <span class="ident">Timestamp</span>,
+    <span class="ident">partition</span>: <span class="ident">i32</span>,
+    <span class="ident">offset</span>: <span class="ident">i64</span>
+}
+
+<span class="kw">impl</span> <span class="ident">Message</span> <span class="kw">for</span> <span class="ident">OwnedMessage</span> {
+    <span class="kw">fn</span> <span class="ident">key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">key</span> {
+            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">k</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">k</span>.<span class="ident">as_slice</span>()),
+            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+        }
+    }
+
+    <span class="kw">fn</span> <span class="ident">payload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">payload</span> {
+            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">p</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">p</span>.<span class="ident">as_slice</span>()),
+            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+        }
+    }
+
+    <span class="kw">fn</span> <span class="ident">topic</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="self">self</span>.<span class="ident">topic</span>.<span class="ident">as_ref</span>()
+    }
+
+    <span class="kw">fn</span> <span class="ident">partition</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i32</span> {
+        <span class="self">self</span>.<span class="ident">partition</span>
+    }
+
+    <span class="kw">fn</span> <span class="ident">offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">i64</span> {
+        <span class="self">self</span>.<span class="ident">offset</span>
+    }
+
+    <span class="kw">fn</span> <span class="ident">timestamp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Timestamp</span> {
+        <span class="self">self</span>.<span class="ident">timestamp</span>
+    }
+}
+
 
 <span class="doccomment">/// Given a reference to a byte array, returns a different view of the same data.</span>
 <span class="doccomment">/// No copy of the data should be performed.</span>

@@ -248,7 +248,7 @@
 <span class="kw">use</span> <span class="ident">client</span>::{<span class="ident">Context</span>, <span class="ident">NativeClient</span>};
 <span class="kw">use</span> <span class="ident">error</span>::<span class="ident">KafkaResult</span>;
 <span class="kw">use</span> <span class="ident">groups</span>::<span class="ident">GroupList</span>;
-<span class="kw">use</span> <span class="ident">message</span>::<span class="ident">Message</span>;
+<span class="kw">use</span> <span class="ident">message</span>::<span class="ident">BorrowedMessage</span>;
 <span class="kw">use</span> <span class="ident">metadata</span>::<span class="ident">Metadata</span>;
 <span class="kw">use</span> <span class="ident">util</span>::<span class="ident">cstr_to_owned</span>;
 
@@ -368,13 +368,13 @@
     <span class="doccomment">/// Commit a specific message. If mode is set to CommitMode::Sync,</span>
     <span class="doccomment">/// the call will block until the message has been successfully</span>
     <span class="doccomment">/// committed.</span>
-    <span class="kw">fn</span> <span class="ident">commit_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">Message</span>, <span class="ident">mode</span>: <span class="ident">CommitMode</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">commit_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">BorrowedMessage</span>, <span class="ident">mode</span>: <span class="ident">CommitMode</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">get_base_consumer</span>().<span class="ident">commit_message</span>(<span class="ident">message</span>, <span class="ident">mode</span>)
     }
 
     <span class="doccomment">/// Store offset for this message to be used on the next (auto)commit.</span>
     <span class="doccomment">/// When using this `enable.auto.offset.store` should be set to `false` in the config.</span>
-    <span class="kw">fn</span> <span class="ident">store_offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">Message</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">store_offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">BorrowedMessage</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">get_base_consumer</span>().<span class="ident">store_offset</span>(<span class="ident">message</span>)
     }
 

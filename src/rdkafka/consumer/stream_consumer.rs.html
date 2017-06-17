@@ -268,7 +268,7 @@
 <span class="kw">use</span> <span class="ident">consumer</span>::<span class="ident">base_consumer</span>::<span class="ident">BaseConsumer</span>;
 <span class="kw">use</span> <span class="ident">consumer</span>::{<span class="ident">Consumer</span>, <span class="ident">ConsumerContext</span>, <span class="ident">EmptyConsumerContext</span>};
 <span class="kw">use</span> <span class="ident">error</span>::{<span class="ident">KafkaError</span>, <span class="ident">KafkaResult</span>};
-<span class="kw">use</span> <span class="ident">message</span>::<span class="ident">Message</span>;
+<span class="kw">use</span> <span class="ident">message</span>::<span class="ident">BorrowedMessage</span>;
 <span class="kw">use</span> <span class="ident">util</span>::<span class="ident">duration_to_millis</span>;
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cell</span>::<span class="ident">Cell</span>;
@@ -280,7 +280,7 @@
 
 <span class="doccomment">/// A small wrapper for a message pointer. This wrapper is only used to</span>
 <span class="doccomment">/// pass a message between the polling thread and the thread consuming the stream,</span>
-<span class="doccomment">/// and transform it from pointer to `Message` with a lifetime that derives from the</span>
+<span class="doccomment">/// and transform it from pointer to `BorrowedMessage` with a lifetime that derives from the</span>
 <span class="doccomment">/// lifetime of the stream consumer. In general is not safe to pass a struct with an internal</span>
 <span class="doccomment">/// reference across threads. However the `StreamConsumer` guarantees that the polling thread</span>
 <span class="doccomment">/// will be terminated before the consumer is actually dropped, ensuring that the messages</span>
@@ -300,8 +300,8 @@
 
     <span class="doccomment">/// Transforms the `PolledMessagePtr` into a message, that will be bound to the lifetime</span>
     <span class="doccomment">/// of the provided consumer.</span>
-    <span class="kw">fn</span> <span class="ident">into_message_of</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span>: <span class="ident">ConsumerContext</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">consumer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">StreamConsumer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Message</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-        <span class="ident">Message</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">message_ptr</span>.<span class="ident">take</span>().<span class="ident">unwrap</span>(), <span class="ident">consumer</span>)
+    <span class="kw">fn</span> <span class="ident">into_message_of</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span>: <span class="ident">ConsumerContext</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">consumer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">StreamConsumer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+        <span class="ident">BorrowedMessage</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">message_ptr</span>.<span class="ident">take</span>().<span class="ident">unwrap</span>(), <span class="ident">consumer</span>)
     }
 }
 
@@ -339,7 +339,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span>: <span class="ident">ConsumerContext</span> <span class="op">+</span> <span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Stream</span> <span class="kw">for</span> <span class="ident">MessageStream</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span><span class="op">&gt;</span> {
-    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>;
+    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>;
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> ();
 
     <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {

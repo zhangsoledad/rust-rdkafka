@@ -370,10 +370,6 @@
 <span id="325">325</span>
 <span id="326">326</span>
 <span id="327">327</span>
-<span id="328">328</span>
-<span id="329">329</span>
-<span id="330">330</span>
-<span id="331">331</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Common client functionalities.</span>
 <span class="kw">use</span> <span class="ident">rdsys</span>;
@@ -547,7 +543,7 @@
         };
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Metadata fetch completed&quot;</span>);
         <span class="kw">if</span> <span class="ident">ret</span>.<span class="ident">is_error</span>() {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">MetadataFetch</span>(<span class="ident">ret</span>));
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">MetadataFetch</span>(<span class="ident">ret</span>.<span class="ident">into</span>()));
         }
 
         <span class="prelude-val">Ok</span>(<span class="ident">Metadata</span>::<span class="ident">from_ptr</span>(<span class="ident">metadata_ptr</span>))
@@ -563,7 +559,7 @@
                                                     <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">low</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">i64</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">high</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">i64</span>, <span class="ident">timeout_ms</span>)
         };
         <span class="kw">if</span> <span class="ident">ret</span>.<span class="ident">is_error</span>() {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">MetadataFetch</span>(<span class="ident">ret</span>));
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">MetadataFetch</span>(<span class="ident">ret</span>.<span class="ident">into</span>()));
         }
         <span class="prelude-val">Ok</span>((<span class="ident">low</span>, <span class="ident">high</span>))
     }
@@ -589,7 +585,7 @@
         };
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Group list fetch completed&quot;</span>);
         <span class="kw">if</span> <span class="ident">ret</span>.<span class="ident">is_error</span>() {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">GroupListFetch</span>(<span class="ident">ret</span>));
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">GroupListFetch</span>(<span class="ident">ret</span>.<span class="ident">into</span>()));
         }
 
         <span class="prelude-val">Ok</span>(<span class="ident">GroupList</span>::<span class="ident">from_ptr</span>(<span class="ident">group_list_ptr</span>))
@@ -673,13 +669,9 @@
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">native_error_cb</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span><span class="op">&gt;</span>(
         <span class="ident">_client</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafka</span>, <span class="ident">err</span>: <span class="ident">i32</span>, <span class="ident">reason</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">i8</span>,
         <span class="ident">opaque</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>) {
-    <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="ident">rdsys</span>::<span class="ident">primive_to_rd_kafka_resp_err_t</span>(<span class="ident">err</span>).<span class="ident">expect</span>(<span class="string">&quot;global error not an rd_kafka_resp_err_t&quot;</span>);
-    <span class="kw">let</span> <span class="ident">error</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">err</span> {
-        <span class="ident">rdsys</span>::<span class="ident">rd_kafka_resp_err_t</span>::<span class="ident">RD_KAFKA_RESP_ERR__ALL_BROKERS_DOWN</span> <span class="op">=&gt;</span> {
-            <span class="ident">KafkaError</span>::<span class="ident">AllBrokersDown</span>(<span class="ident">err</span>)
-        }
-        _ <span class="op">=&gt;</span> <span class="ident">KafkaError</span>::<span class="ident">Global</span>(<span class="ident">err</span>),
-    };
+    <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="ident">rdsys</span>::<span class="ident">primitive_to_rd_kafka_resp_err_t</span>(<span class="ident">err</span>)
+        .<span class="ident">expect</span>(<span class="string">&quot;global error not an rd_kafka_resp_err_t&quot;</span>);
+    <span class="kw">let</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">KafkaError</span>::<span class="ident">Global</span>(<span class="ident">err</span>.<span class="ident">into</span>());
     <span class="kw">let</span> <span class="ident">reason</span> <span class="op">=</span> <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">reason</span>).<span class="ident">to_string_lossy</span>();
 
     <span class="kw">let</span> <span class="ident">context</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">from_raw</span>(<span class="ident">opaque</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">C</span>);

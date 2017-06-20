@@ -544,7 +544,7 @@
     <span class="doccomment">/// Returns the result of the production of the message.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">result</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span>(<span class="ident">i32</span>, <span class="ident">i64</span>)<span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">error</span>.<span class="ident">is_error</span>() {
-            <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">MessageProduction</span>(<span class="self">self</span>.<span class="ident">error</span>))
+            <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">MessageProduction</span>(<span class="self">self</span>.<span class="ident">error</span>.<span class="ident">into</span>()))
         } <span class="kw">else</span> {
             <span class="prelude-val">Ok</span>((<span class="self">self</span>.<span class="ident">partition</span>, <span class="self">self</span>.<span class="ident">offset</span>))
         }
@@ -643,7 +643,7 @@
             )
         };
         <span class="kw">if</span> <span class="ident">produce_error</span>.<span class="ident">is_error</span>() {
-            <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">MessageProduction</span>(<span class="ident">produce_error</span>))
+            <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">MessageProduction</span>(<span class="ident">produce_error</span>.<span class="ident">into</span>()))
         } <span class="kw">else</span> {
             <span class="prelude-val">Ok</span>(())
         }

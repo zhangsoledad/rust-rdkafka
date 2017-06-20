@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'>Module error</p><div class="block items"><ul><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a></p><script>window.sidebarCurrent = {name: 'error', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'>Module error</p><div class="block items"><ul><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a></p><script>window.sidebarCurrent = {name: 'error', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -48,7 +48,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../src/rdkafka/error.rs.html#1-152' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../src/rdkafka/error.rs.html#1-149' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Error manipulations.</p>
 </div><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
@@ -56,7 +56,15 @@
                            <td><a class="enum" href="enum.KafkaError.html"
                                   title='enum rdkafka::error::KafkaError'>KafkaError</a></td>
                            <td class='docblock-short'>
-                                <p>Represents all Kafka errors.</p>
+                                <p>Represents all Kafka errors. Check the underlying <code>RDKafkaError</code> to get details.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.RDKafkaError.html"
+                                  title='enum rdkafka::error::RDKafkaError'>RDKafkaError</a></td>
+                           <td class='docblock-short'>
+                                <p>Errors enum
+Error from the underlying rdkafka library.</p>
                            </td>
                        </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
@@ -65,14 +73,6 @@
                                   title='trait rdkafka::error::IsError'>IsError</a></td>
                            <td class='docblock-short'>
                                 <p>Verify if the value represents an error condition.</p>
-                           </td>
-                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
-<table>
-                       <tr class=' module-item'>
-                           <td><a class="fn" href="fn.resp_err_description.html"
-                                  title='fn rdkafka::error::resp_err_description'>resp_err_description</a></td>
-                           <td class='docblock-short'>
-                                <p>Returns a string containing a description of the error.</p>
                            </td>
                        </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
 <table>

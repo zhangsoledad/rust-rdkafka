@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `RDKafkaError` enum in crate `rdkafka_sys`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, RDKafkaError">
+
+    <title>rdkafka_sys::types::RDKafkaError - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc enum">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'>Enum RDKafkaError</p><div class="block items"><ul><li><a href="#variants">Variants</a></li><li><a href="#implementations">Trait Implementations</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka_sys</a>::<wbr><a href='index.html'>types</a></p><script>window.sidebarCurrent = {name: 'RDKafkaError', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>rdkafka_sys</a>::<wbr><a href='index.html'>types</a>::<wbr><a class="enum" href=''>RDKafkaError</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/rdkafka_sys/types.rs.html#70-239' title='goto source code'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum RDKafkaError {
+    BadMessage,
+    BadCompression,
+    BrokerDestroy,
+    Fail,
+    BrokerTransportFailure,
+    CriticalSystemResource,
+    Resolve,
+    MessageTimedOut,
+    PartitionEOF,
+    UnknownPartition,
+    FileSystem,
+    UnknownTopic,
+    AllBrokersDown,
+    InvalidArgument,
+    OperationTimedOut,
+    QueueFull,
+    ISRInsufficient,
+    NodeUpdate,
+    SSL,
+    WaitingForCoordinator,
+    UnknownGroup,
+    InProgress,
+    PreviousInProgress,
+    ExistingSubscription,
+    AssignPartitions,
+    RevokePartitions,
+    Conflict,
+    State,
+    UnknownProtocol,
+    NotImplemented,
+    Authentication,
+    NoOffset,
+    Outdated,
+    TimedOutQueue,
+    UnsupportedFeature,
+    WaitCache,
+    Unknown,
+    NoError,
+    OffsetOutOfRange,
+    InvalidMessage,
+    UnknownTopicOrPartition,
+    InvalidMessageSize,
+    LeaderNotAvailable,
+    NotLeaderForPartition,
+    RequestTimedOut,
+    BrokerNotAvailable,
+    ReplicaNotAvailable,
+    MessageSizeTooLarge,
+    StaleControllerEpoch,
+    OffsetMetadataTooLarge,
+    NetworkException,
+    GroupLoadInProgress,
+    GroupCoordinatorNotAvailable,
+    NotCoordinatorForGroup,
+    InvalidTopic,
+    MessageBatchTooLarge,
+    NotEnoughReplicas,
+    NotEnoughReplicasAfterAppend,
+    InvalidRequiredAcks,
+    IllegalGeneration,
+    InconsistentGroupProtocol,
+    InvalidGroupId,
+    UnknownMemberId,
+    InvalidSessionTimeout,
+    RebalanceInProgress,
+    InvalidCommitOffsetSize,
+    TopicAuthorizationFailed,
+    GroupAuthorizationFailed,
+    ClusterAuthorizationFailed,
+    InvalidTimestamp,
+    UnsupportedSASLMechanism,
+    IllegalSASLState,
+    UnsupportedVersion,
+    TopicAlreadyExists,
+    InvalidPartitions,
+    InvalidReplicationFactor,
+    InvalidReplicaAssignment,
+    InvalidConfig,
+    NotController,
+    InvalidRequest,
+    UnsupportedForMessageFormat,
+    // some variants omitted
+}</pre><div class='docblock'><p>Errors enum
+Error from the underlying rdkafka library.</p>
+</div><h2 id='variants' class='variants'>Variants</h2>
+<span id='variant.BadMessage' class='variant'><span id='BadMessage.v' class='invisible'><code>BadMessage</code></span></span><div class='docblock'><p>Received message is incorrect</p>
+</div><span id='variant.BadCompression' class='variant'><span id='BadCompression.v' class='invisible'><code>BadCompression</code></span></span><div class='docblock'><p>Bad/unknown compression</p>
+</div><span id='variant.BrokerDestroy' class='variant'><span id='BrokerDestroy.v' class='invisible'><code>BrokerDestroy</code></span></span><div class='docblock'><p>Broker is going away</p>
+</div><span id='variant.Fail' class='variant'><span id='Fail.v' class='invisible'><code>Fail</code></span></span><div class='docblock'><p>Generic failure</p>
+</div><span id='variant.BrokerTransportFailure' class='variant'><span id='BrokerTransportFailure.v' class='invisible'><code>BrokerTransportFailure</code></span></span><div class='docblock'><p>Broker transport failure</p>
+</div><span id='variant.CriticalSystemResource' class='variant'><span id='CriticalSystemResource.v' class='invisible'><code>CriticalSystemResource</code></span></span><div class='docblock'><p>Critical system resource</p>
+</div><span id='variant.Resolve' class='variant'><span id='Resolve.v' class='invisible'><code>Resolve</code></span></span><div class='docblock'><p>Failed to resolve broker</p>
+</div><span id='variant.MessageTimedOut' class='variant'><span id='MessageTimedOut.v' class='invisible'><code>MessageTimedOut</code></span></span><div class='docblock'><p>Produced message timed out</p>
+</div><span id='variant.PartitionEOF' class='variant'><span id='PartitionEOF.v' class='invisible'><code>PartitionEOF</code></span></span><div class='docblock'><p>Reached the end of the topic+partition queue on the broker. Not really an error.</p>
+</div><span id='variant.UnknownPartition' class='variant'><span id='UnknownPartition.v' class='invisible'><code>UnknownPartition</code></span></span><div class='docblock'><p>Permanent: Partition does not exist in cluster.</p>
+</div><span id='variant.FileSystem' class='variant'><span id='FileSystem.v' class='invisible'><code>FileSystem</code></span></span><div class='docblock'><p>File or filesystem error</p>
+</div><span id='variant.UnknownTopic' class='variant'><span id='UnknownTopic.v' class='invisible'><code>UnknownTopic</code></span></span><div class='docblock'><p>Permanent: Topic does not exist in cluster.</p>
+</div><span id='variant.AllBrokersDown' class='variant'><span id='AllBrokersDown.v' class='invisible'><code>AllBrokersDown</code></span></span><div class='docblock'><p>All broker connections are down.</p>
+</div><span id='variant.InvalidArgument' class='variant'><span id='InvalidArgument.v' class='invisible'><code>InvalidArgument</code></span></span><div class='docblock'><p>Invalid argument, or invalid configuration</p>
+</div><span id='variant.OperationTimedOut' class='variant'><span id='OperationTimedOut.v' class='invisible'><code>OperationTimedOut</code></span></span><div class='docblock'><p>Operation timed out</p>
+</div><span id='variant.QueueFull' class='variant'><span id='QueueFull.v' class='invisible'><code>QueueFull</code></span></span><div class='docblock'><p>Queue is full</p>
+</div><span id='variant.ISRInsufficient' class='variant'><span id='ISRInsufficient.v' class='invisible'><code>ISRInsufficient</code></span></span><div class='docblock'><p>ISR count &lt; required.acks</p>
+</div><span id='variant.NodeUpdate' class='variant'><span id='NodeUpdate.v' class='invisible'><code>NodeUpdate</code></span></span><div class='docblock'><p>Broker node update</p>
+</div><span id='variant.SSL' class='variant'><span id='SSL.v' class='invisible'><code>SSL</code></span></span><div class='docblock'><p>SSL error</p>
+</div><span id='variant.WaitingForCoordinator' class='variant'><span id='WaitingForCoordinator.v' class='invisible'><code>WaitingForCoordinator</code></span></span><div class='docblock'><p>Waiting for coordinator to become available.</p>
+</div><span id='variant.UnknownGroup' class='variant'><span id='UnknownGroup.v' class='invisible'><code>UnknownGroup</code></span></span><div class='docblock'><p>Unknown client group</p>
+</div><span id='variant.InProgress' class='variant'><span id='InProgress.v' class='invisible'><code>InProgress</code></span></span><div class='docblock'><p>Operation in progress</p>
+</div><span id='variant.PreviousInProgress' class='variant'><span id='PreviousInProgress.v' class='invisible'><code>PreviousInProgress</code></span></span><div class='docblock'><p>Previous operation in progress, wait for it to finish.</p>
+</div><span id='variant.ExistingSubscription' class='variant'><span id='ExistingSubscription.v' class='invisible'><code>ExistingSubscription</code></span></span><div class='docblock'><p>This operation would interfere with an existing subscription</p>
+</div><span id='variant.AssignPartitions' class='variant'><span id='AssignPartitions.v' class='invisible'><code>AssignPartitions</code></span></span><div class='docblock'><p>Assigned partitions (rebalance_cb)</p>
+</div><span id='variant.RevokePartitions' class='variant'><span id='RevokePartitions.v' class='invisible'><code>RevokePartitions</code></span></span><div class='docblock'><p>Revoked partitions (rebalance_cb)</p>
+</div><span id='variant.Conflict' class='variant'><span id='Conflict.v' class='invisible'><code>Conflict</code></span></span><div class='docblock'><p>Conflicting use</p>
+</div><span id='variant.State' class='variant'><span id='State.v' class='invisible'><code>State</code></span></span><div class='docblock'><p>Wrong state</p>
+</div><span id='variant.UnknownProtocol' class='variant'><span id='UnknownProtocol.v' class='invisible'><code>UnknownProtocol</code></span></span><div class='docblock'><p>Unknown protocol</p>
+</div><span id='variant.NotImplemented' class='variant'><span id='NotImplemented.v' class='invisible'><code>NotImplemented</code></span></span><div class='docblock'><p>Not implemented</p>
+</div><span id='variant.Authentication' class='variant'><span id='Authentication.v' class='invisible'><code>Authentication</code></span></span><div class='docblock'><p>Authentication failure</p>
+</div><span id='variant.NoOffset' class='variant'><span id='NoOffset.v' class='invisible'><code>NoOffset</code></span></span><div class='docblock'><p>No stored offset</p>
+</div><span id='variant.Outdated' class='variant'><span id='Outdated.v' class='invisible'><code>Outdated</code></span></span><div class='docblock'><p>Outdated</p>
+</div><span id='variant.TimedOutQueue' class='variant'><span id='TimedOutQueue.v' class='invisible'><code>TimedOutQueue</code></span></span><div class='docblock'><p>Timed out in queue</p>
+</div><span id='variant.UnsupportedFeature' class='variant'><span id='UnsupportedFeature.v' class='invisible'><code>UnsupportedFeature</code></span></span><div class='docblock'><p>Feature not supported by broker</p>
+</div><span id='variant.WaitCache' class='variant'><span id='WaitCache.v' class='invisible'><code>WaitCache</code></span></span><div class='docblock'><p>Awaiting cache update</p>
+</div><span id='variant.Unknown' class='variant'><span id='Unknown.v' class='invisible'><code>Unknown</code></span></span><div class='docblock'><p>Unknown broker error</p>
+</div><span id='variant.NoError' class='variant'><span id='NoError.v' class='invisible'><code>NoError</code></span></span><div class='docblock'><p>Success</p>
+</div><span id='variant.OffsetOutOfRange' class='variant'><span id='OffsetOutOfRange.v' class='invisible'><code>OffsetOutOfRange</code></span></span><div class='docblock'><p>Offset out of range</p>
+</div><span id='variant.InvalidMessage' class='variant'><span id='InvalidMessage.v' class='invisible'><code>InvalidMessage</code></span></span><div class='docblock'><p>Invalid message</p>
+</div><span id='variant.UnknownTopicOrPartition' class='variant'><span id='UnknownTopicOrPartition.v' class='invisible'><code>UnknownTopicOrPartition</code></span></span><div class='docblock'><p>Unknown topic or partition</p>
+</div><span id='variant.InvalidMessageSize' class='variant'><span id='InvalidMessageSize.v' class='invisible'><code>InvalidMessageSize</code></span></span><div class='docblock'><p>Invalid message size</p>
+</div><span id='variant.LeaderNotAvailable' class='variant'><span id='LeaderNotAvailable.v' class='invisible'><code>LeaderNotAvailable</code></span></span><div class='docblock'><p>Leader not available</p>
+</div><span id='variant.NotLeaderForPartition' class='variant'><span id='NotLeaderForPartition.v' class='invisible'><code>NotLeaderForPartition</code></span></span><div class='docblock'><p>Not leader for partition</p>
+</div><span id='variant.RequestTimedOut' class='variant'><span id='RequestTimedOut.v' class='invisible'><code>RequestTimedOut</code></span></span><div class='docblock'><p>Request timed out</p>
+</div><span id='variant.BrokerNotAvailable' class='variant'><span id='BrokerNotAvailable.v' class='invisible'><code>BrokerNotAvailable</code></span></span><div class='docblock'><p>Broker not available</p>
+</div><span id='variant.ReplicaNotAvailable' class='variant'><span id='ReplicaNotAvailable.v' class='invisible'><code>ReplicaNotAvailable</code></span></span><div class='docblock'><p>Replica not available</p>
+</div><span id='variant.MessageSizeTooLarge' class='variant'><span id='MessageSizeTooLarge.v' class='invisible'><code>MessageSizeTooLarge</code></span></span><div class='docblock'><p>Message size too large</p>
+</div><span id='variant.StaleControllerEpoch' class='variant'><span id='StaleControllerEpoch.v' class='invisible'><code>StaleControllerEpoch</code></span></span><div class='docblock'><p>Stale controller epoch code</p>
+</div><span id='variant.OffsetMetadataTooLarge' class='variant'><span id='OffsetMetadataTooLarge.v' class='invisible'><code>OffsetMetadataTooLarge</code></span></span><div class='docblock'><p>Offset metadata string too large</p>
+</div><span id='variant.NetworkException' class='variant'><span id='NetworkException.v' class='invisible'><code>NetworkException</code></span></span><div class='docblock'><p>Broker disconnected before response received</p>
+</div><span id='variant.GroupLoadInProgress' class='variant'><span id='GroupLoadInProgress.v' class='invisible'><code>GroupLoadInProgress</code></span></span><div class='docblock'><p>Group coordinator load in progress</p>
+</div><span id='variant.GroupCoordinatorNotAvailable' class='variant'><span id='GroupCoordinatorNotAvailable.v' class='invisible'><code>GroupCoordinatorNotAvailable</code></span></span><div class='docblock'><p>Group coordinator not available</p>
+</div><span id='variant.NotCoordinatorForGroup' class='variant'><span id='NotCoordinatorForGroup.v' class='invisible'><code>NotCoordinatorForGroup</code></span></span><div class='docblock'><p>Not coordinator for group</p>
+</div><span id='variant.InvalidTopic' class='variant'><span id='InvalidTopic.v' class='invisible'><code>InvalidTopic</code></span></span><div class='docblock'><p>Invalid topic</p>
+</div><span id='variant.MessageBatchTooLarge' class='variant'><span id='MessageBatchTooLarge.v' class='invisible'><code>MessageBatchTooLarge</code></span></span><div class='docblock'><p>Message batch larger than configured server segment size</p>
+</div><span id='variant.NotEnoughReplicas' class='variant'><span id='NotEnoughReplicas.v' class='invisible'><code>NotEnoughReplicas</code></span></span><div class='docblock'><p>Not enough in-sync replicas</p>
+</div><span id='variant.NotEnoughReplicasAfterAppend' class='variant'><span id='NotEnoughReplicasAfterAppend.v' class='invisible'><code>NotEnoughReplicasAfterAppend</code></span></span><div class='docblock'><p>Message(s) written to insufficient number of in-sync replicas</p>
+</div><span id='variant.InvalidRequiredAcks' class='variant'><span id='InvalidRequiredAcks.v' class='invisible'><code>InvalidRequiredAcks</code></span></span><div class='docblock'><p>Invalid required acks value</p>
+</div><span id='variant.IllegalGeneration' class='variant'><span id='IllegalGeneration.v' class='invisible'><code>IllegalGeneration</code></span></span><div class='docblock'><p>Specified group generation id is not valid</p>
+</div><span id='variant.InconsistentGroupProtocol' class='variant'><span id='InconsistentGroupProtocol.v' class='invisible'><code>InconsistentGroupProtocol</code></span></span><div class='docblock'><p>Inconsistent group protocol</p>
+</div><span id='variant.InvalidGroupId' class='variant'><span id='InvalidGroupId.v' class='invisible'><code>InvalidGroupId</code></span></span><div class='docblock'><p>Invalid group.id</p>
+</div><span id='variant.UnknownMemberId' class='variant'><span id='UnknownMemberId.v' class='invisible'><code>UnknownMemberId</code></span></span><div class='docblock'><p>Unknown member</p>
+</div><span id='variant.InvalidSessionTimeout' class='variant'><span id='InvalidSessionTimeout.v' class='invisible'><code>InvalidSessionTimeout</code></span></span><div class='docblock'><p>Invalid session timeout</p>
+</div><span id='variant.RebalanceInProgress' class='variant'><span id='RebalanceInProgress.v' class='invisible'><code>RebalanceInProgress</code></span></span><div class='docblock'><p>Group rebalance in progress</p>
+</div><span id='variant.InvalidCommitOffsetSize' class='variant'><span id='InvalidCommitOffsetSize.v' class='invisible'><code>InvalidCommitOffsetSize</code></span></span><div class='docblock'><p>Commit offset data size is not valid</p>
+</div><span id='variant.TopicAuthorizationFailed' class='variant'><span id='TopicAuthorizationFailed.v' class='invisible'><code>TopicAuthorizationFailed</code></span></span><div class='docblock'><p>Topic authorization failed</p>
+</div><span id='variant.GroupAuthorizationFailed' class='variant'><span id='GroupAuthorizationFailed.v' class='invisible'><code>GroupAuthorizationFailed</code></span></span><div class='docblock'><p>Group authorization failed</p>
+</div><span id='variant.ClusterAuthorizationFailed' class='variant'><span id='ClusterAuthorizationFailed.v' class='invisible'><code>ClusterAuthorizationFailed</code></span></span><div class='docblock'><p>Cluster authorization failed</p>
+</div><span id='variant.InvalidTimestamp' class='variant'><span id='InvalidTimestamp.v' class='invisible'><code>InvalidTimestamp</code></span></span><div class='docblock'><p>Invalid timestamp</p>
+</div><span id='variant.UnsupportedSASLMechanism' class='variant'><span id='UnsupportedSASLMechanism.v' class='invisible'><code>UnsupportedSASLMechanism</code></span></span><div class='docblock'><p>Unsupported SASL mechanism</p>
+</div><span id='variant.IllegalSASLState' class='variant'><span id='IllegalSASLState.v' class='invisible'><code>IllegalSASLState</code></span></span><div class='docblock'><p>Illegal SASL state</p>
+</div><span id='variant.UnsupportedVersion' class='variant'><span id='UnsupportedVersion.v' class='invisible'><code>UnsupportedVersion</code></span></span><div class='docblock'><p>Unsupported version</p>
+</div><span id='variant.TopicAlreadyExists' class='variant'><span id='TopicAlreadyExists.v' class='invisible'><code>TopicAlreadyExists</code></span></span><div class='docblock'><p>Topic already exists</p>
+</div><span id='variant.InvalidPartitions' class='variant'><span id='InvalidPartitions.v' class='invisible'><code>InvalidPartitions</code></span></span><div class='docblock'><p>Invalid number of partitions</p>
+</div><span id='variant.InvalidReplicationFactor' class='variant'><span id='InvalidReplicationFactor.v' class='invisible'><code>InvalidReplicationFactor</code></span></span><div class='docblock'><p>Invalid replication factor</p>
+</div><span id='variant.InvalidReplicaAssignment' class='variant'><span id='InvalidReplicaAssignment.v' class='invisible'><code>InvalidReplicaAssignment</code></span></span><div class='docblock'><p>Invalid replica assignment</p>
+</div><span id='variant.InvalidConfig' class='variant'><span id='InvalidConfig.v' class='invisible'><code>InvalidConfig</code></span></span><div class='docblock'><p>Invalid config */</p>
+</div><span id='variant.NotController' class='variant'><span id='NotController.v' class='invisible'><code>NotController</code></span></span><div class='docblock'><p>Not controller for cluster</p>
+</div><span id='variant.InvalidRequest' class='variant'><span id='InvalidRequest.v' class='invisible'><code>InvalidRequest</code></span></span><div class='docblock'><p>Invalid request</p>
+</div><span id='variant.UnsupportedForMessageFormat' class='variant'><span id='UnsupportedForMessageFormat.v' class='invisible'><code>UnsupportedForMessageFormat</code></span></span><div class='docblock'><p>Message format on broker does not support request</p>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="enum" href="../../rdkafka_sys/types/enum.RDKafkaError.html" title="enum rdkafka_sys::types::RDKafkaError">RDKafkaError</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rdkafka_sys/types.rs.html#69' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="enum" href="../../rdkafka_sys/types/enum.RDKafkaError.html" title="enum rdkafka_sys::types::RDKafkaError">RDKafkaError</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rdkafka_sys/types.rs.html#69' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="enum" href="../../rdkafka_sys/types/enum.RDKafkaError.html" title="enum rdkafka_sys::types::RDKafkaError">RDKafkaError</a></code></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a> for <a class="enum" href="../../rdkafka_sys/types/enum.RDKafkaError.html" title="enum rdkafka_sys::types::RDKafkaError">RDKafkaError</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rdkafka_sys/types.rs.html#69' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="enum" href="../../rdkafka_sys/bindings/enum.rd_kafka_resp_err_t.html" title="enum rdkafka_sys::bindings::rd_kafka_resp_err_t">RDKafkaRespErr</a>&gt; for <a class="enum" href="../../rdkafka_sys/types/enum.RDKafkaError.html" title="enum rdkafka_sys::types::RDKafkaError">RDKafkaError</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rdkafka_sys/types.rs.html#241-245' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from' class="method"><span id='from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(err: <a class="enum" href="../../rdkafka_sys/bindings/enum.rd_kafka_resp_err_t.html" title="enum rdkafka_sys::bindings::rd_kafka_resp_err_t">RDKafkaRespErr</a>) -&gt; <a class="enum" href="../../rdkafka_sys/types/enum.RDKafkaError.html" title="enum rdkafka_sys::types::RDKafkaError">RDKafkaError</a></code></span></h4>
+<div class='docblock'><p>Performs the conversion.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html" title="trait core::fmt::Display">Display</a> for <a class="enum" href="../../rdkafka_sys/types/enum.RDKafkaError.html" title="enum rdkafka_sys::types::RDKafkaError">RDKafkaError</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rdkafka_sys/types.rs.html#247-259' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt-1' class="method"><span id='fmt.v-1' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html" title="trait std::error::Error">Error</a> for <a class="enum" href="../../rdkafka_sys/types/enum.RDKafkaError.html" title="enum rdkafka_sys::types::RDKafkaError">RDKafkaError</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rdkafka_sys/types.rs.html#261-265' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.description' class="method"><span id='description.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/std/error/trait.Error.html#tymethod.description' class='fnname'>description</a>(&amp;self) -&gt; &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a></code></span></h4>
+<div class='docblock'><p>A short description of the error. <a href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html#tymethod.description">Read more</a></p>
+</div><h4 id='method.cause' class="method"><span id='cause.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.cause' class='fnname'>cause</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="trait" href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html" title="trait std::error::Error">Error</a>&gt;</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+<div class='docblock'><p>The lower-level cause of this error, if any. <a href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.cause">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rdkafka_sys";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

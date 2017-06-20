@@ -656,7 +656,7 @@
         };
 
         <span class="kw">if</span> <span class="ident">kafka_err</span>.<span class="ident">is_error</span>() {
-            <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">SetPartitionOffset</span>(<span class="ident">kafka_err</span>))
+            <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">SetPartitionOffset</span>(<span class="ident">kafka_err</span>.<span class="ident">into</span>()))
         } <span class="kw">else</span> {
             <span class="prelude-val">Ok</span>(())
         }

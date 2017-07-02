@@ -320,6 +320,43 @@
 <span id="275">275</span>
 <span id="276">276</span>
 <span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! This module contains type aliases for types defined in the auto-generated bindings.</span>
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error</span>, <span class="ident">fmt</span>};
@@ -436,7 +473,7 @@
     <span class="doccomment">/// Unknown client group</span>
     <span class="ident">UnknownGroup</span> <span class="op">=</span> <span class="op">-</span><span class="number">179</span>,
     <span class="doccomment">/// Operation in progress</span>
-    <span class="ident">InProgress</span> <span class="op">=</span> <span class="number">178</span>,
+    <span class="ident">InProgress</span> <span class="op">=</span> <span class="op">-</span><span class="number">178</span>,
     <span class="doccomment">/// Previous operation in progress, wait for it to finish.</span>
     <span class="ident">PreviousInProgress</span> <span class="op">=</span> <span class="op">-</span><span class="number">177</span>,
     <span class="doccomment">/// This operation would interfere with an existing subscription</span>
@@ -460,11 +497,21 @@
     <span class="doccomment">/// Outdated</span>
     <span class="ident">Outdated</span> <span class="op">=</span> <span class="op">-</span><span class="number">167</span>,
     <span class="doccomment">/// Timed out in queue</span>
-    <span class="ident">TimedOutQueue</span> <span class="op">=</span> <span class="number">166</span>,
+    <span class="ident">TimedOutQueue</span> <span class="op">=</span> <span class="op">-</span><span class="number">166</span>,
     <span class="doccomment">/// Feature not supported by broker</span>
     <span class="ident">UnsupportedFeature</span> <span class="op">=</span> <span class="op">-</span><span class="number">165</span>,
     <span class="doccomment">/// Awaiting cache update</span>
     <span class="ident">WaitCache</span> <span class="op">=</span> <span class="op">-</span><span class="number">164</span>,
+    <span class="doccomment">/// Operation interrupted (e.g., due to yield))</span>
+    <span class="ident">Interrupted</span> <span class="op">=</span> <span class="op">-</span><span class="number">163</span>,
+    <span class="doccomment">/// Key serialization error</span>
+    <span class="ident">KeySerialization</span> <span class="op">=</span> <span class="op">-</span><span class="number">162</span>,
+    <span class="doccomment">/// Value serialization error</span>
+    <span class="ident">ValueSerialization</span> <span class="op">=</span> <span class="op">-</span><span class="number">161</span>,
+    <span class="doccomment">/// Key deserialization error</span>
+    <span class="ident">KeyDeserialization</span> <span class="op">=</span> <span class="op">-</span><span class="number">160</span>,
+    <span class="doccomment">/// Value deserialization error</span>
+    <span class="ident">ValueDeserialization</span> <span class="op">=</span> <span class="op">-</span><span class="number">159</span>,
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">End</span> <span class="op">=</span> <span class="op">-</span><span class="number">100</span>,
     <span class="doccomment">/// Unknown broker error</span>
@@ -557,6 +604,33 @@
     <span class="ident">InvalidRequest</span> <span class="op">=</span> <span class="number">42</span>,
     <span class="doccomment">/// Message format on broker does not support request</span>
     <span class="ident">UnsupportedForMessageFormat</span> <span class="op">=</span> <span class="number">43</span>,
+    <span class="doccomment">/// Policy violation</span>
+    <span class="ident">PolicyViolation</span> <span class="op">=</span> <span class="number">44</span>,
+    <span class="doccomment">/// Broker received an out of order sequence number</span>
+    <span class="ident">OutOfOrderSequenceNumber</span> <span class="op">=</span> <span class="number">45</span>,
+    <span class="doccomment">/// Broker received a duplicate sequence number</span>
+    <span class="ident">DuplicateSequenceNumber</span> <span class="op">=</span> <span class="number">46</span>,
+    <span class="doccomment">/// Producer attempted an operation with an old epoch</span>
+    <span class="ident">InvalidProducerEpoch</span> <span class="op">=</span> <span class="number">47</span>,
+    <span class="doccomment">/// Producer attempted a transactional operation in an invalid state</span>
+    <span class="ident">InvalidTransactionalState</span> <span class="op">=</span> <span class="number">48</span>,
+    <span class="doccomment">/// Producer attempted to use a producer id which is currently assigned to its transactional id</span>
+    <span class="ident">InvalidProducerIdMapping</span> <span class="op">=</span> <span class="number">49</span>,
+    <span class="doccomment">/// Transaction timeout is larger than the maxi value allowed by the broker&#39;s</span>
+    <span class="doccomment">/// max.transaction.timeout.ms</span>
+    <span class="ident">InvalidTransactionTimeout</span> <span class="op">=</span> <span class="number">50</span>,
+    <span class="doccomment">/// Producer attempted to update a transaction while another concurrent operation on the same</span>
+    <span class="doccomment">/// transaction was ongoing</span>
+    <span class="ident">ConcurrentTransactions</span> <span class="op">=</span> <span class="number">51</span>,
+    <span class="doccomment">/// Indicates that the transaction coordinator sending a WriteTxnMarker is no longer the current</span>
+    <span class="doccomment">/// coordinator for a given producer</span>
+    <span class="ident">TransactionCoordinatorFenced</span> <span class="op">=</span> <span class="number">52</span>,
+    <span class="doccomment">/// Transactional Id authorization failed</span>
+    <span class="ident">TransactionalIdAuthorizationFailed</span> <span class="op">=</span> <span class="number">53</span>,
+    <span class="doccomment">/// Security features are disabled</span>
+    <span class="ident">SecurityDisabled</span> <span class="op">=</span> <span class="number">54</span>,
+    <span class="doccomment">/// Operation not attempted</span>
+    <span class="ident">OperationNotAttempted</span> <span class="op">=</span> <span class="number">55</span>,
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">EndAll</span>,
 }

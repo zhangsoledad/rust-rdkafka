@@ -489,11 +489,11 @@
 
 <span class="doccomment">/// Return the log level</span>
 <span class="kw">fn</span> <span class="ident">log_level_from_global_config</span>() <span class="op">-&gt;</span> <span class="ident">RDKafkaLogLevel</span> {
-    <span class="kw">if</span> <span class="macro">log_enabled</span><span class="macro">!</span>(<span class="ident">LogLevel</span>::<span class="ident">Debug</span>) {
+    <span class="kw">if</span> <span class="macro">log_enabled</span><span class="macro">!</span>(<span class="ident">target</span>: <span class="string">&quot;librdkafka&quot;</span>, <span class="ident">LogLevel</span>::<span class="ident">Debug</span>) {
         <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Debug</span>
-    } <span class="kw">else</span> <span class="kw">if</span> <span class="macro">log_enabled</span><span class="macro">!</span>(<span class="ident">LogLevel</span>::<span class="ident">Info</span>) {
+    } <span class="kw">else</span> <span class="kw">if</span> <span class="macro">log_enabled</span><span class="macro">!</span>(<span class="ident">target</span>: <span class="string">&quot;librdkafka&quot;</span>, <span class="ident">LogLevel</span>::<span class="ident">Info</span>) {
         <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Info</span>
-    } <span class="kw">else</span> <span class="kw">if</span> <span class="macro">log_enabled</span><span class="macro">!</span>(<span class="ident">LogLevel</span>::<span class="ident">Warn</span>) {
+    } <span class="kw">else</span> <span class="kw">if</span> <span class="macro">log_enabled</span><span class="macro">!</span>(<span class="ident">target</span>: <span class="string">&quot;librdkafka&quot;</span>, <span class="ident">LogLevel</span>::<span class="ident">Warn</span>) {
         <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Warning</span>
     } <span class="kw">else</span> {
         <span class="ident">RDKafkaLogLevel</span>::<span class="ident">Error</span>

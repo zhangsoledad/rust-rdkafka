@@ -229,6 +229,57 @@
 <span id="184">184</span>
 <span id="185">185</span>
 <span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
 </pre><pre class="rust ">
 <span class="kw">use</span> <span class="ident">types</span>::<span class="ident">RDKafkaRespErr</span>;
 <span class="kw">use</span> <span class="ident">types</span>::<span class="ident">RDKafkaRespErr</span>::<span class="kw-2">*</span>;
@@ -277,6 +328,11 @@
         <span class="op">-</span><span class="number">166</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR__TIMED_OUT_QUEUE</span>),
         <span class="op">-</span><span class="number">165</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR__UNSUPPORTED_FEATURE</span>),
         <span class="op">-</span><span class="number">164</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR__WAIT_CACHE</span>),
+        <span class="op">-</span><span class="number">163</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR__INTR</span>),
+        <span class="op">-</span><span class="number">162</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR__KEY_SERIALIZATION</span>),
+        <span class="op">-</span><span class="number">161</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR__VALUE_SERIALIZATION</span>),
+        <span class="op">-</span><span class="number">160</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR__KEY_DESERIALIZATION</span>),
+        <span class="op">-</span><span class="number">159</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR__VALUE_DESERIALIZATION</span>),
         <span class="op">-</span><span class="number">100</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR__END</span>),
         <span class="op">-</span><span class="number">1</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_UNKNOWN</span>),
         <span class="number">0</span>    <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_NO_ERROR</span>),
@@ -323,7 +379,20 @@
         <span class="number">41</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_NOT_CONTROLLER</span>),
         <span class="number">42</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_INVALID_REQUEST</span>),
         <span class="number">43</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_UNSUPPORTED_FOR_MESSAGE_FORMAT</span>),
-        <span class="number">44</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_END_ALL</span>),
+        <span class="number">44</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_POLICY_VIOLATION</span>),
+        <span class="number">45</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_OUT_OF_ORDER_SEQUENCE_NUMBER</span>),
+        <span class="number">46</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_DUPLICATE_SEQUENCE_NUMBER</span>),
+        <span class="number">47</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_INVALID_PRODUCER_EPOCH</span>),
+        <span class="number">48</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_INVALID_TXN_STATE</span>),
+        <span class="number">49</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_INVALID_PRODUCER_ID_MAPPING</span>),
+        <span class="number">50</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_INVALID_TRANSACTION_TIMEOUT</span>),
+        <span class="number">51</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_CONCURRENT_TRANSACTIONS</span>),
+        <span class="number">52</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_TRANSACTION_COORDINATOR_FENCED</span>),
+        <span class="number">53</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_TRANSACTIONAL_ID_AUTHORIZATION_FAILED</span>),
+        <span class="number">54</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_SECURITY_DISABLED</span>),
+        <span class="number">55</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_OPERATION_NOT_ATTEMPTED</span>),
+        <span class="comment">// END ALL</span>
+        <span class="number">56</span>   <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RD_KAFKA_RESP_ERR_END_ALL</span>),
         _ <span class="op">=&gt;</span> <span class="prelude-val">None</span>
     }
 }
@@ -345,7 +414,7 @@
         <span class="ident">RD_KAFKA_RESP_ERR__UNKNOWN_TOPIC</span> <span class="op">=&gt;</span> <span class="ident">UnknownTopic</span>,
         <span class="ident">RD_KAFKA_RESP_ERR__ALL_BROKERS_DOWN</span> <span class="op">=&gt;</span> <span class="ident">AllBrokersDown</span>,
         <span class="ident">RD_KAFKA_RESP_ERR__INVALID_ARG</span> <span class="op">=&gt;</span> <span class="ident">InvalidArgument</span>,
-        <span class="ident">RD_KAFKA_RESP_ERR__TIMED_OUT</span> <span class="op">=&gt;</span> <span class="ident">MessageTimedOut</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR__TIMED_OUT</span> <span class="op">=&gt;</span> <span class="ident">OperationTimedOut</span>,
         <span class="ident">RD_KAFKA_RESP_ERR__QUEUE_FULL</span> <span class="op">=&gt;</span> <span class="ident">QueueFull</span>,
         <span class="ident">RD_KAFKA_RESP_ERR__ISR_INSUFF</span> <span class="op">=&gt;</span> <span class="ident">ISRInsufficient</span>,
         <span class="ident">RD_KAFKA_RESP_ERR__NODE_UPDATE</span> <span class="op">=&gt;</span> <span class="ident">NodeUpdate</span>,
@@ -367,6 +436,11 @@
         <span class="ident">RD_KAFKA_RESP_ERR__TIMED_OUT_QUEUE</span> <span class="op">=&gt;</span> <span class="ident">TimedOutQueue</span>,
         <span class="ident">RD_KAFKA_RESP_ERR__UNSUPPORTED_FEATURE</span> <span class="op">=&gt;</span> <span class="ident">UnsupportedFeature</span>,
         <span class="ident">RD_KAFKA_RESP_ERR__WAIT_CACHE</span> <span class="op">=&gt;</span> <span class="ident">WaitCache</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR__INTR</span> <span class="op">=&gt;</span> <span class="ident">Interrupted</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR__KEY_SERIALIZATION</span> <span class="op">=&gt;</span> <span class="ident">KeySerialization</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR__VALUE_SERIALIZATION</span> <span class="op">=&gt;</span> <span class="ident">ValueSerialization</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR__KEY_DESERIALIZATION</span> <span class="op">=&gt;</span> <span class="ident">KeyDeserialization</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR__VALUE_DESERIALIZATION</span> <span class="op">=&gt;</span> <span class="ident">ValueDeserialization</span>,
         <span class="ident">RD_KAFKA_RESP_ERR__END</span> <span class="op">=&gt;</span> <span class="ident">End</span>,
         <span class="ident">RD_KAFKA_RESP_ERR_UNKNOWN</span> <span class="op">=&gt;</span> <span class="ident">Unknown</span>,
         <span class="ident">RD_KAFKA_RESP_ERR_NO_ERROR</span> <span class="op">=&gt;</span> <span class="ident">NoError</span>,
@@ -413,7 +487,35 @@
         <span class="ident">RD_KAFKA_RESP_ERR_NOT_CONTROLLER</span> <span class="op">=&gt;</span> <span class="ident">NotController</span>,
         <span class="ident">RD_KAFKA_RESP_ERR_INVALID_REQUEST</span> <span class="op">=&gt;</span> <span class="ident">InvalidRequest</span>,
         <span class="ident">RD_KAFKA_RESP_ERR_UNSUPPORTED_FOR_MESSAGE_FORMAT</span> <span class="op">=&gt;</span> <span class="ident">UnsupportedForMessageFormat</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR_POLICY_VIOLATION</span> <span class="op">=&gt;</span> <span class="ident">PolicyViolation</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR_OUT_OF_ORDER_SEQUENCE_NUMBER</span> <span class="op">=&gt;</span> <span class="ident">OutOfOrderSequenceNumber</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR_DUPLICATE_SEQUENCE_NUMBER</span> <span class="op">=&gt;</span> <span class="ident">DuplicateSequenceNumber</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR_INVALID_PRODUCER_EPOCH</span> <span class="op">=&gt;</span> <span class="ident">InvalidProducerEpoch</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR_INVALID_TXN_STATE</span> <span class="op">=&gt;</span> <span class="ident">InvalidTransactionalState</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR_INVALID_PRODUCER_ID_MAPPING</span> <span class="op">=&gt;</span> <span class="ident">InvalidProducerIdMapping</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR_INVALID_TRANSACTION_TIMEOUT</span> <span class="op">=&gt;</span> <span class="ident">InvalidTransactionTimeout</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR_CONCURRENT_TRANSACTIONS</span> <span class="op">=&gt;</span> <span class="ident">ConcurrentTransactions</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR_TRANSACTION_COORDINATOR_FENCED</span> <span class="op">=&gt;</span> <span class="ident">TransactionCoordinatorFenced</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR_TRANSACTIONAL_ID_AUTHORIZATION_FAILED</span> <span class="op">=&gt;</span> <span class="ident">TransactionalIdAuthorizationFailed</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR_SECURITY_DISABLED</span> <span class="op">=&gt;</span> <span class="ident">SecurityDisabled</span>,
+        <span class="ident">RD_KAFKA_RESP_ERR_OPERATION_NOT_ATTEMPTED</span> <span class="op">=&gt;</span> <span class="ident">OperationNotAttempted</span>,
         <span class="ident">RD_KAFKA_RESP_ERR_END_ALL</span> <span class="op">=&gt;</span> <span class="ident">EndAll</span>,
+    }
+}
+
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_conversion</span>() {
+        <span class="kw">for</span> <span class="ident">error_code</span> <span class="kw">in</span> <span class="op">-</span><span class="number">299</span>..<span class="number">300</span> {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">resp_err</span>) <span class="op">=</span> <span class="ident">primitive_to_rd_kafka_resp_err_t</span>(<span class="ident">error_code</span>) {
+                <span class="kw">let</span> <span class="ident">kafka_error</span> <span class="op">=</span> <span class="ident">rd_kafka_resp_err_t_to_rdkafka_error</span>(<span class="ident">resp_err</span>);
+                <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">error_code</span>, <span class="ident">kafka_error</span> <span class="kw">as</span> <span class="ident">i32</span>);
+            }
+        }
     }
 }
 </pre>

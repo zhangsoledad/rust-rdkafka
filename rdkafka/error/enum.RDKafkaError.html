@@ -86,6 +86,11 @@
     TimedOutQueue,
     UnsupportedFeature,
     WaitCache,
+    Interrupted,
+    KeySerialization,
+    ValueSerialization,
+    KeyDeserialization,
+    ValueDeserialization,
     Unknown,
     NoError,
     OffsetOutOfRange,
@@ -131,6 +136,18 @@
     NotController,
     InvalidRequest,
     UnsupportedForMessageFormat,
+    PolicyViolation,
+    OutOfOrderSequenceNumber,
+    DuplicateSequenceNumber,
+    InvalidProducerEpoch,
+    InvalidTransactionalState,
+    InvalidProducerIdMapping,
+    InvalidTransactionTimeout,
+    ConcurrentTransactions,
+    TransactionCoordinatorFenced,
+    TransactionalIdAuthorizationFailed,
+    SecurityDisabled,
+    OperationNotAttempted,
     // some variants omitted
 }</pre><div class='docblock'><p>Errors enum
 Error from the underlying rdkafka library.</p>
@@ -171,6 +188,11 @@ Error from the underlying rdkafka library.</p>
 </div><span id='variant.TimedOutQueue' class='variant'><span id='TimedOutQueue.v' class='invisible'><code>TimedOutQueue</code></span></span><div class='docblock'><p>Timed out in queue</p>
 </div><span id='variant.UnsupportedFeature' class='variant'><span id='UnsupportedFeature.v' class='invisible'><code>UnsupportedFeature</code></span></span><div class='docblock'><p>Feature not supported by broker</p>
 </div><span id='variant.WaitCache' class='variant'><span id='WaitCache.v' class='invisible'><code>WaitCache</code></span></span><div class='docblock'><p>Awaiting cache update</p>
+</div><span id='variant.Interrupted' class='variant'><span id='Interrupted.v' class='invisible'><code>Interrupted</code></span></span><div class='docblock'><p>Operation interrupted (e.g., due to yield))</p>
+</div><span id='variant.KeySerialization' class='variant'><span id='KeySerialization.v' class='invisible'><code>KeySerialization</code></span></span><div class='docblock'><p>Key serialization error</p>
+</div><span id='variant.ValueSerialization' class='variant'><span id='ValueSerialization.v' class='invisible'><code>ValueSerialization</code></span></span><div class='docblock'><p>Value serialization error</p>
+</div><span id='variant.KeyDeserialization' class='variant'><span id='KeyDeserialization.v' class='invisible'><code>KeyDeserialization</code></span></span><div class='docblock'><p>Key deserialization error</p>
+</div><span id='variant.ValueDeserialization' class='variant'><span id='ValueDeserialization.v' class='invisible'><code>ValueDeserialization</code></span></span><div class='docblock'><p>Value deserialization error</p>
 </div><span id='variant.Unknown' class='variant'><span id='Unknown.v' class='invisible'><code>Unknown</code></span></span><div class='docblock'><p>Unknown broker error</p>
 </div><span id='variant.NoError' class='variant'><span id='NoError.v' class='invisible'><code>NoError</code></span></span><div class='docblock'><p>Success</p>
 </div><span id='variant.OffsetOutOfRange' class='variant'><span id='OffsetOutOfRange.v' class='invisible'><code>OffsetOutOfRange</code></span></span><div class='docblock'><p>Offset out of range</p>
@@ -216,6 +238,21 @@ Error from the underlying rdkafka library.</p>
 </div><span id='variant.NotController' class='variant'><span id='NotController.v' class='invisible'><code>NotController</code></span></span><div class='docblock'><p>Not controller for cluster</p>
 </div><span id='variant.InvalidRequest' class='variant'><span id='InvalidRequest.v' class='invisible'><code>InvalidRequest</code></span></span><div class='docblock'><p>Invalid request</p>
 </div><span id='variant.UnsupportedForMessageFormat' class='variant'><span id='UnsupportedForMessageFormat.v' class='invisible'><code>UnsupportedForMessageFormat</code></span></span><div class='docblock'><p>Message format on broker does not support request</p>
+</div><span id='variant.PolicyViolation' class='variant'><span id='PolicyViolation.v' class='invisible'><code>PolicyViolation</code></span></span><div class='docblock'><p>Policy violation</p>
+</div><span id='variant.OutOfOrderSequenceNumber' class='variant'><span id='OutOfOrderSequenceNumber.v' class='invisible'><code>OutOfOrderSequenceNumber</code></span></span><div class='docblock'><p>Broker received an out of order sequence number</p>
+</div><span id='variant.DuplicateSequenceNumber' class='variant'><span id='DuplicateSequenceNumber.v' class='invisible'><code>DuplicateSequenceNumber</code></span></span><div class='docblock'><p>Broker received a duplicate sequence number</p>
+</div><span id='variant.InvalidProducerEpoch' class='variant'><span id='InvalidProducerEpoch.v' class='invisible'><code>InvalidProducerEpoch</code></span></span><div class='docblock'><p>Producer attempted an operation with an old epoch</p>
+</div><span id='variant.InvalidTransactionalState' class='variant'><span id='InvalidTransactionalState.v' class='invisible'><code>InvalidTransactionalState</code></span></span><div class='docblock'><p>Producer attempted a transactional operation in an invalid state</p>
+</div><span id='variant.InvalidProducerIdMapping' class='variant'><span id='InvalidProducerIdMapping.v' class='invisible'><code>InvalidProducerIdMapping</code></span></span><div class='docblock'><p>Producer attempted to use a producer id which is currently assigned to its transactional id</p>
+</div><span id='variant.InvalidTransactionTimeout' class='variant'><span id='InvalidTransactionTimeout.v' class='invisible'><code>InvalidTransactionTimeout</code></span></span><div class='docblock'><p>Transaction timeout is larger than the maxi value allowed by the broker&#39;s
+max.transaction.timeout.ms</p>
+</div><span id='variant.ConcurrentTransactions' class='variant'><span id='ConcurrentTransactions.v' class='invisible'><code>ConcurrentTransactions</code></span></span><div class='docblock'><p>Producer attempted to update a transaction while another concurrent operation on the same
+transaction was ongoing</p>
+</div><span id='variant.TransactionCoordinatorFenced' class='variant'><span id='TransactionCoordinatorFenced.v' class='invisible'><code>TransactionCoordinatorFenced</code></span></span><div class='docblock'><p>Indicates that the transaction coordinator sending a WriteTxnMarker is no longer the current
+coordinator for a given producer</p>
+</div><span id='variant.TransactionalIdAuthorizationFailed' class='variant'><span id='TransactionalIdAuthorizationFailed.v' class='invisible'><code>TransactionalIdAuthorizationFailed</code></span></span><div class='docblock'><p>Transactional Id authorization failed</p>
+</div><span id='variant.SecurityDisabled' class='variant'><span id='SecurityDisabled.v' class='invisible'><code>SecurityDisabled</code></span></span><div class='docblock'><p>Security features are disabled</p>
+</div><span id='variant.OperationNotAttempted' class='variant'><span id='OperationNotAttempted.v' class='invisible'><code>OperationNotAttempted</code></span></span><div class='docblock'><p>Operation not attempted</p>
 </div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="enum" href="../../rdkafka/error/enum.RDKafkaError.html" title="enum rdkafka::error::RDKafkaError">RDKafkaError</a></code></span><span class='out-of-band'></span></h3>
 <div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a>, <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html" title="struct core::fmt::Error">Error</a>&gt;</code></span></h4>
 <div class='docblock'><p>Formats the value using the given formatter.</p>

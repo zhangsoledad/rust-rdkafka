@@ -197,6 +197,10 @@
 <span id="152">152</span>
 <span id="153">153</span>
 <span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Error manipulations.</span>
 <span class="kw">use</span> <span class="ident">rdsys</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
@@ -227,26 +231,29 @@
     }
 }
 
+<span class="comment">// TODO: consider using macro</span>
+
 <span class="doccomment">/// Represents all Kafka errors. Check the underlying `RDKafkaError` to get details.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">KafkaError</span> {
     <span class="ident">ClientConfig</span>(<span class="ident">RDKafkaConfRes</span>, <span class="ident">String</span>, <span class="ident">String</span>, <span class="ident">String</span>),
     <span class="ident">ClientCreation</span>(<span class="ident">String</span>),
     <span class="ident">ConsumerCommit</span>(<span class="ident">RDKafkaError</span>),
-    <span class="ident">StoreOffset</span>(<span class="ident">RDKafkaError</span>),
     <span class="ident">ConsumerCreation</span>(<span class="ident">String</span>),
+    <span class="ident">FutureCanceled</span>,
+    <span class="ident">Global</span>(<span class="ident">RDKafkaError</span>),
     <span class="ident">GroupListFetch</span>(<span class="ident">RDKafkaError</span>),
     <span class="ident">MessageConsumption</span>(<span class="ident">RDKafkaError</span>),
     <span class="ident">MessageProduction</span>(<span class="ident">RDKafkaError</span>),
     <span class="ident">MetadataFetch</span>(<span class="ident">RDKafkaError</span>),
     <span class="ident">NoMessageReceived</span>,
     <span class="ident">Nul</span>(<span class="ident">ffi</span>::<span class="ident">NulError</span>),
+    <span class="ident">OffsetFetch</span>(<span class="ident">RDKafkaError</span>),
     <span class="ident">PartitionEOF</span>(<span class="ident">i32</span>),
     <span class="ident">SetPartitionOffset</span>(<span class="ident">RDKafkaError</span>),
+    <span class="ident">StoreOffset</span>(<span class="ident">RDKafkaError</span>),
     <span class="ident">Subscription</span>(<span class="ident">String</span>),
     <span class="ident">TopicConfig</span>(<span class="ident">RDKafkaConfRes</span>, <span class="ident">String</span>, <span class="ident">String</span>, <span class="ident">String</span>),
-    <span class="ident">TopicCreation</span>(<span class="ident">String</span>),
-    <span class="ident">Global</span>(<span class="ident">RDKafkaError</span>),
-    <span class="ident">FutureCanceled</span>
 }
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">KafkaError</span> {
@@ -255,21 +262,21 @@
             <span class="ident">KafkaError</span>::<span class="ident">ClientConfig</span>(_, <span class="kw-2">ref</span> <span class="ident">desc</span>, <span class="kw-2">ref</span> <span class="ident">key</span>, <span class="kw-2">ref</span> <span class="ident">value</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Client config error: {} {} {})&quot;</span>, <span class="ident">desc</span>, <span class="ident">key</span>, <span class="ident">value</span>),
             <span class="ident">KafkaError</span>::<span class="ident">ClientCreation</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Client creation error: {})&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">ConsumerCommit</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Consumer commit error: {})&quot;</span>, <span class="ident">err</span>),
-            <span class="ident">KafkaError</span>::<span class="ident">StoreOffset</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Store offset error: {})&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">ConsumerCreation</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Consumer creation error: {})&quot;</span>, <span class="ident">err</span>),
+            <span class="ident">KafkaError</span>::<span class="ident">FutureCanceled</span> <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Future canceled&quot;</span>),
+            <span class="ident">KafkaError</span>::<span class="ident">Global</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Global error: {})&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">GroupListFetch</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Group list fetch error: {})&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">MessageConsumption</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Message consumption error: {})&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">MessageProduction</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Message production error: {})&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">MetadataFetch</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Metadata fetch error: {})&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">NoMessageReceived</span> <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;No message received within the given poll interval&quot;</span>),
-            <span class="ident">KafkaError</span>::<span class="ident">Nul</span>(_) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (FFI nul error)&quot;</span>),
+            <span class="ident">KafkaError</span>::<span class="ident">Nul</span>(_) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;FFI null error&quot;</span>),
+            <span class="ident">KafkaError</span>::<span class="ident">OffsetFetch</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Offset fetch error: {})&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">PartitionEOF</span>(<span class="ident">part_n</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Partition EOF: {})&quot;</span>, <span class="ident">part_n</span>),
             <span class="ident">KafkaError</span>::<span class="ident">SetPartitionOffset</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Set partition offset error: {})&quot;</span>, <span class="ident">err</span>),
+            <span class="ident">KafkaError</span>::<span class="ident">StoreOffset</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Store offset error: {})&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">Subscription</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Subscription error: {})&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">TopicConfig</span>(_, <span class="kw-2">ref</span> <span class="ident">desc</span>, <span class="kw-2">ref</span> <span class="ident">key</span>, <span class="kw-2">ref</span> <span class="ident">value</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Topic config error: {} {} {})&quot;</span>, <span class="ident">desc</span>, <span class="ident">key</span>, <span class="ident">value</span>),
-            <span class="ident">KafkaError</span>::<span class="ident">TopicCreation</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Topic creation error: {})&quot;</span>, <span class="ident">err</span>),
-            <span class="ident">KafkaError</span>::<span class="ident">Global</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Global error: {})&quot;</span>, <span class="ident">err</span>),
-            <span class="ident">KafkaError</span>::<span class="ident">FutureCanceled</span> <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;KafkaError (Future canceled)&quot;</span>)
         }
     }
 }
@@ -280,21 +287,21 @@
             <span class="ident">KafkaError</span>::<span class="ident">ClientConfig</span>(_, <span class="kw-2">ref</span> <span class="ident">desc</span>, <span class="kw-2">ref</span> <span class="ident">key</span>, <span class="kw-2">ref</span> <span class="ident">value</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Client config error: {} {} {}&quot;</span>, <span class="ident">desc</span>, <span class="ident">key</span>, <span class="ident">value</span>),
             <span class="ident">KafkaError</span>::<span class="ident">ClientCreation</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Client creation error: {}&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">ConsumerCommit</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Consumer commit error: {}&quot;</span>, <span class="ident">err</span>),
-            <span class="ident">KafkaError</span>::<span class="ident">StoreOffset</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Store offset error: {}&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">ConsumerCreation</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Consumer creation error: {}&quot;</span>, <span class="ident">err</span>),
+            <span class="ident">KafkaError</span>::<span class="ident">FutureCanceled</span> <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Future canceled&quot;</span>),
+            <span class="ident">KafkaError</span>::<span class="ident">Global</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Global error: {}&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">GroupListFetch</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Group list fetch error: {}&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">MessageConsumption</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Message consumption error: {}&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">MessageProduction</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Message production error: {}&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">MetadataFetch</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Meta data fetch error: {}&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">NoMessageReceived</span> <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;No message received within the given poll interval&quot;</span>),
             <span class="ident">KafkaError</span>::<span class="ident">Nul</span>(_) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;FFI nul error&quot;</span>),
+            <span class="ident">KafkaError</span>::<span class="ident">OffsetFetch</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Offset fetch error: {}&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">PartitionEOF</span>(<span class="ident">part_n</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Partition EOF: {}&quot;</span>, <span class="ident">part_n</span>),
             <span class="ident">KafkaError</span>::<span class="ident">SetPartitionOffset</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Set partition offset error: {}&quot;</span>, <span class="ident">err</span>),
+            <span class="ident">KafkaError</span>::<span class="ident">StoreOffset</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Store offset error: {}&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">Subscription</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Subscription error: {}&quot;</span>, <span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">TopicConfig</span>(_, <span class="kw-2">ref</span> <span class="ident">desc</span>, <span class="kw-2">ref</span> <span class="ident">key</span>, <span class="kw-2">ref</span> <span class="ident">value</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Topic config error: {} {} {}&quot;</span>, <span class="ident">desc</span>, <span class="ident">key</span>, <span class="ident">value</span>),
-            <span class="ident">KafkaError</span>::<span class="ident">TopicCreation</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Topic creation error: {}&quot;</span>, <span class="ident">err</span>),
-            <span class="ident">KafkaError</span>::<span class="ident">Global</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Global error: {}&quot;</span>, <span class="ident">err</span>),
-            <span class="ident">KafkaError</span>::<span class="ident">FutureCanceled</span> <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Future canceled&quot;</span>)
         }
     }
 }
@@ -305,44 +312,45 @@
             <span class="ident">KafkaError</span>::<span class="ident">ClientConfig</span>(_, _, _, _) <span class="op">=&gt;</span> <span class="string">&quot;Client config error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">ClientCreation</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Client creation error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">ConsumerCommit</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Consumer commit error&quot;</span>,
-            <span class="ident">KafkaError</span>::<span class="ident">StoreOffset</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Store offset error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">ConsumerCreation</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Consumer creation error&quot;</span>,
+            <span class="ident">KafkaError</span>::<span class="ident">FutureCanceled</span> <span class="op">=&gt;</span> <span class="string">&quot;Future canceled&quot;</span>,
+            <span class="ident">KafkaError</span>::<span class="ident">Global</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Global error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">GroupListFetch</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Group list fetch error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">MessageConsumption</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Message consumption error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">MessageProduction</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Message production error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">MetadataFetch</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Meta data fetch error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">NoMessageReceived</span> <span class="op">=&gt;</span> <span class="string">&quot;No message received within the given poll interval&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">Nul</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;FFI nul error&quot;</span>,
+            <span class="ident">KafkaError</span>::<span class="ident">OffsetFetch</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Offset fetch error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">PartitionEOF</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Partition EOF error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">SetPartitionOffset</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Set partition offset error&quot;</span>,
+            <span class="ident">KafkaError</span>::<span class="ident">StoreOffset</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Store offset error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">Subscription</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Subscription error&quot;</span>,
             <span class="ident">KafkaError</span>::<span class="ident">TopicConfig</span>(_, _, _, _) <span class="op">=&gt;</span> <span class="string">&quot;Topic config error&quot;</span>,
-            <span class="ident">KafkaError</span>::<span class="ident">TopicCreation</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Topic creation error&quot;</span>,
-            <span class="ident">KafkaError</span>::<span class="ident">Global</span>(_) <span class="op">=&gt;</span> <span class="string">&quot;Global error&quot;</span>,
-            <span class="ident">KafkaError</span>::<span class="ident">FutureCanceled</span> <span class="op">=&gt;</span> <span class="string">&quot;Future canceled&quot;</span>
         }
     }
 
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;cargo-clippy&quot;</span>, <span class="ident">allow</span>(<span class="ident">match_same_arms</span>))]</span>
     <span class="kw">fn</span> <span class="ident">cause</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
             <span class="ident">KafkaError</span>::<span class="ident">ClientConfig</span>(_, _, _, _) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
             <span class="ident">KafkaError</span>::<span class="ident">ClientCreation</span>(_) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
             <span class="ident">KafkaError</span>::<span class="ident">ConsumerCommit</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>),
-            <span class="ident">KafkaError</span>::<span class="ident">StoreOffset</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">ConsumerCreation</span>(_) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+            <span class="ident">KafkaError</span>::<span class="ident">FutureCanceled</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+            <span class="ident">KafkaError</span>::<span class="ident">Global</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">GroupListFetch</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">MessageConsumption</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">MessageProduction</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">MetadataFetch</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">NoMessageReceived</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
             <span class="ident">KafkaError</span>::<span class="ident">Nul</span>(_) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+            <span class="ident">KafkaError</span>::<span class="ident">OffsetFetch</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">PartitionEOF</span>(_) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
             <span class="ident">KafkaError</span>::<span class="ident">SetPartitionOffset</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>),
+            <span class="ident">KafkaError</span>::<span class="ident">StoreOffset</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>),
             <span class="ident">KafkaError</span>::<span class="ident">Subscription</span>(_) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
             <span class="ident">KafkaError</span>::<span class="ident">TopicConfig</span>(_, _, _, _) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
-            <span class="ident">KafkaError</span>::<span class="ident">TopicCreation</span>(_) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
-            <span class="ident">KafkaError</span>::<span class="ident">Global</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>),
-            <span class="ident">KafkaError</span>::<span class="ident">FutureCanceled</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>
         }
     }
 }

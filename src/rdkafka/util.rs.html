@@ -91,6 +91,8 @@
 <span id="46">46</span>
 <span id="47">47</span>
 <span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
 </pre><pre class="rust ">
 <span class="kw">use</span> <span class="ident">rdsys</span>;
 
@@ -112,7 +114,9 @@
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">millis_to_epoch</span>(<span class="ident">time</span>: <span class="ident">SystemTime</span>) <span class="op">-&gt;</span> <span class="ident">i64</span> {
-    <span class="ident">duration_to_millis</span>(<span class="ident">time</span>.<span class="ident">duration_since</span>(<span class="ident">UNIX_EPOCH</span>).<span class="ident">unwrap_or</span>(<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">0</span>))) <span class="kw">as</span> <span class="ident">i64</span>
+    <span class="kw">let</span> <span class="ident">duration_since_epoch</span> <span class="op">=</span> <span class="ident">time</span>.<span class="ident">duration_since</span>(<span class="ident">UNIX_EPOCH</span>)
+        .<span class="ident">unwrap_or_else</span>(<span class="op">|</span>_<span class="op">|</span> <span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">0</span>));
+    <span class="ident">duration_to_millis</span>(<span class="ident">duration_since_epoch</span>) <span class="kw">as</span> <span class="ident">i64</span>
 }
 
 

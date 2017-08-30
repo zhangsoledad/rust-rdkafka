@@ -467,6 +467,12 @@
 <span id="422">422</span>
 <span id="423">423</span>
 <span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! A data structure representing topic, partitions and offsets, compatible with the</span>
 <span class="doccomment">//! `RDKafkaTopicPartitionList` exported by `rdkafka-sys`.</span>
@@ -550,11 +556,11 @@
         }
     }
 
-
+    <span class="doccomment">/// Returns the optional error associated to the specific entry in the TPL.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">error</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">kafka_err</span> <span class="op">=</span> <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">err</span> };
         <span class="kw">if</span> <span class="ident">kafka_err</span>.<span class="ident">is_error</span>() {
-            <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">StoreOffset</span>(<span class="ident">kafka_err</span>.<span class="ident">into</span>())) <span class="comment">// TODO: create new error type</span>
+            <span class="prelude-val">Err</span>(<span class="ident">KafkaError</span>::<span class="ident">OffsetFetch</span>(<span class="ident">kafka_err</span>.<span class="ident">into</span>()))
         } <span class="kw">else</span> {
             <span class="prelude-val">Ok</span>(())
         }
@@ -621,7 +627,7 @@
         <span class="ident">topic_map</span>.<span class="ident">iter</span>()
             .<span class="ident">fold</span>(<span class="ident">TopicPartitionList</span>::<span class="ident">with_capacity</span>(<span class="ident">topic_map</span>.<span class="ident">len</span>()),
                 <span class="op">|</span><span class="kw-2">mut</span> <span class="ident">tpl</span>, (<span class="kw-2">&amp;</span>(<span class="kw-2">ref</span> <span class="ident">topic_name</span>, <span class="ident">partition</span>), <span class="ident">offset</span>)<span class="op">|</span> {
-                    <span class="ident">tpl</span>.<span class="ident">add_partition_offset</span>(<span class="kw-2">&amp;</span><span class="ident">topic_name</span>, <span class="ident">partition</span>, <span class="kw-2">*</span><span class="ident">offset</span>);
+                    <span class="ident">tpl</span>.<span class="ident">add_partition_offset</span>(<span class="ident">topic_name</span>, <span class="ident">partition</span>, <span class="kw-2">*</span><span class="ident">offset</span>);
                     <span class="ident">tpl</span>
                 })
     }
@@ -715,7 +721,7 @@
     }
 
     <span class="doccomment">/// Returns all the elements of the list.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">elements</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TopicPartitionListElem</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">elements</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TopicPartitionListElem</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">slice</span>::<span class="ident">from_raw_parts_mut</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">elems</span>, <span class="self">self</span>.<span class="ident">count</span>()) };
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">slice</span>.<span class="ident">len</span>());
         <span class="kw">for</span> <span class="ident">elem_ptr</span> <span class="kw">in</span> <span class="ident">slice</span> {
@@ -768,6 +774,12 @@
                     <span class="bool-val">false</span>
                 }
             })
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">TopicPartitionList</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>::<span class="ident">new</span>()
     }
 }
 

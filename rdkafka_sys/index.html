@@ -48,8 +48,39 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/rdkafka_sys/lib.rs.html#1-13' title='goto source code'>[src]</a></span></h1>
-<h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+               </span><a class='srclink' href='../src/rdkafka_sys/lib.rs.html#1-52' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'>
+<h1 id='rdkafka-sys' class='section-header'><a href='#rdkafka-sys'>rdkafka-sys</a></h1>
+<p>Low level bindings to <a href="https://github.com/edenhill/librdkafka">librdkafka</a>.</p>
+
+<h2 id='bindings' class='section-header'><a href='#bindings'>Bindings</a></h2>
+<p>To regenerate the bindings:</p>
+
+<pre><code class="language-bash">git submodule update --init
+bindgen --builtins --no-doc-comments librdkafka/src/rdkafka.h &gt; src/bindings/{platform}.rs
+</code></pre>
+
+<h2 id='version' class='section-header'><a href='#version'>Version</a></h2>
+<p>The rdkafka-sys version number is in the format <code>X.Y.Z-P</code>, where <code>X.Y.Z</code>
+corresponds to the librdkafka version, and <code>P</code> indicates the version of the
+rust bindings.</p>
+
+<h2 id='build' class='section-header'><a href='#build'>Build</a></h2>
+<p>By default a submodule with the librdkafka sources pinned to a specific commit will
+be used to compile and statically link the library.</p>
+
+<p>The <code>dynamic_linking</code> feature can be used to link rdkafka to a locally installed
+version of librdkafka: if the feature is enabled, the build script will use <code>pkg-config</code>
+to check the version of the library installed in the system, and it will configure the
+compiler to use dynamic linking.</p>
+
+<p>The build process is defined in <a href="https://github.com/fede1024/rust-rdkafka/blob/master/rdkafka-sys/build.rs"><code>build.rs</code></a>.</p>
+
+<h2 id='updating' class='section-header'><a href='#updating'>Updating</a></h2>
+<p>To upgrade change the git submodule in <code>librdkafka</code>, check if new errors
+need to be added to <code>helpers::primive_to_rd_kafka_resp_err_t</code> and update
+the version in <code>Cargo.toml</code>.</p>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>pub use <a class="mod" href="../rdkafka_sys/bindings/index.html" title="mod rdkafka_sys::bindings">bindings</a>::*;</code></td></tr><tr><td><code>pub use <a class="mod" href="../rdkafka_sys/helpers/index.html" title="mod rdkafka_sys::helpers">helpers</a>::*;</code></td></tr><tr><td><code>pub use <a class="mod" href="../rdkafka_sys/types/index.html" title="mod rdkafka_sys::types">types</a>::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>

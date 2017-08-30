@@ -485,13 +485,6 @@
 <span id="440">440</span>
 <span id="441">441</span>
 <span id="442">442</span>
-<span id="443">443</span>
-<span id="444">444</span>
-<span id="445">445</span>
-<span id="446">446</span>
-<span id="447">447</span>
-<span id="448">448</span>
-<span id="449">449</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Producer implementations.</span>
 <span class="kw">use</span> <span class="ident">futures</span>::{<span class="self">self</span>, <span class="ident">Canceled</span>, <span class="ident">Complete</span>, <span class="ident">Future</span>, <span class="ident">Poll</span>, <span class="ident">Oneshot</span>, <span class="ident">Async</span>};
@@ -598,8 +591,7 @@
 
 <span class="doccomment">/// Simple Kafka producer. This producer needs to be `poll`ed at regular intervals in order to</span>
 <span class="doccomment">/// serve queued delivery report callbacks. This producer can be cheaply cloned to</span>
-<span class="doccomment">/// create a new reference to the same underlying producer. Data production should be done using the</span>
-<span class="doccomment">/// `BaseProducerTopic`, that can be created from this producer.</span>
+<span class="doccomment">/// create a new reference to the same underlying producer.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BaseProducer</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">ProducerContext</span><span class="op">&gt;</span> {
     <span class="ident">client_arc</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Client</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;&gt;</span>,
 }
@@ -699,7 +691,7 @@
 <span class="doccomment">/// The `ProducerContext` used by the `FutureProducer`. This context will use a Future as its</span>
 <span class="doccomment">/// `DeliveryContext` and will complete the future when the message is delivered (or failed to).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FutureProducerContext</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> {
+<span class="kw">struct</span> <span class="ident">FutureProducerContext</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> {
     <span class="ident">wrapped_context</span>: <span class="ident">C</span>
 }
 
@@ -759,28 +751,22 @@
                  <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Polling thread loop terminated&quot;</span>);
             })
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to start polling thread&quot;</span>);
-        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">handle</span>.<span class="ident">write</span>() {
-            <span class="prelude-val">Ok</span>(<span class="kw-2">mut</span> <span class="ident">handle_ref</span>) <span class="op">=&gt;</span> <span class="kw-2">*</span><span class="ident">handle_ref</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">handle</span>),
-            <span class="prelude-val">Err</span>(_) <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Poison error&quot;</span>),
-        };
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">handle_store</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">handle</span>.<span class="ident">write</span>().<span class="ident">expect</span>(<span class="string">&quot;poison error&quot;</span>);
+        <span class="kw-2">*</span><span class="ident">handle_store</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">handle</span>);
     }
 
     <span class="comment">// See documentation in FutureProducer</span>
     <span class="kw">fn</span> <span class="ident">stop</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">handle</span>.<span class="ident">write</span>() {
-            <span class="prelude-val">Ok</span>(<span class="kw-2">mut</span> <span class="ident">handle</span>) <span class="op">=&gt;</span> {
-                <span class="kw">if</span> <span class="ident">handle</span>.<span class="ident">is_some</span>() {
-                    <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Stopping polling&quot;</span>);
-                    <span class="self">self</span>.<span class="ident">should_stop</span>.<span class="ident">store</span>(<span class="bool-val">true</span>, <span class="ident">Ordering</span>::<span class="ident">Relaxed</span>);
-                    <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Waiting for polling thread termination&quot;</span>);
-                    <span class="kw">match</span> <span class="ident">handle</span>.<span class="ident">take</span>().<span class="ident">expect</span>(<span class="string">&quot;No handle present in producer context&quot;</span>).<span class="ident">join</span>() {
-                        <span class="prelude-val">Ok</span>(()) <span class="op">=&gt;</span> <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Polling stopped&quot;</span>),
-                        <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Failure while terminating thread: {:?}&quot;</span>, <span class="ident">e</span>),
-                    };
-                }
-            },
-            <span class="prelude-val">Err</span>(_) <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Poison error&quot;</span>),
-        };
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">handle_store</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">handle</span>.<span class="ident">write</span>().<span class="ident">expect</span>(<span class="string">&quot;poison error&quot;</span>);
+        <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">handle_store</span>).<span class="ident">is_some</span>() {
+            <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Stopping polling&quot;</span>);
+            <span class="self">self</span>.<span class="ident">should_stop</span>.<span class="ident">store</span>(<span class="bool-val">true</span>, <span class="ident">Ordering</span>::<span class="ident">Relaxed</span>);
+            <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Waiting for polling thread termination&quot;</span>);
+            <span class="kw">match</span> (<span class="kw-2">*</span><span class="ident">handle_store</span>).<span class="ident">take</span>().<span class="ident">expect</span>(<span class="string">&quot;No handle present in producer context&quot;</span>).<span class="ident">join</span>() {
+                <span class="prelude-val">Ok</span>(()) <span class="op">=&gt;</span> <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Polling stopped&quot;</span>),
+                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Failure while terminating thread: {:?}&quot;</span>, <span class="ident">e</span>),
+            };
+        }
     }
 
     <span class="comment">// See documentation in FutureProducer</span>

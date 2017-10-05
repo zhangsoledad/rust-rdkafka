@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `producer` mod in crate `rdkafka`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, producer">
+    <meta name="description" content="API documentation for the Rust `base_producer` mod in crate `rdkafka`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, base_producer">
 
-    <title>rdkafka::producer - Rust</title>
+    <title>rdkafka::producer::base_producer - Rust</title>
 
-    <link rel="stylesheet" type="text/css" href="../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
     
 
     
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'>Module producer</p><div class="block items"><ul><li><a href="#reexports">Reexports</a></li><li><a href="#modules">Modules</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a></p><script>window.sidebarCurrent = {name: 'producer', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'>Module base_producer</p><div class="block items"><ul><li><a href="#reexports">Reexports</a></li><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'><a href='../../index.html'>rdkafka</a>::<wbr><a href='../index.html'>producer</a></p><script>window.sidebarCurrent = {name: 'base_producer', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -44,26 +44,37 @@
     </nav>
 
     <section id='main' class="content">
-<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>rdkafka</a>::<wbr><a class="mod" href=''>producer</a></span><span class='out-of-band'><span id='render-detail'>
+<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>rdkafka</a>::<wbr><a href='../index.html'>producer</a>::<wbr><a class="mod" href=''>base_producer</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../src/rdkafka/producer/mod.rs.html#1-10' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#1-184' title='goto source code'>[src]</a></span></h1>
 <h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="struct" href="../../rdkafka/producer/base_producer/struct.BaseProducer.html" title="struct rdkafka::producer::base_producer::BaseProducer">BaseProducer</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="type" href="../../rdkafka/message/type.DeliveryResult.html" title="type rdkafka::message::DeliveryResult">DeliveryResult</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="struct" href="../../rdkafka/producer/base_producer/struct.EmptyProducerContext.html" title="struct rdkafka::producer::base_producer::EmptyProducerContext">EmptyProducerContext</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="trait" href="../../rdkafka/producer/base_producer/trait.ProducerContext.html" title="trait rdkafka::producer::base_producer::ProducerContext">ProducerContext</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./future_producer/index.html">future_producer</a>::<a class="struct" href="../../rdkafka/producer/future_producer/struct.FutureProducer.html" title="struct rdkafka::producer::future_producer::FutureProducer">FutureProducer</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr><td><code>pub use message::<a class="type" href="../../../rdkafka/message/type.DeliveryResult.html" title="type rdkafka::message::DeliveryResult">DeliveryResult</a>;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="base_producer/index.html"
-                                  title='mod rdkafka::producer::base_producer'>base_producer</a></td>
+                           <td><a class="struct" href="struct.BaseProducer.html"
+                                  title='struct rdkafka::producer::base_producer::BaseProducer'>BaseProducer</a></td>
                            <td class='docblock-short'>
-                                
+                                <p>Simple Kafka producer. This producer needs to be <code>poll</code>ed at regular intervals in order to
+serve queued delivery report callbacks. This producer can be cheaply cloned to
+create a new reference to the same underlying producer.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="future_producer/index.html"
-                                  title='mod rdkafka::producer::future_producer'>future_producer</a></td>
+                           <td><a class="struct" href="struct.EmptyProducerContext.html"
+                                  title='struct rdkafka::producer::base_producer::EmptyProducerContext'>EmptyProducerContext</a></td>
                            <td class='docblock-short'>
-                                
+                                <p>Simple empty producer context that can be use when the producer context is not required.</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.ProducerContext.html"
+                                  title='trait rdkafka::producer::base_producer::ProducerContext'>ProducerContext</a></td>
+                           <td class='docblock-short'>
+                                <p>A <code>ProducerContext</code> is a <code>Context</code> specific for producers. It can be used to store
+user-specified callbacks, such as <code>delivery</code>.</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>
@@ -119,10 +130,10 @@
     
 
     <script>
-        window.rootPath = "../../";
+        window.rootPath = "../../../";
         window.currentCrate = "rdkafka";
     </script>
-    <script src="../../main.js"></script>
-    <script defer src="../../search-index.js"></script>
+    <script src="../../../main.js"></script>
+    <script defer src="../../../search-index.js"></script>
 </body>
 </html>

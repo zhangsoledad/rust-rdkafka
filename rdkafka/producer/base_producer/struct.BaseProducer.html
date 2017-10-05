@@ -1,10 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="refresh" content="0;URL=../../../rdkafka/producer/struct.BaseProducer.html">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `BaseProducer` struct in crate `rdkafka`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, BaseProducer">
+
+    <title>rdkafka::producer::base_producer::BaseProducer - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
+
+    
+    
 </head>
-<body>
-    <p>Redirecting to <a href="../../../rdkafka/producer/struct.BaseProducer.html">../../../rdkafka/producer/struct.BaseProducer.html</a>...</p>
-    <script>location.replace("../../../rdkafka/producer/struct.BaseProducer.html" + location.search + location.hash);</script>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'>Struct BaseProducer</p><div class="block items"><ul><li><a href="#methods">Methods</a></li><li><a href="#implementations">Trait Implementations</a></li></ul></div><p class='location'><a href='../../index.html'>rdkafka</a>::<wbr><a href='../index.html'>producer</a>::<wbr><a href='index.html'>base_producer</a></p><script>window.sidebarCurrent = {name: 'BaseProducer', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>rdkafka</a>::<wbr><a href='../index.html'>producer</a>::<wbr><a href='index.html'>base_producer</a>::<wbr><a class="struct" href=''>BaseProducer</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#89-91' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct BaseProducer&lt;C:&nbsp;<a class="trait" href="../../../rdkafka/producer/base_producer/trait.ProducerContext.html" title="trait rdkafka::producer::base_producer::ProducerContext">ProducerContext</a>&gt; { /* fields omitted */ }</pre><div class='docblock'><p>Simple Kafka producer. This producer needs to be <code>poll</code>ed at regular intervals in order to
+serve queued delivery report callbacks. This producer can be cheaply cloned to
+create a new reference to the same underlying producer.</p>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl&lt;C:&nbsp;<a class="trait" href="../../../rdkafka/producer/base_producer/trait.ProducerContext.html" title="trait rdkafka::producer::base_producer::ProducerContext">ProducerContext</a>&gt; <a class="struct" href="../../../rdkafka/producer/base_producer/struct.BaseProducer.html" title="struct rdkafka::producer::base_producer::BaseProducer">BaseProducer</a>&lt;C&gt;</code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#93-163' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.poll' class="method"><span id='poll.v' class='invisible'><code>fn <a href='#method.poll' class='fnname'>poll</a>(&amp;self, timeout_ms: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#101-103' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Polls the producer. Regular calls to <code>poll</code> are required to process the events
+and execute the message delivery callbacks.</p>
+</div><h4 id='method.send_copy' class="method"><span id='send_copy.v' class='invisible'><code>fn <a href='#method.send_copy' class='fnname'>send_copy</a>&lt;P:&nbsp;?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>, K:&nbsp;?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;topic_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;partition: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;payload: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;key: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>K&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;delivery_context: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;C::<a class="type" href="../../../rdkafka/producer/base_producer/trait.ProducerContext.html#associatedtype.DeliveryContext" title="type rdkafka::producer::base_producer::ProducerContext::DeliveryContext">DeliveryContext</a>&gt;&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;timestamp: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>&gt;<br>) -&gt; <a class="type" href="../../../rdkafka/error/type.KafkaResult.html" title="type rdkafka::error::KafkaResult">KafkaResult</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a>&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;K: <a class="trait" href="../../../rdkafka/message/trait.ToBytes.html" title="trait rdkafka::message::ToBytes">ToBytes</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;P: <a class="trait" href="../../../rdkafka/message/trait.ToBytes.html" title="trait rdkafka::message::ToBytes">ToBytes</a>,&nbsp;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#115-157' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Sends a copy of the payload and key provided to the specified topic. When no partition is
+specified the underlying Kafka library picks a partition based on the key. If no key is
+specified, a random partition will be used. Note that some errors will cause an error to be
+returned straight-away, such as partition not defined, while others will be returned in the
+delivery callback. To correctly handle errors, the delivery callback should be implemented.</p>
+</div><h4 id='method.flush' class="method"><span id='flush.v' class='invisible'><code>fn <a href='#method.flush' class='fnname'>flush</a>(&amp;self, timeout_ms: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#160-162' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Flushes the producer. Should be called before termination.</p>
+</div></div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-FromClientConfig' class='impl'><span class='in-band'><code>impl <a class="trait" href="../../../rdkafka/config/trait.FromClientConfig.html" title="trait rdkafka::config::FromClientConfig">FromClientConfig</a> for <a class="struct" href="../../../rdkafka/producer/base_producer/struct.BaseProducer.html" title="struct rdkafka::producer::base_producer::BaseProducer">BaseProducer</a>&lt;<a class="struct" href="../../../rdkafka/producer/base_producer/struct.EmptyProducerContext.html" title="struct rdkafka::producer::base_producer::EmptyProducerContext">EmptyProducerContext</a>&gt;</code><a href='#impl-FromClientConfig' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#69-74' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from_config' class="method"><span id='from_config.v' class='invisible'><code>fn <a href='../../../rdkafka/config/trait.FromClientConfig.html#tymethod.from_config' class='fnname'>from_config</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;config: &amp;<a class="struct" href="../../../rdkafka/config/struct.ClientConfig.html" title="struct rdkafka::config::ClientConfig">ClientConfig</a><br>) -&gt; <a class="type" href="../../../rdkafka/error/type.KafkaResult.html" title="type rdkafka::error::KafkaResult">KafkaResult</a>&lt;<a class="struct" href="../../../rdkafka/producer/base_producer/struct.BaseProducer.html" title="struct rdkafka::producer::base_producer::BaseProducer">BaseProducer</a>&lt;<a class="struct" href="../../../rdkafka/producer/base_producer/struct.EmptyProducerContext.html" title="struct rdkafka::producer::base_producer::EmptyProducerContext">EmptyProducerContext</a>&gt;&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#71-73' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Creates a new <code>BaseProducer</code> starting from a configuration.</p>
+</div></div><h3 id='impl-FromClientConfigAndContext&lt;C&gt;' class='impl'><span class='in-band'><code>impl&lt;C:&nbsp;<a class="trait" href="../../../rdkafka/producer/base_producer/trait.ProducerContext.html" title="trait rdkafka::producer::base_producer::ProducerContext">ProducerContext</a>&gt; <a class="trait" href="../../../rdkafka/config/trait.FromClientConfigAndContext.html" title="trait rdkafka::config::FromClientConfigAndContext">FromClientConfigAndContext</a>&lt;C&gt; for <a class="struct" href="../../../rdkafka/producer/base_producer/struct.BaseProducer.html" title="struct rdkafka::producer::base_producer::BaseProducer">BaseProducer</a>&lt;C&gt;</code><a href='#impl-FromClientConfigAndContext&lt;C&gt;' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#76-84' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from_config_and_context' class="method"><span id='from_config_and_context.v' class='invisible'><code>fn <a href='../../../rdkafka/config/trait.FromClientConfigAndContext.html#tymethod.from_config_and_context' class='fnname'>from_config_and_context</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;config: &amp;<a class="struct" href="../../../rdkafka/config/struct.ClientConfig.html" title="struct rdkafka::config::ClientConfig">ClientConfig</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;context: C<br>) -&gt; <a class="type" href="../../../rdkafka/error/type.KafkaResult.html" title="type rdkafka::error::KafkaResult">KafkaResult</a>&lt;<a class="struct" href="../../../rdkafka/producer/base_producer/struct.BaseProducer.html" title="struct rdkafka::producer::base_producer::BaseProducer">BaseProducer</a>&lt;C&gt;&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#78-83' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Creates a new <code>BaseProducer</code> starting from a configuration and a context.</p>
+</div></div><h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl&lt;C:&nbsp;<a class="trait" href="../../../rdkafka/producer/base_producer/trait.ProducerContext.html" title="trait rdkafka::producer::base_producer::ProducerContext">ProducerContext</a>&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="../../../rdkafka/producer/base_producer/struct.BaseProducer.html" title="struct rdkafka::producer::base_producer::BaseProducer">BaseProducer</a>&lt;C&gt;</code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#165-169' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="struct" href="../../../rdkafka/producer/base_producer/struct.BaseProducer.html" title="struct rdkafka::producer::base_producer::BaseProducer">BaseProducer</a>&lt;C&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#166-168' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#112-114' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "rdkafka";
+    </script>
+    <script src="../../../main.js"></script>
+    <script defer src="../../../search-index.js"></script>
 </body>
 </html>

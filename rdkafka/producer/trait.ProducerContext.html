@@ -48,27 +48,33 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../src/rdkafka/producer.rs.html#27-36' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../src/rdkafka/producer/base_producer.rs.html#24-33' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ProducerContext: <a class="trait" href="../../rdkafka/client/trait.Context.html" title="trait rdkafka::client::Context">Context</a> {
     type <a href='#associatedtype.DeliveryContext' class="type">DeliveryContext</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a>;
-    fn <a href='#tymethod.delivery' class='fnname'>delivery</a>(&amp;self, _: <a class="struct" href="../../rdkafka/producer/struct.DeliveryReport.html" title="struct rdkafka::producer::DeliveryReport">DeliveryReport</a>, _: Self::<a class="trait" href="../../rdkafka/producer/trait.ProducerContext.html" title="trait rdkafka::producer::ProducerContext">DeliveryContext</a>);
-}</pre><div class='docblock'><p>A <code>ProducerContext</code> is a <code>Context</code> specific for producers. It can be used to store user-specified
-callbacks, such as <code>delivery</code>.</p>
+    fn <a href='#tymethod.delivery' class='fnname'>delivery</a>(&amp;self, _: &amp;<a class="type" href="../../rdkafka/message/type.DeliveryResult.html" title="type rdkafka::message::DeliveryResult">DeliveryResult</a>, _: Self::<a class="type" href="../../rdkafka/producer/trait.ProducerContext.html#associatedtype.DeliveryContext" title="type rdkafka::producer::ProducerContext::DeliveryContext">DeliveryContext</a>);
+}</pre><div class='docblock'><p>A <code>ProducerContext</code> is a <code>Context</code> specific for producers. It can be used to store
+user-specified callbacks, such as <code>delivery</code>.</p>
 </div>
-            <h2 id='associated-types'>Associated Types</h2>
+            <h2 id='associated-types' class='small-section-header'>
+              Associated Types<a href='#associated-types' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='associatedtype.DeliveryContext' class='method'><span id='DeliveryContext.t' class='invisible'><code>type <a href='#associatedtype.DeliveryContext' class="type">DeliveryContext</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a></code></span></h3><div class='docblock'><p>A DeliveryContext is a user-defined structure that will be passed to the producer when
+        <h3 id='associatedtype.DeliveryContext' class='method'><span id='DeliveryContext.t' class='invisible'><code>type <a href='#associatedtype.DeliveryContext' class="type">DeliveryContext</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a></code></span></h3><div class='docblock'><p>A <code>DeliveryContext</code> is a user-defined structure that will be passed to the producer when
 producing a message, and returned to the <code>delivery</code> method once the message has been
 delivered, or failed to.</p>
 </div></div>
-            <h2 id='required-methods'>Required Methods</h2>
+            <h2 id='required-methods' class='small-section-header'>
+              Required Methods<a href='#required-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='tymethod.delivery' class='method'><span id='delivery.v' class='invisible'><code>fn <a href='#tymethod.delivery' class='fnname'>delivery</a>(&amp;self, _: <a class="struct" href="../../rdkafka/producer/struct.DeliveryReport.html" title="struct rdkafka::producer::DeliveryReport">DeliveryReport</a>, _: Self::<a class="trait" href="../../rdkafka/producer/trait.ProducerContext.html" title="trait rdkafka::producer::ProducerContext">DeliveryContext</a>)</code></span></h3><div class='docblock'><p>This method will be called once the message has been delivered (or failed to). The
+        <h3 id='tymethod.delivery' class='method'><span id='delivery.v' class='invisible'><code>fn <a href='#tymethod.delivery' class='fnname'>delivery</a>(&amp;self, _: &amp;<a class="type" href="../../rdkafka/message/type.DeliveryResult.html" title="type rdkafka::message::DeliveryResult">DeliveryResult</a>, _: Self::<a class="type" href="../../rdkafka/producer/trait.ProducerContext.html#associatedtype.DeliveryContext" title="type rdkafka::producer::ProducerContext::DeliveryContext">DeliveryContext</a>)</code></span></h3><div class='docblock'><p>This method will be called once the message has been delivered (or failed to). The
 <code>DeliveryContext</code> will be the one provided by the user when calling send.</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl ProducerContext for <a class="struct" href="../../rdkafka/producer/struct.EmptyProducerContext.html" title="struct rdkafka::producer::EmptyProducerContext">EmptyProducerContext</a></code></li>
+    <li><code>impl ProducerContext for <a class="struct" href="../../rdkafka/producer/struct.EmptyProducerContext.html" title="struct rdkafka::producer::EmptyProducerContext">EmptyProducerContext</a><span class="where fmt-newline">  type <a href='#associatedtype.DeliveryContext' class="type">DeliveryContext</a> = <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a>;</span></code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/rdkafka/producer/trait.ProducerContext.js">
                  </script></section>

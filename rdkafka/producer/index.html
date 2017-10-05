@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'>Module producer</p><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a></p><script>window.sidebarCurrent = {name: 'producer', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'>Module producer</p><div class="block items"><ul><li><a href="#reexports">Reexports</a></li><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a></p><script>window.sidebarCurrent = {name: 'producer', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -48,9 +48,9 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../src/rdkafka/producer.rs.html#1-442' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>Producer implementations.</p>
-</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+               </span><a class='srclink' href='../../src/rdkafka/producer/mod.rs.html#1-10' title='goto source code'>[src]</a></span></h1>
+<h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="type" href="../../rdkafka/message/type.DeliveryResult.html" title="type rdkafka::message::DeliveryResult">DeliveryResult</a>;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class="struct" href="struct.BaseProducer.html"
@@ -59,22 +59,6 @@
                                 <p>Simple Kafka producer. This producer needs to be <code>poll</code>ed at regular intervals in order to
 serve queued delivery report callbacks. This producer can be cheaply cloned to
 create a new reference to the same underlying producer.</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DeliveryFuture.html"
-                                  title='struct rdkafka::producer::DeliveryFuture'>DeliveryFuture</a></td>
-                           <td class='docblock-short'>
-                                <p>A future that will receive a <code>DeliveryReport</code> containing information on the
-delivery status of the message.</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DeliveryReport.html"
-                                  title='struct rdkafka::producer::DeliveryReport'>DeliveryReport</a></td>
-                           <td class='docblock-short'>
-                                <p>Information returned by the producer after a message has been delivered
-or failed to be delivered.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -99,8 +83,8 @@ The internal thread can be terminated with the <code>stop</code> method or movin
                            <td><a class="trait" href="trait.ProducerContext.html"
                                   title='trait rdkafka::producer::ProducerContext'>ProducerContext</a></td>
                            <td class='docblock-short'>
-                                <p>A <code>ProducerContext</code> is a <code>Context</code> specific for producers. It can be used to store user-specified
-callbacks, such as <code>delivery</code>.</p>
+                                <p>A <code>ProducerContext</code> is a <code>Context</code> specific for producers. It can be used to store
+user-specified callbacks, such as <code>delivery</code>.</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>

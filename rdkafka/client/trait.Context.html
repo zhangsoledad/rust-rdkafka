@@ -51,20 +51,24 @@
                </span><a class='srclink' href='../../src/rdkafka/client.rs.html#23-51' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Context: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> {
     fn <a href='#method.log' class='fnname'>log</a>(&amp;self, level: <a class="enum" href="../../rdkafka/config/enum.RDKafkaLogLevel.html" title="enum rdkafka::config::RDKafkaLogLevel">RDKafkaLogLevel</a>, fac: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, log_message: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) { ... }
-    fn <a href='#method.stats' class='fnname'>stats</a>(&amp;self, statistics: <a class="struct" href="../../rdkafka/statistics/struct.Statistics.html" title="struct rdkafka::statistics::Statistics">Statistics</a>) { ... }
-    fn <a href='#method.error' class='fnname'>error</a>(&amp;self, error: <a class="enum" href="../../rdkafka/error/enum.KafkaError.html" title="enum rdkafka::error::KafkaError">KafkaError</a>, reason: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) { ... }
+<div class='item-spacer'></div>    fn <a href='#method.stats' class='fnname'>stats</a>(&amp;self, statistics: <a class="struct" href="../../rdkafka/statistics/struct.Statistics.html" title="struct rdkafka::statistics::Statistics">Statistics</a>) { ... }
+<div class='item-spacer'></div>    fn <a href='#method.error' class='fnname'>error</a>(&amp;self, error: <a class="enum" href="../../rdkafka/error/enum.KafkaError.html" title="enum rdkafka::error::KafkaError">KafkaError</a>, reason: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) { ... }
 }</pre><div class='docblock'><p>A Context is an object that can store user-defined data and on which callbacks can be
 defined. Refer to the list of methods to see which callbacks can currently be overridden.
 The context must be thread safe, and might be owned by multiple threads.</p>
 </div>
-            <h2 id='provided-methods'>Provided Methods</h2>
+            <h2 id='provided-methods' class='small-section-header'>
+              Provided Methods<a href='#provided-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
         <h3 id='method.log' class='method'><span id='log.v' class='invisible'><code>fn <a href='#method.log' class='fnname'>log</a>(&amp;self, level: <a class="enum" href="../../rdkafka/config/enum.RDKafkaLogLevel.html" title="enum rdkafka::config::RDKafkaLogLevel">RDKafkaLogLevel</a>, fac: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, log_message: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code></span></h3><div class='docblock'><p>Receives log lines from librdkafka.</p>
 </div><h3 id='method.stats' class='method'><span id='stats.v' class='invisible'><code>fn <a href='#method.stats' class='fnname'>stats</a>(&amp;self, statistics: <a class="struct" href="../../rdkafka/statistics/struct.Statistics.html" title="struct rdkafka::statistics::Statistics">Statistics</a>)</code></span></h3><div class='docblock'><p>Receives the statistics of the librdkafka client. To enable, the
 &quot;statistics.interval.ms&quot; configuration parameter must be specified.</p>
 </div><h3 id='method.error' class='method'><span id='error.v' class='invisible'><code>fn <a href='#method.error' class='fnname'>error</a>(&amp;self, error: <a class="enum" href="../../rdkafka/error/enum.KafkaError.html" title="enum rdkafka::error::KafkaError">KafkaError</a>, reason: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code></span></h3><div class='docblock'><p>Receives global errors from the librdkafka client.</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
     <li><code>impl Context for <a class="struct" href="../../rdkafka/client/struct.EmptyContext.html" title="struct rdkafka::client::EmptyContext">EmptyContext</a></code></li>
 <li><code>impl Context for <a class="struct" href="../../rdkafka/consumer/struct.EmptyConsumerContext.html" title="struct rdkafka::consumer::EmptyConsumerContext">EmptyConsumerContext</a></code></li>

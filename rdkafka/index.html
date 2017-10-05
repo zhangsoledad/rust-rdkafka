@@ -48,7 +48,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/rdkafka/lib.rs.html#1-214' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/rdkafka/lib.rs.html#1-230' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'>
 <h1 id='rust-rdkafka' class='section-header'><a href='#rust-rdkafka'>rust-rdkafka</a></h1>
 <p>A fully asynchronous, <a href="https://github.com/alexcrichton/futures-rs">futures</a>-based Kafka client library for Rust based on <a href="https://github.com/edenhill/librdkafka">librdkafka</a>.</p>
@@ -78,14 +78,25 @@
 <li>Access to producer and consumer metrics, errors and callbacks.</li>
 </ul>
 
-<h3 id='users' class='section-header'><a href='#users'>Users</a></h3>
-<p>Here are some of the projects using rust-rdkafka:</p>
+<h3 id='one-million-messages-per-second' class='section-header'><a href='#one-million-messages-per-second'>One million messages per second</a></h3>
+<p><code>rust-rdkafka</code> is designed to be easy and safe to use thanks to the abstraction layer written in Rust, while at the same time being extremely fast thanks to the librdkafka C library.</p>
+
+<p>Here are some benchmark results using the rust-rdkafka BaseProducer, sending data to a single Kafka 0.11 process running in localhost (default configuration, 3 partitions). Hardware: Dell laptop, with Intel Core i7-4712HQ @ 2.30GHz.</p>
 
 <ul>
-<li><a href="https://github.com/fede1024/kafka-view">kafka-view</a>: a web interface for Kafka clusters.</li>
+<li><p>Scenario: produce 5 million messages, 10 bytes each, wait for all of them to be acked</p>
+
+<ul>
+<li>1045413 messages/s, 9.970 MB/s  (average over 5 runs)</li>
+</ul></li>
+<li><p>Scenario: produce 100000 messages, 10 KB each, wait for all of them to be acked</p>
+
+<ul>
+<li>24623 messages/s, 234.826 MB/s  (average over 5 runs)</li>
+</ul></li>
 </ul>
 
-<p><em>If you are using rust-rdkafka, please let me know!</em></p>
+<p>For more numbers, check out the <a href="https://github.com/fede1024/kafka-benchmark">kafka-benchmark</a> project.</p>
 
 <h3 id='client-types' class='section-header'><a href='#client-types'>Client types</a></h3>
 <p><code>rust-rdkafka</code> provides low level and high level consumers and producers. Low level:</p>
@@ -115,6 +126,16 @@
 <p>In order to implement at-least-once delivery the stream processing application has to carefully commit the offset only once the message has been processed. Committing the offset too early, instead, might cause message loss, since upon recovery the consumer will start from the next message, skipping the one where the failure occurred.</p>
 
 <p>To see how to implement at-least-once delivery with <code>rdkafka</code>, check out the <a href="https://github.com/fede1024/rust-rdkafka/blob/master/examples/at_least_once.rs">at-least-once delivery example</a> in the examples folder. To know more about delivery semantics, check the <a href="https://kafka.apache.org/0101/documentation.html#semantics">message delivery semantics</a> chapter in the Kafka documentation.</p>
+
+<h3 id='users' class='section-header'><a href='#users'>Users</a></h3>
+<p>Here are some of the projects using rust-rdkafka:</p>
+
+<ul>
+<li><a href="https://github.com/fede1024/kafka-view">kafka-view</a>: a web interface for Kafka clusters.</li>
+<li><a href="https://github.com/fede1024/kafka-benchmark">kafka-benchmark</a>: a high performance benchmarking tool for Kafka.</li>
+</ul>
+
+<p><em>If you are using rust-rdkafka, please let me know!</em></p>
 
 <h2 id='installation' class='section-header'><a href='#installation'>Installation</a></h2>
 <p>Add this to your <code>Cargo.toml</code>:</p>
@@ -207,7 +228,7 @@ set the <code>debug</code> option in the producer or consumer configuration (see
 <p>To enable debugging in your project, make sure you initialize the logger with
 <code>env_logger::init()</code> or equivalent.</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>pub use client::<a class="trait" href="../rdkafka/client/trait.Context.html" title="trait rdkafka::client::Context">Context</a>;</code></td></tr><tr><td><code>pub use message::<a class="trait" href="../rdkafka/message/trait.Message.html" title="trait rdkafka::message::Message">Message</a>;</code></td></tr><tr><td><code>pub use message::<a class="enum" href="../rdkafka/message/enum.Timestamp.html" title="enum rdkafka::message::Timestamp">Timestamp</a>;</code></td></tr><tr><td><code>pub use topic_partition_list::<a class="enum" href="../rdkafka/topic_partition_list/enum.Offset.html" title="enum rdkafka::topic_partition_list::Offset">Offset</a>;</code></td></tr><tr><td><code>pub use topic_partition_list::<a class="struct" href="../rdkafka/topic_partition_list/struct.TopicPartitionList.html" title="struct rdkafka::topic_partition_list::TopicPartitionList">TopicPartitionList</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr><td><code>pub use config::<a class="struct" href="../rdkafka/config/struct.ClientConfig.html" title="struct rdkafka::config::ClientConfig">ClientConfig</a>;</code></td></tr><tr><td><code>pub use config::<a class="struct" href="../rdkafka/config/struct.TopicConfig.html" title="struct rdkafka::config::TopicConfig">TopicConfig</a>;</code></td></tr><tr><td><code>pub use client::<a class="trait" href="../rdkafka/client/trait.Context.html" title="trait rdkafka::client::Context">Context</a>;</code></td></tr><tr><td><code>pub use message::<a class="trait" href="../rdkafka/message/trait.Message.html" title="trait rdkafka::message::Message">Message</a>;</code></td></tr><tr><td><code>pub use message::<a class="enum" href="../rdkafka/message/enum.Timestamp.html" title="enum rdkafka::message::Timestamp">Timestamp</a>;</code></td></tr><tr><td><code>pub use topic_partition_list::<a class="enum" href="../rdkafka/topic_partition_list/enum.Offset.html" title="enum rdkafka::topic_partition_list::Offset">Offset</a>;</code></td></tr><tr><td><code>pub use topic_partition_list::<a class="struct" href="../rdkafka/topic_partition_list/struct.TopicPartitionList.html" title="struct rdkafka::topic_partition_list::TopicPartitionList">TopicPartitionList</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class="mod" href="client/index.html"
@@ -262,7 +283,7 @@ set the <code>debug</code> option in the producer or consumer configuration (see
                            <td><a class="mod" href="producer/index.html"
                                   title='mod rdkafka::producer'>producer</a></td>
                            <td class='docblock-short'>
-                                <p>Producer implementations.</p>
+                                
                            </td>
                        </tr>
                        <tr class=' module-item'>

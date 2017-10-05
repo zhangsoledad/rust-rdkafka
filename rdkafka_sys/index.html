@@ -48,7 +48,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/rdkafka_sys/lib.rs.html#1-52' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/rdkafka_sys/lib.rs.html#1-53' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'>
 <h1 id='rdkafka-sys' class='section-header'><a href='#rdkafka-sys'>rdkafka-sys</a></h1>
 <p>Low level bindings to <a href="https://github.com/edenhill/librdkafka">librdkafka</a>.</p>
@@ -57,7 +57,8 @@
 <p>To regenerate the bindings:</p>
 
 <pre><code class="language-bash">git submodule update --init
-bindgen --builtins --no-doc-comments librdkafka/src/rdkafka.h &gt; src/bindings/{platform}.rs
+cargo install bindgen --vers 0.30.0
+bindgen --builtins --no-doc-comments librdkafka/src/rdkafka.h -o src/bindings/{platform}.rs
 </code></pre>
 
 <h2 id='version' class='section-header'><a href='#version'>Version</a></h2>

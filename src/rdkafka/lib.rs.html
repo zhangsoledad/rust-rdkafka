@@ -257,6 +257,22 @@
 <span id="212">212</span>
 <span id="213">213</span>
 <span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! # rust-rdkafka</span>
 <span class="doccomment">//! A fully asynchronous, [futures]-based Kafka client library for Rust based on [librdkafka].</span>
@@ -286,15 +302,19 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [librdkafka documentation]: https://github.com/edenhill/librdkafka/wiki/Broker-version-compatibility</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### Users</span>
+<span class="doccomment">//! ### One million messages per second</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Here are some of the projects using rust-rdkafka:</span>
+<span class="doccomment">//! `rust-rdkafka` is designed to be easy and safe to use thanks to the abstraction layer written in Rust, while at the same time being extremely fast thanks to the librdkafka C library.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - [kafka-view]: a web interface for Kafka clusters.</span>
+<span class="doccomment">//! Here are some benchmark results using the rust-rdkafka BaseProducer, sending data to a single Kafka 0.11 process running in localhost (default configuration, 3 partitions). Hardware: Dell laptop, with Intel Core i7-4712HQ @ 2.30GHz.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! *If you are using rust-rdkafka, please let me know!*</span>
+<span class="doccomment">//! - Scenario: produce 5 million messages, 10 bytes each, wait for all of them to be acked</span>
+<span class="doccomment">//!   - 1045413 messages/s, 9.970 MB/s  (average over 5 runs)</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [kafka-view]: https://github.com/fede1024/kafka-view</span>
+<span class="doccomment">//! - Scenario: produce 100000 messages, 10 KB each, wait for all of them to be acked</span>
+<span class="doccomment">//!   - 24623 messages/s, 234.826 MB/s  (average over 5 runs)</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! For more numbers, check out the [kafka-benchmark](https://github.com/fede1024/kafka-benchmark) project.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Client types</span>
 <span class="doccomment">//!</span>
@@ -337,6 +357,18 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [at-least-once delivery example]: https://github.com/fede1024/rust-rdkafka/blob/master/examples/at_least_once.rs</span>
 <span class="doccomment">//! [message delivery semantics]: https://kafka.apache.org/0101/documentation.html#semantics</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ### Users</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Here are some of the projects using rust-rdkafka:</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! - [kafka-view]: a web interface for Kafka clusters.</span>
+<span class="doccomment">//! - [kafka-benchmark]: a high performance benchmarking tool for Kafka.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! *If you are using rust-rdkafka, please let me know!*</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [kafka-view]: https://github.com/fede1024/kafka-view</span>
+<span class="doccomment">//! [kafka-benchmark]: https://github.com/fede1024/kafka-benchmark</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Installation</span>
 <span class="doccomment">//!</span>
@@ -450,7 +482,6 @@
 <span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde_derive</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde_json</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">futures</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">errno</span>;
 
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">rdkafka_sys</span> <span class="kw">as</span> <span class="ident">rdsys</span>;
 
@@ -469,6 +500,7 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">util</span>;
 
 <span class="comment">// Re-export</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">config</span>::{<span class="ident">ClientConfig</span>, <span class="ident">TopicConfig</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">client</span>::<span class="ident">Context</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">message</span>::{<span class="ident">Message</span>, <span class="ident">Timestamp</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">topic_partition_list</span>::{<span class="ident">Offset</span>, <span class="ident">TopicPartitionList</span>};

@@ -48,7 +48,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../../src/rdkafka/consumer/stream_consumer.rs.html#1-213' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../../src/rdkafka/consumer/stream_consumer.rs.html#1-216' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Stream-based consumer implementation.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
@@ -56,22 +56,14 @@
                            <td><a class="struct" href="struct.MessageStream.html"
                                   title='struct rdkafka::consumer::stream_consumer::MessageStream'>MessageStream</a></td>
                            <td class='docblock-short'>
-                                <p>A Stream of Kafka messages. It can be used to receive messages as they are consumed from Kafka.
-Note: there might be buffering between the actual Kafka consumer and the receiving end of this
-stream, so it is not advised to use automatic commit, as some messages might have been consumed
-by the internal Kafka consumer but not processed.</p>
+                                <p>A Kafka consumer implementing Stream.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class="struct" href="struct.StreamConsumer.html"
                                   title='struct rdkafka::consumer::stream_consumer::StreamConsumer'>StreamConsumer</a></td>
                            <td class='docblock-short'>
-                                <p>A Consumer with an associated polling thread. This consumer doesn&#39;t need to
-be polled and it will return all consumed messages as a <code>Stream</code>.
-Due to the asynchronous nature of the stream, some messages might be consumed by the consumer
-without being processed on the other end of the stream. If auto commit is used, it might cause
-message loss after consumer restart. Manual offset storing should be used, see the <code>store_offset</code>
-function on <code>Consumer</code>.</p>
+                                <p>A Kafka Consumer providing a <code>futures::Stream</code> interface.</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>

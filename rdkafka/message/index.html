@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'>Module message</p><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a></p><script>window.sidebarCurrent = {name: 'message', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'>Module message</p><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'><a href='../index.html'>rdkafka</a></p><script>window.sidebarCurrent = {name: 'message', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -48,7 +48,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../src/rdkafka/message.rs.html#1-320' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../src/rdkafka/message.rs.html#1-356' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Store and manipulate Kafka messages.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
@@ -56,12 +56,7 @@
                            <td><a class="struct" href="struct.BorrowedMessage.html"
                                   title='struct rdkafka::message::BorrowedMessage'>BorrowedMessage</a></td>
                            <td class='docblock-short'>
-                                <p>A native librdkafka message. The content of the message is stored in the receiving buffer of
-the consumer, to avoid memory allocations. As such, <code>BorrowedMessage</code> cannot outlive the
-consumer it is received from.
-<code>BorrowedMessage</code>s are removed from the consumer buffer once they are dropped. Holding
-references to many messages might cause the memory of the consumer to fill up and stop.
-To transform a <code>BorrowedMessage</code> into a <code>OwnedMessage</code>, use the <code>detach</code> method.</p>
+                                <p>A zero-copy Kafka message.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -103,6 +98,14 @@ No copy of the data should be performed.</p>
                            <td class='docblock-short'>
                                 <p>Given some data, returns the byte representation of that data.
 No copy of the data should be performed.</p>
+                           </td>
+                       </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.DeliveryResult.html"
+                                  title='type rdkafka::message::DeliveryResult'>DeliveryResult</a></td>
+                           <td class='docblock-short'>
+                                <p>The result of a message production.</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>

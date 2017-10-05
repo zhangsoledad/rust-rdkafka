@@ -321,17 +321,6 @@
 <span id="276">276</span>
 <span id="277">277</span>
 <span id="278">278</span>
-<span id="279">279</span>
-<span id="280">280</span>
-<span id="281">281</span>
-<span id="282">282</span>
-<span id="283">283</span>
-<span id="284">284</span>
-<span id="285">285</span>
-<span id="286">286</span>
-<span id="287">287</span>
-<span id="288">288</span>
-<span id="289">289</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Low level consumer wrapper.</span>
 <span class="kw">use</span> <span class="ident">rdsys</span>;
@@ -414,45 +403,34 @@
         }
         <span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client</span>::<span class="ident">new</span>(<span class="ident">config</span>, <span class="ident">native_config</span>, <span class="ident">RDKafkaType</span>::<span class="ident">RD_KAFKA_CONSUMER</span>, <span class="ident">context</span>)<span class="question-mark">?</span>;
         <span class="kw">unsafe</span> { <span class="ident">rdsys</span>::<span class="ident">rd_kafka_poll_set_consumer</span>(<span class="ident">client</span>.<span class="ident">native_ptr</span>()) };
-        <span class="prelude-val">Ok</span>(<span class="ident">BaseConsumer</span> { <span class="ident">client</span>: <span class="ident">client</span> })
+        <span class="prelude-val">Ok</span>(<span class="ident">BaseConsumer</span> { <span class="ident">client</span> })
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">ConsumerContext</span><span class="op">&gt;</span> <span class="ident">BaseConsumer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Polls the consumer for messages and returns a pointer to the native rdkafka-sys struct.</span>
-    <span class="doccomment">/// This method is for internal use only.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">poll_raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">timeout_ms</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaMessage</span><span class="op">&gt;&gt;</span> {
+    <span class="doccomment">/// This method is for internal use only. Use poll instead.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">poll_raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">timeout_ms</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaMessage</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">message_ptr</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">rdsys</span>::<span class="ident">rd_kafka_consumer_poll</span>(<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">native_ptr</span>(), <span class="ident">timeout_ms</span>) };
         <span class="kw">if</span> <span class="ident">message_ptr</span>.<span class="ident">is_null</span>() {
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
+            <span class="prelude-val">None</span>
+        } <span class="kw">else</span> {
+            <span class="prelude-val">Some</span>(<span class="ident">message_ptr</span>)
         }
-        <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Received raw message pointer: {:?}&quot;</span>, <span class="ident">message_ptr</span>);
-        <span class="kw">let</span> <span class="ident">error</span> <span class="op">=</span> <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="ident">message_ptr</span>).<span class="ident">err</span> };
-        <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_error</span>() {
-            <span class="comment">// TODO: should we destroy the message here?</span>
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(
-                <span class="kw">match</span> <span class="ident">error</span> {
-                    <span class="ident">rdsys</span>::<span class="ident">rd_kafka_resp_err_t</span>::<span class="ident">RD_KAFKA_RESP_ERR__PARTITION_EOF</span> <span class="op">=&gt;</span> {
-                        <span class="ident">KafkaError</span>::<span class="ident">PartitionEOF</span>(<span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="ident">message_ptr</span>).<span class="ident">partition</span> })
-                    }
-                    <span class="ident">e</span> <span class="op">=&gt;</span> <span class="ident">KafkaError</span>::<span class="ident">MessageConsumption</span>(<span class="ident">e</span>.<span class="ident">into</span>()),
-                },
-            );
-        }
-        <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">message_ptr</span>))
     }
 
-    <span class="doccomment">/// Polls the consumer for new messages. It won&#39;t block more than the specified timeout.</span>
-    <span class="doccomment">/// Set the timeout to 0 to make the call non-blocking, or to -1 to block until</span>
-    <span class="doccomment">/// an event is received. This method should be called at regular intervals, even if</span>
-    <span class="doccomment">/// no message is expected, to serve any queued callbacks waiting to be called. This is</span>
-    <span class="doccomment">/// especially important for automatic consumer rebalance, as the rebalance function</span>
-    <span class="doccomment">/// will be executed by the thread calling the poll() function.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">timeout_ms</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BorrowedMessage</span><span class="op">&gt;&gt;</span> {
+    <span class="doccomment">/// Polls the consumer for new messages. It won&#39;t block for more than the specified timeout. Set</span>
+    <span class="doccomment">/// the timeout to 0 to make the call non-blocking, or to -1 to block until an event is</span>
+    <span class="doccomment">/// received. This method should be called at regular intervals, even if no message is expected,</span>
+    <span class="doccomment">/// to serve any queued callbacks waiting to be called. This is especially important for</span>
+    <span class="doccomment">/// automatic consumer rebalance, as the rebalance function will be executed by the thread</span>
+    <span class="doccomment">/// calling the poll() function.</span>
+    <span class="doccomment">/// ## Lifetime</span>
+    <span class="doccomment">/// The returned message lives in the memory of the consumer and cannot outlive it.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">timeout_ms</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">BorrowedMessage</span><span class="op">&gt;&gt;</span> {
         <span class="self">self</span>.<span class="ident">poll_raw</span>(<span class="ident">timeout_ms</span>)
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">opt_ptr</span><span class="op">|</span> <span class="ident">opt_ptr</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">BorrowedMessage</span>::<span class="ident">new</span>(<span class="ident">ptr</span>, <span class="self">self</span>)))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="kw">unsafe</span> { <span class="ident">BorrowedMessage</span>::<span class="ident">from_consumer</span>(<span class="ident">ptr</span>, <span class="self">self</span>) })
     }
-
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">ConsumerContext</span><span class="op">&gt;</span> <span class="ident">Consumer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">BaseConsumer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {

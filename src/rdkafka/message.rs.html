@@ -363,6 +363,42 @@
 <span id="318">318</span>
 <span id="319">319</span>
 <span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Store and manipulate Kafka messages.</span>
 <span class="kw">use</span> <span class="ident">rdsys</span>;
@@ -374,11 +410,11 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">str</span>;
 
-<span class="kw">use</span> <span class="ident">consumer</span>::{<span class="ident">Consumer</span>, <span class="ident">ConsumerContext</span>};
+<span class="kw">use</span> <span class="ident">error</span>::{<span class="ident">IsError</span>, <span class="ident">KafkaError</span>, <span class="ident">KafkaResult</span>};
 
 
 <span class="doccomment">/// Timestamp of a message</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>,<span class="ident">PartialEq</span>,<span class="ident">Eq</span>,<span class="ident">Clone</span>,<span class="ident">Copy</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Timestamp</span> {
     <span class="ident">NotAvailable</span>,
     <span class="ident">CreateTime</span>(<span class="ident">i64</span>),
@@ -427,16 +463,31 @@
     }
 }
 
-<span class="doccomment">/// A native librdkafka message. The content of the message is stored in the receiving buffer of</span>
-<span class="doccomment">/// the consumer, to avoid memory allocations. As such, `BorrowedMessage` cannot outlive the</span>
-<span class="doccomment">/// consumer it is received from.</span>
-<span class="doccomment">/// `BorrowedMessage`s are removed from the consumer buffer once they are dropped. Holding</span>
-<span class="doccomment">/// references to many messages might cause the memory of the consumer to fill up and stop.</span>
+<span class="doccomment">/// A zero-copy Kafka message.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The content of the message is stored in the receiving buffer of the consumer or the producer. As</span>
+<span class="doccomment">/// such, `BorrowedMessage` cannot outlive the consumer or producer it belongs to.</span>
+<span class="doccomment">/// ## Consumers</span>
+<span class="doccomment">/// `BorrowedMessage`s coming from consumers are removed from the consumer buffer once they are</span>
+<span class="doccomment">/// dropped. Holding references to too many messages will cause the memory of the consumer to fill</span>
+<span class="doccomment">/// up and the consumer to block until some of the `BorrowedMessage`s are dropped.</span>
+<span class="doccomment">/// ## Conversion to owned</span>
 <span class="doccomment">/// To transform a `BorrowedMessage` into a `OwnedMessage`, use the `detach` method.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaMessage</span>,
-    <span class="ident">_p</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">u8</span><span class="op">&gt;</span>,
+    <span class="ident">_owner</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">u8</span><span class="op">&gt;</span>,
 }
+
+<span class="doccomment">/// The result of a message production.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// If message production is successful `DeliveryResult` will contain the sent message, that can be</span>
+<span class="doccomment">/// used to find which partition and offset the message was sent to. If message production is not</span>
+<span class="doccomment">/// successful, the `DeliveryReport` will contain an error and the message that failed to be sent.</span>
+<span class="doccomment">/// The partition and offset, in this case, will default to -1 and 0 respectively.</span>
+<span class="doccomment">/// ## Lifetimes</span>
+<span class="doccomment">/// In both success or failure scenarios, the payload of the message resides in the buffer of the</span>
+<span class="doccomment">/// producer and will be automatically removed once the `delivery` callback finishes.</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">DeliveryResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, (<span class="ident">KafkaError</span>, <span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>)<span class="op">&gt;</span>;
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
@@ -444,15 +495,40 @@
     }
 }
 
+<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">err_field_to_kafka_error</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaMessage</span>) <span class="op">-&gt;</span> <span class="ident">KafkaError</span> {
+    <span class="kw">match</span> (<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">err</span> {
+        <span class="ident">rdsys</span>::<span class="ident">rd_kafka_resp_err_t</span>::<span class="ident">RD_KAFKA_RESP_ERR__PARTITION_EOF</span> <span class="op">=&gt;</span> {
+            <span class="ident">KafkaError</span>::<span class="ident">PartitionEOF</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">partition</span>)
+        }
+        <span class="ident">e</span> <span class="op">=&gt;</span> <span class="ident">KafkaError</span>::<span class="ident">MessageConsumption</span>(<span class="ident">e</span>.<span class="ident">into</span>()),
+    }
+}
+
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Creates a new `BorrowedMessage` that wraps the native Kafka message pointer. The lifetime of the</span>
-    <span class="doccomment">/// message will be bound to the lifetime of the consumer passed as parameter.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">X</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaMessage</span>, <span class="ident">_consumer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">C</span>) <span class="op">-&gt;</span> <span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>
-        <span class="kw">where</span> <span class="ident">X</span>: <span class="ident">ConsumerContext</span>,
-              <span class="ident">C</span>: <span class="ident">Consumer</span><span class="op">&lt;</span><span class="ident">X</span><span class="op">&gt;</span> {
-        <span class="ident">BorrowedMessage</span> {
-            <span class="ident">ptr</span>: <span class="ident">ptr</span>,
-            <span class="ident">_p</span>: <span class="ident">PhantomData</span>,
+    <span class="doccomment">/// Creates a new `BorrowedMessage` that wraps the native Kafka message pointer returned by a</span>
+    <span class="doccomment">/// consumer. The lifetime of the message will be bound to the lifetime of the consumer passed</span>
+    <span class="doccomment">/// as parameter. This method should only be used with messages coming from consumers. If the</span>
+    <span class="doccomment">/// message contains an error, only the error is returned and the message structure is freed.</span>
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_consumer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaMessage</span>, <span class="ident">_consumer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">C</span>) <span class="op">-&gt;</span> <span class="ident">KafkaResult</span><span class="op">&lt;</span><span class="ident">BorrowedMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+        <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">err</span>.<span class="ident">is_error</span>() {
+            <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="prelude-val">Err</span>(<span class="ident">err_field_to_kafka_error</span>(<span class="ident">ptr</span>));
+            <span class="ident">rdsys</span>::<span class="ident">rd_kafka_message_destroy</span>(<span class="ident">ptr</span>);
+            <span class="ident">err</span>
+        } <span class="kw">else</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">BorrowedMessage</span> { <span class="ident">ptr</span>, <span class="ident">_owner</span>: <span class="ident">PhantomData</span> })
+        }
+    }
+
+    <span class="doccomment">/// Creates a new `BorrowedMessage` that wraps the native Kafka message pointer returned by the</span>
+    <span class="doccomment">/// delivery callback of a producer. The lifetime of the message will be bound to the lifetime</span>
+    <span class="doccomment">/// of the reference passed as parameter. This method should only be used with messages coming</span>
+    <span class="doccomment">/// from the delivery callback. The message will not be freed in any circumstance.</span>
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_dr_callback</span><span class="op">&lt;</span><span class="ident">O</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">RDKafkaMessage</span>, <span class="ident">_owner</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">O</span>) <span class="op">-&gt;</span> <span class="ident">DeliveryResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">borrowed_message</span> <span class="op">=</span> <span class="ident">BorrowedMessage</span> { <span class="ident">ptr</span>, <span class="ident">_owner</span>: <span class="ident">PhantomData</span> };
+        <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">err</span>.<span class="ident">is_error</span>() {
+            <span class="prelude-val">Err</span>((<span class="ident">err_field_to_kafka_error</span>(<span class="ident">ptr</span>), <span class="ident">borrowed_message</span>))
+        } <span class="kw">else</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">borrowed_message</span>)
         }
     }
 
@@ -527,7 +603,6 @@
         <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">offset</span> }
     }
 
-    <span class="comment">// TODO: -1 should be &quot;Not available&quot;</span>
     <span class="kw">fn</span> <span class="ident">timestamp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Timestamp</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">timestamp_type</span> <span class="op">=</span> <span class="ident">rdsys</span>::<span class="ident">rd_kafka_timestamp_type_t</span>::<span class="ident">RD_KAFKA_TIMESTAMP_NOT_AVAILABLE</span>;
         <span class="kw">let</span> <span class="ident">timestamp</span> <span class="op">=</span> <span class="kw">unsafe</span> {
@@ -535,12 +610,15 @@
                 <span class="self">self</span>.<span class="ident">ptr</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">timestamp_type</span>
             )
-
         };
-        <span class="kw">match</span> <span class="ident">timestamp_type</span> {
-            <span class="ident">rdsys</span>::<span class="ident">rd_kafka_timestamp_type_t</span>::<span class="ident">RD_KAFKA_TIMESTAMP_NOT_AVAILABLE</span> <span class="op">=&gt;</span> <span class="ident">Timestamp</span>::<span class="ident">NotAvailable</span>,
-            <span class="ident">rdsys</span>::<span class="ident">rd_kafka_timestamp_type_t</span>::<span class="ident">RD_KAFKA_TIMESTAMP_CREATE_TIME</span> <span class="op">=&gt;</span> <span class="ident">Timestamp</span>::<span class="ident">CreateTime</span>(<span class="ident">timestamp</span>),
-            <span class="ident">rdsys</span>::<span class="ident">rd_kafka_timestamp_type_t</span>::<span class="ident">RD_KAFKA_TIMESTAMP_LOG_APPEND_TIME</span> <span class="op">=&gt;</span> <span class="ident">Timestamp</span>::<span class="ident">LogAppendTime</span>(<span class="ident">timestamp</span>)
+        <span class="kw">if</span> <span class="ident">timestamp</span> <span class="op">==</span> <span class="op">-</span><span class="number">1</span> {
+            <span class="ident">Timestamp</span>::<span class="ident">NotAvailable</span>
+        } <span class="kw">else</span> {
+            <span class="kw">match</span> <span class="ident">timestamp_type</span> {
+                <span class="ident">rdsys</span>::<span class="ident">rd_kafka_timestamp_type_t</span>::<span class="ident">RD_KAFKA_TIMESTAMP_NOT_AVAILABLE</span> <span class="op">=&gt;</span> <span class="ident">Timestamp</span>::<span class="ident">NotAvailable</span>,
+                <span class="ident">rdsys</span>::<span class="ident">rd_kafka_timestamp_type_t</span>::<span class="ident">RD_KAFKA_TIMESTAMP_CREATE_TIME</span> <span class="op">=&gt;</span> <span class="ident">Timestamp</span>::<span class="ident">CreateTime</span>(<span class="ident">timestamp</span>),
+                <span class="ident">rdsys</span>::<span class="ident">rd_kafka_timestamp_type_t</span>::<span class="ident">RD_KAFKA_TIMESTAMP_LOG_APPEND_TIME</span> <span class="op">=&gt;</span> <span class="ident">Timestamp</span>::<span class="ident">LogAppendTime</span>(<span class="ident">timestamp</span>)
+            }
         }
     }
 }
@@ -559,6 +637,7 @@
 <span class="doccomment">/// An `OwnedMessage` can be created from a `BorrowedMessage` using the `detach` method.</span>
 <span class="doccomment">/// `OwnedMessage`s don&#39;t hold any reference to the consumer, and don&#39;t use any memory inside the</span>
 <span class="doccomment">/// consumer buffer.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OwnedMessage</span> {
     <span class="ident">payload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;&gt;</span>,
     <span class="ident">key</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;&gt;</span>,
@@ -578,14 +657,7 @@
         <span class="ident">partition</span>: <span class="ident">i32</span>,
         <span class="ident">offset</span>: <span class="ident">i64</span>
     ) <span class="op">-&gt;</span> <span class="ident">OwnedMessage</span> {
-        <span class="ident">OwnedMessage</span> {
-            <span class="ident">payload</span>: <span class="ident">payload</span>,
-            <span class="ident">key</span>: <span class="ident">key</span>,
-            <span class="ident">topic</span>: <span class="ident">topic</span>,
-            <span class="ident">timestamp</span>: <span class="ident">timestamp</span>,
-            <span class="ident">partition</span>: <span class="ident">partition</span>,
-            <span class="ident">offset</span>: <span class="ident">offset</span>
-        }
+        <span class="ident">OwnedMessage</span> { <span class="ident">payload</span>, <span class="ident">key</span>, <span class="ident">topic</span>, <span class="ident">timestamp</span>, <span class="ident">partition</span>, <span class="ident">offset</span> }
     }
 }
 

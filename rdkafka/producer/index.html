@@ -48,8 +48,48 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../src/rdkafka/producer/mod.rs.html#1-10' title='goto source code'>[src]</a></span></h1>
-<h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+               </span><a class='srclink' href='../../src/rdkafka/producer/mod.rs.html#1-53' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>This module contains all the rust-rdkafka producers.</p>
+
+<h2 id='the-librdkafka-producer' class='section-header'><a href='#the-librdkafka-producer'>The librdkafka producer</a></h2>
+<p>Rust-rdkafka relies on the C librdkafka producer to communicate with Kafka, so in order to understand how
+the Rust producers work it is important to understand the basics of the C one as well.</p>
+
+<h3 id='async' class='section-header'><a href='#async'>Async</a></h3>
+<p>The librdkafka producer is completely asynchronous: it maintains a memory buffer where messages
+waiting to be sent or currently in flight are stored. Once a message is delivered or an error
+occurred and the maximum number of retries has been reached, the producer will enqueue a delivery
+event with the appropriate delivery result into an internal event queue.</p>
+
+<p>The librdkafka user is responsible for calling the <code>poll</code> function at regular intervals to
+process those events; in particular the thread calling <code>poll</code> will be the one executing
+the delivery callback for every delivery event. If <code>poll</code> is not called, or not frequently
+enough, the producer will return a &quot;queue full&quot; error and it won&#39;t be able to send any other
+message until more delivery event are processed via <code>poll</code>.</p>
+
+<h3 id='error-reporting' class='section-header'><a href='#error-reporting'>Error reporting</a></h3>
+<p>The C library will try deal with all the transient errors such as broker disconnection,
+timeouts etc. These errors, called global errors, are automatically logged in rust-rdkafka, but
+they normally don&#39;t require any handling as they are automatically handled internally.
+To see the logs, make sure you initialize the logger.</p>
+
+<p>As mentioned earlier, errors specific to message production will be reported in the delivery callback.</p>
+
+<h2 id='rust-rdkafka-producers' class='section-header'><a href='#rust-rdkafka-producers'>Rust-rdkafka producers</a></h2>
+<p>Rust-rdkafka (rdkafka for brevity) provides two sets of producers: low level and high level.</p>
+
+<h3 id='low-level-producer' class='section-header'><a href='#low-level-producer'>Low level producer</a></h3>
+<p>The low level producer provided by rdkafka is called <code>BaseProducer</code>. The goal of the
+<code>BaseProducer</code> is to be as close as possible to the C one while maintaining a safe Rust interface.
+In particular, the <code>BaseProducer</code> needs to be polled at regular intervals to execute the
+any delivery callback that might be waiting and to make sure the queue doesn&#39;t fill up.</p>
+
+<p>The delivery callback can be defined using a <code>ProducerContext</code>. More information in the
+<code>base_producer</code> module.</p>
+
+<h3 id='high-level-producer' class='section-header'><a href='#high-level-producer'>High level producer</a></h3>
+<p>TODO (see <code>FutureProducer</code>).</p>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="struct" href="../../rdkafka/producer/base_producer/struct.BaseProducer.html" title="struct rdkafka::producer::base_producer::BaseProducer">BaseProducer</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="type" href="../../rdkafka/message/type.DeliveryResult.html" title="type rdkafka::message::DeliveryResult">DeliveryResult</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="struct" href="../../rdkafka/producer/base_producer/struct.EmptyProducerContext.html" title="struct rdkafka::producer::base_producer::EmptyProducerContext">EmptyProducerContext</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="trait" href="../../rdkafka/producer/base_producer/trait.ProducerContext.html" title="trait rdkafka::producer::base_producer::ProducerContext">ProducerContext</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./future_producer/index.html">future_producer</a>::<a class="struct" href="../../rdkafka/producer/future_producer/struct.FutureProducer.html" title="struct rdkafka::producer::future_producer::FutureProducer">FutureProducer</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>

@@ -328,6 +328,19 @@
 <span id="283">283</span>
 <span id="284">284</span>
 <span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
 </pre><pre class="rust ">
 <span class="kw">use</span> <span class="ident">client</span>::{<span class="ident">Context</span>, <span class="ident">EmptyContext</span>};
 <span class="kw">use</span> <span class="ident">config</span>::{<span class="ident">ClientConfig</span>, <span class="ident">FromClientConfig</span>, <span class="ident">FromClientConfigAndContext</span>, <span class="ident">RDKafkaLogLevel</span>};
@@ -346,6 +359,11 @@
 <span class="comment">// ********** POLLING PRODUCER **********</span>
 <span class="comment">//</span>
 
+<span class="doccomment">/// A producer with a separate thread for event handling.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The `PollingProducer` is a `BaseProducer` with a separate thread dedicated to calling `poll` at</span>
+<span class="doccomment">/// regular intervals, in order to execute any queued event, such as delivery notifications. The</span>
+<span class="doccomment">/// thread will be automatically stopped when the producer is dropped.</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;The polling producer will stop immediately if unused&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PollingProducer</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">ProducerContext</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> {
     <span class="ident">producer</span>: <span class="ident">BaseProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>,
@@ -399,7 +417,7 @@
         <span class="kw-2">*</span><span class="ident">handle_store</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">handle</span>);
     }
 
-    <span class="comment">// See documentation in FutureProducer</span>
+    <span class="doccomment">/// Stops the polling thread.</span>
     <span class="kw">fn</span> <span class="ident">stop</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">handle_store</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">handle</span>.<span class="ident">write</span>().<span class="ident">expect</span>(<span class="string">&quot;poison error&quot;</span>);
         <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">handle_store</span>).<span class="ident">is_some</span>() {
@@ -413,6 +431,7 @@
         }
     }
 
+    <span class="doccomment">/// Sends a message to Kafka. See the documentation in `BaseProducer`.</span>
     <span class="kw">fn</span> <span class="ident">send_copy</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">K</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">topic</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -449,8 +468,8 @@
 
 <span class="doccomment">/// Represents the result of message production as performed from the `FutureProducer`.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// If message production was successful, `OwnedDeliveryResult` will return the partition and offset</span>
-<span class="doccomment">/// of the message. If the message failed to be produced an error will be returned, together with</span>
+<span class="doccomment">/// If message delivery was successful, `OwnedDeliveryResult` will return the partition and offset</span>
+<span class="doccomment">/// of the message. If the message failed to be delivered an error will be returned, together with</span>
 <span class="doccomment">/// an owned copy of the original message.</span>
 <span class="kw">type</span> <span class="ident">OwnedDeliveryResult</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">i32</span>, <span class="ident">i64</span>), (<span class="ident">KafkaError</span>, <span class="ident">OwnedMessage</span>)<span class="op">&gt;</span>;
 
@@ -482,10 +501,14 @@
 }
 
 
-<span class="doccomment">/// A producer with an internal running thread. This producer doesn&#39;t need to be polled.</span>
-<span class="doccomment">/// It can be cheaply cloned to get a reference to the same underlying producer.</span>
-<span class="doccomment">/// The internal thread can be terminated with the `stop` method or moving the</span>
-<span class="doccomment">/// `FutureProducer` out of scope.</span>
+<span class="doccomment">/// A producer that returns a `Future` for every message being produced.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Since message production in rdkafka is asynchronous, the called cannot immediately know if the</span>
+<span class="doccomment">/// delivery of the message was successful or not. The `FutureProducer` provides this information in</span>
+<span class="doccomment">/// a `Future`, that will be completed once the information becomes available. This producer has an</span>
+<span class="doccomment">/// internal polling thread and as such it doesn&#39;t need to be polled. It can be cheaply cloned to</span>
+<span class="doccomment">/// get a reference to the same underlying producer. The internal thread can be terminated with the</span>
+<span class="doccomment">/// `stop` method or moving the `FutureProducer` out of scope.</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;Producer polling thread will stop immediately if unused&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> {
     <span class="ident">inner</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PollingProducer</span><span class="op">&lt;</span><span class="ident">FutureProducerContext</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
@@ -511,12 +534,15 @@
     }
 }
 
-<span class="doccomment">/// A future that will return a `DeliveryResult` containing information on the</span>
+<span class="doccomment">/// A `Future` wrapping the result of the message production.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Once completed, the future will contain an `OwnedDeliveryResult` with information on the</span>
 <span class="doccomment">/// delivery status of the message.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeliveryFuture</span> {
     <span class="ident">rx</span>: <span class="ident">Oneshot</span><span class="op">&lt;</span><span class="ident">OwnedDeliveryResult</span><span class="op">&gt;</span>,
 }
 
+<span class="comment">// TODO: remove?</span>
 <span class="kw">impl</span> <span class="ident">DeliveryFuture</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">close</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="self">self</span>.<span class="ident">rx</span>.<span class="ident">close</span>();
@@ -539,7 +565,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">Context</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">FutureProducer</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Sends a copy of the payload and key provided to the specified topic. When no partition is</span>
     <span class="doccomment">/// specified the underlying Kafka library picks a partition based on the key.</span>
-    <span class="doccomment">/// Returns a `DeliveryFuture` or an error.</span>
+    <span class="doccomment">/// Returns a `DeliveryFuture`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_copy</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">K</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">topic</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,

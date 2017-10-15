@@ -48,10 +48,10 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#24-33' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../../src/rdkafka/producer/base_producer.rs.html#50-59' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ProducerContext: <a class="trait" href="../../../rdkafka/client/trait.Context.html" title="trait rdkafka::client::Context">Context</a> {
     type <a href='#associatedtype.DeliveryContext' class="type">DeliveryContext</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a>;
-    fn <a href='#tymethod.delivery' class='fnname'>delivery</a>(&amp;self, _: &amp;<a class="type" href="../../../rdkafka/message/type.DeliveryResult.html" title="type rdkafka::message::DeliveryResult">DeliveryResult</a>, _: Self::<a class="type" href="../../../rdkafka/producer/base_producer/trait.ProducerContext.html#associatedtype.DeliveryContext" title="type rdkafka::producer::base_producer::ProducerContext::DeliveryContext">DeliveryContext</a>);
+    fn <a href='#tymethod.delivery' class='fnname'>delivery</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delivery_result: &amp;<a class="type" href="../../../rdkafka/message/type.DeliveryResult.html" title="type rdkafka::message::DeliveryResult">DeliveryResult</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delivery_context: Self::<a class="type" href="../../../rdkafka/producer/base_producer/trait.ProducerContext.html#associatedtype.DeliveryContext" title="type rdkafka::producer::base_producer::ProducerContext::DeliveryContext">DeliveryContext</a><br>&nbsp;&nbsp;&nbsp;&nbsp;);
 }</pre><div class='docblock'><p>A <code>ProducerContext</code> is a <code>Context</code> specific for producers. It can be used to store
 user-specified callbacks, such as <code>delivery</code>.</p>
 </div>
@@ -67,7 +67,7 @@ delivered, or failed to.</p>
               Required Methods<a href='#required-methods' class='anchor'></a>
             </h2>
             <div class='methods'>
-        <h3 id='tymethod.delivery' class='method'><span id='delivery.v' class='invisible'><code>fn <a href='#tymethod.delivery' class='fnname'>delivery</a>(&amp;self, _: &amp;<a class="type" href="../../../rdkafka/message/type.DeliveryResult.html" title="type rdkafka::message::DeliveryResult">DeliveryResult</a>, _: Self::<a class="type" href="../../../rdkafka/producer/base_producer/trait.ProducerContext.html#associatedtype.DeliveryContext" title="type rdkafka::producer::base_producer::ProducerContext::DeliveryContext">DeliveryContext</a>)</code></span></h3><div class='docblock'><p>This method will be called once the message has been delivered (or failed to). The
+        <h3 id='tymethod.delivery' class='method'><span id='delivery.v' class='invisible'><code>fn <a href='#tymethod.delivery' class='fnname'>delivery</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;delivery_result: &amp;<a class="type" href="../../../rdkafka/message/type.DeliveryResult.html" title="type rdkafka::message::DeliveryResult">DeliveryResult</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;delivery_context: Self::<a class="type" href="../../../rdkafka/producer/base_producer/trait.ProducerContext.html#associatedtype.DeliveryContext" title="type rdkafka::producer::base_producer::ProducerContext::DeliveryContext">DeliveryContext</a><br>)</code></span></h3><div class='docblock'><p>This method will be called once the message has been delivered (or failed to). The
 <code>DeliveryContext</code> will be the one provided by the user when calling send.</p>
 </div></div>
         <h2 id='implementors' class='small-section-header'>

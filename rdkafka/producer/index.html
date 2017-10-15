@@ -48,10 +48,10 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../src/rdkafka/producer/mod.rs.html#1-53' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>This module contains all the rust-rdkafka producers.</p>
+               </span><a class='srclink' href='../../src/rdkafka/producer/mod.rs.html#1-82' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>Low level and high level rdkafka producers.</p>
 
-<h2 id='the-librdkafka-producer' class='section-header'><a href='#the-librdkafka-producer'>The librdkafka producer</a></h2>
+<h2 id='the-c-librdkafka-producer' class='section-header'><a href='#the-c-librdkafka-producer'>The C librdkafka producer</a></h2>
 <p>Rust-rdkafka relies on the C librdkafka producer to communicate with Kafka, so in order to understand how
 the Rust producers work it is important to understand the basics of the C one as well.</p>
 
@@ -62,9 +62,9 @@ occurred and the maximum number of retries has been reached, the producer will e
 event with the appropriate delivery result into an internal event queue.</p>
 
 <p>The librdkafka user is responsible for calling the <code>poll</code> function at regular intervals to
-process those events; in particular the thread calling <code>poll</code> will be the one executing
+process those events; the thread calling <code>poll</code> will be the one executing
 the delivery callback for every delivery event. If <code>poll</code> is not called, or not frequently
-enough, the producer will return a &quot;queue full&quot; error and it won&#39;t be able to send any other
+enough, the producer will return a RDKafkaError::QueueFull error and it won&#39;t be able to send any other
 message until more delivery event are processed via <code>poll</code>.</p>
 
 <h3 id='error-reporting' class='section-header'><a href='#error-reporting'>Error reporting</a></h3>
@@ -88,7 +88,38 @@ any delivery callback that might be waiting and to make sure the queue doesn&#39
 <code>base_producer</code> module.</p>
 
 <h3 id='high-level-producer' class='section-header'><a href='#high-level-producer'>High level producer</a></h3>
-<p>TODO (see <code>FutureProducer</code>).</p>
+<p>At the moment the only high level producer implemented is the <code>FutureProducer</code>. The
+<code>FutureProducer</code> doesn&#39;t rely on user-defined callbacks to notify the delivery or failure of
+a message; instead, this information will be returned in a Future. The <code>FutureProducer</code> also
+uses an internal thread that is used for polling, which makes calling poll explicitly not necessary.
+The returned future will contain information about the delivered message in case of success,
+or a copy of the original message in case of failure. Additional computation can be chained
+to the returned future, and it will executed by the future executor once the value is available
+(for more information, check the documentation of the futures crate).</p>
+
+<h2 id='configuration' class='section-header'><a href='#configuration'>Configuration</a></h2>
+<h3 id='producer-configuration' class='section-header'><a href='#producer-configuration'>Producer configuration</a></h3>
+<p>For the configuration parameters common to both producers and consumers, refer to the
+documentation of the <code>config</code> module. Here are listed the most commonly used producer
+configuration. Click <a href="https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md">here</a> for the full list.</p>
+
+<ul>
+<li><code>queue.buffering.max.messages</code> (100000): Maximum number of messages allowed on the producer queue.</li>
+<li><code>queue.buffering.max.kbytes</code> (4000000): Maximum total message size sum allowed on the producer queue. This property has higher priority than queue.buffering.max.messages.</li>
+<li><code>queue.buffering.max.ms</code> (0): Delay in milliseconds to wait for messages in the producer queue to accumulate before sending a request to the brokers. A higher value allows larger and more effective (less overhead, improved compression) batches of messages to accumulate at the expense of increased message delivery latency.</li>
+<li><code>message.send.max.retries</code> (2): How many times to retry sending a failing MessageSet. Note: retrying may cause reordering.</li>
+<li><code>compression.codec</code> (none): Compression codec to use for compressing message sets.</li>
+</ul>
+
+<h3 id='topic-configurations' class='section-header'><a href='#topic-configurations'>Topic configurations</a></h3>
+<p>Some configuration parameters are specified via the <code>TopicConfig</code> structure. The most common parameters for the producer are:</p>
+
+<ul>
+<li><code>request.required.acks</code> (1): This field indicates how many acknowledgements the leader broker must receive from ISR brokers before responding to the request: 0=Broker does not send any response/ack to client, 1=Only the leader broker will need to ack the message, -1 or all=broker will block until message is committed by all in sync replicas (ISRs) or broker&#39;s in.sync.replicas setting before sending response.</li>
+<li><code>request.timeout.ms</code> (5000): The ack timeout of the producer request in milliseconds. This value is only enforced by the broker and relies on request.required.acks being != 0.</li>
+<li><code>message.timeout.ms</code> (300000): Local message timeout. This value is only enforced locally and limits the time a produced message waits for successful delivery. A time of 0 is infinite.</li>
+<li><code>produce.offset.report</code> (false): Report offset of produced message back to application.</li>
+</ul>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="struct" href="../../rdkafka/producer/base_producer/struct.BaseProducer.html" title="struct rdkafka::producer::base_producer::BaseProducer">BaseProducer</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="type" href="../../rdkafka/message/type.DeliveryResult.html" title="type rdkafka::message::DeliveryResult">DeliveryResult</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="struct" href="../../rdkafka/producer/base_producer/struct.EmptyProducerContext.html" title="struct rdkafka::producer::base_producer::EmptyProducerContext">EmptyProducerContext</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./base_producer/index.html">base_producer</a>::<a class="trait" href="../../rdkafka/producer/base_producer/trait.ProducerContext.html" title="trait rdkafka::producer::base_producer::ProducerContext">ProducerContext</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./future_producer/index.html">future_producer</a>::<a class="struct" href="../../rdkafka/producer/future_producer/struct.FutureProducer.html" title="struct rdkafka::producer::future_producer::FutureProducer">FutureProducer</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
@@ -96,7 +127,7 @@ any delivery callback that might be waiting and to make sure the queue doesn&#39
                            <td><a class="mod" href="base_producer/index.html"
                                   title='mod rdkafka::producer::base_producer'>base_producer</a></td>
                            <td class='docblock-short'>
-                                
+                                <p>Low level Kafka producer.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>

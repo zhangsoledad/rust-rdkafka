@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["base_producer",""],["future_producer",""]]});
+initSidebarItems({"mod":[["base_producer","Low level Kafka producer."],["future_producer",""]]});

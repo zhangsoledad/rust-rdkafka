@@ -227,7 +227,59 @@
 <span id="182">182</span>
 <span id="183">183</span>
 <span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
 </pre><pre class="rust ">
+<span class="doccomment">//! Low level Kafka producer.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! For more information about the producers provided in rdkafka, refer to the module level documentation.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## BaseProducer</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! The `BaseProducer` is a low level Kafka producer designed to be as similar as possible to</span>
+<span class="doccomment">//! the underlying C librdkafka producer, while maintaining a safe Rust interface.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Production of messages is fully asynchronous. The librdkafka producer will take care of buffering</span>
+<span class="doccomment">//! requests together according to configuration, and to send them efficiently. Once a message has</span>
+<span class="doccomment">//! been produced, or the retry count reached, a callback function called delivery callback will be</span>
+<span class="doccomment">//! called.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! The `BaseProducer` requires a `ProducerContext` which will be used to specify the delivery callback</span>
+<span class="doccomment">//! and the `DeliveryContext`. The `DeliveryContext` is a user-defined type that the user can pass to the</span>
+<span class="doccomment">//! `send` method of the producer, and that the producer will then forward to the delivery</span>
+<span class="doccomment">//! callback of the corresponding message. The `DeliveryContext` is useful in case the delivery</span>
+<span class="doccomment">//! callback requires additional information about the message (such as message id for example).</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ### Calling poll</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! To execute delivery callbacks the `poll` method of the producer should be called regularly.</span>
+<span class="doccomment">//! If `poll` is not called, or not often enough, a RDKafkaError::QueueFull error will be returned.</span>
+<span class="doccomment">//!</span>
+
 <span class="kw">use</span> <span class="ident">rdsys</span>::<span class="ident">rd_kafka_vtype_t</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">rdsys</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">rdsys</span>;
@@ -259,7 +311,7 @@
 
     <span class="doccomment">/// This method will be called once the message has been delivered (or failed to). The</span>
     <span class="doccomment">/// `DeliveryContext` will be the one provided by the user when calling send.</span>
-    <span class="kw">fn</span> <span class="ident">delivery</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">&amp;</span><span class="ident">DeliveryResult</span>, <span class="self">Self</span>::<span class="ident">DeliveryContext</span>);
+    <span class="kw">fn</span> <span class="ident">delivery</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">delivery_result</span>: <span class="kw-2">&amp;</span><span class="ident">DeliveryResult</span>, <span class="ident">delivery_context</span>: <span class="self">Self</span>::<span class="ident">DeliveryContext</span>);
 }
 
 <span class="doccomment">/// Simple empty producer context that can be use when the producer context is not required.</span>

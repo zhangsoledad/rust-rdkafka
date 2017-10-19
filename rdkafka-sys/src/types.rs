@@ -60,16 +60,6 @@ pub use bindings::rd_kafka_type_t as RDKafkaType;
 /// Configuration result
 pub use bindings::rd_kafka_conf_res_t as RDKafkaConfRes;
 
-#[cfg(not(target_os = "macos"))]
-impl PartialEq for RDKafkaConfRes {
-    fn eq(&self, other: &RDKafkaConfRes) -> bool {
-        self == other
-    }
-}
-
-#[cfg(not(target_os = "macos"))]
-impl Eq for RDKafkaConfRes {}
-
 /// Response error
 pub use bindings::rd_kafka_resp_err_t as RDKafkaRespErr;
 
@@ -78,8 +68,7 @@ pub use bindings::rd_kafka_resp_err_t as RDKafkaRespErr;
 /// Error from the underlying rdkafka library.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum RDKafkaError {
-    #[doc(hidden)]
-    Begin = -200,
+    #[doc(hidden)] Begin = -200,
     /// Received message is incorrect
     BadMessage = -199,
     /// Bad/unknown compression
@@ -162,8 +151,7 @@ pub enum RDKafkaError {
     KeyDeserialization = -160,
     /// Value deserialization error
     ValueDeserialization = -159,
-    #[doc(hidden)]
-    End = -100,
+    #[doc(hidden)] End = -100,
     /// Unknown broker error
     Unknown = -1,
     /// Success
@@ -281,8 +269,7 @@ pub enum RDKafkaError {
     SecurityDisabled = 54,
     /// Operation not attempted
     OperationNotAttempted = 55,
-    #[doc(hidden)]
-    EndAll,
+    #[doc(hidden)] EndAll,
 }
 
 impl From<RDKafkaRespErr> for RDKafkaError {
@@ -296,9 +283,11 @@ impl fmt::Display for RDKafkaError {
         let description = match helpers::primitive_to_rd_kafka_resp_err_t(*self as i32) {
             Some(err) => {
                 let cstr = unsafe { bindings::rd_kafka_err2str(err) };
-                unsafe { CStr::from_ptr(cstr) }.to_string_lossy().into_owned()
-            },
-            None => "Unknown error".to_owned()
+                unsafe { CStr::from_ptr(cstr) }
+                    .to_string_lossy()
+                    .into_owned()
+            }
+            None => "Unknown error".to_owned(),
         };
 
         write!(f, "{:?} ({})", self, description)

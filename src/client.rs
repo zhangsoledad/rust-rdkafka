@@ -2,7 +2,7 @@
 use rdsys;
 use rdsys::types::*;
 
-use std::ffi::{CString, CStr};
+use std::ffi::{CStr, CString};
 use std::slice;
 use std::mem;
 use std::os::raw::c_void;
@@ -54,7 +54,7 @@ pub trait Context: Send + Sync {
 #[derive(Clone, Default)]
 pub struct EmptyContext;
 
-impl Context for EmptyContext { }
+impl Context for EmptyContext {}
 
 impl EmptyContext {
     pub fn new() -> EmptyContext {
@@ -79,7 +79,7 @@ unsafe impl Send for NativeClient {}
 impl NativeClient {
     /// Wraps a pointer to an RDKafka object and returns a new NativeClient.
     pub fn from_ptr(ptr: *mut RDKafka) -> NativeClient {
-        NativeClient {ptr: ptr}
+        NativeClient { ptr: ptr }
     }
 
     /// Returns the wrapped pointer to RDKafka.
@@ -108,9 +108,12 @@ pub struct Client<C: Context> {
 
 impl<C: Context> Client<C> {
     /// Creates a new `Client` given a configuration, a client type and a context.
-    pub fn new(config: &ClientConfig, native_config: NativeClientConfig, rd_kafka_type: RDKafkaType,
-               context: C)
-            -> KafkaResult<Client<C>> {
+    pub fn new(
+        config: &ClientConfig,
+        native_config: NativeClientConfig,
+        rd_kafka_type: RDKafkaType,
+        context: C,
+    ) -> KafkaResult<Client<C>> {
         let errstr = [0i8; 1024];
         let mut boxed_context = Box::new(context);
         unsafe { rdsys::rd_kafka_conf_set_opaque(native_config.ptr(), (&mut *boxed_context) as *mut C as *mut c_void) };
@@ -165,9 +168,12 @@ impl<C: Context> Client<C> {
             rdsys::rd_kafka_metadata(
                 self.native_ptr(),
                 flag,
-                native_topic.map(|t| t.ptr()).unwrap_or_else(NativeTopic::null),
+                native_topic
+                    .map(|t| t.ptr())
+                    .unwrap_or_else(NativeTopic::null),
                 &mut metadata_ptr as *mut *const RDKafkaMetadata,
-                timeout_ms)
+                timeout_ms,
+            )
         };
         trace!("Metadata fetch completed");
         if ret.is_error() {
@@ -183,8 +189,14 @@ impl<C: Context> Client<C> {
         let mut high = -1;
         let topic_c = CString::new(topic.to_string())?;
         let ret = unsafe {
-            rdsys::rd_kafka_query_watermark_offsets(self.native_ptr(), topic_c.as_ptr(), partition,
-                                                    &mut low as *mut i64, &mut high as *mut i64, timeout_ms)
+            rdsys::rd_kafka_query_watermark_offsets(
+                self.native_ptr(),
+                topic_c.as_ptr(),
+                partition,
+                &mut low as *mut i64,
+                &mut high as *mut i64,
+                timeout_ms,
+            )
         };
         if ret.is_error() {
             return Err(KafkaError::MetadataFetch(ret.into()));
@@ -209,7 +221,8 @@ impl<C: Context> Client<C> {
                 self.native_ptr(),
                 group_c_ptr,
                 &mut group_list_ptr as *mut *const RDKafkaGroupList,
-                timeout_ms)
+                timeout_ms,
+            )
         };
         trace!("Group list fetch completed");
         if ret.is_error() {
@@ -223,8 +236,8 @@ impl<C: Context> Client<C> {
     /// it was generated from.
     fn native_topic(&self, topic: &str) -> KafkaResult<NativeTopic> {
         let topic_c = CString::new(topic.to_string())?;
-        let native_topic_ptr = unsafe {
-            rdsys::rd_kafka_topic_new(self.native_ptr(), topic_c.as_ptr(), ptr::null_mut()) };
+        let native_topic_ptr =
+            unsafe { rdsys::rd_kafka_topic_new(self.native_ptr(), topic_c.as_ptr(), ptr::null_mut()) };
         Ok(NativeTopic::from_ptr(native_topic_ptr))
     }
 }
@@ -263,49 +276,48 @@ impl Drop for NativeTopic {
     }
 }
 
-pub unsafe extern "C" fn native_log_cb<C: Context>(
-        client: *const RDKafka, level: i32,
-        fac: *const i8, buf: *const i8) {
+pub unsafe extern "C" fn native_log_cb<C: Context>(client: *const RDKafka, level: i32, fac: *const i8, buf: *const i8) {
     let fac = CStr::from_ptr(fac).to_string_lossy();
     let log_message = CStr::from_ptr(buf).to_string_lossy();
 
     let context = Box::from_raw(rdsys::rd_kafka_opaque(client) as *mut C);
     (*context).log(RDKafkaLogLevel::from_int(level), fac.trim(), log_message.trim());
-    mem::forget(context);   // Do not free the context
+    mem::forget(context); // Do not free the context
 }
 
 pub unsafe extern "C" fn native_stats_cb<C: Context>(
-        _conf: *mut RDKafka, json: *mut i8, json_len: usize,
-        opaque: *mut c_void) -> i32 {
+    _conf: *mut RDKafka,
+    json: *mut i8,
+    json_len: usize,
+    opaque: *mut c_void,
+) -> i32 {
     let context = Box::from_raw(opaque as *mut C);
 
-    let mut bytes_vec = Vec::new();
-    bytes_vec.extend_from_slice(slice::from_raw_parts(json as *mut u8, json_len));
-    let json_string = CString::from_vec_unchecked(bytes_vec).into_string();
-    match json_string {
-        Ok(json) => match serde_json::from_str(&json) {
-            Ok(stats) => (*context).stats(stats),
-            Err(e) => error!("Could not parse statistics JSON: {}", e)
-        },
-        Err(e) => error!("Statistics JSON string is not UTF-8: {:?}", e)
+    let slice = slice::from_raw_parts(json as *mut u8, json_len);
+
+    match serde_json::from_slice(slice) {
+        Ok(stats) => (*context).stats(stats),
+        Err(e) => error!("Could not parse statistics JSON: {}", e),
     }
 
-    mem::forget(context);   // Do not free the context
+    mem::forget(context); // Do not free the context
 
     0 // librdkafka will free the json buffer
 }
 
 pub unsafe extern "C" fn native_error_cb<C: Context>(
-        _client: *mut RDKafka, err: i32, reason: *const i8,
-        opaque: *mut c_void) {
-    let err = rdsys::primitive_to_rd_kafka_resp_err_t(err)
-        .expect("global error not an rd_kafka_resp_err_t");
+    _client: *mut RDKafka,
+    err: i32,
+    reason: *const i8,
+    opaque: *mut c_void,
+) {
+    let err = rdsys::primitive_to_rd_kafka_resp_err_t(err).expect("global error not an rd_kafka_resp_err_t");
     let error = KafkaError::Global(err.into());
     let reason = CStr::from_ptr(reason).to_string_lossy();
 
     let context = Box::from_raw(opaque as *mut C);
     (*context).error(error, reason.trim());
-    mem::forget(context);   // Do not free the context
+    mem::forget(context); // Do not free the context
 }
 
 #[cfg(test)]
@@ -322,8 +334,7 @@ mod tests {
     fn test_client() {
         let config = ClientConfig::new();
         let native_config = config.create_native_config().unwrap();
-        let client = Client::new(&config, native_config, RDKafkaType::RD_KAFKA_PRODUCER,
-                                 EmptyContext::new()).unwrap();
+        let client = Client::new(&config, native_config, RDKafkaType::RD_KAFKA_PRODUCER, EmptyContext::new()).unwrap();
         assert!(!client.native_ptr().is_null());
     }
 }

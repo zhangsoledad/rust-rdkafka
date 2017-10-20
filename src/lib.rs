@@ -175,15 +175,16 @@
 
 //>alloc_system
 
-#[macro_use] extern crate log;
-#[macro_use] extern crate serde_derive;
-extern crate serde_json;
 extern crate futures;
-extern crate errno;
+#[macro_use]
+extern crate log;
+#[macro_use]
+extern crate serde_derive;
+extern crate serde_json;
 
 extern crate rdkafka_sys as rdsys;
 
-pub use rdsys::types as types;
+pub use rdsys::types;
 
 pub mod client;
 pub mod config;

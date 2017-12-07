@@ -3,13 +3,15 @@
 #[repr(C)]
 #[derive(Default)]
 pub struct __IncompleteArrayField<T>(::std::marker::PhantomData<T>);
-impl <T> __IncompleteArrayField<T> {
+impl<T> __IncompleteArrayField<T> {
     #[inline]
     pub fn new() -> Self {
         __IncompleteArrayField(::std::marker::PhantomData)
     }
     #[inline]
-    pub unsafe fn as_ptr(&self) -> *const T { ::std::mem::transmute(self) }
+    pub unsafe fn as_ptr(&self) -> *const T {
+        ::std::mem::transmute(self)
+    }
     #[inline]
     pub unsafe fn as_mut_ptr(&mut self) -> *mut T {
         ::std::mem::transmute(self)
@@ -23,23 +25,24 @@ impl <T> __IncompleteArrayField<T> {
         ::std::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
     }
 }
-impl <T> ::std::fmt::Debug for __IncompleteArrayField<T> {
+impl<T> ::std::fmt::Debug for __IncompleteArrayField<T> {
     fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         fmt.write_str("__IncompleteArrayField")
     }
 }
-impl <T> ::std::clone::Clone for __IncompleteArrayField<T> {
+impl<T> ::std::clone::Clone for __IncompleteArrayField<T> {
     #[inline]
-    fn clone(&self) -> Self { Self::new() }
+    fn clone(&self) -> Self {
+        Self::new()
+    }
 }
-impl <T> ::std::marker::Copy for __IncompleteArrayField<T> { }
+impl<T> ::std::marker::Copy for __IncompleteArrayField<T> {}
 pub const __llvm__: ::std::os::raw::c_uint = 1;
 pub const __clang__: ::std::os::raw::c_uint = 1;
-pub const __clang_major__: ::std::os::raw::c_uint = 3;
-pub const __clang_minor__: ::std::os::raw::c_uint = 8;
-pub const __clang_patchlevel__: ::std::os::raw::c_uint = 0;
-pub const __clang_version__: &'static [u8; 31usize] =
-    b"3.8.0 (tags/RELEASE_380/final)\x00";
+pub const __clang_major__: ::std::os::raw::c_uint = 4;
+pub const __clang_minor__: ::std::os::raw::c_uint = 0;
+pub const __clang_patchlevel__: ::std::os::raw::c_uint = 1;
+pub const __clang_version__: &'static [u8; 31usize] = b"4.0.1 (tags/RELEASE_401/final)\0";
 pub const __GNUC_MINOR__: ::std::os::raw::c_uint = 2;
 pub const __GNUC_PATCHLEVEL__: ::std::os::raw::c_uint = 1;
 pub const __GNUC__: ::std::os::raw::c_uint = 4;
@@ -51,10 +54,8 @@ pub const __ATOMIC_RELEASE: ::std::os::raw::c_uint = 3;
 pub const __ATOMIC_ACQ_REL: ::std::os::raw::c_uint = 4;
 pub const __ATOMIC_SEQ_CST: ::std::os::raw::c_uint = 5;
 pub const __PRAGMA_REDEFINE_EXTNAME: ::std::os::raw::c_uint = 1;
-pub const __VERSION__: &'static [u8; 54usize] =
-    b"4.2.1 Compatible Clang 3.8.0 (tags/RELEASE_380/final)\x00";
+pub const __VERSION__: &'static [u8; 54usize] = b"4.2.1 Compatible Clang 4.0.1 (tags/RELEASE_401/final)\0";
 pub const __CONSTANT_CFSTRINGS__: ::std::os::raw::c_uint = 1;
-pub const __GXX_RTTI: ::std::os::raw::c_uint = 1;
 pub const __ORDER_LITTLE_ENDIAN__: ::std::os::raw::c_uint = 1234;
 pub const __ORDER_BIG_ENDIAN__: ::std::os::raw::c_uint = 4321;
 pub const __ORDER_PDP_ENDIAN__: ::std::os::raw::c_uint = 3412;
@@ -67,8 +68,7 @@ pub const __SCHAR_MAX__: ::std::os::raw::c_uint = 127;
 pub const __SHRT_MAX__: ::std::os::raw::c_uint = 32767;
 pub const __INT_MAX__: ::std::os::raw::c_uint = 2147483647;
 pub const __LONG_MAX__: ::std::os::raw::c_ulonglong = 9223372036854775807;
-pub const __LONG_LONG_MAX__: ::std::os::raw::c_ulonglong =
-    9223372036854775807;
+pub const __LONG_LONG_MAX__: ::std::os::raw::c_ulonglong = 9223372036854775807;
 pub const __WCHAR_MAX__: ::std::os::raw::c_uint = 2147483647;
 pub const __INTMAX_MAX__: ::std::os::raw::c_ulonglong = 9223372036854775807;
 pub const __SIZE_MAX__: ::std::os::raw::c_int = -1;
@@ -89,33 +89,33 @@ pub const __SIZEOF_SIZE_T__: ::std::os::raw::c_uint = 8;
 pub const __SIZEOF_WCHAR_T__: ::std::os::raw::c_uint = 4;
 pub const __SIZEOF_WINT_T__: ::std::os::raw::c_uint = 4;
 pub const __SIZEOF_INT128__: ::std::os::raw::c_uint = 16;
-pub const __INTMAX_FMTd__: &'static [u8; 3usize] = b"ld\x00";
-pub const __INTMAX_FMTi__: &'static [u8; 3usize] = b"li\x00";
-pub const __UINTMAX_FMTo__: &'static [u8; 3usize] = b"lo\x00";
-pub const __UINTMAX_FMTu__: &'static [u8; 3usize] = b"lu\x00";
-pub const __UINTMAX_FMTx__: &'static [u8; 3usize] = b"lx\x00";
-pub const __UINTMAX_FMTX__: &'static [u8; 3usize] = b"lX\x00";
+pub const __INTMAX_FMTd__: &'static [u8; 3usize] = b"ld\0";
+pub const __INTMAX_FMTi__: &'static [u8; 3usize] = b"li\0";
+pub const __UINTMAX_FMTo__: &'static [u8; 3usize] = b"lo\0";
+pub const __UINTMAX_FMTu__: &'static [u8; 3usize] = b"lu\0";
+pub const __UINTMAX_FMTx__: &'static [u8; 3usize] = b"lx\0";
+pub const __UINTMAX_FMTX__: &'static [u8; 3usize] = b"lX\0";
 pub const __INTMAX_WIDTH__: ::std::os::raw::c_uint = 64;
-pub const __PTRDIFF_FMTd__: &'static [u8; 3usize] = b"ld\x00";
-pub const __PTRDIFF_FMTi__: &'static [u8; 3usize] = b"li\x00";
+pub const __PTRDIFF_FMTd__: &'static [u8; 3usize] = b"ld\0";
+pub const __PTRDIFF_FMTi__: &'static [u8; 3usize] = b"li\0";
 pub const __PTRDIFF_WIDTH__: ::std::os::raw::c_uint = 64;
-pub const __INTPTR_FMTd__: &'static [u8; 3usize] = b"ld\x00";
-pub const __INTPTR_FMTi__: &'static [u8; 3usize] = b"li\x00";
+pub const __INTPTR_FMTd__: &'static [u8; 3usize] = b"ld\0";
+pub const __INTPTR_FMTi__: &'static [u8; 3usize] = b"li\0";
 pub const __INTPTR_WIDTH__: ::std::os::raw::c_uint = 64;
-pub const __SIZE_FMTo__: &'static [u8; 3usize] = b"lo\x00";
-pub const __SIZE_FMTu__: &'static [u8; 3usize] = b"lu\x00";
-pub const __SIZE_FMTx__: &'static [u8; 3usize] = b"lx\x00";
-pub const __SIZE_FMTX__: &'static [u8; 3usize] = b"lX\x00";
+pub const __SIZE_FMTo__: &'static [u8; 3usize] = b"lo\0";
+pub const __SIZE_FMTu__: &'static [u8; 3usize] = b"lu\0";
+pub const __SIZE_FMTx__: &'static [u8; 3usize] = b"lx\0";
+pub const __SIZE_FMTX__: &'static [u8; 3usize] = b"lX\0";
 pub const __SIZE_WIDTH__: ::std::os::raw::c_uint = 64;
 pub const __WCHAR_WIDTH__: ::std::os::raw::c_uint = 32;
 pub const __WINT_WIDTH__: ::std::os::raw::c_uint = 32;
 pub const __SIG_ATOMIC_WIDTH__: ::std::os::raw::c_uint = 32;
 pub const __SIG_ATOMIC_MAX__: ::std::os::raw::c_uint = 2147483647;
 pub const __UINTMAX_WIDTH__: ::std::os::raw::c_uint = 64;
-pub const __UINTPTR_FMTo__: &'static [u8; 3usize] = b"lo\x00";
-pub const __UINTPTR_FMTu__: &'static [u8; 3usize] = b"lu\x00";
-pub const __UINTPTR_FMTx__: &'static [u8; 3usize] = b"lx\x00";
-pub const __UINTPTR_FMTX__: &'static [u8; 3usize] = b"lX\x00";
+pub const __UINTPTR_FMTo__: &'static [u8; 3usize] = b"lo\0";
+pub const __UINTPTR_FMTu__: &'static [u8; 3usize] = b"lu\0";
+pub const __UINTPTR_FMTx__: &'static [u8; 3usize] = b"lx\0";
+pub const __UINTPTR_FMTX__: &'static [u8; 3usize] = b"lX\0";
 pub const __UINTPTR_WIDTH__: ::std::os::raw::c_uint = 64;
 pub const __FLT_HAS_DENORM__: ::std::os::raw::c_uint = 1;
 pub const __FLT_DIG__: ::std::os::raw::c_uint = 6;
@@ -150,104 +150,102 @@ pub const __LDBL_MIN_EXP__: ::std::os::raw::c_int = -16381;
 pub const __POINTER_WIDTH__: ::std::os::raw::c_uint = 64;
 pub const __BIGGEST_ALIGNMENT__: ::std::os::raw::c_uint = 16;
 pub const __WINT_UNSIGNED__: ::std::os::raw::c_uint = 1;
-pub const __INT8_FMTd__: &'static [u8; 4usize] = b"hhd\x00";
-pub const __INT8_FMTi__: &'static [u8; 4usize] = b"hhi\x00";
-pub const __INT16_FMTd__: &'static [u8; 3usize] = b"hd\x00";
-pub const __INT16_FMTi__: &'static [u8; 3usize] = b"hi\x00";
-pub const __INT32_FMTd__: &'static [u8; 2usize] = b"d\x00";
-pub const __INT32_FMTi__: &'static [u8; 2usize] = b"i\x00";
-pub const __INT64_FMTd__: &'static [u8; 3usize] = b"ld\x00";
-pub const __INT64_FMTi__: &'static [u8; 3usize] = b"li\x00";
-pub const __UINT8_FMTo__: &'static [u8; 4usize] = b"hho\x00";
-pub const __UINT8_FMTu__: &'static [u8; 4usize] = b"hhu\x00";
-pub const __UINT8_FMTx__: &'static [u8; 4usize] = b"hhx\x00";
-pub const __UINT8_FMTX__: &'static [u8; 4usize] = b"hhX\x00";
+pub const __INT8_FMTd__: &'static [u8; 4usize] = b"hhd\0";
+pub const __INT8_FMTi__: &'static [u8; 4usize] = b"hhi\0";
+pub const __INT16_FMTd__: &'static [u8; 3usize] = b"hd\0";
+pub const __INT16_FMTi__: &'static [u8; 3usize] = b"hi\0";
+pub const __INT32_FMTd__: &'static [u8; 2usize] = b"d\0";
+pub const __INT32_FMTi__: &'static [u8; 2usize] = b"i\0";
+pub const __INT64_FMTd__: &'static [u8; 3usize] = b"ld\0";
+pub const __INT64_FMTi__: &'static [u8; 3usize] = b"li\0";
+pub const __UINT8_FMTo__: &'static [u8; 4usize] = b"hho\0";
+pub const __UINT8_FMTu__: &'static [u8; 4usize] = b"hhu\0";
+pub const __UINT8_FMTx__: &'static [u8; 4usize] = b"hhx\0";
+pub const __UINT8_FMTX__: &'static [u8; 4usize] = b"hhX\0";
 pub const __UINT8_MAX__: ::std::os::raw::c_uint = 255;
 pub const __INT8_MAX__: ::std::os::raw::c_uint = 127;
-pub const __UINT16_FMTo__: &'static [u8; 3usize] = b"ho\x00";
-pub const __UINT16_FMTu__: &'static [u8; 3usize] = b"hu\x00";
-pub const __UINT16_FMTx__: &'static [u8; 3usize] = b"hx\x00";
-pub const __UINT16_FMTX__: &'static [u8; 3usize] = b"hX\x00";
+pub const __UINT16_FMTo__: &'static [u8; 3usize] = b"ho\0";
+pub const __UINT16_FMTu__: &'static [u8; 3usize] = b"hu\0";
+pub const __UINT16_FMTx__: &'static [u8; 3usize] = b"hx\0";
+pub const __UINT16_FMTX__: &'static [u8; 3usize] = b"hX\0";
 pub const __UINT16_MAX__: ::std::os::raw::c_uint = 65535;
 pub const __INT16_MAX__: ::std::os::raw::c_uint = 32767;
-pub const __UINT32_FMTo__: &'static [u8; 2usize] = b"o\x00";
-pub const __UINT32_FMTu__: &'static [u8; 2usize] = b"u\x00";
-pub const __UINT32_FMTx__: &'static [u8; 2usize] = b"x\x00";
-pub const __UINT32_FMTX__: &'static [u8; 2usize] = b"X\x00";
+pub const __UINT32_FMTo__: &'static [u8; 2usize] = b"o\0";
+pub const __UINT32_FMTu__: &'static [u8; 2usize] = b"u\0";
+pub const __UINT32_FMTx__: &'static [u8; 2usize] = b"x\0";
+pub const __UINT32_FMTX__: &'static [u8; 2usize] = b"X\0";
 pub const __UINT32_MAX__: ::std::os::raw::c_uint = 4294967295;
 pub const __INT32_MAX__: ::std::os::raw::c_uint = 2147483647;
-pub const __UINT64_FMTo__: &'static [u8; 3usize] = b"lo\x00";
-pub const __UINT64_FMTu__: &'static [u8; 3usize] = b"lu\x00";
-pub const __UINT64_FMTx__: &'static [u8; 3usize] = b"lx\x00";
-pub const __UINT64_FMTX__: &'static [u8; 3usize] = b"lX\x00";
+pub const __UINT64_FMTo__: &'static [u8; 3usize] = b"lo\0";
+pub const __UINT64_FMTu__: &'static [u8; 3usize] = b"lu\0";
+pub const __UINT64_FMTx__: &'static [u8; 3usize] = b"lx\0";
+pub const __UINT64_FMTX__: &'static [u8; 3usize] = b"lX\0";
 pub const __UINT64_MAX__: ::std::os::raw::c_int = -1;
 pub const __INT64_MAX__: ::std::os::raw::c_ulonglong = 9223372036854775807;
 pub const __INT_LEAST8_MAX__: ::std::os::raw::c_uint = 127;
-pub const __INT_LEAST8_FMTd__: &'static [u8; 4usize] = b"hhd\x00";
-pub const __INT_LEAST8_FMTi__: &'static [u8; 4usize] = b"hhi\x00";
+pub const __INT_LEAST8_FMTd__: &'static [u8; 4usize] = b"hhd\0";
+pub const __INT_LEAST8_FMTi__: &'static [u8; 4usize] = b"hhi\0";
 pub const __UINT_LEAST8_MAX__: ::std::os::raw::c_uint = 255;
-pub const __UINT_LEAST8_FMTo__: &'static [u8; 4usize] = b"hho\x00";
-pub const __UINT_LEAST8_FMTu__: &'static [u8; 4usize] = b"hhu\x00";
-pub const __UINT_LEAST8_FMTx__: &'static [u8; 4usize] = b"hhx\x00";
-pub const __UINT_LEAST8_FMTX__: &'static [u8; 4usize] = b"hhX\x00";
+pub const __UINT_LEAST8_FMTo__: &'static [u8; 4usize] = b"hho\0";
+pub const __UINT_LEAST8_FMTu__: &'static [u8; 4usize] = b"hhu\0";
+pub const __UINT_LEAST8_FMTx__: &'static [u8; 4usize] = b"hhx\0";
+pub const __UINT_LEAST8_FMTX__: &'static [u8; 4usize] = b"hhX\0";
 pub const __INT_LEAST16_MAX__: ::std::os::raw::c_uint = 32767;
-pub const __INT_LEAST16_FMTd__: &'static [u8; 3usize] = b"hd\x00";
-pub const __INT_LEAST16_FMTi__: &'static [u8; 3usize] = b"hi\x00";
+pub const __INT_LEAST16_FMTd__: &'static [u8; 3usize] = b"hd\0";
+pub const __INT_LEAST16_FMTi__: &'static [u8; 3usize] = b"hi\0";
 pub const __UINT_LEAST16_MAX__: ::std::os::raw::c_uint = 65535;
-pub const __UINT_LEAST16_FMTo__: &'static [u8; 3usize] = b"ho\x00";
-pub const __UINT_LEAST16_FMTu__: &'static [u8; 3usize] = b"hu\x00";
-pub const __UINT_LEAST16_FMTx__: &'static [u8; 3usize] = b"hx\x00";
-pub const __UINT_LEAST16_FMTX__: &'static [u8; 3usize] = b"hX\x00";
+pub const __UINT_LEAST16_FMTo__: &'static [u8; 3usize] = b"ho\0";
+pub const __UINT_LEAST16_FMTu__: &'static [u8; 3usize] = b"hu\0";
+pub const __UINT_LEAST16_FMTx__: &'static [u8; 3usize] = b"hx\0";
+pub const __UINT_LEAST16_FMTX__: &'static [u8; 3usize] = b"hX\0";
 pub const __INT_LEAST32_MAX__: ::std::os::raw::c_uint = 2147483647;
-pub const __INT_LEAST32_FMTd__: &'static [u8; 2usize] = b"d\x00";
-pub const __INT_LEAST32_FMTi__: &'static [u8; 2usize] = b"i\x00";
+pub const __INT_LEAST32_FMTd__: &'static [u8; 2usize] = b"d\0";
+pub const __INT_LEAST32_FMTi__: &'static [u8; 2usize] = b"i\0";
 pub const __UINT_LEAST32_MAX__: ::std::os::raw::c_uint = 4294967295;
-pub const __UINT_LEAST32_FMTo__: &'static [u8; 2usize] = b"o\x00";
-pub const __UINT_LEAST32_FMTu__: &'static [u8; 2usize] = b"u\x00";
-pub const __UINT_LEAST32_FMTx__: &'static [u8; 2usize] = b"x\x00";
-pub const __UINT_LEAST32_FMTX__: &'static [u8; 2usize] = b"X\x00";
-pub const __INT_LEAST64_MAX__: ::std::os::raw::c_ulonglong =
-    9223372036854775807;
-pub const __INT_LEAST64_FMTd__: &'static [u8; 3usize] = b"ld\x00";
-pub const __INT_LEAST64_FMTi__: &'static [u8; 3usize] = b"li\x00";
+pub const __UINT_LEAST32_FMTo__: &'static [u8; 2usize] = b"o\0";
+pub const __UINT_LEAST32_FMTu__: &'static [u8; 2usize] = b"u\0";
+pub const __UINT_LEAST32_FMTx__: &'static [u8; 2usize] = b"x\0";
+pub const __UINT_LEAST32_FMTX__: &'static [u8; 2usize] = b"X\0";
+pub const __INT_LEAST64_MAX__: ::std::os::raw::c_ulonglong = 9223372036854775807;
+pub const __INT_LEAST64_FMTd__: &'static [u8; 3usize] = b"ld\0";
+pub const __INT_LEAST64_FMTi__: &'static [u8; 3usize] = b"li\0";
 pub const __UINT_LEAST64_MAX__: ::std::os::raw::c_int = -1;
-pub const __UINT_LEAST64_FMTo__: &'static [u8; 3usize] = b"lo\x00";
-pub const __UINT_LEAST64_FMTu__: &'static [u8; 3usize] = b"lu\x00";
-pub const __UINT_LEAST64_FMTx__: &'static [u8; 3usize] = b"lx\x00";
-pub const __UINT_LEAST64_FMTX__: &'static [u8; 3usize] = b"lX\x00";
+pub const __UINT_LEAST64_FMTo__: &'static [u8; 3usize] = b"lo\0";
+pub const __UINT_LEAST64_FMTu__: &'static [u8; 3usize] = b"lu\0";
+pub const __UINT_LEAST64_FMTx__: &'static [u8; 3usize] = b"lx\0";
+pub const __UINT_LEAST64_FMTX__: &'static [u8; 3usize] = b"lX\0";
 pub const __INT_FAST8_MAX__: ::std::os::raw::c_uint = 127;
-pub const __INT_FAST8_FMTd__: &'static [u8; 4usize] = b"hhd\x00";
-pub const __INT_FAST8_FMTi__: &'static [u8; 4usize] = b"hhi\x00";
+pub const __INT_FAST8_FMTd__: &'static [u8; 4usize] = b"hhd\0";
+pub const __INT_FAST8_FMTi__: &'static [u8; 4usize] = b"hhi\0";
 pub const __UINT_FAST8_MAX__: ::std::os::raw::c_uint = 255;
-pub const __UINT_FAST8_FMTo__: &'static [u8; 4usize] = b"hho\x00";
-pub const __UINT_FAST8_FMTu__: &'static [u8; 4usize] = b"hhu\x00";
-pub const __UINT_FAST8_FMTx__: &'static [u8; 4usize] = b"hhx\x00";
-pub const __UINT_FAST8_FMTX__: &'static [u8; 4usize] = b"hhX\x00";
+pub const __UINT_FAST8_FMTo__: &'static [u8; 4usize] = b"hho\0";
+pub const __UINT_FAST8_FMTu__: &'static [u8; 4usize] = b"hhu\0";
+pub const __UINT_FAST8_FMTx__: &'static [u8; 4usize] = b"hhx\0";
+pub const __UINT_FAST8_FMTX__: &'static [u8; 4usize] = b"hhX\0";
 pub const __INT_FAST16_MAX__: ::std::os::raw::c_uint = 32767;
-pub const __INT_FAST16_FMTd__: &'static [u8; 3usize] = b"hd\x00";
-pub const __INT_FAST16_FMTi__: &'static [u8; 3usize] = b"hi\x00";
+pub const __INT_FAST16_FMTd__: &'static [u8; 3usize] = b"hd\0";
+pub const __INT_FAST16_FMTi__: &'static [u8; 3usize] = b"hi\0";
 pub const __UINT_FAST16_MAX__: ::std::os::raw::c_uint = 65535;
-pub const __UINT_FAST16_FMTo__: &'static [u8; 3usize] = b"ho\x00";
-pub const __UINT_FAST16_FMTu__: &'static [u8; 3usize] = b"hu\x00";
-pub const __UINT_FAST16_FMTx__: &'static [u8; 3usize] = b"hx\x00";
-pub const __UINT_FAST16_FMTX__: &'static [u8; 3usize] = b"hX\x00";
+pub const __UINT_FAST16_FMTo__: &'static [u8; 3usize] = b"ho\0";
+pub const __UINT_FAST16_FMTu__: &'static [u8; 3usize] = b"hu\0";
+pub const __UINT_FAST16_FMTx__: &'static [u8; 3usize] = b"hx\0";
+pub const __UINT_FAST16_FMTX__: &'static [u8; 3usize] = b"hX\0";
 pub const __INT_FAST32_MAX__: ::std::os::raw::c_uint = 2147483647;
-pub const __INT_FAST32_FMTd__: &'static [u8; 2usize] = b"d\x00";
-pub const __INT_FAST32_FMTi__: &'static [u8; 2usize] = b"i\x00";
+pub const __INT_FAST32_FMTd__: &'static [u8; 2usize] = b"d\0";
+pub const __INT_FAST32_FMTi__: &'static [u8; 2usize] = b"i\0";
 pub const __UINT_FAST32_MAX__: ::std::os::raw::c_uint = 4294967295;
-pub const __UINT_FAST32_FMTo__: &'static [u8; 2usize] = b"o\x00";
-pub const __UINT_FAST32_FMTu__: &'static [u8; 2usize] = b"u\x00";
-pub const __UINT_FAST32_FMTx__: &'static [u8; 2usize] = b"x\x00";
-pub const __UINT_FAST32_FMTX__: &'static [u8; 2usize] = b"X\x00";
-pub const __INT_FAST64_MAX__: ::std::os::raw::c_ulonglong =
-    9223372036854775807;
-pub const __INT_FAST64_FMTd__: &'static [u8; 3usize] = b"ld\x00";
-pub const __INT_FAST64_FMTi__: &'static [u8; 3usize] = b"li\x00";
+pub const __UINT_FAST32_FMTo__: &'static [u8; 2usize] = b"o\0";
+pub const __UINT_FAST32_FMTu__: &'static [u8; 2usize] = b"u\0";
+pub const __UINT_FAST32_FMTx__: &'static [u8; 2usize] = b"x\0";
+pub const __UINT_FAST32_FMTX__: &'static [u8; 2usize] = b"X\0";
+pub const __INT_FAST64_MAX__: ::std::os::raw::c_ulonglong = 9223372036854775807;
+pub const __INT_FAST64_FMTd__: &'static [u8; 3usize] = b"ld\0";
+pub const __INT_FAST64_FMTi__: &'static [u8; 3usize] = b"li\0";
 pub const __UINT_FAST64_MAX__: ::std::os::raw::c_int = -1;
-pub const __UINT_FAST64_FMTo__: &'static [u8; 3usize] = b"lo\x00";
-pub const __UINT_FAST64_FMTu__: &'static [u8; 3usize] = b"lu\x00";
-pub const __UINT_FAST64_FMTx__: &'static [u8; 3usize] = b"lx\x00";
-pub const __UINT_FAST64_FMTX__: &'static [u8; 3usize] = b"lX\x00";
+pub const __UINT_FAST64_FMTo__: &'static [u8; 3usize] = b"lo\0";
+pub const __UINT_FAST64_FMTu__: &'static [u8; 3usize] = b"lu\0";
+pub const __UINT_FAST64_FMTx__: &'static [u8; 3usize] = b"lx\0";
+pub const __UINT_FAST64_FMTX__: &'static [u8; 3usize] = b"lX\0";
 pub const __FINITE_MATH_ONLY__: ::std::os::raw::c_uint = 0;
 pub const __GNUC_STDC_INLINE__: ::std::os::raw::c_uint = 1;
 pub const __GCC_ATOMIC_TEST_AND_SET_TRUEVAL: ::std::os::raw::c_uint = 1;
@@ -291,6 +289,7 @@ pub const __linux: ::std::os::raw::c_uint = 1;
 pub const __linux__: ::std::os::raw::c_uint = 1;
 pub const __gnu_linux__: ::std::os::raw::c_uint = 1;
 pub const __ELF__: ::std::os::raw::c_uint = 1;
+pub const __FLOAT128__: ::std::os::raw::c_uint = 1;
 pub const __STDC__: ::std::os::raw::c_uint = 1;
 pub const __STDC_HOSTED__: ::std::os::raw::c_uint = 1;
 pub const __STDC_VERSION__: ::std::os::raw::c_uint = 201112;
@@ -315,25 +314,33 @@ pub const _ATFILE_SOURCE: ::std::os::raw::c_uint = 1;
 pub const __USE_MISC: ::std::os::raw::c_uint = 1;
 pub const __USE_ATFILE: ::std::os::raw::c_uint = 1;
 pub const __USE_FORTIFY_LEVEL: ::std::os::raw::c_uint = 0;
+pub const __GLIBC_USE_DEPRECATED_GETS: ::std::os::raw::c_uint = 0;
 pub const _STDC_PREDEF_H: ::std::os::raw::c_uint = 1;
 pub const __STDC_IEC_559__: ::std::os::raw::c_uint = 1;
 pub const __STDC_IEC_559_COMPLEX__: ::std::os::raw::c_uint = 1;
-pub const __STDC_ISO_10646__: ::std::os::raw::c_uint = 201505;
+pub const __STDC_ISO_10646__: ::std::os::raw::c_uint = 201706;
 pub const __STDC_NO_THREADS__: ::std::os::raw::c_uint = 1;
 pub const __GNU_LIBRARY__: ::std::os::raw::c_uint = 6;
 pub const __GLIBC__: ::std::os::raw::c_uint = 2;
-pub const __GLIBC_MINOR__: ::std::os::raw::c_uint = 23;
+pub const __GLIBC_MINOR__: ::std::os::raw::c_uint = 26;
 pub const _SYS_CDEFS_H: ::std::os::raw::c_uint = 1;
+pub const __glibc_c99_flexarr_available: ::std::os::raw::c_uint = 1;
 pub const __WORDSIZE: ::std::os::raw::c_uint = 64;
 pub const __WORDSIZE_TIME64_COMPAT32: ::std::os::raw::c_uint = 1;
 pub const __SYSCALL_WORDSIZE: ::std::os::raw::c_uint = 64;
+pub const __HAVE_GENERIC_SELECTION: ::std::os::raw::c_uint = 1;
+pub const __GLIBC_USE_LIB_EXT2: ::std::os::raw::c_uint = 0;
+pub const __GLIBC_USE_IEC_60559_BFP_EXT: ::std::os::raw::c_uint = 0;
+pub const __GLIBC_USE_IEC_60559_FUNCS_EXT: ::std::os::raw::c_uint = 0;
+pub const __GLIBC_USE_IEC_60559_TYPES_EXT: ::std::os::raw::c_uint = 0;
 pub const _BITS_TYPES_H: ::std::os::raw::c_uint = 1;
 pub const _BITS_TYPESIZES_H: ::std::os::raw::c_uint = 1;
 pub const __OFF_T_MATCHES_OFF64_T: ::std::os::raw::c_uint = 1;
 pub const __INO_T_MATCHES_INO64_T: ::std::os::raw::c_uint = 1;
+pub const __RLIM_T_MATCHES_RLIM64_T: ::std::os::raw::c_uint = 1;
 pub const __FD_SETSIZE: ::std::os::raw::c_uint = 1024;
-pub const __FILE_defined: ::std::os::raw::c_uint = 1;
 pub const ____FILE_defined: ::std::os::raw::c_uint = 1;
+pub const __FILE_defined: ::std::os::raw::c_uint = 1;
 pub const _G_config_h: ::std::os::raw::c_uint = 1;
 pub const ____mbstate_t_defined: ::std::os::raw::c_uint = 1;
 pub const _G_HAVE_MMAP: ::std::os::raw::c_uint = 1;
@@ -398,7 +405,8 @@ pub const BUFSIZ: ::std::os::raw::c_uint = 8192;
 pub const SEEK_SET: ::std::os::raw::c_uint = 0;
 pub const SEEK_CUR: ::std::os::raw::c_uint = 1;
 pub const SEEK_END: ::std::os::raw::c_uint = 2;
-pub const P_tmpdir: &'static [u8; 5usize] = b"/tmp\x00";
+pub const P_tmpdir: &'static [u8; 5usize] = b"/tmp\0";
+pub const _BITS_STDIO_LIM_H: ::std::os::raw::c_uint = 1;
 pub const L_tmpnam: ::std::os::raw::c_uint = 20;
 pub const TMP_MAX: ::std::os::raw::c_uint = 238328;
 pub const FILENAME_MAX: ::std::os::raw::c_uint = 4096;
@@ -409,6 +417,8 @@ pub const _STDINT_H: ::std::os::raw::c_uint = 1;
 pub const _BITS_WCHAR_H: ::std::os::raw::c_uint = 1;
 pub const __WCHAR_MAX: ::std::os::raw::c_uint = 2147483647;
 pub const __WCHAR_MIN: ::std::os::raw::c_int = -2147483648;
+pub const _BITS_STDINT_INTN_H: ::std::os::raw::c_uint = 1;
+pub const _BITS_STDINT_UINTN_H: ::std::os::raw::c_uint = 1;
 pub const INT8_MIN: ::std::os::raw::c_int = -128;
 pub const INT16_MIN: ::std::os::raw::c_int = -32768;
 pub const INT32_MIN: ::std::os::raw::c_int = -2147483648;
@@ -449,166 +459,166 @@ pub const WCHAR_MAX: ::std::os::raw::c_uint = 2147483647;
 pub const WINT_MIN: ::std::os::raw::c_uint = 0;
 pub const WINT_MAX: ::std::os::raw::c_uint = 4294967295;
 pub const ____gwchar_t_defined: ::std::os::raw::c_uint = 1;
-pub const __PRI64_PREFIX: &'static [u8; 2usize] = b"l\x00";
-pub const __PRIPTR_PREFIX: &'static [u8; 2usize] = b"l\x00";
-pub const PRId8: &'static [u8; 2usize] = b"d\x00";
-pub const PRId16: &'static [u8; 2usize] = b"d\x00";
-pub const PRId32: &'static [u8; 2usize] = b"d\x00";
-pub const PRId64: &'static [u8; 3usize] = b"ld\x00";
-pub const PRIdLEAST8: &'static [u8; 2usize] = b"d\x00";
-pub const PRIdLEAST16: &'static [u8; 2usize] = b"d\x00";
-pub const PRIdLEAST32: &'static [u8; 2usize] = b"d\x00";
-pub const PRIdLEAST64: &'static [u8; 3usize] = b"ld\x00";
-pub const PRIdFAST8: &'static [u8; 2usize] = b"d\x00";
-pub const PRIdFAST16: &'static [u8; 3usize] = b"ld\x00";
-pub const PRIdFAST32: &'static [u8; 3usize] = b"ld\x00";
-pub const PRIdFAST64: &'static [u8; 3usize] = b"ld\x00";
-pub const PRIi8: &'static [u8; 2usize] = b"i\x00";
-pub const PRIi16: &'static [u8; 2usize] = b"i\x00";
-pub const PRIi32: &'static [u8; 2usize] = b"i\x00";
-pub const PRIi64: &'static [u8; 3usize] = b"li\x00";
-pub const PRIiLEAST8: &'static [u8; 2usize] = b"i\x00";
-pub const PRIiLEAST16: &'static [u8; 2usize] = b"i\x00";
-pub const PRIiLEAST32: &'static [u8; 2usize] = b"i\x00";
-pub const PRIiLEAST64: &'static [u8; 3usize] = b"li\x00";
-pub const PRIiFAST8: &'static [u8; 2usize] = b"i\x00";
-pub const PRIiFAST16: &'static [u8; 3usize] = b"li\x00";
-pub const PRIiFAST32: &'static [u8; 3usize] = b"li\x00";
-pub const PRIiFAST64: &'static [u8; 3usize] = b"li\x00";
-pub const PRIo8: &'static [u8; 2usize] = b"o\x00";
-pub const PRIo16: &'static [u8; 2usize] = b"o\x00";
-pub const PRIo32: &'static [u8; 2usize] = b"o\x00";
-pub const PRIo64: &'static [u8; 3usize] = b"lo\x00";
-pub const PRIoLEAST8: &'static [u8; 2usize] = b"o\x00";
-pub const PRIoLEAST16: &'static [u8; 2usize] = b"o\x00";
-pub const PRIoLEAST32: &'static [u8; 2usize] = b"o\x00";
-pub const PRIoLEAST64: &'static [u8; 3usize] = b"lo\x00";
-pub const PRIoFAST8: &'static [u8; 2usize] = b"o\x00";
-pub const PRIoFAST16: &'static [u8; 3usize] = b"lo\x00";
-pub const PRIoFAST32: &'static [u8; 3usize] = b"lo\x00";
-pub const PRIoFAST64: &'static [u8; 3usize] = b"lo\x00";
-pub const PRIu8: &'static [u8; 2usize] = b"u\x00";
-pub const PRIu16: &'static [u8; 2usize] = b"u\x00";
-pub const PRIu32: &'static [u8; 2usize] = b"u\x00";
-pub const PRIu64: &'static [u8; 3usize] = b"lu\x00";
-pub const PRIuLEAST8: &'static [u8; 2usize] = b"u\x00";
-pub const PRIuLEAST16: &'static [u8; 2usize] = b"u\x00";
-pub const PRIuLEAST32: &'static [u8; 2usize] = b"u\x00";
-pub const PRIuLEAST64: &'static [u8; 3usize] = b"lu\x00";
-pub const PRIuFAST8: &'static [u8; 2usize] = b"u\x00";
-pub const PRIuFAST16: &'static [u8; 3usize] = b"lu\x00";
-pub const PRIuFAST32: &'static [u8; 3usize] = b"lu\x00";
-pub const PRIuFAST64: &'static [u8; 3usize] = b"lu\x00";
-pub const PRIx8: &'static [u8; 2usize] = b"x\x00";
-pub const PRIx16: &'static [u8; 2usize] = b"x\x00";
-pub const PRIx32: &'static [u8; 2usize] = b"x\x00";
-pub const PRIx64: &'static [u8; 3usize] = b"lx\x00";
-pub const PRIxLEAST8: &'static [u8; 2usize] = b"x\x00";
-pub const PRIxLEAST16: &'static [u8; 2usize] = b"x\x00";
-pub const PRIxLEAST32: &'static [u8; 2usize] = b"x\x00";
-pub const PRIxLEAST64: &'static [u8; 3usize] = b"lx\x00";
-pub const PRIxFAST8: &'static [u8; 2usize] = b"x\x00";
-pub const PRIxFAST16: &'static [u8; 3usize] = b"lx\x00";
-pub const PRIxFAST32: &'static [u8; 3usize] = b"lx\x00";
-pub const PRIxFAST64: &'static [u8; 3usize] = b"lx\x00";
-pub const PRIX8: &'static [u8; 2usize] = b"X\x00";
-pub const PRIX16: &'static [u8; 2usize] = b"X\x00";
-pub const PRIX32: &'static [u8; 2usize] = b"X\x00";
-pub const PRIX64: &'static [u8; 3usize] = b"lX\x00";
-pub const PRIXLEAST8: &'static [u8; 2usize] = b"X\x00";
-pub const PRIXLEAST16: &'static [u8; 2usize] = b"X\x00";
-pub const PRIXLEAST32: &'static [u8; 2usize] = b"X\x00";
-pub const PRIXLEAST64: &'static [u8; 3usize] = b"lX\x00";
-pub const PRIXFAST8: &'static [u8; 2usize] = b"X\x00";
-pub const PRIXFAST16: &'static [u8; 3usize] = b"lX\x00";
-pub const PRIXFAST32: &'static [u8; 3usize] = b"lX\x00";
-pub const PRIXFAST64: &'static [u8; 3usize] = b"lX\x00";
-pub const PRIdMAX: &'static [u8; 3usize] = b"ld\x00";
-pub const PRIiMAX: &'static [u8; 3usize] = b"li\x00";
-pub const PRIoMAX: &'static [u8; 3usize] = b"lo\x00";
-pub const PRIuMAX: &'static [u8; 3usize] = b"lu\x00";
-pub const PRIxMAX: &'static [u8; 3usize] = b"lx\x00";
-pub const PRIXMAX: &'static [u8; 3usize] = b"lX\x00";
-pub const PRIdPTR: &'static [u8; 3usize] = b"ld\x00";
-pub const PRIiPTR: &'static [u8; 3usize] = b"li\x00";
-pub const PRIoPTR: &'static [u8; 3usize] = b"lo\x00";
-pub const PRIuPTR: &'static [u8; 3usize] = b"lu\x00";
-pub const PRIxPTR: &'static [u8; 3usize] = b"lx\x00";
-pub const PRIXPTR: &'static [u8; 3usize] = b"lX\x00";
-pub const SCNd8: &'static [u8; 4usize] = b"hhd\x00";
-pub const SCNd16: &'static [u8; 3usize] = b"hd\x00";
-pub const SCNd32: &'static [u8; 2usize] = b"d\x00";
-pub const SCNd64: &'static [u8; 3usize] = b"ld\x00";
-pub const SCNdLEAST8: &'static [u8; 4usize] = b"hhd\x00";
-pub const SCNdLEAST16: &'static [u8; 3usize] = b"hd\x00";
-pub const SCNdLEAST32: &'static [u8; 2usize] = b"d\x00";
-pub const SCNdLEAST64: &'static [u8; 3usize] = b"ld\x00";
-pub const SCNdFAST8: &'static [u8; 4usize] = b"hhd\x00";
-pub const SCNdFAST16: &'static [u8; 3usize] = b"ld\x00";
-pub const SCNdFAST32: &'static [u8; 3usize] = b"ld\x00";
-pub const SCNdFAST64: &'static [u8; 3usize] = b"ld\x00";
-pub const SCNi8: &'static [u8; 4usize] = b"hhi\x00";
-pub const SCNi16: &'static [u8; 3usize] = b"hi\x00";
-pub const SCNi32: &'static [u8; 2usize] = b"i\x00";
-pub const SCNi64: &'static [u8; 3usize] = b"li\x00";
-pub const SCNiLEAST8: &'static [u8; 4usize] = b"hhi\x00";
-pub const SCNiLEAST16: &'static [u8; 3usize] = b"hi\x00";
-pub const SCNiLEAST32: &'static [u8; 2usize] = b"i\x00";
-pub const SCNiLEAST64: &'static [u8; 3usize] = b"li\x00";
-pub const SCNiFAST8: &'static [u8; 4usize] = b"hhi\x00";
-pub const SCNiFAST16: &'static [u8; 3usize] = b"li\x00";
-pub const SCNiFAST32: &'static [u8; 3usize] = b"li\x00";
-pub const SCNiFAST64: &'static [u8; 3usize] = b"li\x00";
-pub const SCNu8: &'static [u8; 4usize] = b"hhu\x00";
-pub const SCNu16: &'static [u8; 3usize] = b"hu\x00";
-pub const SCNu32: &'static [u8; 2usize] = b"u\x00";
-pub const SCNu64: &'static [u8; 3usize] = b"lu\x00";
-pub const SCNuLEAST8: &'static [u8; 4usize] = b"hhu\x00";
-pub const SCNuLEAST16: &'static [u8; 3usize] = b"hu\x00";
-pub const SCNuLEAST32: &'static [u8; 2usize] = b"u\x00";
-pub const SCNuLEAST64: &'static [u8; 3usize] = b"lu\x00";
-pub const SCNuFAST8: &'static [u8; 4usize] = b"hhu\x00";
-pub const SCNuFAST16: &'static [u8; 3usize] = b"lu\x00";
-pub const SCNuFAST32: &'static [u8; 3usize] = b"lu\x00";
-pub const SCNuFAST64: &'static [u8; 3usize] = b"lu\x00";
-pub const SCNo8: &'static [u8; 4usize] = b"hho\x00";
-pub const SCNo16: &'static [u8; 3usize] = b"ho\x00";
-pub const SCNo32: &'static [u8; 2usize] = b"o\x00";
-pub const SCNo64: &'static [u8; 3usize] = b"lo\x00";
-pub const SCNoLEAST8: &'static [u8; 4usize] = b"hho\x00";
-pub const SCNoLEAST16: &'static [u8; 3usize] = b"ho\x00";
-pub const SCNoLEAST32: &'static [u8; 2usize] = b"o\x00";
-pub const SCNoLEAST64: &'static [u8; 3usize] = b"lo\x00";
-pub const SCNoFAST8: &'static [u8; 4usize] = b"hho\x00";
-pub const SCNoFAST16: &'static [u8; 3usize] = b"lo\x00";
-pub const SCNoFAST32: &'static [u8; 3usize] = b"lo\x00";
-pub const SCNoFAST64: &'static [u8; 3usize] = b"lo\x00";
-pub const SCNx8: &'static [u8; 4usize] = b"hhx\x00";
-pub const SCNx16: &'static [u8; 3usize] = b"hx\x00";
-pub const SCNx32: &'static [u8; 2usize] = b"x\x00";
-pub const SCNx64: &'static [u8; 3usize] = b"lx\x00";
-pub const SCNxLEAST8: &'static [u8; 4usize] = b"hhx\x00";
-pub const SCNxLEAST16: &'static [u8; 3usize] = b"hx\x00";
-pub const SCNxLEAST32: &'static [u8; 2usize] = b"x\x00";
-pub const SCNxLEAST64: &'static [u8; 3usize] = b"lx\x00";
-pub const SCNxFAST8: &'static [u8; 4usize] = b"hhx\x00";
-pub const SCNxFAST16: &'static [u8; 3usize] = b"lx\x00";
-pub const SCNxFAST32: &'static [u8; 3usize] = b"lx\x00";
-pub const SCNxFAST64: &'static [u8; 3usize] = b"lx\x00";
-pub const SCNdMAX: &'static [u8; 3usize] = b"ld\x00";
-pub const SCNiMAX: &'static [u8; 3usize] = b"li\x00";
-pub const SCNoMAX: &'static [u8; 3usize] = b"lo\x00";
-pub const SCNuMAX: &'static [u8; 3usize] = b"lu\x00";
-pub const SCNxMAX: &'static [u8; 3usize] = b"lx\x00";
-pub const SCNdPTR: &'static [u8; 3usize] = b"ld\x00";
-pub const SCNiPTR: &'static [u8; 3usize] = b"li\x00";
-pub const SCNoPTR: &'static [u8; 3usize] = b"lo\x00";
-pub const SCNuPTR: &'static [u8; 3usize] = b"lu\x00";
-pub const SCNxPTR: &'static [u8; 3usize] = b"lx\x00";
+pub const __PRI64_PREFIX: &'static [u8; 2usize] = b"l\0";
+pub const __PRIPTR_PREFIX: &'static [u8; 2usize] = b"l\0";
+pub const PRId8: &'static [u8; 2usize] = b"d\0";
+pub const PRId16: &'static [u8; 2usize] = b"d\0";
+pub const PRId32: &'static [u8; 2usize] = b"d\0";
+pub const PRId64: &'static [u8; 3usize] = b"ld\0";
+pub const PRIdLEAST8: &'static [u8; 2usize] = b"d\0";
+pub const PRIdLEAST16: &'static [u8; 2usize] = b"d\0";
+pub const PRIdLEAST32: &'static [u8; 2usize] = b"d\0";
+pub const PRIdLEAST64: &'static [u8; 3usize] = b"ld\0";
+pub const PRIdFAST8: &'static [u8; 2usize] = b"d\0";
+pub const PRIdFAST16: &'static [u8; 3usize] = b"ld\0";
+pub const PRIdFAST32: &'static [u8; 3usize] = b"ld\0";
+pub const PRIdFAST64: &'static [u8; 3usize] = b"ld\0";
+pub const PRIi8: &'static [u8; 2usize] = b"i\0";
+pub const PRIi16: &'static [u8; 2usize] = b"i\0";
+pub const PRIi32: &'static [u8; 2usize] = b"i\0";
+pub const PRIi64: &'static [u8; 3usize] = b"li\0";
+pub const PRIiLEAST8: &'static [u8; 2usize] = b"i\0";
+pub const PRIiLEAST16: &'static [u8; 2usize] = b"i\0";
+pub const PRIiLEAST32: &'static [u8; 2usize] = b"i\0";
+pub const PRIiLEAST64: &'static [u8; 3usize] = b"li\0";
+pub const PRIiFAST8: &'static [u8; 2usize] = b"i\0";
+pub const PRIiFAST16: &'static [u8; 3usize] = b"li\0";
+pub const PRIiFAST32: &'static [u8; 3usize] = b"li\0";
+pub const PRIiFAST64: &'static [u8; 3usize] = b"li\0";
+pub const PRIo8: &'static [u8; 2usize] = b"o\0";
+pub const PRIo16: &'static [u8; 2usize] = b"o\0";
+pub const PRIo32: &'static [u8; 2usize] = b"o\0";
+pub const PRIo64: &'static [u8; 3usize] = b"lo\0";
+pub const PRIoLEAST8: &'static [u8; 2usize] = b"o\0";
+pub const PRIoLEAST16: &'static [u8; 2usize] = b"o\0";
+pub const PRIoLEAST32: &'static [u8; 2usize] = b"o\0";
+pub const PRIoLEAST64: &'static [u8; 3usize] = b"lo\0";
+pub const PRIoFAST8: &'static [u8; 2usize] = b"o\0";
+pub const PRIoFAST16: &'static [u8; 3usize] = b"lo\0";
+pub const PRIoFAST32: &'static [u8; 3usize] = b"lo\0";
+pub const PRIoFAST64: &'static [u8; 3usize] = b"lo\0";
+pub const PRIu8: &'static [u8; 2usize] = b"u\0";
+pub const PRIu16: &'static [u8; 2usize] = b"u\0";
+pub const PRIu32: &'static [u8; 2usize] = b"u\0";
+pub const PRIu64: &'static [u8; 3usize] = b"lu\0";
+pub const PRIuLEAST8: &'static [u8; 2usize] = b"u\0";
+pub const PRIuLEAST16: &'static [u8; 2usize] = b"u\0";
+pub const PRIuLEAST32: &'static [u8; 2usize] = b"u\0";
+pub const PRIuLEAST64: &'static [u8; 3usize] = b"lu\0";
+pub const PRIuFAST8: &'static [u8; 2usize] = b"u\0";
+pub const PRIuFAST16: &'static [u8; 3usize] = b"lu\0";
+pub const PRIuFAST32: &'static [u8; 3usize] = b"lu\0";
+pub const PRIuFAST64: &'static [u8; 3usize] = b"lu\0";
+pub const PRIx8: &'static [u8; 2usize] = b"x\0";
+pub const PRIx16: &'static [u8; 2usize] = b"x\0";
+pub const PRIx32: &'static [u8; 2usize] = b"x\0";
+pub const PRIx64: &'static [u8; 3usize] = b"lx\0";
+pub const PRIxLEAST8: &'static [u8; 2usize] = b"x\0";
+pub const PRIxLEAST16: &'static [u8; 2usize] = b"x\0";
+pub const PRIxLEAST32: &'static [u8; 2usize] = b"x\0";
+pub const PRIxLEAST64: &'static [u8; 3usize] = b"lx\0";
+pub const PRIxFAST8: &'static [u8; 2usize] = b"x\0";
+pub const PRIxFAST16: &'static [u8; 3usize] = b"lx\0";
+pub const PRIxFAST32: &'static [u8; 3usize] = b"lx\0";
+pub const PRIxFAST64: &'static [u8; 3usize] = b"lx\0";
+pub const PRIX8: &'static [u8; 2usize] = b"X\0";
+pub const PRIX16: &'static [u8; 2usize] = b"X\0";
+pub const PRIX32: &'static [u8; 2usize] = b"X\0";
+pub const PRIX64: &'static [u8; 3usize] = b"lX\0";
+pub const PRIXLEAST8: &'static [u8; 2usize] = b"X\0";
+pub const PRIXLEAST16: &'static [u8; 2usize] = b"X\0";
+pub const PRIXLEAST32: &'static [u8; 2usize] = b"X\0";
+pub const PRIXLEAST64: &'static [u8; 3usize] = b"lX\0";
+pub const PRIXFAST8: &'static [u8; 2usize] = b"X\0";
+pub const PRIXFAST16: &'static [u8; 3usize] = b"lX\0";
+pub const PRIXFAST32: &'static [u8; 3usize] = b"lX\0";
+pub const PRIXFAST64: &'static [u8; 3usize] = b"lX\0";
+pub const PRIdMAX: &'static [u8; 3usize] = b"ld\0";
+pub const PRIiMAX: &'static [u8; 3usize] = b"li\0";
+pub const PRIoMAX: &'static [u8; 3usize] = b"lo\0";
+pub const PRIuMAX: &'static [u8; 3usize] = b"lu\0";
+pub const PRIxMAX: &'static [u8; 3usize] = b"lx\0";
+pub const PRIXMAX: &'static [u8; 3usize] = b"lX\0";
+pub const PRIdPTR: &'static [u8; 3usize] = b"ld\0";
+pub const PRIiPTR: &'static [u8; 3usize] = b"li\0";
+pub const PRIoPTR: &'static [u8; 3usize] = b"lo\0";
+pub const PRIuPTR: &'static [u8; 3usize] = b"lu\0";
+pub const PRIxPTR: &'static [u8; 3usize] = b"lx\0";
+pub const PRIXPTR: &'static [u8; 3usize] = b"lX\0";
+pub const SCNd8: &'static [u8; 4usize] = b"hhd\0";
+pub const SCNd16: &'static [u8; 3usize] = b"hd\0";
+pub const SCNd32: &'static [u8; 2usize] = b"d\0";
+pub const SCNd64: &'static [u8; 3usize] = b"ld\0";
+pub const SCNdLEAST8: &'static [u8; 4usize] = b"hhd\0";
+pub const SCNdLEAST16: &'static [u8; 3usize] = b"hd\0";
+pub const SCNdLEAST32: &'static [u8; 2usize] = b"d\0";
+pub const SCNdLEAST64: &'static [u8; 3usize] = b"ld\0";
+pub const SCNdFAST8: &'static [u8; 4usize] = b"hhd\0";
+pub const SCNdFAST16: &'static [u8; 3usize] = b"ld\0";
+pub const SCNdFAST32: &'static [u8; 3usize] = b"ld\0";
+pub const SCNdFAST64: &'static [u8; 3usize] = b"ld\0";
+pub const SCNi8: &'static [u8; 4usize] = b"hhi\0";
+pub const SCNi16: &'static [u8; 3usize] = b"hi\0";
+pub const SCNi32: &'static [u8; 2usize] = b"i\0";
+pub const SCNi64: &'static [u8; 3usize] = b"li\0";
+pub const SCNiLEAST8: &'static [u8; 4usize] = b"hhi\0";
+pub const SCNiLEAST16: &'static [u8; 3usize] = b"hi\0";
+pub const SCNiLEAST32: &'static [u8; 2usize] = b"i\0";
+pub const SCNiLEAST64: &'static [u8; 3usize] = b"li\0";
+pub const SCNiFAST8: &'static [u8; 4usize] = b"hhi\0";
+pub const SCNiFAST16: &'static [u8; 3usize] = b"li\0";
+pub const SCNiFAST32: &'static [u8; 3usize] = b"li\0";
+pub const SCNiFAST64: &'static [u8; 3usize] = b"li\0";
+pub const SCNu8: &'static [u8; 4usize] = b"hhu\0";
+pub const SCNu16: &'static [u8; 3usize] = b"hu\0";
+pub const SCNu32: &'static [u8; 2usize] = b"u\0";
+pub const SCNu64: &'static [u8; 3usize] = b"lu\0";
+pub const SCNuLEAST8: &'static [u8; 4usize] = b"hhu\0";
+pub const SCNuLEAST16: &'static [u8; 3usize] = b"hu\0";
+pub const SCNuLEAST32: &'static [u8; 2usize] = b"u\0";
+pub const SCNuLEAST64: &'static [u8; 3usize] = b"lu\0";
+pub const SCNuFAST8: &'static [u8; 4usize] = b"hhu\0";
+pub const SCNuFAST16: &'static [u8; 3usize] = b"lu\0";
+pub const SCNuFAST32: &'static [u8; 3usize] = b"lu\0";
+pub const SCNuFAST64: &'static [u8; 3usize] = b"lu\0";
+pub const SCNo8: &'static [u8; 4usize] = b"hho\0";
+pub const SCNo16: &'static [u8; 3usize] = b"ho\0";
+pub const SCNo32: &'static [u8; 2usize] = b"o\0";
+pub const SCNo64: &'static [u8; 3usize] = b"lo\0";
+pub const SCNoLEAST8: &'static [u8; 4usize] = b"hho\0";
+pub const SCNoLEAST16: &'static [u8; 3usize] = b"ho\0";
+pub const SCNoLEAST32: &'static [u8; 2usize] = b"o\0";
+pub const SCNoLEAST64: &'static [u8; 3usize] = b"lo\0";
+pub const SCNoFAST8: &'static [u8; 4usize] = b"hho\0";
+pub const SCNoFAST16: &'static [u8; 3usize] = b"lo\0";
+pub const SCNoFAST32: &'static [u8; 3usize] = b"lo\0";
+pub const SCNoFAST64: &'static [u8; 3usize] = b"lo\0";
+pub const SCNx8: &'static [u8; 4usize] = b"hhx\0";
+pub const SCNx16: &'static [u8; 3usize] = b"hx\0";
+pub const SCNx32: &'static [u8; 2usize] = b"x\0";
+pub const SCNx64: &'static [u8; 3usize] = b"lx\0";
+pub const SCNxLEAST8: &'static [u8; 4usize] = b"hhx\0";
+pub const SCNxLEAST16: &'static [u8; 3usize] = b"hx\0";
+pub const SCNxLEAST32: &'static [u8; 2usize] = b"x\0";
+pub const SCNxLEAST64: &'static [u8; 3usize] = b"lx\0";
+pub const SCNxFAST8: &'static [u8; 4usize] = b"hhx\0";
+pub const SCNxFAST16: &'static [u8; 3usize] = b"lx\0";
+pub const SCNxFAST32: &'static [u8; 3usize] = b"lx\0";
+pub const SCNxFAST64: &'static [u8; 3usize] = b"lx\0";
+pub const SCNdMAX: &'static [u8; 3usize] = b"ld\0";
+pub const SCNiMAX: &'static [u8; 3usize] = b"li\0";
+pub const SCNoMAX: &'static [u8; 3usize] = b"lo\0";
+pub const SCNuMAX: &'static [u8; 3usize] = b"lu\0";
+pub const SCNxMAX: &'static [u8; 3usize] = b"lx\0";
+pub const SCNdPTR: &'static [u8; 3usize] = b"ld\0";
+pub const SCNiPTR: &'static [u8; 3usize] = b"li\0";
+pub const SCNoPTR: &'static [u8; 3usize] = b"lo\0";
+pub const SCNuPTR: &'static [u8; 3usize] = b"lu\0";
+pub const SCNxPTR: &'static [u8; 3usize] = b"lx\0";
 pub const _SYS_TYPES_H: ::std::os::raw::c_uint = 1;
 pub const __clock_t_defined: ::std::os::raw::c_uint = 1;
-pub const __time_t_defined: ::std::os::raw::c_uint = 1;
 pub const __clockid_t_defined: ::std::os::raw::c_uint = 1;
+pub const __time_t_defined: ::std::os::raw::c_uint = 1;
 pub const __timer_t_defined: ::std::os::raw::c_uint = 1;
 pub const __BIT_TYPES_DEFINED__: ::std::os::raw::c_uint = 1;
 pub const _ENDIAN_H: ::std::os::raw::c_uint = 1;
@@ -622,30 +632,33 @@ pub const BIG_ENDIAN: ::std::os::raw::c_uint = 4321;
 pub const PDP_ENDIAN: ::std::os::raw::c_uint = 3412;
 pub const BYTE_ORDER: ::std::os::raw::c_uint = 1234;
 pub const _BITS_BYTESWAP_H: ::std::os::raw::c_uint = 1;
+pub const _BITS_UINTN_IDENTITY_H: ::std::os::raw::c_uint = 1;
 pub const _SYS_SELECT_H: ::std::os::raw::c_uint = 1;
-pub const __FD_ZERO_STOS: &'static [u8; 6usize] = b"stosq\x00";
-pub const _SIGSET_H_types: ::std::os::raw::c_uint = 1;
+pub const __FD_ZERO_STOS: &'static [u8; 6usize] = b"stosq\0";
+pub const __sigset_t_defined: ::std::os::raw::c_uint = 1;
+pub const __timeval_defined: ::std::os::raw::c_uint = 1;
 pub const __timespec_defined: ::std::os::raw::c_uint = 1;
-pub const _STRUCT_TIMEVAL: ::std::os::raw::c_uint = 1;
 pub const FD_SETSIZE: ::std::os::raw::c_uint = 1024;
 pub const _SYS_SYSMACROS_H: ::std::os::raw::c_uint = 1;
-pub const _BITS_PTHREADTYPES_H: ::std::os::raw::c_uint = 1;
-pub const __SIZEOF_PTHREAD_ATTR_T: ::std::os::raw::c_uint = 56;
+pub const _BITS_SYSMACROS_H: ::std::os::raw::c_uint = 1;
+pub const _BITS_PTHREADTYPES_COMMON_H: ::std::os::raw::c_uint = 1;
+pub const _THREAD_SHARED_TYPES_H: ::std::os::raw::c_uint = 1;
+pub const _BITS_PTHREADTYPES_ARCH_H: ::std::os::raw::c_uint = 1;
 pub const __SIZEOF_PTHREAD_MUTEX_T: ::std::os::raw::c_uint = 40;
+pub const __SIZEOF_PTHREAD_ATTR_T: ::std::os::raw::c_uint = 56;
+pub const __SIZEOF_PTHREAD_RWLOCK_T: ::std::os::raw::c_uint = 56;
+pub const __SIZEOF_PTHREAD_BARRIER_T: ::std::os::raw::c_uint = 32;
 pub const __SIZEOF_PTHREAD_MUTEXATTR_T: ::std::os::raw::c_uint = 4;
 pub const __SIZEOF_PTHREAD_COND_T: ::std::os::raw::c_uint = 48;
 pub const __SIZEOF_PTHREAD_CONDATTR_T: ::std::os::raw::c_uint = 4;
-pub const __SIZEOF_PTHREAD_RWLOCK_T: ::std::os::raw::c_uint = 56;
 pub const __SIZEOF_PTHREAD_RWLOCKATTR_T: ::std::os::raw::c_uint = 8;
-pub const __SIZEOF_PTHREAD_BARRIER_T: ::std::os::raw::c_uint = 32;
 pub const __SIZEOF_PTHREAD_BARRIERATTR_T: ::std::os::raw::c_uint = 4;
-pub const __have_pthread_attr_t: ::std::os::raw::c_uint = 1;
-pub const __PTHREAD_MUTEX_HAVE_PREV: ::std::os::raw::c_uint = 1;
+pub const __PTHREAD_MUTEX_LOCK_ELISION: ::std::os::raw::c_uint = 1;
 pub const __PTHREAD_RWLOCK_INT_FLAGS_SHARED: ::std::os::raw::c_uint = 1;
+pub const __PTHREAD_MUTEX_HAVE_PREV: ::std::os::raw::c_uint = 1;
+pub const __have_pthread_attr_t: ::std::os::raw::c_uint = 1;
 pub const _SYS_SOCKET_H: ::std::os::raw::c_uint = 1;
-pub const _SYS_UIO_H: ::std::os::raw::c_uint = 1;
-pub const _BITS_UIO_H: ::std::os::raw::c_uint = 1;
-pub const UIO_MAXIOV: ::std::os::raw::c_uint = 1024;
+pub const __iovec_defined: ::std::os::raw::c_uint = 1;
 pub const PF_UNSPEC: ::std::os::raw::c_uint = 0;
 pub const PF_LOCAL: ::std::os::raw::c_uint = 1;
 pub const PF_UNIX: ::std::os::raw::c_uint = 1;
@@ -690,7 +703,10 @@ pub const PF_CAIF: ::std::os::raw::c_uint = 37;
 pub const PF_ALG: ::std::os::raw::c_uint = 38;
 pub const PF_NFC: ::std::os::raw::c_uint = 39;
 pub const PF_VSOCK: ::std::os::raw::c_uint = 40;
-pub const PF_MAX: ::std::os::raw::c_uint = 41;
+pub const PF_KCM: ::std::os::raw::c_uint = 41;
+pub const PF_QIPCRTR: ::std::os::raw::c_uint = 42;
+pub const PF_SMC: ::std::os::raw::c_uint = 43;
+pub const PF_MAX: ::std::os::raw::c_uint = 44;
 pub const AF_UNSPEC: ::std::os::raw::c_uint = 0;
 pub const AF_LOCAL: ::std::os::raw::c_uint = 1;
 pub const AF_UNIX: ::std::os::raw::c_uint = 1;
@@ -735,7 +751,10 @@ pub const AF_CAIF: ::std::os::raw::c_uint = 37;
 pub const AF_ALG: ::std::os::raw::c_uint = 38;
 pub const AF_NFC: ::std::os::raw::c_uint = 39;
 pub const AF_VSOCK: ::std::os::raw::c_uint = 40;
-pub const AF_MAX: ::std::os::raw::c_uint = 41;
+pub const AF_KCM: ::std::os::raw::c_uint = 41;
+pub const AF_QIPCRTR: ::std::os::raw::c_uint = 42;
+pub const AF_SMC: ::std::os::raw::c_uint = 43;
+pub const AF_MAX: ::std::os::raw::c_uint = 44;
 pub const SOL_RAW: ::std::os::raw::c_uint = 255;
 pub const SOL_DECNET: ::std::os::raw::c_uint = 261;
 pub const SOL_X25: ::std::os::raw::c_uint = 262;
@@ -743,6 +762,21 @@ pub const SOL_PACKET: ::std::os::raw::c_uint = 263;
 pub const SOL_ATM: ::std::os::raw::c_uint = 264;
 pub const SOL_AAL: ::std::os::raw::c_uint = 265;
 pub const SOL_IRDA: ::std::os::raw::c_uint = 266;
+pub const SOL_NETBEUI: ::std::os::raw::c_uint = 267;
+pub const SOL_LLC: ::std::os::raw::c_uint = 268;
+pub const SOL_DCCP: ::std::os::raw::c_uint = 269;
+pub const SOL_NETLINK: ::std::os::raw::c_uint = 270;
+pub const SOL_TIPC: ::std::os::raw::c_uint = 271;
+pub const SOL_RXRPC: ::std::os::raw::c_uint = 272;
+pub const SOL_PPPOL2TP: ::std::os::raw::c_uint = 273;
+pub const SOL_BLUETOOTH: ::std::os::raw::c_uint = 274;
+pub const SOL_PNPIPE: ::std::os::raw::c_uint = 275;
+pub const SOL_RDS: ::std::os::raw::c_uint = 276;
+pub const SOL_IUCV: ::std::os::raw::c_uint = 277;
+pub const SOL_CAIF: ::std::os::raw::c_uint = 278;
+pub const SOL_ALG: ::std::os::raw::c_uint = 279;
+pub const SOL_NFC: ::std::os::raw::c_uint = 280;
+pub const SOL_KCM: ::std::os::raw::c_uint = 281;
 pub const SOMAXCONN: ::std::os::raw::c_uint = 128;
 pub const _BITS_SOCKADDR_H: ::std::os::raw::c_uint = 1;
 pub const _SS_SIZE: ::std::os::raw::c_uint = 128;
@@ -810,10 +844,20 @@ pub const SO_BPF_EXTENSIONS: ::std::os::raw::c_uint = 48;
 pub const SO_INCOMING_CPU: ::std::os::raw::c_uint = 49;
 pub const SO_ATTACH_BPF: ::std::os::raw::c_uint = 50;
 pub const SO_DETACH_BPF: ::std::os::raw::c_uint = 27;
+pub const SO_ATTACH_REUSEPORT_CBPF: ::std::os::raw::c_uint = 51;
+pub const SO_ATTACH_REUSEPORT_EBPF: ::std::os::raw::c_uint = 52;
+pub const SO_CNX_ADVICE: ::std::os::raw::c_uint = 53;
+pub const SCM_TIMESTAMPING_OPT_STATS: ::std::os::raw::c_uint = 54;
+pub const SO_MEMINFO: ::std::os::raw::c_uint = 55;
+pub const SO_INCOMING_NAPI_ID: ::std::os::raw::c_uint = 56;
+pub const SO_COOKIE: ::std::os::raw::c_uint = 57;
+pub const SCM_TIMESTAMPING_PKTINFO: ::std::os::raw::c_uint = 58;
+pub const SO_PEERGROUPS: ::std::os::raw::c_uint = 59;
+pub const __osockaddr_defined: ::std::os::raw::c_uint = 1;
 pub const LIBRDKAFKA_TYPECHECKS: ::std::os::raw::c_uint = 1;
-pub const RD_KAFKA_VERSION: ::std::os::raw::c_uint = 721407;
+pub const RD_KAFKA_VERSION: ::std::os::raw::c_uint = 721919;
 pub const RD_KAFKA_DEBUG_CONTEXTS: &'static [u8; 81usize] =
-    b"all,generic,broker,topic,metadata,queue,msg,protocol,cgrp,security,fetch,feature\x00";
+    b"all,generic,broker,topic,metadata,queue,msg,protocol,cgrp,security,fetch,feature\0";
 pub const RD_KAFKA_OFFSET_BEGINNING: ::std::os::raw::c_int = -2;
 pub const RD_KAFKA_OFFSET_END: ::std::os::raw::c_int = -1;
 pub const RD_KAFKA_OFFSET_STORED: ::std::os::raw::c_int = -1000;
@@ -844,6 +888,8 @@ pub type __int64_t = ::std::os::raw::c_long;
 pub type __uint64_t = ::std::os::raw::c_ulong;
 pub type __quad_t = ::std::os::raw::c_long;
 pub type __u_quad_t = ::std::os::raw::c_ulong;
+pub type __intmax_t = ::std::os::raw::c_long;
+pub type __uintmax_t = ::std::os::raw::c_ulong;
 pub type __dev_t = ::std::os::raw::c_ulong;
 pub type __uid_t = ::std::os::raw::c_uint;
 pub type __gid_t = ::std::os::raw::c_uint;
@@ -855,24 +901,32 @@ pub type __off_t = ::std::os::raw::c_long;
 pub type __off64_t = ::std::os::raw::c_long;
 pub type __pid_t = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct __fsid_t {
     pub __val: [::std::os::raw::c_int; 2usize],
 }
 #[test]
 fn bindgen_test_layout___fsid_t() {
-    assert_eq!(::std::mem::size_of::<__fsid_t>() , 8usize , concat ! (
-               "Size of: " , stringify ! ( __fsid_t ) ));
-    assert_eq! (::std::mem::align_of::<__fsid_t>() , 4usize , concat ! (
-                "Alignment of " , stringify ! ( __fsid_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const __fsid_t ) ) . __val as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( __fsid_t ) , "::" ,
-                stringify ! ( __val ) ));
-}
-impl Clone for __fsid_t {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<__fsid_t>(),
+        8usize,
+        concat!("Size of: ", stringify!(__fsid_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__fsid_t>(),
+        4usize,
+        concat!("Alignment of ", stringify!(__fsid_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __fsid_t)).__val as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__fsid_t),
+            "::",
+            stringify!(__val)
+        )
+    );
 }
 pub type __clock_t = ::std::os::raw::c_long;
 pub type __rlim_t = ::std::os::raw::c_ulong;
@@ -901,8 +955,234 @@ pub type __qaddr_t = *mut __quad_t;
 pub type __caddr_t = *mut ::std::os::raw::c_char;
 pub type __intptr_t = ::std::os::raw::c_long;
 pub type __socklen_t = ::std::os::raw::c_uint;
+pub type __sig_atomic_t = ::std::os::raw::c_int;
+pub type __FILE = _IO_FILE;
+pub type FILE = _IO_FILE;
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Copy, Clone)]
+pub struct __mbstate_t {
+    pub __count: ::std::os::raw::c_int,
+    pub __value: __mbstate_t__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union __mbstate_t__bindgen_ty_1 {
+    pub __wch: ::std::os::raw::c_uint,
+    pub __wchb: [::std::os::raw::c_char; 4usize],
+    _bindgen_union_align: u32,
+}
+#[test]
+fn bindgen_test_layout___mbstate_t__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<__mbstate_t__bindgen_ty_1>(),
+        4usize,
+        concat!("Size of: ", stringify!(__mbstate_t__bindgen_ty_1))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__mbstate_t__bindgen_ty_1>(),
+        4usize,
+        concat!("Alignment of ", stringify!(__mbstate_t__bindgen_ty_1))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __mbstate_t__bindgen_ty_1)).__wch as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__mbstate_t__bindgen_ty_1),
+            "::",
+            stringify!(__wch)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __mbstate_t__bindgen_ty_1)).__wchb as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__mbstate_t__bindgen_ty_1),
+            "::",
+            stringify!(__wchb)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout___mbstate_t() {
+    assert_eq!(
+        ::std::mem::size_of::<__mbstate_t>(),
+        8usize,
+        concat!("Size of: ", stringify!(__mbstate_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__mbstate_t>(),
+        4usize,
+        concat!("Alignment of ", stringify!(__mbstate_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __mbstate_t)).__count as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__mbstate_t),
+            "::",
+            stringify!(__count)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __mbstate_t)).__value as *const _ as usize },
+        4usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__mbstate_t),
+            "::",
+            stringify!(__value)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct _G_fpos_t {
+    pub __pos: __off_t,
+    pub __state: __mbstate_t,
+}
+#[test]
+fn bindgen_test_layout__G_fpos_t() {
+    assert_eq!(
+        ::std::mem::size_of::<_G_fpos_t>(),
+        16usize,
+        concat!("Size of: ", stringify!(_G_fpos_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<_G_fpos_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(_G_fpos_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _G_fpos_t)).__pos as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_G_fpos_t),
+            "::",
+            stringify!(__pos)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _G_fpos_t)).__state as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_G_fpos_t),
+            "::",
+            stringify!(__state)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct _G_fpos64_t {
+    pub __pos: __off64_t,
+    pub __state: __mbstate_t,
+}
+#[test]
+fn bindgen_test_layout__G_fpos64_t() {
+    assert_eq!(
+        ::std::mem::size_of::<_G_fpos64_t>(),
+        16usize,
+        concat!("Size of: ", stringify!(_G_fpos64_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<_G_fpos64_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(_G_fpos64_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _G_fpos64_t)).__pos as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_G_fpos64_t),
+            "::",
+            stringify!(__pos)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _G_fpos64_t)).__state as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_G_fpos64_t),
+            "::",
+            stringify!(__state)
+        )
+    );
+}
+pub type va_list = __builtin_va_list;
+pub type __gnuc_va_list = __builtin_va_list;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _IO_jump_t {
+    _unused: [u8; 0],
+}
+pub type _IO_lock_t = ::std::os::raw::c_void;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _IO_marker {
+    pub _next: *mut _IO_marker,
+    pub _sbuf: *mut _IO_FILE,
+    pub _pos: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout__IO_marker() {
+    assert_eq!(
+        ::std::mem::size_of::<_IO_marker>(),
+        24usize,
+        concat!("Size of: ", stringify!(_IO_marker))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<_IO_marker>(),
+        8usize,
+        concat!("Alignment of ", stringify!(_IO_marker))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_marker))._next as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_marker),
+            "::",
+            stringify!(_next)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_marker))._sbuf as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_marker),
+            "::",
+            stringify!(_sbuf)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_marker))._pos as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_marker),
+            "::",
+            stringify!(_pos)
+        )
+    );
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum __codecvt_result {
+    __codecvt_ok = 0,
+    __codecvt_partial = 1,
+    __codecvt_error = 2,
+    __codecvt_noconv = 3,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct _IO_FILE {
     pub _flags: ::std::os::raw::c_int,
     pub _IO_read_ptr: *mut ::std::os::raw::c_char,
@@ -936,317 +1216,306 @@ pub struct _IO_FILE {
 }
 #[test]
 fn bindgen_test_layout__IO_FILE() {
-    assert_eq!(::std::mem::size_of::<_IO_FILE>() , 216usize , concat ! (
-               "Size of: " , stringify ! ( _IO_FILE ) ));
-    assert_eq! (::std::mem::align_of::<_IO_FILE>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( _IO_FILE ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _flags as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _flags ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _IO_read_ptr as * const _
-                as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _IO_read_ptr ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _IO_read_end as * const _
-                as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _IO_read_end ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _IO_read_base as * const _
-                as usize } , 24usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _IO_read_base ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _IO_write_base as * const
-                _ as usize } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _IO_write_base ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _IO_write_ptr as * const _
-                as usize } , 40usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _IO_write_ptr ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _IO_write_end as * const _
-                as usize } , 48usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _IO_write_end ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _IO_buf_base as * const _
-                as usize } , 56usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _IO_buf_base ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _IO_buf_end as * const _
-                as usize } , 64usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _IO_buf_end ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _IO_save_base as * const _
-                as usize } , 72usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _IO_save_base ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _IO_backup_base as * const
-                _ as usize } , 80usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _IO_backup_base ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _IO_save_end as * const _
-                as usize } , 88usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _IO_save_end ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _markers as * const _ as
-                usize } , 96usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _markers ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _chain as * const _ as
-                usize } , 104usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _chain ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _fileno as * const _ as
-                usize } , 112usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _fileno ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _flags2 as * const _ as
-                usize } , 116usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _flags2 ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _old_offset as * const _
-                as usize } , 120usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _old_offset ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _cur_column as * const _
-                as usize } , 128usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _cur_column ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _vtable_offset as * const
-                _ as usize } , 130usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _vtable_offset ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _shortbuf as * const _ as
-                usize } , 131usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _shortbuf ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _lock as * const _ as
-                usize } , 136usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _lock ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _offset as * const _ as
-                usize } , 144usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _offset ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . __pad1 as * const _ as
-                usize } , 152usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( __pad1 ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . __pad2 as * const _ as
-                usize } , 160usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( __pad2 ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . __pad3 as * const _ as
-                usize } , 168usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( __pad3 ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . __pad4 as * const _ as
-                usize } , 176usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( __pad4 ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . __pad5 as * const _ as
-                usize } , 184usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( __pad5 ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _mode as * const _ as
-                usize } , 192usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _mode ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_FILE ) ) . _unused2 as * const _ as
-                usize } , 196usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_FILE ) , "::" ,
-                stringify ! ( _unused2 ) ));
-}
-impl Clone for _IO_FILE {
-    fn clone(&self) -> Self { *self }
-}
-pub type FILE = _IO_FILE;
-pub type __FILE = _IO_FILE;
-#[repr(C)]
-#[derive(Copy)]
-pub struct __mbstate_t {
-    pub __count: ::std::os::raw::c_int,
-    pub __value: __mbstate_t__bindgen_ty_1,
-}
-#[repr(C)]
-#[derive(Copy)]
-pub union __mbstate_t__bindgen_ty_1 {
-    pub __wch: ::std::os::raw::c_uint,
-    pub __wchb: [::std::os::raw::c_char; 4usize],
-    _bindgen_union_align: u32,
-}
-#[test]
-fn bindgen_test_layout___mbstate_t__bindgen_ty_1() {
-    assert_eq!(::std::mem::size_of::<__mbstate_t__bindgen_ty_1>() , 4usize ,
-               concat ! (
-               "Size of: " , stringify ! ( __mbstate_t__bindgen_ty_1 ) ));
-    assert_eq! (::std::mem::align_of::<__mbstate_t__bindgen_ty_1>() , 4usize ,
-                concat ! (
-                "Alignment of " , stringify ! ( __mbstate_t__bindgen_ty_1 )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const __mbstate_t__bindgen_ty_1 ) ) . __wch as
-                * const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                __mbstate_t__bindgen_ty_1 ) , "::" , stringify ! ( __wch ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const __mbstate_t__bindgen_ty_1 ) ) . __wchb as
-                * const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                __mbstate_t__bindgen_ty_1 ) , "::" , stringify ! ( __wchb )
-                ));
-}
-impl Clone for __mbstate_t__bindgen_ty_1 {
-    fn clone(&self) -> Self { *self }
-}
-#[test]
-fn bindgen_test_layout___mbstate_t() {
-    assert_eq!(::std::mem::size_of::<__mbstate_t>() , 8usize , concat ! (
-               "Size of: " , stringify ! ( __mbstate_t ) ));
-    assert_eq! (::std::mem::align_of::<__mbstate_t>() , 4usize , concat ! (
-                "Alignment of " , stringify ! ( __mbstate_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const __mbstate_t ) ) . __count as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( __mbstate_t ) , "::" ,
-                stringify ! ( __count ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const __mbstate_t ) ) . __value as * const _ as
-                usize } , 4usize , concat ! (
-                "Alignment of field: " , stringify ! ( __mbstate_t ) , "::" ,
-                stringify ! ( __value ) ));
-}
-impl Clone for __mbstate_t {
-    fn clone(&self) -> Self { *self }
-}
-#[repr(C)]
-#[derive(Copy)]
-pub struct _G_fpos_t {
-    pub __pos: __off_t,
-    pub __state: __mbstate_t,
-}
-#[test]
-fn bindgen_test_layout__G_fpos_t() {
-    assert_eq!(::std::mem::size_of::<_G_fpos_t>() , 16usize , concat ! (
-               "Size of: " , stringify ! ( _G_fpos_t ) ));
-    assert_eq! (::std::mem::align_of::<_G_fpos_t>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( _G_fpos_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _G_fpos_t ) ) . __pos as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( _G_fpos_t ) , "::" ,
-                stringify ! ( __pos ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _G_fpos_t ) ) . __state as * const _ as
-                usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( _G_fpos_t ) , "::" ,
-                stringify ! ( __state ) ));
-}
-impl Clone for _G_fpos_t {
-    fn clone(&self) -> Self { *self }
-}
-#[repr(C)]
-#[derive(Copy)]
-pub struct _G_fpos64_t {
-    pub __pos: __off64_t,
-    pub __state: __mbstate_t,
-}
-#[test]
-fn bindgen_test_layout__G_fpos64_t() {
-    assert_eq!(::std::mem::size_of::<_G_fpos64_t>() , 16usize , concat ! (
-               "Size of: " , stringify ! ( _G_fpos64_t ) ));
-    assert_eq! (::std::mem::align_of::<_G_fpos64_t>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( _G_fpos64_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _G_fpos64_t ) ) . __pos as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( _G_fpos64_t ) , "::" ,
-                stringify ! ( __pos ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _G_fpos64_t ) ) . __state as * const _ as
-                usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( _G_fpos64_t ) , "::" ,
-                stringify ! ( __state ) ));
-}
-impl Clone for _G_fpos64_t {
-    fn clone(&self) -> Self { *self }
-}
-pub type va_list = __builtin_va_list;
-pub type __gnuc_va_list = __builtin_va_list;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _IO_jump_t {
-    _unused: [u8; 0],
-}
-pub type _IO_lock_t = ::std::os::raw::c_void;
-#[repr(C)]
-#[derive(Debug, Copy)]
-pub struct _IO_marker {
-    pub _next: *mut _IO_marker,
-    pub _sbuf: *mut _IO_FILE,
-    pub _pos: ::std::os::raw::c_int,
-}
-#[test]
-fn bindgen_test_layout__IO_marker() {
-    assert_eq!(::std::mem::size_of::<_IO_marker>() , 24usize , concat ! (
-               "Size of: " , stringify ! ( _IO_marker ) ));
-    assert_eq! (::std::mem::align_of::<_IO_marker>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( _IO_marker ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_marker ) ) . _next as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_marker ) , "::" ,
-                stringify ! ( _next ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_marker ) ) . _sbuf as * const _ as
-                usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_marker ) , "::" ,
-                stringify ! ( _sbuf ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const _IO_marker ) ) . _pos as * const _ as
-                usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! ( _IO_marker ) , "::" ,
-                stringify ! ( _pos ) ));
-}
-impl Clone for _IO_marker {
-    fn clone(&self) -> Self { *self }
-}
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub enum __codecvt_result {
-    __codecvt_ok = 0,
-    __codecvt_partial = 1,
-    __codecvt_error = 2,
-    __codecvt_noconv = 3,
+    assert_eq!(
+        ::std::mem::size_of::<_IO_FILE>(),
+        216usize,
+        concat!("Size of: ", stringify!(_IO_FILE))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<_IO_FILE>(),
+        8usize,
+        concat!("Alignment of ", stringify!(_IO_FILE))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._flags as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_flags)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._IO_read_ptr as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_read_ptr)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._IO_read_end as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_read_end)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._IO_read_base as *const _ as usize },
+        24usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_read_base)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._IO_write_base as *const _ as usize },
+        32usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_write_base)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._IO_write_ptr as *const _ as usize },
+        40usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_write_ptr)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._IO_write_end as *const _ as usize },
+        48usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_write_end)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._IO_buf_base as *const _ as usize },
+        56usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_buf_base)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._IO_buf_end as *const _ as usize },
+        64usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_buf_end)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._IO_save_base as *const _ as usize },
+        72usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_save_base)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._IO_backup_base as *const _ as usize },
+        80usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_backup_base)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._IO_save_end as *const _ as usize },
+        88usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_save_end)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._markers as *const _ as usize },
+        96usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_markers)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._chain as *const _ as usize },
+        104usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_chain)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._fileno as *const _ as usize },
+        112usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_fileno)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._flags2 as *const _ as usize },
+        116usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_flags2)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._old_offset as *const _ as usize },
+        120usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_old_offset)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._cur_column as *const _ as usize },
+        128usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_cur_column)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._vtable_offset as *const _ as usize },
+        130usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_vtable_offset)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._shortbuf as *const _ as usize },
+        131usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_shortbuf)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._lock as *const _ as usize },
+        136usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_lock)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._offset as *const _ as usize },
+        144usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_offset)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE)).__pad1 as *const _ as usize },
+        152usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(__pad1)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE)).__pad2 as *const _ as usize },
+        160usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(__pad2)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE)).__pad3 as *const _ as usize },
+        168usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(__pad3)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE)).__pad4 as *const _ as usize },
+        176usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(__pad4)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE)).__pad5 as *const _ as usize },
+        184usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(__pad5)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._mode as *const _ as usize },
+        192usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_mode)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const _IO_FILE))._unused2 as *const _ as usize },
+        196usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_unused2)
+        )
+    );
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1254,39 +1523,32 @@ pub struct _IO_FILE_plus {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[link_name = "_IO_2_1_stdin_"]
+    #[link_name = "\u{1}_IO_2_1_stdin_"]
     pub static mut _IO_2_1_stdin_: _IO_FILE_plus;
 }
 extern "C" {
-    #[link_name = "_IO_2_1_stdout_"]
+    #[link_name = "\u{1}_IO_2_1_stdout_"]
     pub static mut _IO_2_1_stdout_: _IO_FILE_plus;
 }
 extern "C" {
-    #[link_name = "_IO_2_1_stderr_"]
+    #[link_name = "\u{1}_IO_2_1_stderr_"]
     pub static mut _IO_2_1_stderr_: _IO_FILE_plus;
 }
-pub type __io_read_fn =
-    ::std::option::Option<unsafe extern "C" fn(__cookie:
-                                                   *mut ::std::os::raw::c_void,
-                                               __buf:
-                                                   *mut ::std::os::raw::c_char,
-                                               __nbytes: usize) -> __ssize_t>;
-pub type __io_write_fn =
-    ::std::option::Option<unsafe extern "C" fn(__cookie:
-                                                   *mut ::std::os::raw::c_void,
-                                               __buf:
-                                                   *const ::std::os::raw::c_char,
-                                               __n: usize) -> __ssize_t>;
-pub type __io_seek_fn =
-    ::std::option::Option<unsafe extern "C" fn(__cookie:
-                                                   *mut ::std::os::raw::c_void,
-                                               __pos: *mut __off64_t,
-                                               __w: ::std::os::raw::c_int)
-                              -> ::std::os::raw::c_int>;
-pub type __io_close_fn =
-    ::std::option::Option<unsafe extern "C" fn(__cookie:
-                                                   *mut ::std::os::raw::c_void)
-                              -> ::std::os::raw::c_int>;
+pub type __io_read_fn = ::std::option::Option<
+    unsafe extern "C" fn(__cookie: *mut ::std::os::raw::c_void, __buf: *mut ::std::os::raw::c_char, __nbytes: usize)
+        -> __ssize_t,
+>;
+pub type __io_write_fn = ::std::option::Option<
+    unsafe extern "C" fn(__cookie: *mut ::std::os::raw::c_void, __buf: *const ::std::os::raw::c_char, __n: usize)
+        -> __ssize_t,
+>;
+pub type __io_seek_fn = ::std::option::Option<
+    unsafe extern "C" fn(__cookie: *mut ::std::os::raw::c_void, __pos: *mut __off64_t, __w: ::std::os::raw::c_int)
+        -> ::std::os::raw::c_int,
+>;
+pub type __io_close_fn = ::std::option::Option<
+    unsafe extern "C" fn(__cookie: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int,
+>;
 extern "C" {
     pub fn __underflow(arg1: *mut _IO_FILE) -> ::std::os::raw::c_int;
 }
@@ -1294,15 +1556,13 @@ extern "C" {
     pub fn __uflow(arg1: *mut _IO_FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn __overflow(arg1: *mut _IO_FILE, arg2: ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
+    pub fn __overflow(arg1: *mut _IO_FILE, arg2: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn _IO_getc(__fp: *mut _IO_FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn _IO_putc(__c: ::std::os::raw::c_int, __fp: *mut _IO_FILE)
-     -> ::std::os::raw::c_int;
+    pub fn _IO_putc(__c: ::std::os::raw::c_int, __fp: *mut _IO_FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn _IO_feof(__fp: *mut _IO_FILE) -> ::std::os::raw::c_int;
@@ -1323,33 +1583,36 @@ extern "C" {
     pub fn _IO_ftrylockfile(arg1: *mut _IO_FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn _IO_vfscanf(arg1: *mut _IO_FILE,
-                       arg2: *const ::std::os::raw::c_char,
-                       arg3: *mut __va_list_tag,
-                       arg4: *mut ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
+    pub fn _IO_vfscanf(
+        arg1: *mut _IO_FILE,
+        arg2: *const ::std::os::raw::c_char,
+        arg3: *mut __va_list_tag,
+        arg4: *mut ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn _IO_vfprintf(arg1: *mut _IO_FILE,
-                        arg2: *const ::std::os::raw::c_char,
-                        arg3: *mut __va_list_tag) -> ::std::os::raw::c_int;
+    pub fn _IO_vfprintf(
+        arg1: *mut _IO_FILE,
+        arg2: *const ::std::os::raw::c_char,
+        arg3: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn _IO_padn(arg1: *mut _IO_FILE, arg2: ::std::os::raw::c_int,
-                    arg3: __ssize_t) -> __ssize_t;
+    pub fn _IO_padn(arg1: *mut _IO_FILE, arg2: ::std::os::raw::c_int, arg3: __ssize_t) -> __ssize_t;
 }
 extern "C" {
-    pub fn _IO_sgetn(arg1: *mut _IO_FILE, arg2: *mut ::std::os::raw::c_void,
-                     arg3: usize) -> usize;
+    pub fn _IO_sgetn(arg1: *mut _IO_FILE, arg2: *mut ::std::os::raw::c_void, arg3: usize) -> usize;
 }
 extern "C" {
-    pub fn _IO_seekoff(arg1: *mut _IO_FILE, arg2: __off64_t,
-                       arg3: ::std::os::raw::c_int,
-                       arg4: ::std::os::raw::c_int) -> __off64_t;
+    pub fn _IO_seekoff(
+        arg1: *mut _IO_FILE,
+        arg2: __off64_t,
+        arg3: ::std::os::raw::c_int,
+        arg4: ::std::os::raw::c_int,
+    ) -> __off64_t;
 }
 extern "C" {
-    pub fn _IO_seekpos(arg1: *mut _IO_FILE, arg2: __off64_t,
-                       arg3: ::std::os::raw::c_int) -> __off64_t;
+    pub fn _IO_seekpos(arg1: *mut _IO_FILE, arg2: __off64_t, arg3: ::std::os::raw::c_int) -> __off64_t;
 }
 extern "C" {
     pub fn _IO_free_backup_area(arg1: *mut _IO_FILE);
@@ -1357,48 +1620,45 @@ extern "C" {
 pub type off_t = __off_t;
 pub type fpos_t = _G_fpos_t;
 extern "C" {
-    #[link_name = "stdin"]
+    #[link_name = "\u{1}stdin"]
     pub static mut stdin: *mut _IO_FILE;
 }
 extern "C" {
-    #[link_name = "stdout"]
+    #[link_name = "\u{1}stdout"]
     pub static mut stdout: *mut _IO_FILE;
 }
 extern "C" {
-    #[link_name = "stderr"]
+    #[link_name = "\u{1}stderr"]
     pub static mut stderr: *mut _IO_FILE;
 }
 extern "C" {
-    pub fn remove(__filename: *const ::std::os::raw::c_char)
-     -> ::std::os::raw::c_int;
+    pub fn remove(__filename: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rename(__old: *const ::std::os::raw::c_char,
-                  __new: *const ::std::os::raw::c_char)
-     -> ::std::os::raw::c_int;
+    pub fn rename(__old: *const ::std::os::raw::c_char, __new: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn renameat(__oldfd: ::std::os::raw::c_int,
-                    __old: *const ::std::os::raw::c_char,
-                    __newfd: ::std::os::raw::c_int,
-                    __new: *const ::std::os::raw::c_char)
-     -> ::std::os::raw::c_int;
+    pub fn renameat(
+        __oldfd: ::std::os::raw::c_int,
+        __old: *const ::std::os::raw::c_char,
+        __newfd: ::std::os::raw::c_int,
+        __new: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn tmpfile() -> *mut FILE;
 }
 extern "C" {
-    pub fn tmpnam(__s: *mut ::std::os::raw::c_char)
-     -> *mut ::std::os::raw::c_char;
+    pub fn tmpnam(__s: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn tmpnam_r(__s: *mut ::std::os::raw::c_char)
-     -> *mut ::std::os::raw::c_char;
+    pub fn tmpnam_r(__s: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn tempnam(__dir: *const ::std::os::raw::c_char,
-                   __pfx: *const ::std::os::raw::c_char)
-     -> *mut ::std::os::raw::c_char;
+    pub fn tempnam(
+        __dir: *const ::std::os::raw::c_char,
+        __pfx: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
     pub fn fclose(__stream: *mut FILE) -> ::std::os::raw::c_int;
@@ -1410,147 +1670,166 @@ extern "C" {
     pub fn fflush_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn fopen(__filename: *const ::std::os::raw::c_char,
-                 __modes: *const ::std::os::raw::c_char) -> *mut FILE;
+    pub fn fopen(__filename: *const ::std::os::raw::c_char, __modes: *const ::std::os::raw::c_char) -> *mut FILE;
 }
 extern "C" {
-    pub fn freopen(__filename: *const ::std::os::raw::c_char,
-                   __modes: *const ::std::os::raw::c_char,
-                   __stream: *mut FILE) -> *mut FILE;
+    pub fn freopen(
+        __filename: *const ::std::os::raw::c_char,
+        __modes: *const ::std::os::raw::c_char,
+        __stream: *mut FILE,
+    ) -> *mut FILE;
 }
 extern "C" {
-    pub fn fdopen(__fd: ::std::os::raw::c_int,
-                  __modes: *const ::std::os::raw::c_char) -> *mut FILE;
+    pub fn fdopen(__fd: ::std::os::raw::c_int, __modes: *const ::std::os::raw::c_char) -> *mut FILE;
 }
 extern "C" {
-    pub fn fmemopen(__s: *mut ::std::os::raw::c_void, __len: usize,
-                    __modes: *const ::std::os::raw::c_char) -> *mut FILE;
+    pub fn fmemopen(
+        __s: *mut ::std::os::raw::c_void,
+        __len: usize,
+        __modes: *const ::std::os::raw::c_char,
+    ) -> *mut FILE;
 }
 extern "C" {
-    pub fn open_memstream(__bufloc: *mut *mut ::std::os::raw::c_char,
-                          __sizeloc: *mut usize) -> *mut FILE;
+    pub fn open_memstream(__bufloc: *mut *mut ::std::os::raw::c_char, __sizeloc: *mut usize) -> *mut FILE;
 }
 extern "C" {
     pub fn setbuf(__stream: *mut FILE, __buf: *mut ::std::os::raw::c_char);
 }
 extern "C" {
-    pub fn setvbuf(__stream: *mut FILE, __buf: *mut ::std::os::raw::c_char,
-                   __modes: ::std::os::raw::c_int, __n: usize)
-     -> ::std::os::raw::c_int;
+    pub fn setvbuf(
+        __stream: *mut FILE,
+        __buf: *mut ::std::os::raw::c_char,
+        __modes: ::std::os::raw::c_int,
+        __n: usize,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn setbuffer(__stream: *mut FILE, __buf: *mut ::std::os::raw::c_char,
-                     __size: usize);
+    pub fn setbuffer(__stream: *mut FILE, __buf: *mut ::std::os::raw::c_char, __size: usize);
 }
 extern "C" {
     pub fn setlinebuf(__stream: *mut FILE);
 }
 extern "C" {
-    pub fn fprintf(__stream: *mut FILE,
-                   __format: *const ::std::os::raw::c_char, ...)
-     -> ::std::os::raw::c_int;
+    pub fn fprintf(__stream: *mut FILE, __format: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn printf(__format: *const ::std::os::raw::c_char, ...)
-     -> ::std::os::raw::c_int;
+    pub fn printf(__format: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn sprintf(__s: *mut ::std::os::raw::c_char,
-                   __format: *const ::std::os::raw::c_char, ...)
-     -> ::std::os::raw::c_int;
+    pub fn sprintf(
+        __s: *mut ::std::os::raw::c_char,
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn vfprintf(__s: *mut FILE, __format: *const ::std::os::raw::c_char,
-                    __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
+    pub fn vfprintf(
+        __s: *mut FILE,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn vprintf(__format: *const ::std::os::raw::c_char,
-                   __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
+    pub fn vprintf(__format: *const ::std::os::raw::c_char, __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn vsprintf(__s: *mut ::std::os::raw::c_char,
-                    __format: *const ::std::os::raw::c_char,
-                    __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
+    pub fn vsprintf(
+        __s: *mut ::std::os::raw::c_char,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn snprintf(__s: *mut ::std::os::raw::c_char, __maxlen: usize,
-                    __format: *const ::std::os::raw::c_char, ...)
-     -> ::std::os::raw::c_int;
+    pub fn snprintf(
+        __s: *mut ::std::os::raw::c_char,
+        __maxlen: usize,
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn vsnprintf(__s: *mut ::std::os::raw::c_char, __maxlen: usize,
-                     __format: *const ::std::os::raw::c_char,
-                     __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
+    pub fn vsnprintf(
+        __s: *mut ::std::os::raw::c_char,
+        __maxlen: usize,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn vdprintf(__fd: ::std::os::raw::c_int,
-                    __fmt: *const ::std::os::raw::c_char,
-                    __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
+    pub fn vdprintf(
+        __fd: ::std::os::raw::c_int,
+        __fmt: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn dprintf(__fd: ::std::os::raw::c_int,
-                   __fmt: *const ::std::os::raw::c_char, ...)
-     -> ::std::os::raw::c_int;
+    pub fn dprintf(__fd: ::std::os::raw::c_int, __fmt: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn fscanf(__stream: *mut FILE,
-                  __format: *const ::std::os::raw::c_char, ...)
-     -> ::std::os::raw::c_int;
+    pub fn fscanf(__stream: *mut FILE, __format: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn scanf(__format: *const ::std::os::raw::c_char, ...)
-     -> ::std::os::raw::c_int;
+    pub fn scanf(__format: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn sscanf(__s: *const ::std::os::raw::c_char,
-                  __format: *const ::std::os::raw::c_char, ...)
-     -> ::std::os::raw::c_int;
+    pub fn sscanf(
+        __s: *const ::std::os::raw::c_char,
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[link_name = "__isoc99_fscanf"]
-    pub fn fscanf1(__stream: *mut FILE,
-                   __format: *const ::std::os::raw::c_char, ...)
-     -> ::std::os::raw::c_int;
+    #[link_name = "\u{1}__isoc99_fscanf"]
+    pub fn fscanf1(__stream: *mut FILE, __format: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[link_name = "__isoc99_scanf"]
-    pub fn scanf1(__format: *const ::std::os::raw::c_char, ...)
-     -> ::std::os::raw::c_int;
+    #[link_name = "\u{1}__isoc99_scanf"]
+    pub fn scanf1(__format: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[link_name = "__isoc99_sscanf"]
-    pub fn sscanf1(__s: *const ::std::os::raw::c_char,
-                   __format: *const ::std::os::raw::c_char, ...)
-     -> ::std::os::raw::c_int;
+    #[link_name = "\u{1}__isoc99_sscanf"]
+    pub fn sscanf1(
+        __s: *const ::std::os::raw::c_char,
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn vfscanf(__s: *mut FILE, __format: *const ::std::os::raw::c_char,
-                   __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
+    pub fn vfscanf(
+        __s: *mut FILE,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn vscanf(__format: *const ::std::os::raw::c_char,
-                  __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
+    pub fn vscanf(__format: *const ::std::os::raw::c_char, __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn vsscanf(__s: *const ::std::os::raw::c_char,
-                   __format: *const ::std::os::raw::c_char,
-                   __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
+    pub fn vsscanf(
+        __s: *const ::std::os::raw::c_char,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[link_name = "__isoc99_vfscanf"]
-    pub fn vfscanf1(__s: *mut FILE, __format: *const ::std::os::raw::c_char,
-                    __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
+    #[link_name = "\u{1}__isoc99_vfscanf"]
+    pub fn vfscanf1(
+        __s: *mut FILE,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[link_name = "__isoc99_vscanf"]
-    pub fn vscanf1(__format: *const ::std::os::raw::c_char,
-                   __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
+    #[link_name = "\u{1}__isoc99_vscanf"]
+    pub fn vscanf1(__format: *const ::std::os::raw::c_char, __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[link_name = "__isoc99_vsscanf"]
-    pub fn vsscanf1(__s: *const ::std::os::raw::c_char,
-                    __format: *const ::std::os::raw::c_char,
-                    __arg: *mut __va_list_tag) -> ::std::os::raw::c_int;
+    #[link_name = "\u{1}__isoc99_vsscanf"]
+    pub fn vsscanf1(
+        __s: *const ::std::os::raw::c_char,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn fgetc(__stream: *mut FILE) -> ::std::os::raw::c_int;
@@ -1571,84 +1850,87 @@ extern "C" {
     pub fn fgetc_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn fputc(__c: ::std::os::raw::c_int, __stream: *mut FILE)
-     -> ::std::os::raw::c_int;
+    pub fn fputc(__c: ::std::os::raw::c_int, __stream: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn putc(__c: ::std::os::raw::c_int, __stream: *mut FILE)
-     -> ::std::os::raw::c_int;
+    pub fn putc(__c: ::std::os::raw::c_int, __stream: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn putchar(__c: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn fputc_unlocked(__c: ::std::os::raw::c_int, __stream: *mut FILE)
-     -> ::std::os::raw::c_int;
+    pub fn fputc_unlocked(__c: ::std::os::raw::c_int, __stream: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn putc_unlocked(__c: ::std::os::raw::c_int, __stream: *mut FILE)
-     -> ::std::os::raw::c_int;
+    pub fn putc_unlocked(__c: ::std::os::raw::c_int, __stream: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn putchar_unlocked(__c: ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
+    pub fn putchar_unlocked(__c: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn getw(__stream: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn putw(__w: ::std::os::raw::c_int, __stream: *mut FILE)
-     -> ::std::os::raw::c_int;
+    pub fn putw(__w: ::std::os::raw::c_int, __stream: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn fgets(__s: *mut ::std::os::raw::c_char, __n: ::std::os::raw::c_int,
-                 __stream: *mut FILE) -> *mut ::std::os::raw::c_char;
+    pub fn fgets(
+        __s: *mut ::std::os::raw::c_char,
+        __n: ::std::os::raw::c_int,
+        __stream: *mut FILE,
+    ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn __getdelim(__lineptr: *mut *mut ::std::os::raw::c_char,
-                      __n: *mut usize, __delimiter: ::std::os::raw::c_int,
-                      __stream: *mut FILE) -> __ssize_t;
+    pub fn __getdelim(
+        __lineptr: *mut *mut ::std::os::raw::c_char,
+        __n: *mut usize,
+        __delimiter: ::std::os::raw::c_int,
+        __stream: *mut FILE,
+    ) -> __ssize_t;
 }
 extern "C" {
-    pub fn getdelim(__lineptr: *mut *mut ::std::os::raw::c_char,
-                    __n: *mut usize, __delimiter: ::std::os::raw::c_int,
-                    __stream: *mut FILE) -> __ssize_t;
+    pub fn getdelim(
+        __lineptr: *mut *mut ::std::os::raw::c_char,
+        __n: *mut usize,
+        __delimiter: ::std::os::raw::c_int,
+        __stream: *mut FILE,
+    ) -> __ssize_t;
 }
 extern "C" {
-    pub fn getline(__lineptr: *mut *mut ::std::os::raw::c_char,
-                   __n: *mut usize, __stream: *mut FILE) -> __ssize_t;
+    pub fn getline(__lineptr: *mut *mut ::std::os::raw::c_char, __n: *mut usize, __stream: *mut FILE) -> __ssize_t;
 }
 extern "C" {
-    pub fn fputs(__s: *const ::std::os::raw::c_char, __stream: *mut FILE)
-     -> ::std::os::raw::c_int;
+    pub fn fputs(__s: *const ::std::os::raw::c_char, __stream: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn puts(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn ungetc(__c: ::std::os::raw::c_int, __stream: *mut FILE)
-     -> ::std::os::raw::c_int;
+    pub fn ungetc(__c: ::std::os::raw::c_int, __stream: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn fread(__ptr: *mut ::std::os::raw::c_void, __size: usize,
-                 __n: usize, __stream: *mut FILE) -> usize;
+    pub fn fread(__ptr: *mut ::std::os::raw::c_void, __size: usize, __n: usize, __stream: *mut FILE) -> usize;
 }
 extern "C" {
-    pub fn fwrite(__ptr: *const ::std::os::raw::c_void, __size: usize,
-                  __n: usize, __s: *mut FILE) -> usize;
+    pub fn fwrite(__ptr: *const ::std::os::raw::c_void, __size: usize, __n: usize, __s: *mut FILE) -> usize;
 }
 extern "C" {
-    pub fn fread_unlocked(__ptr: *mut ::std::os::raw::c_void, __size: usize,
-                          __n: usize, __stream: *mut FILE) -> usize;
+    pub fn fread_unlocked(__ptr: *mut ::std::os::raw::c_void, __size: usize, __n: usize, __stream: *mut FILE) -> usize;
 }
 extern "C" {
-    pub fn fwrite_unlocked(__ptr: *const ::std::os::raw::c_void,
-                           __size: usize, __n: usize, __stream: *mut FILE)
-     -> usize;
+    pub fn fwrite_unlocked(
+        __ptr: *const ::std::os::raw::c_void,
+        __size: usize,
+        __n: usize,
+        __stream: *mut FILE,
+    ) -> usize;
 }
 extern "C" {
-    pub fn fseek(__stream: *mut FILE, __off: ::std::os::raw::c_long,
-                 __whence: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn fseek(
+        __stream: *mut FILE,
+        __off: ::std::os::raw::c_long,
+        __whence: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn ftell(__stream: *mut FILE) -> ::std::os::raw::c_long;
@@ -1657,19 +1939,16 @@ extern "C" {
     pub fn rewind(__stream: *mut FILE);
 }
 extern "C" {
-    pub fn fseeko(__stream: *mut FILE, __off: __off_t,
-                  __whence: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn fseeko(__stream: *mut FILE, __off: __off_t, __whence: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn ftello(__stream: *mut FILE) -> __off_t;
 }
 extern "C" {
-    pub fn fgetpos(__stream: *mut FILE, __pos: *mut fpos_t)
-     -> ::std::os::raw::c_int;
+    pub fn fgetpos(__stream: *mut FILE, __pos: *mut fpos_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn fsetpos(__stream: *mut FILE, __pos: *const fpos_t)
-     -> ::std::os::raw::c_int;
+    pub fn fsetpos(__stream: *mut FILE, __pos: *const fpos_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn clearerr(__stream: *mut FILE);
@@ -1693,11 +1972,11 @@ extern "C" {
     pub fn perror(__s: *const ::std::os::raw::c_char);
 }
 extern "C" {
-    #[link_name = "sys_nerr"]
+    #[link_name = "\u{1}sys_nerr"]
     pub static mut sys_nerr: ::std::os::raw::c_int;
 }
 extern "C" {
-    #[link_name = "sys_errlist"]
+    #[link_name = "\u{1}sys_errlist"]
     pub static mut sys_errlist: [*const ::std::os::raw::c_char; 0usize];
 }
 extern "C" {
@@ -1707,15 +1986,13 @@ extern "C" {
     pub fn fileno_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn popen(__command: *const ::std::os::raw::c_char,
-                 __modes: *const ::std::os::raw::c_char) -> *mut FILE;
+    pub fn popen(__command: *const ::std::os::raw::c_char, __modes: *const ::std::os::raw::c_char) -> *mut FILE;
 }
 extern "C" {
     pub fn pclose(__stream: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn ctermid(__s: *mut ::std::os::raw::c_char)
-     -> *mut ::std::os::raw::c_char;
+    pub fn ctermid(__s: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
     pub fn flockfile(__stream: *mut FILE);
@@ -1742,34 +2019,47 @@ pub type uint_fast8_t = ::std::os::raw::c_uchar;
 pub type uint_fast16_t = ::std::os::raw::c_ulong;
 pub type uint_fast32_t = ::std::os::raw::c_ulong;
 pub type uint_fast64_t = ::std::os::raw::c_ulong;
-pub type intmax_t = ::std::os::raw::c_long;
-pub type uintmax_t = ::std::os::raw::c_ulong;
+pub type intmax_t = __intmax_t;
+pub type uintmax_t = __uintmax_t;
 pub type __gwchar_t = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct imaxdiv_t {
     pub quot: ::std::os::raw::c_long,
     pub rem: ::std::os::raw::c_long,
 }
 #[test]
 fn bindgen_test_layout_imaxdiv_t() {
-    assert_eq!(::std::mem::size_of::<imaxdiv_t>() , 16usize , concat ! (
-               "Size of: " , stringify ! ( imaxdiv_t ) ));
-    assert_eq! (::std::mem::align_of::<imaxdiv_t>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( imaxdiv_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const imaxdiv_t ) ) . quot as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( imaxdiv_t ) , "::" ,
-                stringify ! ( quot ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const imaxdiv_t ) ) . rem as * const _ as usize
-                } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( imaxdiv_t ) , "::" ,
-                stringify ! ( rem ) ));
-}
-impl Clone for imaxdiv_t {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<imaxdiv_t>(),
+        16usize,
+        concat!("Size of: ", stringify!(imaxdiv_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<imaxdiv_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(imaxdiv_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const imaxdiv_t)).quot as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(imaxdiv_t),
+            "::",
+            stringify!(quot)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const imaxdiv_t)).rem as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(imaxdiv_t),
+            "::",
+            stringify!(rem)
+        )
+    );
 }
 extern "C" {
     pub fn imaxabs(__n: intmax_t) -> intmax_t;
@@ -1778,24 +2068,32 @@ extern "C" {
     pub fn imaxdiv(__numer: intmax_t, __denom: intmax_t) -> imaxdiv_t;
 }
 extern "C" {
-    pub fn strtoimax(__nptr: *const ::std::os::raw::c_char,
-                     __endptr: *mut *mut ::std::os::raw::c_char,
-                     __base: ::std::os::raw::c_int) -> intmax_t;
+    pub fn strtoimax(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> intmax_t;
 }
 extern "C" {
-    pub fn strtoumax(__nptr: *const ::std::os::raw::c_char,
-                     __endptr: *mut *mut ::std::os::raw::c_char,
-                     __base: ::std::os::raw::c_int) -> uintmax_t;
+    pub fn strtoumax(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> uintmax_t;
 }
 extern "C" {
-    pub fn wcstoimax(__nptr: *const __gwchar_t,
-                     __endptr: *mut *mut __gwchar_t,
-                     __base: ::std::os::raw::c_int) -> intmax_t;
+    pub fn wcstoimax(
+        __nptr: *const __gwchar_t,
+        __endptr: *mut *mut __gwchar_t,
+        __base: ::std::os::raw::c_int,
+    ) -> intmax_t;
 }
 extern "C" {
-    pub fn wcstoumax(__nptr: *const __gwchar_t,
-                     __endptr: *mut *mut __gwchar_t,
-                     __base: ::std::os::raw::c_int) -> uintmax_t;
+    pub fn wcstoumax(
+        __nptr: *const __gwchar_t,
+        __endptr: *mut *mut __gwchar_t,
+        __base: ::std::os::raw::c_int,
+    ) -> uintmax_t;
 }
 pub type u_char = __u_char;
 pub type u_short = __u_short;
@@ -1817,8 +2115,8 @@ pub type daddr_t = __daddr_t;
 pub type caddr_t = __caddr_t;
 pub type key_t = __key_t;
 pub type clock_t = __clock_t;
-pub type time_t = __time_t;
 pub type clockid_t = __clockid_t;
+pub type time_t = __time_t;
 pub type timer_t = __timer_t;
 pub type ulong = ::std::os::raw::c_ulong;
 pub type ushort = ::std::os::raw::c_ushort;
@@ -1828,199 +2126,368 @@ pub type u_int16_t = ::std::os::raw::c_ushort;
 pub type u_int32_t = ::std::os::raw::c_uint;
 pub type u_int64_t = ::std::os::raw::c_ulong;
 pub type register_t = ::std::os::raw::c_long;
-pub type __sig_atomic_t = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct __sigset_t {
     pub __val: [::std::os::raw::c_ulong; 16usize],
 }
 #[test]
 fn bindgen_test_layout___sigset_t() {
-    assert_eq!(::std::mem::size_of::<__sigset_t>() , 128usize , concat ! (
-               "Size of: " , stringify ! ( __sigset_t ) ));
-    assert_eq! (::std::mem::align_of::<__sigset_t>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( __sigset_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const __sigset_t ) ) . __val as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( __sigset_t ) , "::" ,
-                stringify ! ( __val ) ));
-}
-impl Clone for __sigset_t {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<__sigset_t>(),
+        128usize,
+        concat!("Size of: ", stringify!(__sigset_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sigset_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__sigset_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __sigset_t)).__val as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__sigset_t),
+            "::",
+            stringify!(__val)
+        )
+    );
 }
 pub type sigset_t = __sigset_t;
 #[repr(C)]
-#[derive(Debug, Copy)]
-pub struct timespec {
-    pub tv_sec: __time_t,
-    pub tv_nsec: __syscall_slong_t,
-}
-#[test]
-fn bindgen_test_layout_timespec() {
-    assert_eq!(::std::mem::size_of::<timespec>() , 16usize , concat ! (
-               "Size of: " , stringify ! ( timespec ) ));
-    assert_eq! (::std::mem::align_of::<timespec>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( timespec ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const timespec ) ) . tv_sec as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( timespec ) , "::" ,
-                stringify ! ( tv_sec ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const timespec ) ) . tv_nsec as * const _ as
-                usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( timespec ) , "::" ,
-                stringify ! ( tv_nsec ) ));
-}
-impl Clone for timespec {
-    fn clone(&self) -> Self { *self }
-}
-#[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct timeval {
     pub tv_sec: __time_t,
     pub tv_usec: __suseconds_t,
 }
 #[test]
 fn bindgen_test_layout_timeval() {
-    assert_eq!(::std::mem::size_of::<timeval>() , 16usize , concat ! (
-               "Size of: " , stringify ! ( timeval ) ));
-    assert_eq! (::std::mem::align_of::<timeval>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( timeval ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const timeval ) ) . tv_sec as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( timeval ) , "::" ,
-                stringify ! ( tv_sec ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const timeval ) ) . tv_usec as * const _ as
-                usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( timeval ) , "::" ,
-                stringify ! ( tv_usec ) ));
+    assert_eq!(
+        ::std::mem::size_of::<timeval>(),
+        16usize,
+        concat!("Size of: ", stringify!(timeval))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<timeval>(),
+        8usize,
+        concat!("Alignment of ", stringify!(timeval))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const timeval)).tv_sec as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(timeval),
+            "::",
+            stringify!(tv_sec)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const timeval)).tv_usec as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(timeval),
+            "::",
+            stringify!(tv_usec)
+        )
+    );
 }
-impl Clone for timeval {
-    fn clone(&self) -> Self { *self }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct timespec {
+    pub tv_sec: __time_t,
+    pub tv_nsec: __syscall_slong_t,
+}
+#[test]
+fn bindgen_test_layout_timespec() {
+    assert_eq!(
+        ::std::mem::size_of::<timespec>(),
+        16usize,
+        concat!("Size of: ", stringify!(timespec))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<timespec>(),
+        8usize,
+        concat!("Alignment of ", stringify!(timespec))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const timespec)).tv_sec as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(timespec),
+            "::",
+            stringify!(tv_sec)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const timespec)).tv_nsec as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(timespec),
+            "::",
+            stringify!(tv_nsec)
+        )
+    );
 }
 pub type suseconds_t = __suseconds_t;
 pub type __fd_mask = ::std::os::raw::c_long;
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct fd_set {
     pub __fds_bits: [__fd_mask; 16usize],
 }
 #[test]
 fn bindgen_test_layout_fd_set() {
-    assert_eq!(::std::mem::size_of::<fd_set>() , 128usize , concat ! (
-               "Size of: " , stringify ! ( fd_set ) ));
-    assert_eq! (::std::mem::align_of::<fd_set>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( fd_set ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const fd_set ) ) . __fds_bits as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( fd_set ) , "::" ,
-                stringify ! ( __fds_bits ) ));
-}
-impl Clone for fd_set {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<fd_set>(),
+        128usize,
+        concat!("Size of: ", stringify!(fd_set))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<fd_set>(),
+        8usize,
+        concat!("Alignment of ", stringify!(fd_set))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const fd_set)).__fds_bits as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(fd_set),
+            "::",
+            stringify!(__fds_bits)
+        )
+    );
 }
 pub type fd_mask = __fd_mask;
 extern "C" {
-    pub fn select(__nfds: ::std::os::raw::c_int, __readfds: *mut fd_set,
-                  __writefds: *mut fd_set, __exceptfds: *mut fd_set,
-                  __timeout: *mut timeval) -> ::std::os::raw::c_int;
+    pub fn select(
+        __nfds: ::std::os::raw::c_int,
+        __readfds: *mut fd_set,
+        __writefds: *mut fd_set,
+        __exceptfds: *mut fd_set,
+        __timeout: *mut timeval,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn pselect(__nfds: ::std::os::raw::c_int, __readfds: *mut fd_set,
-                   __writefds: *mut fd_set, __exceptfds: *mut fd_set,
-                   __timeout: *const timespec, __sigmask: *const __sigset_t)
-     -> ::std::os::raw::c_int;
+    pub fn pselect(
+        __nfds: ::std::os::raw::c_int,
+        __readfds: *mut fd_set,
+        __writefds: *mut fd_set,
+        __exceptfds: *mut fd_set,
+        __timeout: *const timespec,
+        __sigmask: *const __sigset_t,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn gnu_dev_major(__dev: ::std::os::raw::c_ulonglong)
-     -> ::std::os::raw::c_uint;
+    pub fn gnu_dev_major(__dev: __dev_t) -> ::std::os::raw::c_uint;
 }
 extern "C" {
-    pub fn gnu_dev_minor(__dev: ::std::os::raw::c_ulonglong)
-     -> ::std::os::raw::c_uint;
+    pub fn gnu_dev_minor(__dev: __dev_t) -> ::std::os::raw::c_uint;
 }
 extern "C" {
-    pub fn gnu_dev_makedev(__major: ::std::os::raw::c_uint,
-                           __minor: ::std::os::raw::c_uint)
-     -> ::std::os::raw::c_ulonglong;
+    pub fn gnu_dev_makedev(__major: ::std::os::raw::c_uint, __minor: ::std::os::raw::c_uint) -> __dev_t;
 }
 pub type blksize_t = __blksize_t;
 pub type blkcnt_t = __blkcnt_t;
 pub type fsblkcnt_t = __fsblkcnt_t;
 pub type fsfilcnt_t = __fsfilcnt_t;
-pub type pthread_t = ::std::os::raw::c_ulong;
 #[repr(C)]
-#[derive(Copy)]
-pub union pthread_attr_t {
-    pub __size: [::std::os::raw::c_char; 56usize],
-    pub __align: ::std::os::raw::c_long,
-    _bindgen_union_align: [u64; 7usize],
+#[derive(Debug, Copy, Clone)]
+pub struct __pthread_rwlock_arch_t {
+    pub __readers: ::std::os::raw::c_uint,
+    pub __writers: ::std::os::raw::c_uint,
+    pub __wrphase_futex: ::std::os::raw::c_uint,
+    pub __writers_futex: ::std::os::raw::c_uint,
+    pub __pad3: ::std::os::raw::c_uint,
+    pub __pad4: ::std::os::raw::c_uint,
+    pub __cur_writer: ::std::os::raw::c_int,
+    pub __shared: ::std::os::raw::c_int,
+    pub __rwelision: ::std::os::raw::c_schar,
+    pub __pad1: [::std::os::raw::c_uchar; 7usize],
+    pub __pad2: ::std::os::raw::c_ulong,
+    pub __flags: ::std::os::raw::c_uint,
 }
 #[test]
-fn bindgen_test_layout_pthread_attr_t() {
-    assert_eq!(::std::mem::size_of::<pthread_attr_t>() , 56usize , concat ! (
-               "Size of: " , stringify ! ( pthread_attr_t ) ));
-    assert_eq! (::std::mem::align_of::<pthread_attr_t>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( pthread_attr_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_attr_t ) ) . __size as * const _
-                as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_attr_t ) , "::"
-                , stringify ! ( __size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_attr_t ) ) . __align as * const _
-                as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_attr_t ) , "::"
-                , stringify ! ( __align ) ));
-}
-impl Clone for pthread_attr_t {
-    fn clone(&self) -> Self { *self }
+fn bindgen_test_layout___pthread_rwlock_arch_t() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_rwlock_arch_t>(),
+        56usize,
+        concat!("Size of: ", stringify!(__pthread_rwlock_arch_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_rwlock_arch_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__pthread_rwlock_arch_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_rwlock_arch_t)).__readers as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_rwlock_arch_t),
+            "::",
+            stringify!(__readers)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_rwlock_arch_t)).__writers as *const _ as usize },
+        4usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_rwlock_arch_t),
+            "::",
+            stringify!(__writers)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_rwlock_arch_t)).__wrphase_futex as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_rwlock_arch_t),
+            "::",
+            stringify!(__wrphase_futex)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_rwlock_arch_t)).__writers_futex as *const _ as usize },
+        12usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_rwlock_arch_t),
+            "::",
+            stringify!(__writers_futex)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_rwlock_arch_t)).__pad3 as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_rwlock_arch_t),
+            "::",
+            stringify!(__pad3)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_rwlock_arch_t)).__pad4 as *const _ as usize },
+        20usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_rwlock_arch_t),
+            "::",
+            stringify!(__pad4)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_rwlock_arch_t)).__cur_writer as *const _ as usize },
+        24usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_rwlock_arch_t),
+            "::",
+            stringify!(__cur_writer)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_rwlock_arch_t)).__shared as *const _ as usize },
+        28usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_rwlock_arch_t),
+            "::",
+            stringify!(__shared)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_rwlock_arch_t)).__rwelision as *const _ as usize },
+        32usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_rwlock_arch_t),
+            "::",
+            stringify!(__rwelision)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_rwlock_arch_t)).__pad1 as *const _ as usize },
+        33usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_rwlock_arch_t),
+            "::",
+            stringify!(__pad1)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_rwlock_arch_t)).__pad2 as *const _ as usize },
+        40usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_rwlock_arch_t),
+            "::",
+            stringify!(__pad2)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_rwlock_arch_t)).__flags as *const _ as usize },
+        48usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_rwlock_arch_t),
+            "::",
+            stringify!(__flags)
+        )
+    );
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct __pthread_internal_list {
     pub __prev: *mut __pthread_internal_list,
     pub __next: *mut __pthread_internal_list,
 }
 #[test]
 fn bindgen_test_layout___pthread_internal_list() {
-    assert_eq!(::std::mem::size_of::<__pthread_internal_list>() , 16usize ,
-               concat ! (
-               "Size of: " , stringify ! ( __pthread_internal_list ) ));
-    assert_eq! (::std::mem::align_of::<__pthread_internal_list>() , 8usize ,
-                concat ! (
-                "Alignment of " , stringify ! ( __pthread_internal_list ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const __pthread_internal_list ) ) . __prev as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( __pthread_internal_list
-                ) , "::" , stringify ! ( __prev ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const __pthread_internal_list ) ) . __next as *
-                const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( __pthread_internal_list
-                ) , "::" , stringify ! ( __next ) ));
-}
-impl Clone for __pthread_internal_list {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_internal_list>(),
+        16usize,
+        concat!("Size of: ", stringify!(__pthread_internal_list))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_internal_list>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__pthread_internal_list))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_internal_list)).__prev as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_internal_list),
+            "::",
+            stringify!(__prev)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_internal_list)).__next as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_internal_list),
+            "::",
+            stringify!(__next)
+        )
+    );
 }
 pub type __pthread_list_t = __pthread_internal_list;
 #[repr(C)]
-#[derive(Copy)]
-pub union pthread_mutex_t {
-    pub __data: pthread_mutex_t___pthread_mutex_s,
-    pub __size: [::std::os::raw::c_char; 40usize],
-    pub __align: ::std::os::raw::c_long,
-    _bindgen_union_align: [u64; 5usize],
-}
-#[repr(C)]
-#[derive(Debug, Copy)]
-pub struct pthread_mutex_t___pthread_mutex_s {
+#[derive(Debug, Copy, Clone)]
+pub struct __pthread_mutex_s {
     pub __lock: ::std::os::raw::c_int,
     pub __count: ::std::os::raw::c_uint,
     pub __owner: ::std::os::raw::c_int,
@@ -2031,94 +2498,345 @@ pub struct pthread_mutex_t___pthread_mutex_s {
     pub __list: __pthread_list_t,
 }
 #[test]
-fn bindgen_test_layout_pthread_mutex_t___pthread_mutex_s() {
-    assert_eq!(::std::mem::size_of::<pthread_mutex_t___pthread_mutex_s>() ,
-               40usize , concat ! (
-               "Size of: " , stringify ! ( pthread_mutex_t___pthread_mutex_s )
-               ));
-    assert_eq! (::std::mem::align_of::<pthread_mutex_t___pthread_mutex_s>() ,
-                8usize , concat ! (
-                "Alignment of " , stringify ! (
-                pthread_mutex_t___pthread_mutex_s ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutex_t___pthread_mutex_s ) ) .
-                __lock as * const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_mutex_t___pthread_mutex_s ) , "::" , stringify ! (
-                __lock ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutex_t___pthread_mutex_s ) ) .
-                __count as * const _ as usize } , 4usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_mutex_t___pthread_mutex_s ) , "::" , stringify ! (
-                __count ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutex_t___pthread_mutex_s ) ) .
-                __owner as * const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_mutex_t___pthread_mutex_s ) , "::" , stringify ! (
-                __owner ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutex_t___pthread_mutex_s ) ) .
-                __nusers as * const _ as usize } , 12usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_mutex_t___pthread_mutex_s ) , "::" , stringify ! (
-                __nusers ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutex_t___pthread_mutex_s ) ) .
-                __kind as * const _ as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_mutex_t___pthread_mutex_s ) , "::" , stringify ! (
-                __kind ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutex_t___pthread_mutex_s ) ) .
-                __spins as * const _ as usize } , 20usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_mutex_t___pthread_mutex_s ) , "::" , stringify ! (
-                __spins ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutex_t___pthread_mutex_s ) ) .
-                __elision as * const _ as usize } , 22usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_mutex_t___pthread_mutex_s ) , "::" , stringify ! (
-                __elision ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutex_t___pthread_mutex_s ) ) .
-                __list as * const _ as usize } , 24usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_mutex_t___pthread_mutex_s ) , "::" , stringify ! (
-                __list ) ));
-}
-impl Clone for pthread_mutex_t___pthread_mutex_s {
-    fn clone(&self) -> Self { *self }
-}
-#[test]
-fn bindgen_test_layout_pthread_mutex_t() {
-    assert_eq!(::std::mem::size_of::<pthread_mutex_t>() , 40usize , concat ! (
-               "Size of: " , stringify ! ( pthread_mutex_t ) ));
-    assert_eq! (::std::mem::align_of::<pthread_mutex_t>() , 8usize , concat !
-                ( "Alignment of " , stringify ! ( pthread_mutex_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutex_t ) ) . __data as * const _
-                as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_mutex_t ) ,
-                "::" , stringify ! ( __data ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutex_t ) ) . __size as * const _
-                as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_mutex_t ) ,
-                "::" , stringify ! ( __size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutex_t ) ) . __align as * const
-                _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_mutex_t ) ,
-                "::" , stringify ! ( __align ) ));
-}
-impl Clone for pthread_mutex_t {
-    fn clone(&self) -> Self { *self }
+fn bindgen_test_layout___pthread_mutex_s() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_mutex_s>(),
+        40usize,
+        concat!("Size of: ", stringify!(__pthread_mutex_s))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_mutex_s>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__pthread_mutex_s))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_mutex_s)).__lock as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__lock)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_mutex_s)).__count as *const _ as usize },
+        4usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__count)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_mutex_s)).__owner as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__owner)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_mutex_s)).__nusers as *const _ as usize },
+        12usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__nusers)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_mutex_s)).__kind as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__kind)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_mutex_s)).__spins as *const _ as usize },
+        20usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__spins)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_mutex_s)).__elision as *const _ as usize },
+        22usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__elision)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_mutex_s)).__list as *const _ as usize },
+        24usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__list)
+        )
+    );
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
+pub struct __pthread_cond_s {
+    pub __bindgen_anon_1: __pthread_cond_s__bindgen_ty_1,
+    pub __bindgen_anon_2: __pthread_cond_s__bindgen_ty_2,
+    pub __g_refs: [::std::os::raw::c_uint; 2usize],
+    pub __g_size: [::std::os::raw::c_uint; 2usize],
+    pub __g1_orig_size: ::std::os::raw::c_uint,
+    pub __wrefs: ::std::os::raw::c_uint,
+    pub __g_signals: [::std::os::raw::c_uint; 2usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union __pthread_cond_s__bindgen_ty_1 {
+    pub __wseq: ::std::os::raw::c_ulonglong,
+    pub __wseq32: __pthread_cond_s__bindgen_ty_1__bindgen_ty_1,
+    _bindgen_union_align: u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __pthread_cond_s__bindgen_ty_1__bindgen_ty_1 {
+    pub __low: ::std::os::raw::c_uint,
+    pub __high: ::std::os::raw::c_uint,
+}
+#[test]
+fn bindgen_test_layout___pthread_cond_s__bindgen_ty_1__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_cond_s__bindgen_ty_1__bindgen_ty_1>(),
+        8usize,
+        concat!(
+            "Size of: ",
+            stringify!(__pthread_cond_s__bindgen_ty_1__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_cond_s__bindgen_ty_1__bindgen_ty_1>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(__pthread_cond_s__bindgen_ty_1__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s__bindgen_ty_1__bindgen_ty_1)).__low as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(__low)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s__bindgen_ty_1__bindgen_ty_1)).__high as *const _ as usize },
+        4usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(__high)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout___pthread_cond_s__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_cond_s__bindgen_ty_1>(),
+        8usize,
+        concat!("Size of: ", stringify!(__pthread_cond_s__bindgen_ty_1))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_cond_s__bindgen_ty_1>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__pthread_cond_s__bindgen_ty_1))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s__bindgen_ty_1)).__wseq as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s__bindgen_ty_1),
+            "::",
+            stringify!(__wseq)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s__bindgen_ty_1)).__wseq32 as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s__bindgen_ty_1),
+            "::",
+            stringify!(__wseq32)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union __pthread_cond_s__bindgen_ty_2 {
+    pub __g1_start: ::std::os::raw::c_ulonglong,
+    pub __g1_start32: __pthread_cond_s__bindgen_ty_2__bindgen_ty_1,
+    _bindgen_union_align: u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __pthread_cond_s__bindgen_ty_2__bindgen_ty_1 {
+    pub __low: ::std::os::raw::c_uint,
+    pub __high: ::std::os::raw::c_uint,
+}
+#[test]
+fn bindgen_test_layout___pthread_cond_s__bindgen_ty_2__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_cond_s__bindgen_ty_2__bindgen_ty_1>(),
+        8usize,
+        concat!(
+            "Size of: ",
+            stringify!(__pthread_cond_s__bindgen_ty_2__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_cond_s__bindgen_ty_2__bindgen_ty_1>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(__pthread_cond_s__bindgen_ty_2__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s__bindgen_ty_2__bindgen_ty_1)).__low as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s__bindgen_ty_2__bindgen_ty_1),
+            "::",
+            stringify!(__low)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s__bindgen_ty_2__bindgen_ty_1)).__high as *const _ as usize },
+        4usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s__bindgen_ty_2__bindgen_ty_1),
+            "::",
+            stringify!(__high)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout___pthread_cond_s__bindgen_ty_2() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_cond_s__bindgen_ty_2>(),
+        8usize,
+        concat!("Size of: ", stringify!(__pthread_cond_s__bindgen_ty_2))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_cond_s__bindgen_ty_2>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__pthread_cond_s__bindgen_ty_2))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s__bindgen_ty_2)).__g1_start as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s__bindgen_ty_2),
+            "::",
+            stringify!(__g1_start)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s__bindgen_ty_2)).__g1_start32 as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s__bindgen_ty_2),
+            "::",
+            stringify!(__g1_start32)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout___pthread_cond_s() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_cond_s>(),
+        48usize,
+        concat!("Size of: ", stringify!(__pthread_cond_s))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_cond_s>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__pthread_cond_s))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s)).__g_refs as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s),
+            "::",
+            stringify!(__g_refs)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s)).__g_size as *const _ as usize },
+        24usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s),
+            "::",
+            stringify!(__g_size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s)).__g1_orig_size as *const _ as usize },
+        32usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s),
+            "::",
+            stringify!(__g1_orig_size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s)).__wrefs as *const _ as usize },
+        36usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s),
+            "::",
+            stringify!(__wrefs)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __pthread_cond_s)).__g_signals as *const _ as usize },
+        40usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__pthread_cond_s),
+            "::",
+            stringify!(__g_signals)
+        )
+    );
+}
+pub type pthread_t = ::std::os::raw::c_ulong;
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub union pthread_mutexattr_t {
     pub __size: [::std::os::raw::c_char; 4usize],
     pub __align: ::std::os::raw::c_int,
@@ -2126,133 +2844,39 @@ pub union pthread_mutexattr_t {
 }
 #[test]
 fn bindgen_test_layout_pthread_mutexattr_t() {
-    assert_eq!(::std::mem::size_of::<pthread_mutexattr_t>() , 4usize , concat
-               ! ( "Size of: " , stringify ! ( pthread_mutexattr_t ) ));
-    assert_eq! (::std::mem::align_of::<pthread_mutexattr_t>() , 4usize ,
-                concat ! (
-                "Alignment of " , stringify ! ( pthread_mutexattr_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutexattr_t ) ) . __size as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_mutexattr_t ) ,
-                "::" , stringify ! ( __size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_mutexattr_t ) ) . __align as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_mutexattr_t ) ,
-                "::" , stringify ! ( __align ) ));
-}
-impl Clone for pthread_mutexattr_t {
-    fn clone(&self) -> Self { *self }
-}
-#[repr(C)]
-#[derive(Copy)]
-pub union pthread_cond_t {
-    pub __data: pthread_cond_t__bindgen_ty_1,
-    pub __size: [::std::os::raw::c_char; 48usize],
-    pub __align: ::std::os::raw::c_longlong,
-    _bindgen_union_align: [u64; 6usize],
-}
-#[repr(C)]
-#[derive(Debug, Copy)]
-pub struct pthread_cond_t__bindgen_ty_1 {
-    pub __lock: ::std::os::raw::c_int,
-    pub __futex: ::std::os::raw::c_uint,
-    pub __total_seq: ::std::os::raw::c_ulonglong,
-    pub __wakeup_seq: ::std::os::raw::c_ulonglong,
-    pub __woken_seq: ::std::os::raw::c_ulonglong,
-    pub __mutex: *mut ::std::os::raw::c_void,
-    pub __nwaiters: ::std::os::raw::c_uint,
-    pub __broadcast_seq: ::std::os::raw::c_uint,
-}
-#[test]
-fn bindgen_test_layout_pthread_cond_t__bindgen_ty_1() {
-    assert_eq!(::std::mem::size_of::<pthread_cond_t__bindgen_ty_1>() , 48usize
-               , concat ! (
-               "Size of: " , stringify ! ( pthread_cond_t__bindgen_ty_1 ) ));
-    assert_eq! (::std::mem::align_of::<pthread_cond_t__bindgen_ty_1>() ,
-                8usize , concat ! (
-                "Alignment of " , stringify ! ( pthread_cond_t__bindgen_ty_1 )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_cond_t__bindgen_ty_1 ) ) . __lock
-                as * const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_cond_t__bindgen_ty_1 ) , "::" , stringify ! ( __lock )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_cond_t__bindgen_ty_1 ) ) .
-                __futex as * const _ as usize } , 4usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_cond_t__bindgen_ty_1 ) , "::" , stringify ! ( __futex
-                ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_cond_t__bindgen_ty_1 ) ) .
-                __total_seq as * const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_cond_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __total_seq ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_cond_t__bindgen_ty_1 ) ) .
-                __wakeup_seq as * const _ as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_cond_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __wakeup_seq ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_cond_t__bindgen_ty_1 ) ) .
-                __woken_seq as * const _ as usize } , 24usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_cond_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __woken_seq ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_cond_t__bindgen_ty_1 ) ) .
-                __mutex as * const _ as usize } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_cond_t__bindgen_ty_1 ) , "::" , stringify ! ( __mutex
-                ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_cond_t__bindgen_ty_1 ) ) .
-                __nwaiters as * const _ as usize } , 40usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_cond_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __nwaiters ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_cond_t__bindgen_ty_1 ) ) .
-                __broadcast_seq as * const _ as usize } , 44usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_cond_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __broadcast_seq ) ));
-}
-impl Clone for pthread_cond_t__bindgen_ty_1 {
-    fn clone(&self) -> Self { *self }
-}
-#[test]
-fn bindgen_test_layout_pthread_cond_t() {
-    assert_eq!(::std::mem::size_of::<pthread_cond_t>() , 48usize , concat ! (
-               "Size of: " , stringify ! ( pthread_cond_t ) ));
-    assert_eq! (::std::mem::align_of::<pthread_cond_t>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( pthread_cond_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_cond_t ) ) . __data as * const _
-                as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_cond_t ) , "::"
-                , stringify ! ( __data ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_cond_t ) ) . __size as * const _
-                as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_cond_t ) , "::"
-                , stringify ! ( __size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_cond_t ) ) . __align as * const _
-                as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_cond_t ) , "::"
-                , stringify ! ( __align ) ));
-}
-impl Clone for pthread_cond_t {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<pthread_mutexattr_t>(),
+        4usize,
+        concat!("Size of: ", stringify!(pthread_mutexattr_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<pthread_mutexattr_t>(),
+        4usize,
+        concat!("Alignment of ", stringify!(pthread_mutexattr_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_mutexattr_t)).__size as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_mutexattr_t),
+            "::",
+            stringify!(__size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_mutexattr_t)).__align as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_mutexattr_t),
+            "::",
+            stringify!(__align)
+        )
+    );
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub union pthread_condattr_t {
     pub __size: [::std::os::raw::c_char; 4usize],
     pub __align: ::std::os::raw::c_int,
@@ -2260,165 +2884,234 @@ pub union pthread_condattr_t {
 }
 #[test]
 fn bindgen_test_layout_pthread_condattr_t() {
-    assert_eq!(::std::mem::size_of::<pthread_condattr_t>() , 4usize , concat !
-               ( "Size of: " , stringify ! ( pthread_condattr_t ) ));
-    assert_eq! (::std::mem::align_of::<pthread_condattr_t>() , 4usize , concat
-                ! ( "Alignment of " , stringify ! ( pthread_condattr_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_condattr_t ) ) . __size as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_condattr_t ) ,
-                "::" , stringify ! ( __size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_condattr_t ) ) . __align as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_condattr_t ) ,
-                "::" , stringify ! ( __align ) ));
-}
-impl Clone for pthread_condattr_t {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<pthread_condattr_t>(),
+        4usize,
+        concat!("Size of: ", stringify!(pthread_condattr_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<pthread_condattr_t>(),
+        4usize,
+        concat!("Alignment of ", stringify!(pthread_condattr_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_condattr_t)).__size as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_condattr_t),
+            "::",
+            stringify!(__size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_condattr_t)).__align as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_condattr_t),
+            "::",
+            stringify!(__align)
+        )
+    );
 }
 pub type pthread_key_t = ::std::os::raw::c_uint;
 pub type pthread_once_t = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Copy)]
-pub union pthread_rwlock_t {
-    pub __data: pthread_rwlock_t__bindgen_ty_1,
+#[derive(Copy, Clone)]
+pub union pthread_attr_t {
     pub __size: [::std::os::raw::c_char; 56usize],
     pub __align: ::std::os::raw::c_long,
     _bindgen_union_align: [u64; 7usize],
 }
+#[test]
+fn bindgen_test_layout_pthread_attr_t() {
+    assert_eq!(
+        ::std::mem::size_of::<pthread_attr_t>(),
+        56usize,
+        concat!("Size of: ", stringify!(pthread_attr_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<pthread_attr_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(pthread_attr_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_attr_t)).__size as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_attr_t),
+            "::",
+            stringify!(__size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_attr_t)).__align as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_attr_t),
+            "::",
+            stringify!(__align)
+        )
+    );
+}
 #[repr(C)]
-#[derive(Debug, Copy)]
-pub struct pthread_rwlock_t__bindgen_ty_1 {
-    pub __lock: ::std::os::raw::c_int,
-    pub __nr_readers: ::std::os::raw::c_uint,
-    pub __readers_wakeup: ::std::os::raw::c_uint,
-    pub __writer_wakeup: ::std::os::raw::c_uint,
-    pub __nr_readers_queued: ::std::os::raw::c_uint,
-    pub __nr_writers_queued: ::std::os::raw::c_uint,
-    pub __writer: ::std::os::raw::c_int,
-    pub __shared: ::std::os::raw::c_int,
-    pub __rwelision: ::std::os::raw::c_schar,
-    pub __pad1: [::std::os::raw::c_uchar; 7usize],
-    pub __pad2: ::std::os::raw::c_ulong,
-    pub __flags: ::std::os::raw::c_uint,
+#[derive(Copy, Clone)]
+pub union pthread_mutex_t {
+    pub __data: __pthread_mutex_s,
+    pub __size: [::std::os::raw::c_char; 40usize],
+    pub __align: ::std::os::raw::c_long,
+    _bindgen_union_align: [u64; 5usize],
 }
 #[test]
-fn bindgen_test_layout_pthread_rwlock_t__bindgen_ty_1() {
-    assert_eq!(::std::mem::size_of::<pthread_rwlock_t__bindgen_ty_1>() ,
-               56usize , concat ! (
-               "Size of: " , stringify ! ( pthread_rwlock_t__bindgen_ty_1 )
-               ));
-    assert_eq! (::std::mem::align_of::<pthread_rwlock_t__bindgen_ty_1>() ,
-                8usize , concat ! (
-                "Alignment of " , stringify ! ( pthread_rwlock_t__bindgen_ty_1
-                ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t__bindgen_ty_1 ) ) .
-                __lock as * const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_rwlock_t__bindgen_ty_1 ) , "::" , stringify ! ( __lock
-                ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t__bindgen_ty_1 ) ) .
-                __nr_readers as * const _ as usize } , 4usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_rwlock_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __nr_readers ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t__bindgen_ty_1 ) ) .
-                __readers_wakeup as * const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_rwlock_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __readers_wakeup ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t__bindgen_ty_1 ) ) .
-                __writer_wakeup as * const _ as usize } , 12usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_rwlock_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __writer_wakeup ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t__bindgen_ty_1 ) ) .
-                __nr_readers_queued as * const _ as usize } , 16usize , concat
-                ! (
-                "Alignment of field: " , stringify ! (
-                pthread_rwlock_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __nr_readers_queued ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t__bindgen_ty_1 ) ) .
-                __nr_writers_queued as * const _ as usize } , 20usize , concat
-                ! (
-                "Alignment of field: " , stringify ! (
-                pthread_rwlock_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __nr_writers_queued ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t__bindgen_ty_1 ) ) .
-                __writer as * const _ as usize } , 24usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_rwlock_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __writer ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t__bindgen_ty_1 ) ) .
-                __shared as * const _ as usize } , 28usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_rwlock_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __shared ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t__bindgen_ty_1 ) ) .
-                __rwelision as * const _ as usize } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_rwlock_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __rwelision ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t__bindgen_ty_1 ) ) .
-                __pad1 as * const _ as usize } , 33usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_rwlock_t__bindgen_ty_1 ) , "::" , stringify ! ( __pad1
-                ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t__bindgen_ty_1 ) ) .
-                __pad2 as * const _ as usize } , 40usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_rwlock_t__bindgen_ty_1 ) , "::" , stringify ! ( __pad2
-                ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t__bindgen_ty_1 ) ) .
-                __flags as * const _ as usize } , 48usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                pthread_rwlock_t__bindgen_ty_1 ) , "::" , stringify ! (
-                __flags ) ));
+fn bindgen_test_layout_pthread_mutex_t() {
+    assert_eq!(
+        ::std::mem::size_of::<pthread_mutex_t>(),
+        40usize,
+        concat!("Size of: ", stringify!(pthread_mutex_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<pthread_mutex_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(pthread_mutex_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_mutex_t)).__data as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_mutex_t),
+            "::",
+            stringify!(__data)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_mutex_t)).__size as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_mutex_t),
+            "::",
+            stringify!(__size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_mutex_t)).__align as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_mutex_t),
+            "::",
+            stringify!(__align)
+        )
+    );
 }
-impl Clone for pthread_rwlock_t__bindgen_ty_1 {
-    fn clone(&self) -> Self { *self }
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union pthread_cond_t {
+    pub __data: __pthread_cond_s,
+    pub __size: [::std::os::raw::c_char; 48usize],
+    pub __align: ::std::os::raw::c_longlong,
+    _bindgen_union_align: [u64; 6usize],
+}
+#[test]
+fn bindgen_test_layout_pthread_cond_t() {
+    assert_eq!(
+        ::std::mem::size_of::<pthread_cond_t>(),
+        48usize,
+        concat!("Size of: ", stringify!(pthread_cond_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<pthread_cond_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(pthread_cond_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_cond_t)).__data as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_cond_t),
+            "::",
+            stringify!(__data)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_cond_t)).__size as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_cond_t),
+            "::",
+            stringify!(__size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_cond_t)).__align as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_cond_t),
+            "::",
+            stringify!(__align)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union pthread_rwlock_t {
+    pub __data: __pthread_rwlock_arch_t,
+    pub __size: [::std::os::raw::c_char; 56usize],
+    pub __align: ::std::os::raw::c_long,
+    _bindgen_union_align: [u64; 7usize],
 }
 #[test]
 fn bindgen_test_layout_pthread_rwlock_t() {
-    assert_eq!(::std::mem::size_of::<pthread_rwlock_t>() , 56usize , concat !
-               ( "Size of: " , stringify ! ( pthread_rwlock_t ) ));
-    assert_eq! (::std::mem::align_of::<pthread_rwlock_t>() , 8usize , concat !
-                ( "Alignment of " , stringify ! ( pthread_rwlock_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t ) ) . __data as * const
-                _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_rwlock_t ) ,
-                "::" , stringify ! ( __data ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t ) ) . __size as * const
-                _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_rwlock_t ) ,
-                "::" , stringify ! ( __size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlock_t ) ) . __align as * const
-                _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_rwlock_t ) ,
-                "::" , stringify ! ( __align ) ));
-}
-impl Clone for pthread_rwlock_t {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<pthread_rwlock_t>(),
+        56usize,
+        concat!("Size of: ", stringify!(pthread_rwlock_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<pthread_rwlock_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(pthread_rwlock_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_rwlock_t)).__data as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_rwlock_t),
+            "::",
+            stringify!(__data)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_rwlock_t)).__size as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_rwlock_t),
+            "::",
+            stringify!(__size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_rwlock_t)).__align as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_rwlock_t),
+            "::",
+            stringify!(__align)
+        )
+    );
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub union pthread_rwlockattr_t {
     pub __size: [::std::os::raw::c_char; 8usize],
     pub __align: ::std::os::raw::c_long,
@@ -2426,28 +3119,40 @@ pub union pthread_rwlockattr_t {
 }
 #[test]
 fn bindgen_test_layout_pthread_rwlockattr_t() {
-    assert_eq!(::std::mem::size_of::<pthread_rwlockattr_t>() , 8usize , concat
-               ! ( "Size of: " , stringify ! ( pthread_rwlockattr_t ) ));
-    assert_eq! (::std::mem::align_of::<pthread_rwlockattr_t>() , 8usize ,
-                concat ! (
-                "Alignment of " , stringify ! ( pthread_rwlockattr_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlockattr_t ) ) . __size as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_rwlockattr_t )
-                , "::" , stringify ! ( __size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_rwlockattr_t ) ) . __align as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_rwlockattr_t )
-                , "::" , stringify ! ( __align ) ));
-}
-impl Clone for pthread_rwlockattr_t {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<pthread_rwlockattr_t>(),
+        8usize,
+        concat!("Size of: ", stringify!(pthread_rwlockattr_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<pthread_rwlockattr_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(pthread_rwlockattr_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_rwlockattr_t)).__size as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_rwlockattr_t),
+            "::",
+            stringify!(__size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_rwlockattr_t)).__align as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_rwlockattr_t),
+            "::",
+            stringify!(__align)
+        )
+    );
 }
 pub type pthread_spinlock_t = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub union pthread_barrier_t {
     pub __size: [::std::os::raw::c_char; 32usize],
     pub __align: ::std::os::raw::c_long,
@@ -2455,26 +3160,39 @@ pub union pthread_barrier_t {
 }
 #[test]
 fn bindgen_test_layout_pthread_barrier_t() {
-    assert_eq!(::std::mem::size_of::<pthread_barrier_t>() , 32usize , concat !
-               ( "Size of: " , stringify ! ( pthread_barrier_t ) ));
-    assert_eq! (::std::mem::align_of::<pthread_barrier_t>() , 8usize , concat
-                ! ( "Alignment of " , stringify ! ( pthread_barrier_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_barrier_t ) ) . __size as * const
-                _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_barrier_t ) ,
-                "::" , stringify ! ( __size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_barrier_t ) ) . __align as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_barrier_t ) ,
-                "::" , stringify ! ( __align ) ));
-}
-impl Clone for pthread_barrier_t {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<pthread_barrier_t>(),
+        32usize,
+        concat!("Size of: ", stringify!(pthread_barrier_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<pthread_barrier_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(pthread_barrier_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_barrier_t)).__size as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_barrier_t),
+            "::",
+            stringify!(__size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_barrier_t)).__align as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_barrier_t),
+            "::",
+            stringify!(__align)
+        )
+    );
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub union pthread_barrierattr_t {
     pub __size: [::std::os::raw::c_char; 4usize],
     pub __align: ::std::os::raw::c_int,
@@ -2482,68 +3200,75 @@ pub union pthread_barrierattr_t {
 }
 #[test]
 fn bindgen_test_layout_pthread_barrierattr_t() {
-    assert_eq!(::std::mem::size_of::<pthread_barrierattr_t>() , 4usize ,
-               concat ! ( "Size of: " , stringify ! ( pthread_barrierattr_t )
-               ));
-    assert_eq! (::std::mem::align_of::<pthread_barrierattr_t>() , 4usize ,
-                concat ! (
-                "Alignment of " , stringify ! ( pthread_barrierattr_t ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_barrierattr_t ) ) . __size as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_barrierattr_t )
-                , "::" , stringify ! ( __size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const pthread_barrierattr_t ) ) . __align as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( pthread_barrierattr_t )
-                , "::" , stringify ! ( __align ) ));
-}
-impl Clone for pthread_barrierattr_t {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<pthread_barrierattr_t>(),
+        4usize,
+        concat!("Size of: ", stringify!(pthread_barrierattr_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<pthread_barrierattr_t>(),
+        4usize,
+        concat!("Alignment of ", stringify!(pthread_barrierattr_t))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_barrierattr_t)).__size as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_barrierattr_t),
+            "::",
+            stringify!(__size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const pthread_barrierattr_t)).__align as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(pthread_barrierattr_t),
+            "::",
+            stringify!(__align)
+        )
+    );
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct iovec {
     pub iov_base: *mut ::std::os::raw::c_void,
     pub iov_len: usize,
 }
 #[test]
 fn bindgen_test_layout_iovec() {
-    assert_eq!(::std::mem::size_of::<iovec>() , 16usize , concat ! (
-               "Size of: " , stringify ! ( iovec ) ));
-    assert_eq! (::std::mem::align_of::<iovec>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( iovec ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const iovec ) ) . iov_base as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( iovec ) , "::" ,
-                stringify ! ( iov_base ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const iovec ) ) . iov_len as * const _ as usize
-                } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( iovec ) , "::" ,
-                stringify ! ( iov_len ) ));
-}
-impl Clone for iovec {
-    fn clone(&self) -> Self { *self }
-}
-extern "C" {
-    pub fn readv(__fd: ::std::os::raw::c_int, __iovec: *const iovec,
-                 __count: ::std::os::raw::c_int) -> isize;
-}
-extern "C" {
-    pub fn writev(__fd: ::std::os::raw::c_int, __iovec: *const iovec,
-                  __count: ::std::os::raw::c_int) -> isize;
-}
-extern "C" {
-    pub fn preadv(__fd: ::std::os::raw::c_int, __iovec: *const iovec,
-                  __count: ::std::os::raw::c_int, __offset: __off_t) -> isize;
-}
-extern "C" {
-    pub fn pwritev(__fd: ::std::os::raw::c_int, __iovec: *const iovec,
-                   __count: ::std::os::raw::c_int, __offset: __off_t)
-     -> isize;
+    assert_eq!(
+        ::std::mem::size_of::<iovec>(),
+        16usize,
+        concat!("Size of: ", stringify!(iovec))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<iovec>(),
+        8usize,
+        concat!("Alignment of ", stringify!(iovec))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const iovec)).iov_base as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(iovec),
+            "::",
+            stringify!(iov_base)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const iovec)).iov_len as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(iovec),
+            "::",
+            stringify!(iov_len)
+        )
+    );
 }
 pub type socklen_t = __socklen_t;
 #[repr(u32)]
@@ -2561,33 +3286,46 @@ pub enum __socket_type {
 }
 pub type sa_family_t = ::std::os::raw::c_ushort;
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct sockaddr {
     pub sa_family: sa_family_t,
     pub sa_data: [::std::os::raw::c_char; 14usize],
 }
 #[test]
 fn bindgen_test_layout_sockaddr() {
-    assert_eq!(::std::mem::size_of::<sockaddr>() , 16usize , concat ! (
-               "Size of: " , stringify ! ( sockaddr ) ));
-    assert_eq! (::std::mem::align_of::<sockaddr>() , 2usize , concat ! (
-                "Alignment of " , stringify ! ( sockaddr ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const sockaddr ) ) . sa_family as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( sockaddr ) , "::" ,
-                stringify ! ( sa_family ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const sockaddr ) ) . sa_data as * const _ as
-                usize } , 2usize , concat ! (
-                "Alignment of field: " , stringify ! ( sockaddr ) , "::" ,
-                stringify ! ( sa_data ) ));
-}
-impl Clone for sockaddr {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<sockaddr>(),
+        16usize,
+        concat!("Size of: ", stringify!(sockaddr))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sockaddr>(),
+        2usize,
+        concat!("Alignment of ", stringify!(sockaddr))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const sockaddr)).sa_family as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(sockaddr),
+            "::",
+            stringify!(sa_family)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const sockaddr)).sa_data as *const _ as usize },
+        2usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(sockaddr),
+            "::",
+            stringify!(sa_data)
+        )
+    );
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct sockaddr_storage {
     pub ss_family: sa_family_t,
     pub __ss_padding: [::std::os::raw::c_char; 118usize],
@@ -2595,28 +3333,46 @@ pub struct sockaddr_storage {
 }
 #[test]
 fn bindgen_test_layout_sockaddr_storage() {
-    assert_eq!(::std::mem::size_of::<sockaddr_storage>() , 128usize , concat !
-               ( "Size of: " , stringify ! ( sockaddr_storage ) ));
-    assert_eq! (::std::mem::align_of::<sockaddr_storage>() , 8usize , concat !
-                ( "Alignment of " , stringify ! ( sockaddr_storage ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const sockaddr_storage ) ) . ss_family as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( sockaddr_storage ) ,
-                "::" , stringify ! ( ss_family ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const sockaddr_storage ) ) . __ss_padding as *
-                const _ as usize } , 2usize , concat ! (
-                "Alignment of field: " , stringify ! ( sockaddr_storage ) ,
-                "::" , stringify ! ( __ss_padding ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const sockaddr_storage ) ) . __ss_align as *
-                const _ as usize } , 120usize , concat ! (
-                "Alignment of field: " , stringify ! ( sockaddr_storage ) ,
-                "::" , stringify ! ( __ss_align ) ));
-}
-impl Clone for sockaddr_storage {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<sockaddr_storage>(),
+        128usize,
+        concat!("Size of: ", stringify!(sockaddr_storage))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sockaddr_storage>(),
+        8usize,
+        concat!("Alignment of ", stringify!(sockaddr_storage))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const sockaddr_storage)).ss_family as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(sockaddr_storage),
+            "::",
+            stringify!(ss_family)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const sockaddr_storage)).__ss_padding as *const _ as usize },
+        2usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(sockaddr_storage),
+            "::",
+            stringify!(__ss_padding)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const sockaddr_storage)).__ss_align as *const _ as usize },
+        120usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(sockaddr_storage),
+            "::",
+            stringify!(__ss_align)
+        )
+    );
 }
 pub const MSG_OOB: _bindgen_ty_1 = _bindgen_ty_1::MSG_OOB;
 pub const MSG_PEEK: _bindgen_ty_1 = _bindgen_ty_1::MSG_PEEK;
@@ -2635,6 +3391,7 @@ pub const MSG_ERRQUEUE: _bindgen_ty_1 = _bindgen_ty_1::MSG_ERRQUEUE;
 pub const MSG_NOSIGNAL: _bindgen_ty_1 = _bindgen_ty_1::MSG_NOSIGNAL;
 pub const MSG_MORE: _bindgen_ty_1 = _bindgen_ty_1::MSG_MORE;
 pub const MSG_WAITFORONE: _bindgen_ty_1 = _bindgen_ty_1::MSG_WAITFORONE;
+pub const MSG_BATCH: _bindgen_ty_1 = _bindgen_ty_1::MSG_BATCH;
 pub const MSG_FASTOPEN: _bindgen_ty_1 = _bindgen_ty_1::MSG_FASTOPEN;
 pub const MSG_CMSG_CLOEXEC: _bindgen_ty_1 = _bindgen_ty_1::MSG_CMSG_CLOEXEC;
 #[repr(u32)]
@@ -2657,11 +3414,12 @@ pub enum _bindgen_ty_1 {
     MSG_NOSIGNAL = 16384,
     MSG_MORE = 32768,
     MSG_WAITFORONE = 65536,
+    MSG_BATCH = 262144,
     MSG_FASTOPEN = 536870912,
     MSG_CMSG_CLOEXEC = 1073741824,
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct msghdr {
     pub msg_name: *mut ::std::os::raw::c_void,
     pub msg_namelen: socklen_t,
@@ -2673,48 +3431,86 @@ pub struct msghdr {
 }
 #[test]
 fn bindgen_test_layout_msghdr() {
-    assert_eq!(::std::mem::size_of::<msghdr>() , 56usize , concat ! (
-               "Size of: " , stringify ! ( msghdr ) ));
-    assert_eq! (::std::mem::align_of::<msghdr>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( msghdr ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const msghdr ) ) . msg_name as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( msghdr ) , "::" ,
-                stringify ! ( msg_name ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const msghdr ) ) . msg_namelen as * const _ as
-                usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( msghdr ) , "::" ,
-                stringify ! ( msg_namelen ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const msghdr ) ) . msg_iov as * const _ as
-                usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! ( msghdr ) , "::" ,
-                stringify ! ( msg_iov ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const msghdr ) ) . msg_iovlen as * const _ as
-                usize } , 24usize , concat ! (
-                "Alignment of field: " , stringify ! ( msghdr ) , "::" ,
-                stringify ! ( msg_iovlen ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const msghdr ) ) . msg_control as * const _ as
-                usize } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! ( msghdr ) , "::" ,
-                stringify ! ( msg_control ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const msghdr ) ) . msg_controllen as * const _
-                as usize } , 40usize , concat ! (
-                "Alignment of field: " , stringify ! ( msghdr ) , "::" ,
-                stringify ! ( msg_controllen ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const msghdr ) ) . msg_flags as * const _ as
-                usize } , 48usize , concat ! (
-                "Alignment of field: " , stringify ! ( msghdr ) , "::" ,
-                stringify ! ( msg_flags ) ));
-}
-impl Clone for msghdr {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<msghdr>(),
+        56usize,
+        concat!("Size of: ", stringify!(msghdr))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<msghdr>(),
+        8usize,
+        concat!("Alignment of ", stringify!(msghdr))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const msghdr)).msg_name as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_name)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const msghdr)).msg_namelen as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_namelen)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const msghdr)).msg_iov as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_iov)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const msghdr)).msg_iovlen as *const _ as usize },
+        24usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_iovlen)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const msghdr)).msg_control as *const _ as usize },
+        32usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_control)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const msghdr)).msg_controllen as *const _ as usize },
+        40usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_controllen)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const msghdr)).msg_flags as *const _ as usize },
+        48usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_flags)
+        )
+    );
 }
 #[repr(C)]
 #[derive(Debug)]
@@ -2726,167 +3522,227 @@ pub struct cmsghdr {
 }
 #[test]
 fn bindgen_test_layout_cmsghdr() {
-    assert_eq!(::std::mem::size_of::<cmsghdr>() , 16usize , concat ! (
-               "Size of: " , stringify ! ( cmsghdr ) ));
-    assert_eq! (::std::mem::align_of::<cmsghdr>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( cmsghdr ) ));
+    assert_eq!(
+        ::std::mem::size_of::<cmsghdr>(),
+        16usize,
+        concat!("Size of: ", stringify!(cmsghdr))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<cmsghdr>(),
+        8usize,
+        concat!("Alignment of ", stringify!(cmsghdr))
+    );
 }
 extern "C" {
-    pub fn __cmsg_nxthdr(__mhdr: *mut msghdr, __cmsg: *mut cmsghdr)
-     -> *mut cmsghdr;
+    pub fn __cmsg_nxthdr(__mhdr: *mut msghdr, __cmsg: *mut cmsghdr) -> *mut cmsghdr;
 }
 pub const SCM_RIGHTS: _bindgen_ty_2 = _bindgen_ty_2::SCM_RIGHTS;
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub enum _bindgen_ty_2 { SCM_RIGHTS = 1, }
+pub enum _bindgen_ty_2 {
+    SCM_RIGHTS = 1,
+}
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct linger {
     pub l_onoff: ::std::os::raw::c_int,
     pub l_linger: ::std::os::raw::c_int,
 }
 #[test]
 fn bindgen_test_layout_linger() {
-    assert_eq!(::std::mem::size_of::<linger>() , 8usize , concat ! (
-               "Size of: " , stringify ! ( linger ) ));
-    assert_eq! (::std::mem::align_of::<linger>() , 4usize , concat ! (
-                "Alignment of " , stringify ! ( linger ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const linger ) ) . l_onoff as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( linger ) , "::" ,
-                stringify ! ( l_onoff ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const linger ) ) . l_linger as * const _ as
-                usize } , 4usize , concat ! (
-                "Alignment of field: " , stringify ! ( linger ) , "::" ,
-                stringify ! ( l_linger ) ));
-}
-impl Clone for linger {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<linger>(),
+        8usize,
+        concat!("Size of: ", stringify!(linger))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<linger>(),
+        4usize,
+        concat!("Alignment of ", stringify!(linger))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const linger)).l_onoff as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(linger),
+            "::",
+            stringify!(l_onoff)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const linger)).l_linger as *const _ as usize },
+        4usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(linger),
+            "::",
+            stringify!(l_linger)
+        )
+    );
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct osockaddr {
     pub sa_family: ::std::os::raw::c_ushort,
     pub sa_data: [::std::os::raw::c_uchar; 14usize],
 }
 #[test]
 fn bindgen_test_layout_osockaddr() {
-    assert_eq!(::std::mem::size_of::<osockaddr>() , 16usize , concat ! (
-               "Size of: " , stringify ! ( osockaddr ) ));
-    assert_eq! (::std::mem::align_of::<osockaddr>() , 2usize , concat ! (
-                "Alignment of " , stringify ! ( osockaddr ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const osockaddr ) ) . sa_family as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( osockaddr ) , "::" ,
-                stringify ! ( sa_family ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const osockaddr ) ) . sa_data as * const _ as
-                usize } , 2usize , concat ! (
-                "Alignment of field: " , stringify ! ( osockaddr ) , "::" ,
-                stringify ! ( sa_data ) ));
-}
-impl Clone for osockaddr {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<osockaddr>(),
+        16usize,
+        concat!("Size of: ", stringify!(osockaddr))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<osockaddr>(),
+        2usize,
+        concat!("Alignment of ", stringify!(osockaddr))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const osockaddr)).sa_family as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(osockaddr),
+            "::",
+            stringify!(sa_family)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const osockaddr)).sa_data as *const _ as usize },
+        2usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(osockaddr),
+            "::",
+            stringify!(sa_data)
+        )
+    );
 }
 pub const SHUT_RD: _bindgen_ty_3 = _bindgen_ty_3::SHUT_RD;
 pub const SHUT_WR: _bindgen_ty_3 = _bindgen_ty_3::SHUT_WR;
 pub const SHUT_RDWR: _bindgen_ty_3 = _bindgen_ty_3::SHUT_RDWR;
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub enum _bindgen_ty_3 { SHUT_RD = 0, SHUT_WR = 1, SHUT_RDWR = 2, }
-extern "C" {
-    pub fn socket(__domain: ::std::os::raw::c_int,
-                  __type: ::std::os::raw::c_int,
-                  __protocol: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+pub enum _bindgen_ty_3 {
+    SHUT_RD = 0,
+    SHUT_WR = 1,
+    SHUT_RDWR = 2,
 }
 extern "C" {
-    pub fn socketpair(__domain: ::std::os::raw::c_int,
-                      __type: ::std::os::raw::c_int,
-                      __protocol: ::std::os::raw::c_int,
-                      __fds: *mut ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
+    pub fn socket(
+        __domain: ::std::os::raw::c_int,
+        __type: ::std::os::raw::c_int,
+        __protocol: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn bind(__fd: ::std::os::raw::c_int, __addr: *const sockaddr,
-                __len: socklen_t) -> ::std::os::raw::c_int;
+    pub fn socketpair(
+        __domain: ::std::os::raw::c_int,
+        __type: ::std::os::raw::c_int,
+        __protocol: ::std::os::raw::c_int,
+        __fds: *mut ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn getsockname(__fd: ::std::os::raw::c_int, __addr: *mut sockaddr,
-                       __len: *mut socklen_t) -> ::std::os::raw::c_int;
+    pub fn bind(__fd: ::std::os::raw::c_int, __addr: *const sockaddr, __len: socklen_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn connect(__fd: ::std::os::raw::c_int, __addr: *const sockaddr,
-                   __len: socklen_t) -> ::std::os::raw::c_int;
+    pub fn getsockname(
+        __fd: ::std::os::raw::c_int,
+        __addr: *mut sockaddr,
+        __len: *mut socklen_t,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn getpeername(__fd: ::std::os::raw::c_int, __addr: *mut sockaddr,
-                       __len: *mut socklen_t) -> ::std::os::raw::c_int;
+    pub fn connect(__fd: ::std::os::raw::c_int, __addr: *const sockaddr, __len: socklen_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn send(__fd: ::std::os::raw::c_int,
-                __buf: *const ::std::os::raw::c_void, __n: usize,
-                __flags: ::std::os::raw::c_int) -> isize;
+    pub fn getpeername(
+        __fd: ::std::os::raw::c_int,
+        __addr: *mut sockaddr,
+        __len: *mut socklen_t,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn recv(__fd: ::std::os::raw::c_int,
-                __buf: *mut ::std::os::raw::c_void, __n: usize,
-                __flags: ::std::os::raw::c_int) -> isize;
+    pub fn send(
+        __fd: ::std::os::raw::c_int,
+        __buf: *const ::std::os::raw::c_void,
+        __n: usize,
+        __flags: ::std::os::raw::c_int,
+    ) -> isize;
 }
 extern "C" {
-    pub fn sendto(__fd: ::std::os::raw::c_int,
-                  __buf: *const ::std::os::raw::c_void, __n: usize,
-                  __flags: ::std::os::raw::c_int, __addr: *const sockaddr,
-                  __addr_len: socklen_t) -> isize;
+    pub fn recv(
+        __fd: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_void,
+        __n: usize,
+        __flags: ::std::os::raw::c_int,
+    ) -> isize;
 }
 extern "C" {
-    pub fn recvfrom(__fd: ::std::os::raw::c_int,
-                    __buf: *mut ::std::os::raw::c_void, __n: usize,
-                    __flags: ::std::os::raw::c_int, __addr: *mut sockaddr,
-                    __addr_len: *mut socklen_t) -> isize;
+    pub fn sendto(
+        __fd: ::std::os::raw::c_int,
+        __buf: *const ::std::os::raw::c_void,
+        __n: usize,
+        __flags: ::std::os::raw::c_int,
+        __addr: *const sockaddr,
+        __addr_len: socklen_t,
+    ) -> isize;
 }
 extern "C" {
-    pub fn sendmsg(__fd: ::std::os::raw::c_int, __message: *const msghdr,
-                   __flags: ::std::os::raw::c_int) -> isize;
+    pub fn recvfrom(
+        __fd: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_void,
+        __n: usize,
+        __flags: ::std::os::raw::c_int,
+        __addr: *mut sockaddr,
+        __addr_len: *mut socklen_t,
+    ) -> isize;
 }
 extern "C" {
-    pub fn recvmsg(__fd: ::std::os::raw::c_int, __message: *mut msghdr,
-                   __flags: ::std::os::raw::c_int) -> isize;
+    pub fn sendmsg(__fd: ::std::os::raw::c_int, __message: *const msghdr, __flags: ::std::os::raw::c_int) -> isize;
 }
 extern "C" {
-    pub fn getsockopt(__fd: ::std::os::raw::c_int,
-                      __level: ::std::os::raw::c_int,
-                      __optname: ::std::os::raw::c_int,
-                      __optval: *mut ::std::os::raw::c_void,
-                      __optlen: *mut socklen_t) -> ::std::os::raw::c_int;
+    pub fn recvmsg(__fd: ::std::os::raw::c_int, __message: *mut msghdr, __flags: ::std::os::raw::c_int) -> isize;
 }
 extern "C" {
-    pub fn setsockopt(__fd: ::std::os::raw::c_int,
-                      __level: ::std::os::raw::c_int,
-                      __optname: ::std::os::raw::c_int,
-                      __optval: *const ::std::os::raw::c_void,
-                      __optlen: socklen_t) -> ::std::os::raw::c_int;
+    pub fn getsockopt(
+        __fd: ::std::os::raw::c_int,
+        __level: ::std::os::raw::c_int,
+        __optname: ::std::os::raw::c_int,
+        __optval: *mut ::std::os::raw::c_void,
+        __optlen: *mut socklen_t,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn listen(__fd: ::std::os::raw::c_int, __n: ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
+    pub fn setsockopt(
+        __fd: ::std::os::raw::c_int,
+        __level: ::std::os::raw::c_int,
+        __optname: ::std::os::raw::c_int,
+        __optval: *const ::std::os::raw::c_void,
+        __optlen: socklen_t,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn accept(__fd: ::std::os::raw::c_int, __addr: *mut sockaddr,
-                  __addr_len: *mut socklen_t) -> ::std::os::raw::c_int;
+    pub fn listen(__fd: ::std::os::raw::c_int, __n: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn shutdown(__fd: ::std::os::raw::c_int, __how: ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
+    pub fn accept(
+        __fd: ::std::os::raw::c_int,
+        __addr: *mut sockaddr,
+        __addr_len: *mut socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn shutdown(__fd: ::std::os::raw::c_int, __how: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn sockatmark(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn isfdtype(__fd: ::std::os::raw::c_int,
-                    __fdtype: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn isfdtype(__fd: ::std::os::raw::c_int, __fdtype: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn rd_kafka_version() -> ::std::os::raw::c_int;
@@ -2896,7 +3752,10 @@ extern "C" {
 }
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub enum rd_kafka_type_t { RD_KAFKA_PRODUCER = 0, RD_KAFKA_CONSUMER = 1, }
+pub enum rd_kafka_type_t {
+    RD_KAFKA_PRODUCER = 0,
+    RD_KAFKA_CONSUMER = 1,
+}
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum rd_kafka_timestamp_type_t {
@@ -2982,6 +3841,7 @@ pub enum rd_kafka_resp_err_t {
     RD_KAFKA_RESP_ERR__VALUE_SERIALIZATION = -161,
     RD_KAFKA_RESP_ERR__KEY_DESERIALIZATION = -160,
     RD_KAFKA_RESP_ERR__VALUE_DESERIALIZATION = -159,
+    RD_KAFKA_RESP_ERR__PARTIAL = -158,
     RD_KAFKA_RESP_ERR__END = -100,
     RD_KAFKA_RESP_ERR_UNKNOWN = -1,
     RD_KAFKA_RESP_ERR_NO_ERROR = 0,
@@ -3043,7 +3903,7 @@ pub enum rd_kafka_resp_err_t {
     RD_KAFKA_RESP_ERR_END_ALL = 56,
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_err_desc {
     pub code: rd_kafka_resp_err_t,
     pub name: *const ::std::os::raw::c_char,
@@ -3051,53 +3911,67 @@ pub struct rd_kafka_err_desc {
 }
 #[test]
 fn bindgen_test_layout_rd_kafka_err_desc() {
-    assert_eq!(::std::mem::size_of::<rd_kafka_err_desc>() , 24usize , concat !
-               ( "Size of: " , stringify ! ( rd_kafka_err_desc ) ));
-    assert_eq! (::std::mem::align_of::<rd_kafka_err_desc>() , 8usize , concat
-                ! ( "Alignment of " , stringify ! ( rd_kafka_err_desc ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_err_desc ) ) . code as * const _
-                as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_err_desc ) ,
-                "::" , stringify ! ( code ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_err_desc ) ) . name as * const _
-                as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_err_desc ) ,
-                "::" , stringify ! ( name ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_err_desc ) ) . desc as * const _
-                as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_err_desc ) ,
-                "::" , stringify ! ( desc ) ));
-}
-impl Clone for rd_kafka_err_desc {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<rd_kafka_err_desc>(),
+        24usize,
+        concat!("Size of: ", stringify!(rd_kafka_err_desc))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rd_kafka_err_desc>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rd_kafka_err_desc))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_err_desc)).code as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_err_desc),
+            "::",
+            stringify!(code)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_err_desc)).name as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_err_desc),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_err_desc)).desc as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_err_desc),
+            "::",
+            stringify!(desc)
+        )
+    );
 }
 extern "C" {
-    pub fn rd_kafka_get_err_descs(errdescs: *mut *const rd_kafka_err_desc,
-                                  cntp: *mut usize);
+    pub fn rd_kafka_get_err_descs(errdescs: *mut *const rd_kafka_err_desc, cntp: *mut usize);
 }
 extern "C" {
-    pub fn rd_kafka_err2str(err: rd_kafka_resp_err_t)
-     -> *const ::std::os::raw::c_char;
+    pub fn rd_kafka_err2str(err: rd_kafka_resp_err_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn rd_kafka_err2name(err: rd_kafka_resp_err_t)
-     -> *const ::std::os::raw::c_char;
+    pub fn rd_kafka_err2name(err: rd_kafka_resp_err_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
     pub fn rd_kafka_last_error() -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_errno2err(errnox: ::std::os::raw::c_int)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_errno2err(errnox: ::std::os::raw::c_int) -> rd_kafka_resp_err_t;
 }
 extern "C" {
     pub fn rd_kafka_errno() -> ::std::os::raw::c_int;
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_topic_partition_s {
     pub topic: *mut ::std::os::raw::c_char,
     pub partition: i32,
@@ -3110,71 +3984,103 @@ pub struct rd_kafka_topic_partition_s {
 }
 #[test]
 fn bindgen_test_layout_rd_kafka_topic_partition_s() {
-    assert_eq!(::std::mem::size_of::<rd_kafka_topic_partition_s>() , 64usize ,
-               concat ! (
-               "Size of: " , stringify ! ( rd_kafka_topic_partition_s ) ));
-    assert_eq! (::std::mem::align_of::<rd_kafka_topic_partition_s>() , 8usize
-                , concat ! (
-                "Alignment of " , stringify ! ( rd_kafka_topic_partition_s )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_topic_partition_s ) ) . topic as
-                * const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_topic_partition_s ) , "::" , stringify ! ( topic )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_topic_partition_s ) ) .
-                partition as * const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_topic_partition_s ) , "::" , stringify ! ( partition
-                ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_topic_partition_s ) ) . offset
-                as * const _ as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_topic_partition_s ) , "::" , stringify ! ( offset )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_topic_partition_s ) ) . metadata
-                as * const _ as usize } , 24usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_topic_partition_s ) , "::" , stringify ! ( metadata )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_topic_partition_s ) ) .
-                metadata_size as * const _ as usize } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_topic_partition_s ) , "::" , stringify ! (
-                metadata_size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_topic_partition_s ) ) . opaque
-                as * const _ as usize } , 40usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_topic_partition_s ) , "::" , stringify ! ( opaque )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_topic_partition_s ) ) . err as *
-                const _ as usize } , 48usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_topic_partition_s ) , "::" , stringify ! ( err ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_topic_partition_s ) ) . _private
-                as * const _ as usize } , 56usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_topic_partition_s ) , "::" , stringify ! ( _private )
-                ));
-}
-impl Clone for rd_kafka_topic_partition_s {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<rd_kafka_topic_partition_s>(),
+        64usize,
+        concat!("Size of: ", stringify!(rd_kafka_topic_partition_s))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rd_kafka_topic_partition_s>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rd_kafka_topic_partition_s))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_topic_partition_s)).topic as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_topic_partition_s),
+            "::",
+            stringify!(topic)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_topic_partition_s)).partition as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_topic_partition_s),
+            "::",
+            stringify!(partition)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_topic_partition_s)).offset as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_topic_partition_s),
+            "::",
+            stringify!(offset)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_topic_partition_s)).metadata as *const _ as usize },
+        24usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_topic_partition_s),
+            "::",
+            stringify!(metadata)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_topic_partition_s)).metadata_size as *const _ as usize },
+        32usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_topic_partition_s),
+            "::",
+            stringify!(metadata_size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_topic_partition_s)).opaque as *const _ as usize },
+        40usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_topic_partition_s),
+            "::",
+            stringify!(opaque)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_topic_partition_s)).err as *const _ as usize },
+        48usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_topic_partition_s),
+            "::",
+            stringify!(err)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_topic_partition_s))._private as *const _ as usize },
+        56usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_topic_partition_s),
+            "::",
+            stringify!(_private)
+        )
+    );
 }
 pub type rd_kafka_topic_partition_t = rd_kafka_topic_partition_s;
 extern "C" {
-    pub fn rd_kafka_topic_partition_destroy(rktpar:
-                                                *mut rd_kafka_topic_partition_t);
+    pub fn rd_kafka_topic_partition_destroy(rktpar: *mut rd_kafka_topic_partition_t);
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_topic_partition_list_s {
     pub cnt: ::std::os::raw::c_int,
     pub size: ::std::os::raw::c_int,
@@ -3182,111 +4088,114 @@ pub struct rd_kafka_topic_partition_list_s {
 }
 #[test]
 fn bindgen_test_layout_rd_kafka_topic_partition_list_s() {
-    assert_eq!(::std::mem::size_of::<rd_kafka_topic_partition_list_s>() ,
-               16usize , concat ! (
-               "Size of: " , stringify ! ( rd_kafka_topic_partition_list_s )
-               ));
-    assert_eq! (::std::mem::align_of::<rd_kafka_topic_partition_list_s>() ,
-                8usize , concat ! (
-                "Alignment of " , stringify ! (
-                rd_kafka_topic_partition_list_s ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_topic_partition_list_s ) ) . cnt
-                as * const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_topic_partition_list_s ) , "::" , stringify ! ( cnt )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_topic_partition_list_s ) ) .
-                size as * const _ as usize } , 4usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_topic_partition_list_s ) , "::" , stringify ! ( size
-                ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_topic_partition_list_s ) ) .
-                elems as * const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_topic_partition_list_s ) , "::" , stringify ! ( elems
-                ) ));
-}
-impl Clone for rd_kafka_topic_partition_list_s {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<rd_kafka_topic_partition_list_s>(),
+        16usize,
+        concat!("Size of: ", stringify!(rd_kafka_topic_partition_list_s))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rd_kafka_topic_partition_list_s>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rd_kafka_topic_partition_list_s))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_topic_partition_list_s)).cnt as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_topic_partition_list_s),
+            "::",
+            stringify!(cnt)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_topic_partition_list_s)).size as *const _ as usize },
+        4usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_topic_partition_list_s),
+            "::",
+            stringify!(size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_topic_partition_list_s)).elems as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_topic_partition_list_s),
+            "::",
+            stringify!(elems)
+        )
+    );
 }
 pub type rd_kafka_topic_partition_list_t = rd_kafka_topic_partition_list_s;
 extern "C" {
-    pub fn rd_kafka_topic_partition_list_new(size: ::std::os::raw::c_int)
-     -> *mut rd_kafka_topic_partition_list_t;
+    pub fn rd_kafka_topic_partition_list_new(size: ::std::os::raw::c_int) -> *mut rd_kafka_topic_partition_list_t;
 }
 extern "C" {
-    pub fn rd_kafka_topic_partition_list_destroy(rkparlist:
-                                                     *mut rd_kafka_topic_partition_list_t);
+    pub fn rd_kafka_topic_partition_list_destroy(rkparlist: *mut rd_kafka_topic_partition_list_t);
 }
 extern "C" {
-    pub fn rd_kafka_topic_partition_list_add(rktparlist:
-                                                 *mut rd_kafka_topic_partition_list_t,
-                                             topic:
-                                                 *const ::std::os::raw::c_char,
-                                             partition: i32)
-     -> *mut rd_kafka_topic_partition_t;
+    pub fn rd_kafka_topic_partition_list_add(
+        rktparlist: *mut rd_kafka_topic_partition_list_t,
+        topic: *const ::std::os::raw::c_char,
+        partition: i32,
+    ) -> *mut rd_kafka_topic_partition_t;
 }
 extern "C" {
-    pub fn rd_kafka_topic_partition_list_add_range(rktparlist:
-                                                       *mut rd_kafka_topic_partition_list_t,
-                                                   topic:
-                                                       *const ::std::os::raw::c_char,
-                                                   start: i32, stop: i32);
+    pub fn rd_kafka_topic_partition_list_add_range(
+        rktparlist: *mut rd_kafka_topic_partition_list_t,
+        topic: *const ::std::os::raw::c_char,
+        start: i32,
+        stop: i32,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_topic_partition_list_del(rktparlist:
-                                                 *mut rd_kafka_topic_partition_list_t,
-                                             topic:
-                                                 *const ::std::os::raw::c_char,
-                                             partition: i32)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_topic_partition_list_del(
+        rktparlist: *mut rd_kafka_topic_partition_list_t,
+        topic: *const ::std::os::raw::c_char,
+        partition: i32,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_topic_partition_list_del_by_idx(rktparlist:
-                                                        *mut rd_kafka_topic_partition_list_t,
-                                                    idx:
-                                                        ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_topic_partition_list_del_by_idx(
+        rktparlist: *mut rd_kafka_topic_partition_list_t,
+        idx: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_topic_partition_list_copy(src:
-                                                  *const rd_kafka_topic_partition_list_t)
-     -> *mut rd_kafka_topic_partition_list_t;
+    pub fn rd_kafka_topic_partition_list_copy(
+        src: *const rd_kafka_topic_partition_list_t,
+    ) -> *mut rd_kafka_topic_partition_list_t;
 }
 extern "C" {
-    pub fn rd_kafka_topic_partition_list_set_offset(rktparlist:
-                                                        *mut rd_kafka_topic_partition_list_t,
-                                                    topic:
-                                                        *const ::std::os::raw::c_char,
-                                                    partition: i32,
-                                                    offset: i64)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_topic_partition_list_set_offset(
+        rktparlist: *mut rd_kafka_topic_partition_list_t,
+        topic: *const ::std::os::raw::c_char,
+        partition: i32,
+        offset: i64,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_topic_partition_list_find(rktparlist:
-                                                  *mut rd_kafka_topic_partition_list_t,
-                                              topic:
-                                                  *const ::std::os::raw::c_char,
-                                              partition: i32)
-     -> *mut rd_kafka_topic_partition_t;
+    pub fn rd_kafka_topic_partition_list_find(
+        rktparlist: *mut rd_kafka_topic_partition_list_t,
+        topic: *const ::std::os::raw::c_char,
+        partition: i32,
+    ) -> *mut rd_kafka_topic_partition_t;
 }
 extern "C" {
-    pub fn rd_kafka_topic_partition_list_sort(rktparlist:
-                                                  *mut rd_kafka_topic_partition_list_t,
-                                              cmp:
-                                                  ::std::option::Option<unsafe extern "C" fn(a:
-                                                                                                 *const ::std::os::raw::c_void,
-                                                                                             b:
-                                                                                                 *const ::std::os::raw::c_void,
-                                                                                             opaque:
-                                                                                                 *mut ::std::os::raw::c_void)
-                                                                            ->
-                                                                                ::std::os::raw::c_int>,
-                                              opaque:
-                                                  *mut ::std::os::raw::c_void);
+    pub fn rd_kafka_topic_partition_list_sort(
+        rktparlist: *mut rd_kafka_topic_partition_list_t,
+        cmp: ::std::option::Option<
+            unsafe extern "C" fn(
+                a: *const ::std::os::raw::c_void,
+                b: *const ::std::os::raw::c_void,
+                opaque: *mut ::std::os::raw::c_void,
+            ) -> ::std::os::raw::c_int,
+        >,
+        opaque: *mut ::std::os::raw::c_void,
+    );
 }
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
@@ -3302,7 +4211,7 @@ pub enum rd_kafka_vtype_t {
     RD_KAFKA_VTYPE_TIMESTAMP = 8,
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_message_s {
     pub err: rd_kafka_resp_err_t,
     pub rkt: *mut rd_kafka_topic_t,
@@ -3316,71 +4225,119 @@ pub struct rd_kafka_message_s {
 }
 #[test]
 fn bindgen_test_layout_rd_kafka_message_s() {
-    assert_eq!(::std::mem::size_of::<rd_kafka_message_s>() , 72usize , concat
-               ! ( "Size of: " , stringify ! ( rd_kafka_message_s ) ));
-    assert_eq! (::std::mem::align_of::<rd_kafka_message_s>() , 8usize , concat
-                ! ( "Alignment of " , stringify ! ( rd_kafka_message_s ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_message_s ) ) . err as * const _
-                as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_message_s ) ,
-                "::" , stringify ! ( err ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_message_s ) ) . rkt as * const _
-                as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_message_s ) ,
-                "::" , stringify ! ( rkt ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_message_s ) ) . partition as *
-                const _ as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_message_s ) ,
-                "::" , stringify ! ( partition ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_message_s ) ) . payload as *
-                const _ as usize } , 24usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_message_s ) ,
-                "::" , stringify ! ( payload ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_message_s ) ) . len as * const _
-                as usize } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_message_s ) ,
-                "::" , stringify ! ( len ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_message_s ) ) . key as * const _
-                as usize } , 40usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_message_s ) ,
-                "::" , stringify ! ( key ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_message_s ) ) . key_len as *
-                const _ as usize } , 48usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_message_s ) ,
-                "::" , stringify ! ( key_len ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_message_s ) ) . offset as *
-                const _ as usize } , 56usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_message_s ) ,
-                "::" , stringify ! ( offset ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_message_s ) ) . _private as *
-                const _ as usize } , 64usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_message_s ) ,
-                "::" , stringify ! ( _private ) ));
-}
-impl Clone for rd_kafka_message_s {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<rd_kafka_message_s>(),
+        72usize,
+        concat!("Size of: ", stringify!(rd_kafka_message_s))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rd_kafka_message_s>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rd_kafka_message_s))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_message_s)).err as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_message_s),
+            "::",
+            stringify!(err)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_message_s)).rkt as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_message_s),
+            "::",
+            stringify!(rkt)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_message_s)).partition as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_message_s),
+            "::",
+            stringify!(partition)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_message_s)).payload as *const _ as usize },
+        24usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_message_s),
+            "::",
+            stringify!(payload)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_message_s)).len as *const _ as usize },
+        32usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_message_s),
+            "::",
+            stringify!(len)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_message_s)).key as *const _ as usize },
+        40usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_message_s),
+            "::",
+            stringify!(key)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_message_s)).key_len as *const _ as usize },
+        48usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_message_s),
+            "::",
+            stringify!(key_len)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_message_s)).offset as *const _ as usize },
+        56usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_message_s),
+            "::",
+            stringify!(offset)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_message_s))._private as *const _ as usize },
+        64usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_message_s),
+            "::",
+            stringify!(_private)
+        )
+    );
 }
 pub type rd_kafka_message_t = rd_kafka_message_s;
 extern "C" {
     pub fn rd_kafka_message_destroy(rkmessage: *mut rd_kafka_message_t);
 }
 extern "C" {
-    pub fn rd_kafka_message_timestamp(rkmessage: *const rd_kafka_message_t,
-                                      tstype: *mut rd_kafka_timestamp_type_t)
-     -> i64;
+    pub fn rd_kafka_message_timestamp(
+        rkmessage: *const rd_kafka_message_t,
+        tstype: *mut rd_kafka_timestamp_type_t,
+    ) -> i64;
 }
 extern "C" {
-    pub fn rd_kafka_message_latency(rkmessage: *const rd_kafka_message_t)
-     -> i64;
+    pub fn rd_kafka_message_latency(rkmessage: *const rd_kafka_message_t) -> i64;
 }
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
@@ -3396,229 +4353,226 @@ extern "C" {
     pub fn rd_kafka_conf_destroy(conf: *mut rd_kafka_conf_t);
 }
 extern "C" {
-    pub fn rd_kafka_conf_dup(conf: *const rd_kafka_conf_t)
-     -> *mut rd_kafka_conf_t;
+    pub fn rd_kafka_conf_dup(conf: *const rd_kafka_conf_t) -> *mut rd_kafka_conf_t;
 }
 extern "C" {
-    pub fn rd_kafka_conf_dup_filter(conf: *const rd_kafka_conf_t,
-                                    filter_cnt: usize,
-                                    filter:
-                                        *mut *const ::std::os::raw::c_char)
-     -> *mut rd_kafka_conf_t;
+    pub fn rd_kafka_conf_dup_filter(
+        conf: *const rd_kafka_conf_t,
+        filter_cnt: usize,
+        filter: *mut *const ::std::os::raw::c_char,
+    ) -> *mut rd_kafka_conf_t;
 }
 extern "C" {
-    pub fn rd_kafka_conf_set(conf: *mut rd_kafka_conf_t,
-                             name: *const ::std::os::raw::c_char,
-                             value: *const ::std::os::raw::c_char,
-                             errstr: *mut ::std::os::raw::c_char,
-                             errstr_size: usize) -> rd_kafka_conf_res_t;
+    pub fn rd_kafka_conf_set(
+        conf: *mut rd_kafka_conf_t,
+        name: *const ::std::os::raw::c_char,
+        value: *const ::std::os::raw::c_char,
+        errstr: *mut ::std::os::raw::c_char,
+        errstr_size: usize,
+    ) -> rd_kafka_conf_res_t;
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_events(conf: *mut rd_kafka_conf_t,
-                                    events: ::std::os::raw::c_int);
+    pub fn rd_kafka_conf_set_events(conf: *mut rd_kafka_conf_t, events: ::std::os::raw::c_int);
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_dr_cb(conf: *mut rd_kafka_conf_t,
-                                   dr_cb:
-                                       ::std::option::Option<unsafe extern "C" fn(rk:
-                                                                                      *mut rd_kafka_t,
-                                                                                  payload:
-                                                                                      *mut ::std::os::raw::c_void,
-                                                                                  len:
-                                                                                      usize,
-                                                                                  err:
-                                                                                      rd_kafka_resp_err_t,
-                                                                                  opaque:
-                                                                                      *mut ::std::os::raw::c_void,
-                                                                                  msg_opaque:
-                                                                                      *mut ::std::os::raw::c_void)>);
+    pub fn rd_kafka_conf_set_dr_cb(
+        conf: *mut rd_kafka_conf_t,
+        dr_cb: ::std::option::Option<
+            unsafe extern "C" fn(
+                rk: *mut rd_kafka_t,
+                payload: *mut ::std::os::raw::c_void,
+                len: usize,
+                err: rd_kafka_resp_err_t,
+                opaque: *mut ::std::os::raw::c_void,
+                msg_opaque: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_dr_msg_cb(conf: *mut rd_kafka_conf_t,
-                                       dr_msg_cb:
-                                           ::std::option::Option<unsafe extern "C" fn(rk:
-                                                                                          *mut rd_kafka_t,
-                                                                                      rkmessage:
-                                                                                          *const rd_kafka_message_t,
-                                                                                      opaque:
-                                                                                          *mut ::std::os::raw::c_void)>);
+    pub fn rd_kafka_conf_set_dr_msg_cb(
+        conf: *mut rd_kafka_conf_t,
+        dr_msg_cb: ::std::option::Option<
+            unsafe extern "C" fn(
+                rk: *mut rd_kafka_t,
+                rkmessage: *const rd_kafka_message_t,
+                opaque: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_consume_cb(conf: *mut rd_kafka_conf_t,
-                                        consume_cb:
-                                            ::std::option::Option<unsafe extern "C" fn(rkmessage:
-                                                                                           *mut rd_kafka_message_t,
-                                                                                       opaque:
-                                                                                           *mut ::std::os::raw::c_void)>);
+    pub fn rd_kafka_conf_set_consume_cb(
+        conf: *mut rd_kafka_conf_t,
+        consume_cb: ::std::option::Option<
+            unsafe extern "C" fn(rkmessage: *mut rd_kafka_message_t, opaque: *mut ::std::os::raw::c_void),
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_rebalance_cb(conf: *mut rd_kafka_conf_t,
-                                          rebalance_cb:
-                                              ::std::option::Option<unsafe extern "C" fn(rk:
-                                                                                             *mut rd_kafka_t,
-                                                                                         err:
-                                                                                             rd_kafka_resp_err_t,
-                                                                                         partitions:
-                                                                                             *mut rd_kafka_topic_partition_list_t,
-                                                                                         opaque:
-                                                                                             *mut ::std::os::raw::c_void)>);
+    pub fn rd_kafka_conf_set_rebalance_cb(
+        conf: *mut rd_kafka_conf_t,
+        rebalance_cb: ::std::option::Option<
+            unsafe extern "C" fn(
+                rk: *mut rd_kafka_t,
+                err: rd_kafka_resp_err_t,
+                partitions: *mut rd_kafka_topic_partition_list_t,
+                opaque: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_offset_commit_cb(conf: *mut rd_kafka_conf_t,
-                                              offset_commit_cb:
-                                                  ::std::option::Option<unsafe extern "C" fn(rk:
-                                                                                                 *mut rd_kafka_t,
-                                                                                             err:
-                                                                                                 rd_kafka_resp_err_t,
-                                                                                             offsets:
-                                                                                                 *mut rd_kafka_topic_partition_list_t,
-                                                                                             opaque:
-                                                                                                 *mut ::std::os::raw::c_void)>);
+    pub fn rd_kafka_conf_set_offset_commit_cb(
+        conf: *mut rd_kafka_conf_t,
+        offset_commit_cb: ::std::option::Option<
+            unsafe extern "C" fn(
+                rk: *mut rd_kafka_t,
+                err: rd_kafka_resp_err_t,
+                offsets: *mut rd_kafka_topic_partition_list_t,
+                opaque: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_error_cb(conf: *mut rd_kafka_conf_t,
-                                      error_cb:
-                                          ::std::option::Option<unsafe extern "C" fn(rk:
-                                                                                         *mut rd_kafka_t,
-                                                                                     err:
-                                                                                         ::std::os::raw::c_int,
-                                                                                     reason:
-                                                                                         *const ::std::os::raw::c_char,
-                                                                                     opaque:
-                                                                                         *mut ::std::os::raw::c_void)>);
+    pub fn rd_kafka_conf_set_error_cb(
+        conf: *mut rd_kafka_conf_t,
+        error_cb: ::std::option::Option<
+            unsafe extern "C" fn(
+                rk: *mut rd_kafka_t,
+                err: ::std::os::raw::c_int,
+                reason: *const ::std::os::raw::c_char,
+                opaque: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_throttle_cb(conf: *mut rd_kafka_conf_t,
-                                         throttle_cb:
-                                             ::std::option::Option<unsafe extern "C" fn(rk:
-                                                                                            *mut rd_kafka_t,
-                                                                                        broker_name:
-                                                                                            *const ::std::os::raw::c_char,
-                                                                                        broker_id:
-                                                                                            i32,
-                                                                                        throttle_time_ms:
-                                                                                            ::std::os::raw::c_int,
-                                                                                        opaque:
-                                                                                            *mut ::std::os::raw::c_void)>);
+    pub fn rd_kafka_conf_set_throttle_cb(
+        conf: *mut rd_kafka_conf_t,
+        throttle_cb: ::std::option::Option<
+            unsafe extern "C" fn(
+                rk: *mut rd_kafka_t,
+                broker_name: *const ::std::os::raw::c_char,
+                broker_id: i32,
+                throttle_time_ms: ::std::os::raw::c_int,
+                opaque: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_log_cb(conf: *mut rd_kafka_conf_t,
-                                    log_cb:
-                                        ::std::option::Option<unsafe extern "C" fn(rk:
-                                                                                       *const rd_kafka_t,
-                                                                                   level:
-                                                                                       ::std::os::raw::c_int,
-                                                                                   fac:
-                                                                                       *const ::std::os::raw::c_char,
-                                                                                   buf:
-                                                                                       *const ::std::os::raw::c_char)>);
+    pub fn rd_kafka_conf_set_log_cb(
+        conf: *mut rd_kafka_conf_t,
+        log_cb: ::std::option::Option<
+            unsafe extern "C" fn(
+                rk: *const rd_kafka_t,
+                level: ::std::os::raw::c_int,
+                fac: *const ::std::os::raw::c_char,
+                buf: *const ::std::os::raw::c_char,
+            ),
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_stats_cb(conf: *mut rd_kafka_conf_t,
-                                      stats_cb:
-                                          ::std::option::Option<unsafe extern "C" fn(rk:
-                                                                                         *mut rd_kafka_t,
-                                                                                     json:
-                                                                                         *mut ::std::os::raw::c_char,
-                                                                                     json_len:
-                                                                                         usize,
-                                                                                     opaque:
-                                                                                         *mut ::std::os::raw::c_void)
-                                                                    ->
-                                                                        ::std::os::raw::c_int>);
+    pub fn rd_kafka_conf_set_stats_cb(
+        conf: *mut rd_kafka_conf_t,
+        stats_cb: ::std::option::Option<
+            unsafe extern "C" fn(
+                rk: *mut rd_kafka_t,
+                json: *mut ::std::os::raw::c_char,
+                json_len: usize,
+                opaque: *mut ::std::os::raw::c_void,
+            ) -> ::std::os::raw::c_int,
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_socket_cb(conf: *mut rd_kafka_conf_t,
-                                       socket_cb:
-                                           ::std::option::Option<unsafe extern "C" fn(domain:
-                                                                                          ::std::os::raw::c_int,
-                                                                                      type_:
-                                                                                          ::std::os::raw::c_int,
-                                                                                      protocol:
-                                                                                          ::std::os::raw::c_int,
-                                                                                      opaque:
-                                                                                          *mut ::std::os::raw::c_void)
-                                                                     ->
-                                                                         ::std::os::raw::c_int>);
+    pub fn rd_kafka_conf_set_socket_cb(
+        conf: *mut rd_kafka_conf_t,
+        socket_cb: ::std::option::Option<
+            unsafe extern "C" fn(
+                domain: ::std::os::raw::c_int,
+                type_: ::std::os::raw::c_int,
+                protocol: ::std::os::raw::c_int,
+                opaque: *mut ::std::os::raw::c_void,
+            ) -> ::std::os::raw::c_int,
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_connect_cb(conf: *mut rd_kafka_conf_t,
-                                        connect_cb:
-                                            ::std::option::Option<unsafe extern "C" fn(sockfd:
-                                                                                           ::std::os::raw::c_int,
-                                                                                       addr:
-                                                                                           *const sockaddr,
-                                                                                       addrlen:
-                                                                                           ::std::os::raw::c_int,
-                                                                                       id:
-                                                                                           *const ::std::os::raw::c_char,
-                                                                                       opaque:
-                                                                                           *mut ::std::os::raw::c_void)
-                                                                      ->
-                                                                          ::std::os::raw::c_int>);
+    pub fn rd_kafka_conf_set_connect_cb(
+        conf: *mut rd_kafka_conf_t,
+        connect_cb: ::std::option::Option<
+            unsafe extern "C" fn(
+                sockfd: ::std::os::raw::c_int,
+                addr: *const sockaddr,
+                addrlen: ::std::os::raw::c_int,
+                id: *const ::std::os::raw::c_char,
+                opaque: *mut ::std::os::raw::c_void,
+            ) -> ::std::os::raw::c_int,
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_closesocket_cb(conf: *mut rd_kafka_conf_t,
-                                            closesocket_cb:
-                                                ::std::option::Option<unsafe extern "C" fn(sockfd:
-                                                                                               ::std::os::raw::c_int,
-                                                                                           opaque:
-                                                                                               *mut ::std::os::raw::c_void)
-                                                                          ->
-                                                                              ::std::os::raw::c_int>);
+    pub fn rd_kafka_conf_set_closesocket_cb(
+        conf: *mut rd_kafka_conf_t,
+        closesocket_cb: ::std::option::Option<
+            unsafe extern "C" fn(sockfd: ::std::os::raw::c_int, opaque: *mut ::std::os::raw::c_void)
+                -> ::std::os::raw::c_int,
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_open_cb(conf: *mut rd_kafka_conf_t,
-                                     open_cb:
-                                         ::std::option::Option<unsafe extern "C" fn(pathname:
-                                                                                        *const ::std::os::raw::c_char,
-                                                                                    flags:
-                                                                                        ::std::os::raw::c_int,
-                                                                                    mode:
-                                                                                        mode_t,
-                                                                                    opaque:
-                                                                                        *mut ::std::os::raw::c_void)
-                                                                   ->
-                                                                       ::std::os::raw::c_int>);
+    pub fn rd_kafka_conf_set_open_cb(
+        conf: *mut rd_kafka_conf_t,
+        open_cb: ::std::option::Option<
+            unsafe extern "C" fn(
+                pathname: *const ::std::os::raw::c_char,
+                flags: ::std::os::raw::c_int,
+                mode: mode_t,
+                opaque: *mut ::std::os::raw::c_void,
+            ) -> ::std::os::raw::c_int,
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_opaque(conf: *mut rd_kafka_conf_t,
-                                    opaque: *mut ::std::os::raw::c_void);
+    pub fn rd_kafka_conf_set_opaque(conf: *mut rd_kafka_conf_t, opaque: *mut ::std::os::raw::c_void);
 }
 extern "C" {
-    pub fn rd_kafka_opaque(rk: *const rd_kafka_t)
-     -> *mut ::std::os::raw::c_void;
+    pub fn rd_kafka_opaque(rk: *const rd_kafka_t) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    pub fn rd_kafka_conf_set_default_topic_conf(conf: *mut rd_kafka_conf_t,
-                                                tconf:
-                                                    *mut rd_kafka_topic_conf_t);
+    pub fn rd_kafka_conf_set_default_topic_conf(conf: *mut rd_kafka_conf_t, tconf: *mut rd_kafka_topic_conf_t);
 }
 extern "C" {
-    pub fn rd_kafka_conf_get(conf: *const rd_kafka_conf_t,
-                             name: *const ::std::os::raw::c_char,
-                             dest: *mut ::std::os::raw::c_char,
-                             dest_size: *mut usize) -> rd_kafka_conf_res_t;
+    pub fn rd_kafka_conf_get(
+        conf: *const rd_kafka_conf_t,
+        name: *const ::std::os::raw::c_char,
+        dest: *mut ::std::os::raw::c_char,
+        dest_size: *mut usize,
+    ) -> rd_kafka_conf_res_t;
 }
 extern "C" {
-    pub fn rd_kafka_topic_conf_get(conf: *const rd_kafka_topic_conf_t,
-                                   name: *const ::std::os::raw::c_char,
-                                   dest: *mut ::std::os::raw::c_char,
-                                   dest_size: *mut usize)
-     -> rd_kafka_conf_res_t;
+    pub fn rd_kafka_topic_conf_get(
+        conf: *const rd_kafka_topic_conf_t,
+        name: *const ::std::os::raw::c_char,
+        dest: *mut ::std::os::raw::c_char,
+        dest_size: *mut usize,
+    ) -> rd_kafka_conf_res_t;
 }
 extern "C" {
-    pub fn rd_kafka_conf_dump(conf: *mut rd_kafka_conf_t, cntp: *mut usize)
-     -> *mut *const ::std::os::raw::c_char;
+    pub fn rd_kafka_conf_dump(conf: *mut rd_kafka_conf_t, cntp: *mut usize) -> *mut *const ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn rd_kafka_topic_conf_dump(conf: *mut rd_kafka_topic_conf_t,
-                                    cntp: *mut usize)
-     -> *mut *const ::std::os::raw::c_char;
+    pub fn rd_kafka_topic_conf_dump(
+        conf: *mut rd_kafka_topic_conf_t,
+        cntp: *mut usize,
+    ) -> *mut *const ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn rd_kafka_conf_dump_free(arr: *mut *const ::std::os::raw::c_char,
-                                   cnt: usize);
+    pub fn rd_kafka_conf_dump_free(arr: *mut *const ::std::os::raw::c_char, cnt: usize);
 }
 extern "C" {
     pub fn rd_kafka_conf_properties_show(fp: *mut FILE);
@@ -3627,172 +4581,156 @@ extern "C" {
     pub fn rd_kafka_topic_conf_new() -> *mut rd_kafka_topic_conf_t;
 }
 extern "C" {
-    pub fn rd_kafka_topic_conf_dup(conf: *const rd_kafka_topic_conf_t)
-     -> *mut rd_kafka_topic_conf_t;
+    pub fn rd_kafka_topic_conf_dup(conf: *const rd_kafka_topic_conf_t) -> *mut rd_kafka_topic_conf_t;
 }
 extern "C" {
-    pub fn rd_kafka_topic_conf_destroy(topic_conf:
-                                           *mut rd_kafka_topic_conf_t);
+    pub fn rd_kafka_topic_conf_destroy(topic_conf: *mut rd_kafka_topic_conf_t);
 }
 extern "C" {
-    pub fn rd_kafka_topic_conf_set(conf: *mut rd_kafka_topic_conf_t,
-                                   name: *const ::std::os::raw::c_char,
-                                   value: *const ::std::os::raw::c_char,
-                                   errstr: *mut ::std::os::raw::c_char,
-                                   errstr_size: usize) -> rd_kafka_conf_res_t;
+    pub fn rd_kafka_topic_conf_set(
+        conf: *mut rd_kafka_topic_conf_t,
+        name: *const ::std::os::raw::c_char,
+        value: *const ::std::os::raw::c_char,
+        errstr: *mut ::std::os::raw::c_char,
+        errstr_size: usize,
+    ) -> rd_kafka_conf_res_t;
 }
 extern "C" {
-    pub fn rd_kafka_topic_conf_set_opaque(conf: *mut rd_kafka_topic_conf_t,
-                                          opaque:
-                                              *mut ::std::os::raw::c_void);
+    pub fn rd_kafka_topic_conf_set_opaque(conf: *mut rd_kafka_topic_conf_t, opaque: *mut ::std::os::raw::c_void);
 }
 extern "C" {
-    pub fn rd_kafka_topic_conf_set_partitioner_cb(topic_conf:
-                                                      *mut rd_kafka_topic_conf_t,
-                                                  partitioner:
-                                                      ::std::option::Option<unsafe extern "C" fn(rkt:
-                                                                                                     *const rd_kafka_topic_t,
-                                                                                                 keydata:
-                                                                                                     *const ::std::os::raw::c_void,
-                                                                                                 keylen:
-                                                                                                     usize,
-                                                                                                 partition_cnt:
-                                                                                                     i32,
-                                                                                                 rkt_opaque:
-                                                                                                     *mut ::std::os::raw::c_void,
-                                                                                                 msg_opaque:
-                                                                                                     *mut ::std::os::raw::c_void)
-                                                                                ->
-                                                                                    i32>);
+    pub fn rd_kafka_topic_conf_set_partitioner_cb(
+        topic_conf: *mut rd_kafka_topic_conf_t,
+        partitioner: ::std::option::Option<
+            unsafe extern "C" fn(
+                rkt: *const rd_kafka_topic_t,
+                keydata: *const ::std::os::raw::c_void,
+                keylen: usize,
+                partition_cnt: i32,
+                rkt_opaque: *mut ::std::os::raw::c_void,
+                msg_opaque: *mut ::std::os::raw::c_void,
+            ) -> i32,
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_topic_partition_available(rkt: *const rd_kafka_topic_t,
-                                              partition: i32)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_topic_partition_available(rkt: *const rd_kafka_topic_t, partition: i32) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_msg_partitioner_random(rkt: *const rd_kafka_topic_t,
-                                           key: *const ::std::os::raw::c_void,
-                                           keylen: usize, partition_cnt: i32,
-                                           opaque:
-                                               *mut ::std::os::raw::c_void,
-                                           msg_opaque:
-                                               *mut ::std::os::raw::c_void)
-     -> i32;
+    pub fn rd_kafka_msg_partitioner_random(
+        rkt: *const rd_kafka_topic_t,
+        key: *const ::std::os::raw::c_void,
+        keylen: usize,
+        partition_cnt: i32,
+        opaque: *mut ::std::os::raw::c_void,
+        msg_opaque: *mut ::std::os::raw::c_void,
+    ) -> i32;
 }
 extern "C" {
-    pub fn rd_kafka_msg_partitioner_consistent(rkt: *const rd_kafka_topic_t,
-                                               key:
-                                                   *const ::std::os::raw::c_void,
-                                               keylen: usize,
-                                               partition_cnt: i32,
-                                               opaque:
-                                                   *mut ::std::os::raw::c_void,
-                                               msg_opaque:
-                                                   *mut ::std::os::raw::c_void)
-     -> i32;
+    pub fn rd_kafka_msg_partitioner_consistent(
+        rkt: *const rd_kafka_topic_t,
+        key: *const ::std::os::raw::c_void,
+        keylen: usize,
+        partition_cnt: i32,
+        opaque: *mut ::std::os::raw::c_void,
+        msg_opaque: *mut ::std::os::raw::c_void,
+    ) -> i32;
 }
 extern "C" {
-    pub fn rd_kafka_msg_partitioner_consistent_random(rkt:
-                                                          *const rd_kafka_topic_t,
-                                                      key:
-                                                          *const ::std::os::raw::c_void,
-                                                      keylen: usize,
-                                                      partition_cnt: i32,
-                                                      opaque:
-                                                          *mut ::std::os::raw::c_void,
-                                                      msg_opaque:
-                                                          *mut ::std::os::raw::c_void)
-     -> i32;
+    pub fn rd_kafka_msg_partitioner_consistent_random(
+        rkt: *const rd_kafka_topic_t,
+        key: *const ::std::os::raw::c_void,
+        keylen: usize,
+        partition_cnt: i32,
+        opaque: *mut ::std::os::raw::c_void,
+        msg_opaque: *mut ::std::os::raw::c_void,
+    ) -> i32;
 }
 extern "C" {
-    pub fn rd_kafka_new(type_: rd_kafka_type_t, conf: *mut rd_kafka_conf_t,
-                        errstr: *mut ::std::os::raw::c_char,
-                        errstr_size: usize) -> *mut rd_kafka_t;
+    pub fn rd_kafka_new(
+        type_: rd_kafka_type_t,
+        conf: *mut rd_kafka_conf_t,
+        errstr: *mut ::std::os::raw::c_char,
+        errstr_size: usize,
+    ) -> *mut rd_kafka_t;
 }
 extern "C" {
     pub fn rd_kafka_destroy(rk: *mut rd_kafka_t);
 }
 extern "C" {
-    pub fn rd_kafka_name(rk: *const rd_kafka_t)
-     -> *const ::std::os::raw::c_char;
+    pub fn rd_kafka_name(rk: *const rd_kafka_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
     pub fn rd_kafka_type(rk: *const rd_kafka_t) -> rd_kafka_type_t;
 }
 extern "C" {
-    pub fn rd_kafka_memberid(rk: *const rd_kafka_t)
-     -> *mut ::std::os::raw::c_char;
+    pub fn rd_kafka_memberid(rk: *const rd_kafka_t) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn rd_kafka_clusterid(rk: *mut rd_kafka_t,
-                              timeout_ms: ::std::os::raw::c_int)
-     -> *mut ::std::os::raw::c_char;
+    pub fn rd_kafka_clusterid(rk: *mut rd_kafka_t, timeout_ms: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn rd_kafka_topic_new(rk: *mut rd_kafka_t,
-                              topic: *const ::std::os::raw::c_char,
-                              conf: *mut rd_kafka_topic_conf_t)
-     -> *mut rd_kafka_topic_t;
+    pub fn rd_kafka_topic_new(
+        rk: *mut rd_kafka_t,
+        topic: *const ::std::os::raw::c_char,
+        conf: *mut rd_kafka_topic_conf_t,
+    ) -> *mut rd_kafka_topic_t;
 }
 extern "C" {
     pub fn rd_kafka_topic_destroy(rkt: *mut rd_kafka_topic_t);
 }
 extern "C" {
-    pub fn rd_kafka_topic_name(rkt: *const rd_kafka_topic_t)
-     -> *const ::std::os::raw::c_char;
+    pub fn rd_kafka_topic_name(rkt: *const rd_kafka_topic_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn rd_kafka_topic_opaque(rkt: *const rd_kafka_topic_t)
-     -> *mut ::std::os::raw::c_void;
+    pub fn rd_kafka_topic_opaque(rkt: *const rd_kafka_topic_t) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    pub fn rd_kafka_poll(rk: *mut rd_kafka_t,
-                         timeout_ms: ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_poll(rk: *mut rd_kafka_t, timeout_ms: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn rd_kafka_yield(rk: *mut rd_kafka_t);
 }
 extern "C" {
-    pub fn rd_kafka_pause_partitions(rk: *mut rd_kafka_t,
-                                     partitions:
-                                         *mut rd_kafka_topic_partition_list_t)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_pause_partitions(
+        rk: *mut rd_kafka_t,
+        partitions: *mut rd_kafka_topic_partition_list_t,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_resume_partitions(rk: *mut rd_kafka_t,
-                                      partitions:
-                                          *mut rd_kafka_topic_partition_list_t)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_resume_partitions(
+        rk: *mut rd_kafka_t,
+        partitions: *mut rd_kafka_topic_partition_list_t,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_query_watermark_offsets(rk: *mut rd_kafka_t,
-                                            topic:
-                                                *const ::std::os::raw::c_char,
-                                            partition: i32, low: *mut i64,
-                                            high: *mut i64,
-                                            timeout_ms: ::std::os::raw::c_int)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_query_watermark_offsets(
+        rk: *mut rd_kafka_t,
+        topic: *const ::std::os::raw::c_char,
+        partition: i32,
+        low: *mut i64,
+        high: *mut i64,
+        timeout_ms: ::std::os::raw::c_int,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_get_watermark_offsets(rk: *mut rd_kafka_t,
-                                          topic:
-                                              *const ::std::os::raw::c_char,
-                                          partition: i32, low: *mut i64,
-                                          high: *mut i64)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_get_watermark_offsets(
+        rk: *mut rd_kafka_t,
+        topic: *const ::std::os::raw::c_char,
+        partition: i32,
+        low: *mut i64,
+        high: *mut i64,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_offsets_for_times(rk: *mut rd_kafka_t,
-                                      offsets:
-                                          *mut rd_kafka_topic_partition_list_t,
-                                      timeout_ms: ::std::os::raw::c_int)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_offsets_for_times(
+        rk: *mut rd_kafka_t,
+        offsets: *mut rd_kafka_topic_partition_list_t,
+        timeout_ms: ::std::os::raw::c_int,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_mem_free(rk: *mut rd_kafka_t,
-                             ptr: *mut ::std::os::raw::c_void);
+    pub fn rd_kafka_mem_free(rk: *mut rd_kafka_t, ptr: *mut ::std::os::raw::c_void);
 }
 extern "C" {
     pub fn rd_kafka_queue_new(rk: *mut rd_kafka_t) -> *mut rd_kafka_queue_t;
@@ -3801,214 +4739,222 @@ extern "C" {
     pub fn rd_kafka_queue_destroy(rkqu: *mut rd_kafka_queue_t);
 }
 extern "C" {
-    pub fn rd_kafka_queue_get_main(rk: *mut rd_kafka_t)
-     -> *mut rd_kafka_queue_t;
+    pub fn rd_kafka_queue_get_main(rk: *mut rd_kafka_t) -> *mut rd_kafka_queue_t;
 }
 extern "C" {
-    pub fn rd_kafka_queue_get_consumer(rk: *mut rd_kafka_t)
-     -> *mut rd_kafka_queue_t;
+    pub fn rd_kafka_queue_get_consumer(rk: *mut rd_kafka_t) -> *mut rd_kafka_queue_t;
 }
 extern "C" {
-    pub fn rd_kafka_queue_get_partition(rk: *mut rd_kafka_t,
-                                        topic: *const ::std::os::raw::c_char,
-                                        partition: i32)
-     -> *mut rd_kafka_queue_t;
+    pub fn rd_kafka_queue_get_partition(
+        rk: *mut rd_kafka_t,
+        topic: *const ::std::os::raw::c_char,
+        partition: i32,
+    ) -> *mut rd_kafka_queue_t;
 }
 extern "C" {
-    pub fn rd_kafka_queue_forward(src: *mut rd_kafka_queue_t,
-                                  dst: *mut rd_kafka_queue_t);
+    pub fn rd_kafka_queue_forward(src: *mut rd_kafka_queue_t, dst: *mut rd_kafka_queue_t);
 }
 extern "C" {
-    pub fn rd_kafka_set_log_queue(rk: *mut rd_kafka_t,
-                                  rkqu: *mut rd_kafka_queue_t)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_set_log_queue(rk: *mut rd_kafka_t, rkqu: *mut rd_kafka_queue_t) -> rd_kafka_resp_err_t;
 }
 extern "C" {
     pub fn rd_kafka_queue_length(rkqu: *mut rd_kafka_queue_t) -> usize;
 }
 extern "C" {
-    pub fn rd_kafka_queue_io_event_enable(rkqu: *mut rd_kafka_queue_t,
-                                          fd: ::std::os::raw::c_int,
-                                          payload:
-                                              *const ::std::os::raw::c_void,
-                                          size: usize);
+    pub fn rd_kafka_queue_io_event_enable(
+        rkqu: *mut rd_kafka_queue_t,
+        fd: ::std::os::raw::c_int,
+        payload: *const ::std::os::raw::c_void,
+        size: usize,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_consume_start(rkt: *mut rd_kafka_topic_t, partition: i32,
-                                  offset: i64) -> ::std::os::raw::c_int;
+    pub fn rd_kafka_consume_start(rkt: *mut rd_kafka_topic_t, partition: i32, offset: i64) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_consume_start_queue(rkt: *mut rd_kafka_topic_t,
-                                        partition: i32, offset: i64,
-                                        rkqu: *mut rd_kafka_queue_t)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_consume_start_queue(
+        rkt: *mut rd_kafka_topic_t,
+        partition: i32,
+        offset: i64,
+        rkqu: *mut rd_kafka_queue_t,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_consume_stop(rkt: *mut rd_kafka_topic_t, partition: i32)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_consume_stop(rkt: *mut rd_kafka_topic_t, partition: i32) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_seek(rkt: *mut rd_kafka_topic_t, partition: i32,
-                         offset: i64, timeout_ms: ::std::os::raw::c_int)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_seek(
+        rkt: *mut rd_kafka_topic_t,
+        partition: i32,
+        offset: i64,
+        timeout_ms: ::std::os::raw::c_int,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_consume(rkt: *mut rd_kafka_topic_t, partition: i32,
-                            timeout_ms: ::std::os::raw::c_int)
-     -> *mut rd_kafka_message_t;
+    pub fn rd_kafka_consume(
+        rkt: *mut rd_kafka_topic_t,
+        partition: i32,
+        timeout_ms: ::std::os::raw::c_int,
+    ) -> *mut rd_kafka_message_t;
 }
 extern "C" {
-    pub fn rd_kafka_consume_batch(rkt: *mut rd_kafka_topic_t, partition: i32,
-                                  timeout_ms: ::std::os::raw::c_int,
-                                  rkmessages: *mut *mut rd_kafka_message_t,
-                                  rkmessages_size: usize) -> isize;
+    pub fn rd_kafka_consume_batch(
+        rkt: *mut rd_kafka_topic_t,
+        partition: i32,
+        timeout_ms: ::std::os::raw::c_int,
+        rkmessages: *mut *mut rd_kafka_message_t,
+        rkmessages_size: usize,
+    ) -> isize;
 }
 extern "C" {
-    pub fn rd_kafka_consume_callback(rkt: *mut rd_kafka_topic_t,
-                                     partition: i32,
-                                     timeout_ms: ::std::os::raw::c_int,
-                                     consume_cb:
-                                         ::std::option::Option<unsafe extern "C" fn(rkmessage:
-                                                                                        *mut rd_kafka_message_t,
-                                                                                    opaque:
-                                                                                        *mut ::std::os::raw::c_void)>,
-                                     opaque: *mut ::std::os::raw::c_void)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_consume_callback(
+        rkt: *mut rd_kafka_topic_t,
+        partition: i32,
+        timeout_ms: ::std::os::raw::c_int,
+        consume_cb: ::std::option::Option<
+            unsafe extern "C" fn(rkmessage: *mut rd_kafka_message_t, opaque: *mut ::std::os::raw::c_void),
+        >,
+        opaque: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_consume_queue(rkqu: *mut rd_kafka_queue_t,
-                                  timeout_ms: ::std::os::raw::c_int)
-     -> *mut rd_kafka_message_t;
+    pub fn rd_kafka_consume_queue(
+        rkqu: *mut rd_kafka_queue_t,
+        timeout_ms: ::std::os::raw::c_int,
+    ) -> *mut rd_kafka_message_t;
 }
 extern "C" {
-    pub fn rd_kafka_consume_batch_queue(rkqu: *mut rd_kafka_queue_t,
-                                        timeout_ms: ::std::os::raw::c_int,
-                                        rkmessages:
-                                            *mut *mut rd_kafka_message_t,
-                                        rkmessages_size: usize) -> isize;
+    pub fn rd_kafka_consume_batch_queue(
+        rkqu: *mut rd_kafka_queue_t,
+        timeout_ms: ::std::os::raw::c_int,
+        rkmessages: *mut *mut rd_kafka_message_t,
+        rkmessages_size: usize,
+    ) -> isize;
 }
 extern "C" {
-    pub fn rd_kafka_consume_callback_queue(rkqu: *mut rd_kafka_queue_t,
-                                           timeout_ms: ::std::os::raw::c_int,
-                                           consume_cb:
-                                               ::std::option::Option<unsafe extern "C" fn(rkmessage:
-                                                                                              *mut rd_kafka_message_t,
-                                                                                          opaque:
-                                                                                              *mut ::std::os::raw::c_void)>,
-                                           opaque:
-                                               *mut ::std::os::raw::c_void)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_consume_callback_queue(
+        rkqu: *mut rd_kafka_queue_t,
+        timeout_ms: ::std::os::raw::c_int,
+        consume_cb: ::std::option::Option<
+            unsafe extern "C" fn(rkmessage: *mut rd_kafka_message_t, opaque: *mut ::std::os::raw::c_void),
+        >,
+        opaque: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_offset_store(rkt: *mut rd_kafka_topic_t, partition: i32,
-                                 offset: i64) -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_offset_store(rkt: *mut rd_kafka_topic_t, partition: i32, offset: i64) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_offsets_store(rk: *mut rd_kafka_t,
-                                  offsets:
-                                      *mut rd_kafka_topic_partition_list_t)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_offsets_store(
+        rk: *mut rd_kafka_t,
+        offsets: *mut rd_kafka_topic_partition_list_t,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_subscribe(rk: *mut rd_kafka_t,
-                              topics: *const rd_kafka_topic_partition_list_t)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_subscribe(
+        rk: *mut rd_kafka_t,
+        topics: *const rd_kafka_topic_partition_list_t,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
     pub fn rd_kafka_unsubscribe(rk: *mut rd_kafka_t) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_subscription(rk: *mut rd_kafka_t,
-                                 topics:
-                                     *mut *mut rd_kafka_topic_partition_list_t)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_subscription(
+        rk: *mut rd_kafka_t,
+        topics: *mut *mut rd_kafka_topic_partition_list_t,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_consumer_poll(rk: *mut rd_kafka_t,
-                                  timeout_ms: ::std::os::raw::c_int)
-     -> *mut rd_kafka_message_t;
+    pub fn rd_kafka_consumer_poll(rk: *mut rd_kafka_t, timeout_ms: ::std::os::raw::c_int) -> *mut rd_kafka_message_t;
 }
 extern "C" {
-    pub fn rd_kafka_consumer_close(rk: *mut rd_kafka_t)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_consumer_close(rk: *mut rd_kafka_t) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_assign(rk: *mut rd_kafka_t,
-                           partitions: *const rd_kafka_topic_partition_list_t)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_assign(
+        rk: *mut rd_kafka_t,
+        partitions: *const rd_kafka_topic_partition_list_t,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_assignment(rk: *mut rd_kafka_t,
-                               partitions:
-                                   *mut *mut rd_kafka_topic_partition_list_t)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_assignment(
+        rk: *mut rd_kafka_t,
+        partitions: *mut *mut rd_kafka_topic_partition_list_t,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_commit(rk: *mut rd_kafka_t,
-                           offsets: *const rd_kafka_topic_partition_list_t,
-                           async: ::std::os::raw::c_int)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_commit(
+        rk: *mut rd_kafka_t,
+        offsets: *const rd_kafka_topic_partition_list_t,
+        async: ::std::os::raw::c_int,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_commit_message(rk: *mut rd_kafka_t,
-                                   rkmessage: *const rd_kafka_message_t,
-                                   async: ::std::os::raw::c_int)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_commit_message(
+        rk: *mut rd_kafka_t,
+        rkmessage: *const rd_kafka_message_t,
+        async: ::std::os::raw::c_int,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_commit_queue(rk: *mut rd_kafka_t,
-                                 offsets:
-                                     *const rd_kafka_topic_partition_list_t,
-                                 rkqu: *mut rd_kafka_queue_t,
-                                 cb:
-                                     ::std::option::Option<unsafe extern "C" fn(rk:
-                                                                                    *mut rd_kafka_t,
-                                                                                err:
-                                                                                    rd_kafka_resp_err_t,
-                                                                                offsets:
-                                                                                    *mut rd_kafka_topic_partition_list_t,
-                                                                                opaque:
-                                                                                    *mut ::std::os::raw::c_void)>,
-                                 opaque: *mut ::std::os::raw::c_void)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_commit_queue(
+        rk: *mut rd_kafka_t,
+        offsets: *const rd_kafka_topic_partition_list_t,
+        rkqu: *mut rd_kafka_queue_t,
+        cb: ::std::option::Option<
+            unsafe extern "C" fn(
+                rk: *mut rd_kafka_t,
+                err: rd_kafka_resp_err_t,
+                offsets: *mut rd_kafka_topic_partition_list_t,
+                opaque: *mut ::std::os::raw::c_void,
+            ),
+        >,
+        opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_committed(rk: *mut rd_kafka_t,
-                              partitions:
-                                  *mut rd_kafka_topic_partition_list_t,
-                              timeout_ms: ::std::os::raw::c_int)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_committed(
+        rk: *mut rd_kafka_t,
+        partitions: *mut rd_kafka_topic_partition_list_t,
+        timeout_ms: ::std::os::raw::c_int,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_position(rk: *mut rd_kafka_t,
-                             partitions: *mut rd_kafka_topic_partition_list_t)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_position(
+        rk: *mut rd_kafka_t,
+        partitions: *mut rd_kafka_topic_partition_list_t,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_produce(rkt: *mut rd_kafka_topic_t, partition: i32,
-                            msgflags: ::std::os::raw::c_int,
-                            payload: *mut ::std::os::raw::c_void, len: usize,
-                            key: *const ::std::os::raw::c_void, keylen: usize,
-                            msg_opaque: *mut ::std::os::raw::c_void)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_produce(
+        rkt: *mut rd_kafka_topic_t,
+        partition: i32,
+        msgflags: ::std::os::raw::c_int,
+        payload: *mut ::std::os::raw::c_void,
+        len: usize,
+        key: *const ::std::os::raw::c_void,
+        keylen: usize,
+        msg_opaque: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn rd_kafka_producev(rk: *mut rd_kafka_t, ...) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_produce_batch(rkt: *mut rd_kafka_topic_t, partition: i32,
-                                  msgflags: ::std::os::raw::c_int,
-                                  rkmessages: *mut rd_kafka_message_t,
-                                  message_cnt: ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_produce_batch(
+        rkt: *mut rd_kafka_topic_t,
+        partition: i32,
+        msgflags: ::std::os::raw::c_int,
+        rkmessages: *mut rd_kafka_message_t,
+        message_cnt: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_flush(rk: *mut rd_kafka_t,
-                          timeout_ms: ::std::os::raw::c_int)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_flush(rk: *mut rd_kafka_t, timeout_ms: ::std::os::raw::c_int) -> rd_kafka_resp_err_t;
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_metadata_broker {
     pub id: i32,
     pub host: *mut ::std::os::raw::c_char,
@@ -4016,34 +4962,50 @@ pub struct rd_kafka_metadata_broker {
 }
 #[test]
 fn bindgen_test_layout_rd_kafka_metadata_broker() {
-    assert_eq!(::std::mem::size_of::<rd_kafka_metadata_broker>() , 24usize ,
-               concat ! (
-               "Size of: " , stringify ! ( rd_kafka_metadata_broker ) ));
-    assert_eq! (::std::mem::align_of::<rd_kafka_metadata_broker>() , 8usize ,
-                concat ! (
-                "Alignment of " , stringify ! ( rd_kafka_metadata_broker ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_broker ) ) . id as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_metadata_broker ) , "::" , stringify ! ( id ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_broker ) ) . host as *
-                const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_metadata_broker ) , "::" , stringify ! ( host ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_broker ) ) . port as *
-                const _ as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_metadata_broker ) , "::" , stringify ! ( port ) ));
-}
-impl Clone for rd_kafka_metadata_broker {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<rd_kafka_metadata_broker>(),
+        24usize,
+        concat!("Size of: ", stringify!(rd_kafka_metadata_broker))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rd_kafka_metadata_broker>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rd_kafka_metadata_broker))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_broker)).id as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_broker),
+            "::",
+            stringify!(id)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_broker)).host as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_broker),
+            "::",
+            stringify!(host)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_broker)).port as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_broker),
+            "::",
+            stringify!(port)
+        )
+    );
 }
 pub type rd_kafka_metadata_broker_t = rd_kafka_metadata_broker;
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_metadata_partition {
     pub id: i32,
     pub err: rd_kafka_resp_err_t,
@@ -4055,60 +5017,90 @@ pub struct rd_kafka_metadata_partition {
 }
 #[test]
 fn bindgen_test_layout_rd_kafka_metadata_partition() {
-    assert_eq!(::std::mem::size_of::<rd_kafka_metadata_partition>() , 40usize
-               , concat ! (
-               "Size of: " , stringify ! ( rd_kafka_metadata_partition ) ));
-    assert_eq! (::std::mem::align_of::<rd_kafka_metadata_partition>() , 8usize
-                , concat ! (
-                "Alignment of " , stringify ! ( rd_kafka_metadata_partition )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_partition ) ) . id as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_metadata_partition ) , "::" , stringify ! ( id ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_partition ) ) . err as
-                * const _ as usize } , 4usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_metadata_partition ) , "::" , stringify ! ( err ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_partition ) ) . leader
-                as * const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_metadata_partition ) , "::" , stringify ! ( leader )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_partition ) ) .
-                replica_cnt as * const _ as usize } , 12usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_metadata_partition ) , "::" , stringify ! (
-                replica_cnt ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_partition ) ) .
-                replicas as * const _ as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_metadata_partition ) , "::" , stringify ! ( replicas
-                ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_partition ) ) . isr_cnt
-                as * const _ as usize } , 24usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_metadata_partition ) , "::" , stringify ! ( isr_cnt )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_partition ) ) . isrs as
-                * const _ as usize } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_metadata_partition ) , "::" , stringify ! ( isrs )
-                ));
-}
-impl Clone for rd_kafka_metadata_partition {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<rd_kafka_metadata_partition>(),
+        40usize,
+        concat!("Size of: ", stringify!(rd_kafka_metadata_partition))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rd_kafka_metadata_partition>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rd_kafka_metadata_partition))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_partition)).id as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_partition),
+            "::",
+            stringify!(id)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_partition)).err as *const _ as usize },
+        4usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_partition),
+            "::",
+            stringify!(err)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_partition)).leader as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_partition),
+            "::",
+            stringify!(leader)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_partition)).replica_cnt as *const _ as usize },
+        12usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_partition),
+            "::",
+            stringify!(replica_cnt)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_partition)).replicas as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_partition),
+            "::",
+            stringify!(replicas)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_partition)).isr_cnt as *const _ as usize },
+        24usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_partition),
+            "::",
+            stringify!(isr_cnt)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_partition)).isrs as *const _ as usize },
+        32usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_partition),
+            "::",
+            stringify!(isrs)
+        )
+    );
 }
 pub type rd_kafka_metadata_partition_t = rd_kafka_metadata_partition;
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_metadata_topic {
     pub topic: *mut ::std::os::raw::c_char,
     pub partition_cnt: ::std::os::raw::c_int,
@@ -4117,39 +5109,60 @@ pub struct rd_kafka_metadata_topic {
 }
 #[test]
 fn bindgen_test_layout_rd_kafka_metadata_topic() {
-    assert_eq!(::std::mem::size_of::<rd_kafka_metadata_topic>() , 32usize ,
-               concat ! (
-               "Size of: " , stringify ! ( rd_kafka_metadata_topic ) ));
-    assert_eq! (::std::mem::align_of::<rd_kafka_metadata_topic>() , 8usize ,
-                concat ! (
-                "Alignment of " , stringify ! ( rd_kafka_metadata_topic ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_topic ) ) . topic as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_metadata_topic
-                ) , "::" , stringify ! ( topic ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_topic ) ) .
-                partition_cnt as * const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_metadata_topic
-                ) , "::" , stringify ! ( partition_cnt ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_topic ) ) . partitions
-                as * const _ as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_metadata_topic
-                ) , "::" , stringify ! ( partitions ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata_topic ) ) . err as *
-                const _ as usize } , 24usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_metadata_topic
-                ) , "::" , stringify ! ( err ) ));
-}
-impl Clone for rd_kafka_metadata_topic {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<rd_kafka_metadata_topic>(),
+        32usize,
+        concat!("Size of: ", stringify!(rd_kafka_metadata_topic))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rd_kafka_metadata_topic>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rd_kafka_metadata_topic))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_topic)).topic as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_topic),
+            "::",
+            stringify!(topic)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_topic)).partition_cnt as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_topic),
+            "::",
+            stringify!(partition_cnt)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_topic)).partitions as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_topic),
+            "::",
+            stringify!(partitions)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata_topic)).err as *const _ as usize },
+        24usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata_topic),
+            "::",
+            stringify!(err)
+        )
+    );
 }
 pub type rd_kafka_metadata_topic_t = rd_kafka_metadata_topic;
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_metadata {
     pub broker_cnt: ::std::os::raw::c_int,
     pub brokers: *mut rd_kafka_metadata_broker,
@@ -4160,58 +5173,92 @@ pub struct rd_kafka_metadata {
 }
 #[test]
 fn bindgen_test_layout_rd_kafka_metadata() {
-    assert_eq!(::std::mem::size_of::<rd_kafka_metadata>() , 48usize , concat !
-               ( "Size of: " , stringify ! ( rd_kafka_metadata ) ));
-    assert_eq! (::std::mem::align_of::<rd_kafka_metadata>() , 8usize , concat
-                ! ( "Alignment of " , stringify ! ( rd_kafka_metadata ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata ) ) . broker_cnt as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_metadata ) ,
-                "::" , stringify ! ( broker_cnt ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata ) ) . brokers as *
-                const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_metadata ) ,
-                "::" , stringify ! ( brokers ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata ) ) . topic_cnt as *
-                const _ as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_metadata ) ,
-                "::" , stringify ! ( topic_cnt ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata ) ) . topics as * const
-                _ as usize } , 24usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_metadata ) ,
-                "::" , stringify ! ( topics ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata ) ) . orig_broker_id as
-                * const _ as usize } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_metadata ) ,
-                "::" , stringify ! ( orig_broker_id ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_metadata ) ) . orig_broker_name
-                as * const _ as usize } , 40usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_metadata ) ,
-                "::" , stringify ! ( orig_broker_name ) ));
-}
-impl Clone for rd_kafka_metadata {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<rd_kafka_metadata>(),
+        48usize,
+        concat!("Size of: ", stringify!(rd_kafka_metadata))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rd_kafka_metadata>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rd_kafka_metadata))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata)).broker_cnt as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata),
+            "::",
+            stringify!(broker_cnt)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata)).brokers as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata),
+            "::",
+            stringify!(brokers)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata)).topic_cnt as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata),
+            "::",
+            stringify!(topic_cnt)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata)).topics as *const _ as usize },
+        24usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata),
+            "::",
+            stringify!(topics)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata)).orig_broker_id as *const _ as usize },
+        32usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata),
+            "::",
+            stringify!(orig_broker_id)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_metadata)).orig_broker_name as *const _ as usize },
+        40usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_metadata),
+            "::",
+            stringify!(orig_broker_name)
+        )
+    );
 }
 pub type rd_kafka_metadata_t = rd_kafka_metadata;
 extern "C" {
-    pub fn rd_kafka_metadata(rk: *mut rd_kafka_t,
-                             all_topics: ::std::os::raw::c_int,
-                             only_rkt: *mut rd_kafka_topic_t,
-                             metadatap: *mut *const rd_kafka_metadata,
-                             timeout_ms: ::std::os::raw::c_int)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_metadata(
+        rk: *mut rd_kafka_t,
+        all_topics: ::std::os::raw::c_int,
+        only_rkt: *mut rd_kafka_topic_t,
+        metadatap: *mut *const rd_kafka_metadata,
+        timeout_ms: ::std::os::raw::c_int,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
     pub fn rd_kafka_metadata_destroy(metadata: *const rd_kafka_metadata);
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_group_member_info {
     pub member_id: *mut ::std::os::raw::c_char,
     pub client_id: *mut ::std::os::raw::c_char,
@@ -4223,64 +5270,89 @@ pub struct rd_kafka_group_member_info {
 }
 #[test]
 fn bindgen_test_layout_rd_kafka_group_member_info() {
-    assert_eq!(::std::mem::size_of::<rd_kafka_group_member_info>() , 56usize ,
-               concat ! (
-               "Size of: " , stringify ! ( rd_kafka_group_member_info ) ));
-    assert_eq! (::std::mem::align_of::<rd_kafka_group_member_info>() , 8usize
-                , concat ! (
-                "Alignment of " , stringify ! ( rd_kafka_group_member_info )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_member_info ) ) .
-                member_id as * const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_group_member_info ) , "::" , stringify ! ( member_id
-                ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_member_info ) ) .
-                client_id as * const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_group_member_info ) , "::" , stringify ! ( client_id
-                ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_member_info ) ) .
-                client_host as * const _ as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_group_member_info ) , "::" , stringify ! (
-                client_host ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_member_info ) ) .
-                member_metadata as * const _ as usize } , 24usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_group_member_info ) , "::" , stringify ! (
-                member_metadata ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_member_info ) ) .
-                member_metadata_size as * const _ as usize } , 32usize ,
-                concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_group_member_info ) , "::" , stringify ! (
-                member_metadata_size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_member_info ) ) .
-                member_assignment as * const _ as usize } , 40usize , concat !
-                (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_group_member_info ) , "::" , stringify ! (
-                member_assignment ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_member_info ) ) .
-                member_assignment_size as * const _ as usize } , 48usize ,
-                concat ! (
-                "Alignment of field: " , stringify ! (
-                rd_kafka_group_member_info ) , "::" , stringify ! (
-                member_assignment_size ) ));
-}
-impl Clone for rd_kafka_group_member_info {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<rd_kafka_group_member_info>(),
+        56usize,
+        concat!("Size of: ", stringify!(rd_kafka_group_member_info))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rd_kafka_group_member_info>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rd_kafka_group_member_info))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_member_info)).member_id as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_member_info),
+            "::",
+            stringify!(member_id)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_member_info)).client_id as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_member_info),
+            "::",
+            stringify!(client_id)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_member_info)).client_host as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_member_info),
+            "::",
+            stringify!(client_host)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_member_info)).member_metadata as *const _ as usize },
+        24usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_member_info),
+            "::",
+            stringify!(member_metadata)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_member_info)).member_metadata_size as *const _ as usize },
+        32usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_member_info),
+            "::",
+            stringify!(member_metadata_size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_member_info)).member_assignment as *const _ as usize },
+        40usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_member_info),
+            "::",
+            stringify!(member_assignment)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_member_info)).member_assignment_size as *const _ as usize },
+        48usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_member_info),
+            "::",
+            stringify!(member_assignment_size)
+        )
+    );
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_group_info {
     pub broker: rd_kafka_metadata_broker,
     pub group: *mut ::std::os::raw::c_char,
@@ -4293,124 +5365,184 @@ pub struct rd_kafka_group_info {
 }
 #[test]
 fn bindgen_test_layout_rd_kafka_group_info() {
-    assert_eq!(::std::mem::size_of::<rd_kafka_group_info>() , 80usize , concat
-               ! ( "Size of: " , stringify ! ( rd_kafka_group_info ) ));
-    assert_eq! (::std::mem::align_of::<rd_kafka_group_info>() , 8usize ,
-                concat ! (
-                "Alignment of " , stringify ! ( rd_kafka_group_info ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_info ) ) . broker as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_group_info ) ,
-                "::" , stringify ! ( broker ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_info ) ) . group as *
-                const _ as usize } , 24usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_group_info ) ,
-                "::" , stringify ! ( group ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_info ) ) . err as * const
-                _ as usize } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_group_info ) ,
-                "::" , stringify ! ( err ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_info ) ) . state as *
-                const _ as usize } , 40usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_group_info ) ,
-                "::" , stringify ! ( state ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_info ) ) . protocol_type
-                as * const _ as usize } , 48usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_group_info ) ,
-                "::" , stringify ! ( protocol_type ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_info ) ) . protocol as *
-                const _ as usize } , 56usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_group_info ) ,
-                "::" , stringify ! ( protocol ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_info ) ) . members as *
-                const _ as usize } , 64usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_group_info ) ,
-                "::" , stringify ! ( members ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_info ) ) . member_cnt as *
-                const _ as usize } , 72usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_group_info ) ,
-                "::" , stringify ! ( member_cnt ) ));
-}
-impl Clone for rd_kafka_group_info {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<rd_kafka_group_info>(),
+        80usize,
+        concat!("Size of: ", stringify!(rd_kafka_group_info))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rd_kafka_group_info>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rd_kafka_group_info))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_info)).broker as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_info),
+            "::",
+            stringify!(broker)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_info)).group as *const _ as usize },
+        24usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_info),
+            "::",
+            stringify!(group)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_info)).err as *const _ as usize },
+        32usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_info),
+            "::",
+            stringify!(err)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_info)).state as *const _ as usize },
+        40usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_info),
+            "::",
+            stringify!(state)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_info)).protocol_type as *const _ as usize },
+        48usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_info),
+            "::",
+            stringify!(protocol_type)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_info)).protocol as *const _ as usize },
+        56usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_info),
+            "::",
+            stringify!(protocol)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_info)).members as *const _ as usize },
+        64usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_info),
+            "::",
+            stringify!(members)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_info)).member_cnt as *const _ as usize },
+        72usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_info),
+            "::",
+            stringify!(member_cnt)
+        )
+    );
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct rd_kafka_group_list {
     pub groups: *mut rd_kafka_group_info,
     pub group_cnt: ::std::os::raw::c_int,
 }
 #[test]
 fn bindgen_test_layout_rd_kafka_group_list() {
-    assert_eq!(::std::mem::size_of::<rd_kafka_group_list>() , 16usize , concat
-               ! ( "Size of: " , stringify ! ( rd_kafka_group_list ) ));
-    assert_eq! (::std::mem::align_of::<rd_kafka_group_list>() , 8usize ,
-                concat ! (
-                "Alignment of " , stringify ! ( rd_kafka_group_list ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_list ) ) . groups as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_group_list ) ,
-                "::" , stringify ! ( groups ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const rd_kafka_group_list ) ) . group_cnt as *
-                const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( rd_kafka_group_list ) ,
-                "::" , stringify ! ( group_cnt ) ));
-}
-impl Clone for rd_kafka_group_list {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<rd_kafka_group_list>(),
+        16usize,
+        concat!("Size of: ", stringify!(rd_kafka_group_list))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rd_kafka_group_list>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rd_kafka_group_list))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_list)).groups as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_list),
+            "::",
+            stringify!(groups)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const rd_kafka_group_list)).group_cnt as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(rd_kafka_group_list),
+            "::",
+            stringify!(group_cnt)
+        )
+    );
 }
 extern "C" {
-    pub fn rd_kafka_list_groups(rk: *mut rd_kafka_t,
-                                group: *const ::std::os::raw::c_char,
-                                grplistp: *mut *const rd_kafka_group_list,
-                                timeout_ms: ::std::os::raw::c_int)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_list_groups(
+        rk: *mut rd_kafka_t,
+        group: *const ::std::os::raw::c_char,
+        grplistp: *mut *const rd_kafka_group_list,
+        timeout_ms: ::std::os::raw::c_int,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
     pub fn rd_kafka_group_list_destroy(grplist: *const rd_kafka_group_list);
 }
 extern "C" {
-    pub fn rd_kafka_brokers_add(rk: *mut rd_kafka_t,
-                                brokerlist: *const ::std::os::raw::c_char)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_brokers_add(
+        rk: *mut rd_kafka_t,
+        brokerlist: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_set_logger(rk: *mut rd_kafka_t,
-                               func:
-                                   ::std::option::Option<unsafe extern "C" fn(rk:
-                                                                                  *const rd_kafka_t,
-                                                                              level:
-                                                                                  ::std::os::raw::c_int,
-                                                                              fac:
-                                                                                  *const ::std::os::raw::c_char,
-                                                                              buf:
-                                                                                  *const ::std::os::raw::c_char)>);
+    pub fn rd_kafka_set_logger(
+        rk: *mut rd_kafka_t,
+        func: ::std::option::Option<
+            unsafe extern "C" fn(
+                rk: *const rd_kafka_t,
+                level: ::std::os::raw::c_int,
+                fac: *const ::std::os::raw::c_char,
+                buf: *const ::std::os::raw::c_char,
+            ),
+        >,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_set_log_level(rk: *mut rd_kafka_t,
-                                  level: ::std::os::raw::c_int);
+    pub fn rd_kafka_set_log_level(rk: *mut rd_kafka_t, level: ::std::os::raw::c_int);
 }
 extern "C" {
-    pub fn rd_kafka_log_print(rk: *const rd_kafka_t,
-                              level: ::std::os::raw::c_int,
-                              fac: *const ::std::os::raw::c_char,
-                              buf: *const ::std::os::raw::c_char);
+    pub fn rd_kafka_log_print(
+        rk: *const rd_kafka_t,
+        level: ::std::os::raw::c_int,
+        fac: *const ::std::os::raw::c_char,
+        buf: *const ::std::os::raw::c_char,
+    );
 }
 extern "C" {
-    pub fn rd_kafka_log_syslog(rk: *const rd_kafka_t,
-                               level: ::std::os::raw::c_int,
-                               fac: *const ::std::os::raw::c_char,
-                               buf: *const ::std::os::raw::c_char);
+    pub fn rd_kafka_log_syslog(
+        rk: *const rd_kafka_t,
+        level: ::std::os::raw::c_int,
+        fac: *const ::std::os::raw::c_char,
+        buf: *const ::std::os::raw::c_char,
+    );
 }
 extern "C" {
     pub fn rd_kafka_outq_len(rk: *mut rd_kafka_t) -> ::std::os::raw::c_int;
@@ -4422,15 +5554,13 @@ extern "C" {
     pub fn rd_kafka_thread_cnt() -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_wait_destroyed(timeout_ms: ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_wait_destroyed(timeout_ms: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn rd_kafka_unittest() -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_poll_set_consumer(rk: *mut rd_kafka_t)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_poll_set_consumer(rk: *mut rd_kafka_t) -> rd_kafka_resp_err_t;
 }
 pub type rd_kafka_event_type_t = ::std::os::raw::c_int;
 #[repr(C)]
@@ -4440,243 +5570,209 @@ pub struct rd_kafka_op_s {
 }
 pub type rd_kafka_event_t = rd_kafka_op_s;
 extern "C" {
-    pub fn rd_kafka_event_type(rkev: *const rd_kafka_event_t)
-     -> rd_kafka_event_type_t;
+    pub fn rd_kafka_event_type(rkev: *const rd_kafka_event_t) -> rd_kafka_event_type_t;
 }
 extern "C" {
-    pub fn rd_kafka_event_name(rkev: *const rd_kafka_event_t)
-     -> *const ::std::os::raw::c_char;
+    pub fn rd_kafka_event_name(rkev: *const rd_kafka_event_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
     pub fn rd_kafka_event_destroy(rkev: *mut rd_kafka_event_t);
 }
 extern "C" {
-    pub fn rd_kafka_event_message_next(rkev: *mut rd_kafka_event_t)
-     -> *const rd_kafka_message_t;
+    pub fn rd_kafka_event_message_next(rkev: *mut rd_kafka_event_t) -> *const rd_kafka_message_t;
 }
 extern "C" {
-    pub fn rd_kafka_event_message_array(rkev: *mut rd_kafka_event_t,
-                                        rkmessages:
-                                            *mut *const rd_kafka_message_t,
-                                        size: usize) -> usize;
+    pub fn rd_kafka_event_message_array(
+        rkev: *mut rd_kafka_event_t,
+        rkmessages: *mut *const rd_kafka_message_t,
+        size: usize,
+    ) -> usize;
 }
 extern "C" {
     pub fn rd_kafka_event_message_count(rkev: *mut rd_kafka_event_t) -> usize;
 }
 extern "C" {
-    pub fn rd_kafka_event_error(rkev: *mut rd_kafka_event_t)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_event_error(rkev: *mut rd_kafka_event_t) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_event_error_string(rkev: *mut rd_kafka_event_t)
-     -> *const ::std::os::raw::c_char;
+    pub fn rd_kafka_event_error_string(rkev: *mut rd_kafka_event_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn rd_kafka_event_opaque(rkev: *mut rd_kafka_event_t)
-     -> *mut ::std::os::raw::c_void;
+    pub fn rd_kafka_event_opaque(rkev: *mut rd_kafka_event_t) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    pub fn rd_kafka_event_log(rkev: *mut rd_kafka_event_t,
-                              fac: *mut *const ::std::os::raw::c_char,
-                              str: *mut *const ::std::os::raw::c_char,
-                              level: *mut ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_event_log(
+        rkev: *mut rd_kafka_event_t,
+        fac: *mut *const ::std::os::raw::c_char,
+        str: *mut *const ::std::os::raw::c_char,
+        level: *mut ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn rd_kafka_event_stats(rkev: *mut rd_kafka_event_t)
-     -> *const ::std::os::raw::c_char;
+    pub fn rd_kafka_event_stats(rkev: *mut rd_kafka_event_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn rd_kafka_event_topic_partition_list(rkev: *mut rd_kafka_event_t)
-     -> *mut rd_kafka_topic_partition_list_t;
+    pub fn rd_kafka_event_topic_partition_list(rkev: *mut rd_kafka_event_t) -> *mut rd_kafka_topic_partition_list_t;
 }
 extern "C" {
-    pub fn rd_kafka_event_topic_partition(rkev: *mut rd_kafka_event_t)
-     -> *mut rd_kafka_topic_partition_t;
+    pub fn rd_kafka_event_topic_partition(rkev: *mut rd_kafka_event_t) -> *mut rd_kafka_topic_partition_t;
 }
 extern "C" {
-    pub fn rd_kafka_queue_poll(rkqu: *mut rd_kafka_queue_t,
-                               timeout_ms: ::std::os::raw::c_int)
-     -> *mut rd_kafka_event_t;
+    pub fn rd_kafka_queue_poll(rkqu: *mut rd_kafka_queue_t, timeout_ms: ::std::os::raw::c_int)
+        -> *mut rd_kafka_event_t;
 }
 extern "C" {
-    pub fn rd_kafka_queue_poll_callback(rkqu: *mut rd_kafka_queue_t,
-                                        timeout_ms: ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
+    pub fn rd_kafka_queue_poll_callback(
+        rkqu: *mut rd_kafka_queue_t,
+        timeout_ms: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
 }
-pub type rd_kafka_plugin_f_conf_init_t =
-    ::std::option::Option<unsafe extern "C" fn(conf: *mut rd_kafka_conf_t,
-                                               plug_opaquep:
-                                                   *mut *mut ::std::os::raw::c_void,
-                                               errstr:
-                                                   *mut ::std::os::raw::c_char,
-                                               errstr_size: usize)
-                              -> rd_kafka_resp_err_t>;
-pub type rd_kafka_interceptor_f_on_conf_set_t =
-    ::std::option::Option<unsafe extern "C" fn(conf: *mut rd_kafka_conf_t,
-                                               name:
-                                                   *const ::std::os::raw::c_char,
-                                               val:
-                                                   *const ::std::os::raw::c_char,
-                                               errstr:
-                                                   *mut ::std::os::raw::c_char,
-                                               errstr_size: usize,
-                                               ic_opaque:
-                                                   *mut ::std::os::raw::c_void)
-                              -> rd_kafka_conf_res_t>;
-pub type rd_kafka_interceptor_f_on_conf_dup_t =
-    ::std::option::Option<unsafe extern "C" fn(new_conf: *mut rd_kafka_conf_t,
-                                               old_conf:
-                                                   *const rd_kafka_conf_t,
-                                               filter_cnt: usize,
-                                               filter:
-                                                   *mut *const ::std::os::raw::c_char,
-                                               ic_opaque:
-                                                   *mut ::std::os::raw::c_void)
-                              -> rd_kafka_resp_err_t>;
-pub type rd_kafka_interceptor_f_on_conf_destroy_t =
-    ::std::option::Option<unsafe extern "C" fn(ic_opaque:
-                                                   *mut ::std::os::raw::c_void)
-                              -> rd_kafka_resp_err_t>;
-pub type rd_kafka_interceptor_f_on_new_t =
-    ::std::option::Option<unsafe extern "C" fn(rk: *mut rd_kafka_t,
-                                               conf: *const rd_kafka_conf_t,
-                                               ic_opaque:
-                                                   *mut ::std::os::raw::c_void,
-                                               errstr:
-                                                   *mut ::std::os::raw::c_char,
-                                               errstr_size: usize)
-                              -> rd_kafka_resp_err_t>;
-pub type rd_kafka_interceptor_f_on_destroy_t =
-    ::std::option::Option<unsafe extern "C" fn(rk: *mut rd_kafka_t,
-                                               ic_opaque:
-                                                   *mut ::std::os::raw::c_void)
-                              -> rd_kafka_resp_err_t>;
-pub type rd_kafka_interceptor_f_on_send_t =
-    ::std::option::Option<unsafe extern "C" fn(rk: *mut rd_kafka_t,
-                                               rkmessage:
-                                                   *mut rd_kafka_message_t,
-                                               ic_opaque:
-                                                   *mut ::std::os::raw::c_void)
-                              -> rd_kafka_resp_err_t>;
-pub type rd_kafka_interceptor_f_on_acknowledgement_t =
-    ::std::option::Option<unsafe extern "C" fn(rk: *mut rd_kafka_t,
-                                               rkmessage:
-                                                   *mut rd_kafka_message_t,
-                                               ic_opaque:
-                                                   *mut ::std::os::raw::c_void)
-                              -> rd_kafka_resp_err_t>;
-pub type rd_kafka_interceptor_f_on_consume_t =
-    ::std::option::Option<unsafe extern "C" fn(rk: *mut rd_kafka_t,
-                                               rkmessage:
-                                                   *mut rd_kafka_message_t,
-                                               ic_opaque:
-                                                   *mut ::std::os::raw::c_void)
-                              -> rd_kafka_resp_err_t>;
-pub type rd_kafka_interceptor_f_on_commit_t =
-    ::std::option::Option<unsafe extern "C" fn(rk: *mut rd_kafka_t,
-                                               offsets:
-                                                   *const rd_kafka_topic_partition_list_t,
-                                               err: rd_kafka_resp_err_t,
-                                               ic_opaque:
-                                                   *mut ::std::os::raw::c_void)
-                              -> rd_kafka_resp_err_t>;
+pub type rd_kafka_plugin_f_conf_init_t = ::std::option::Option<
+    unsafe extern "C" fn(
+        conf: *mut rd_kafka_conf_t,
+        plug_opaquep: *mut *mut ::std::os::raw::c_void,
+        errstr: *mut ::std::os::raw::c_char,
+        errstr_size: usize,
+    ) -> rd_kafka_resp_err_t,
+>;
+pub type rd_kafka_interceptor_f_on_conf_set_t = ::std::option::Option<
+    unsafe extern "C" fn(
+        conf: *mut rd_kafka_conf_t,
+        name: *const ::std::os::raw::c_char,
+        val: *const ::std::os::raw::c_char,
+        errstr: *mut ::std::os::raw::c_char,
+        errstr_size: usize,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_conf_res_t,
+>;
+pub type rd_kafka_interceptor_f_on_conf_dup_t = ::std::option::Option<
+    unsafe extern "C" fn(
+        new_conf: *mut rd_kafka_conf_t,
+        old_conf: *const rd_kafka_conf_t,
+        filter_cnt: usize,
+        filter: *mut *const ::std::os::raw::c_char,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t,
+>;
+pub type rd_kafka_interceptor_f_on_conf_destroy_t = ::std::option::Option<
+    unsafe extern "C" fn(ic_opaque: *mut ::std::os::raw::c_void) -> rd_kafka_resp_err_t,
+>;
+pub type rd_kafka_interceptor_f_on_new_t = ::std::option::Option<
+    unsafe extern "C" fn(
+        rk: *mut rd_kafka_t,
+        conf: *const rd_kafka_conf_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+        errstr: *mut ::std::os::raw::c_char,
+        errstr_size: usize,
+    ) -> rd_kafka_resp_err_t,
+>;
+pub type rd_kafka_interceptor_f_on_destroy_t = ::std::option::Option<
+    unsafe extern "C" fn(rk: *mut rd_kafka_t, ic_opaque: *mut ::std::os::raw::c_void) -> rd_kafka_resp_err_t,
+>;
+pub type rd_kafka_interceptor_f_on_send_t = ::std::option::Option<
+    unsafe extern "C" fn(
+        rk: *mut rd_kafka_t,
+        rkmessage: *mut rd_kafka_message_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t,
+>;
+pub type rd_kafka_interceptor_f_on_acknowledgement_t = ::std::option::Option<
+    unsafe extern "C" fn(
+        rk: *mut rd_kafka_t,
+        rkmessage: *mut rd_kafka_message_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t,
+>;
+pub type rd_kafka_interceptor_f_on_consume_t = ::std::option::Option<
+    unsafe extern "C" fn(
+        rk: *mut rd_kafka_t,
+        rkmessage: *mut rd_kafka_message_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t,
+>;
+pub type rd_kafka_interceptor_f_on_commit_t = ::std::option::Option<
+    unsafe extern "C" fn(
+        rk: *mut rd_kafka_t,
+        offsets: *const rd_kafka_topic_partition_list_t,
+        err: rd_kafka_resp_err_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t,
+>;
 extern "C" {
-    pub fn rd_kafka_conf_interceptor_add_on_conf_set(conf:
-                                                         *mut rd_kafka_conf_t,
-                                                     ic_name:
-                                                         *const ::std::os::raw::c_char,
-                                                     on_conf_set:
-                                                         rd_kafka_interceptor_f_on_conf_set_t,
-                                                     ic_opaque:
-                                                         *mut ::std::os::raw::c_void)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_conf_interceptor_add_on_conf_set(
+        conf: *mut rd_kafka_conf_t,
+        ic_name: *const ::std::os::raw::c_char,
+        on_conf_set: rd_kafka_interceptor_f_on_conf_set_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_conf_interceptor_add_on_conf_dup(conf:
-                                                         *mut rd_kafka_conf_t,
-                                                     ic_name:
-                                                         *const ::std::os::raw::c_char,
-                                                     on_conf_dup:
-                                                         rd_kafka_interceptor_f_on_conf_dup_t,
-                                                     ic_opaque:
-                                                         *mut ::std::os::raw::c_void)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_conf_interceptor_add_on_conf_dup(
+        conf: *mut rd_kafka_conf_t,
+        ic_name: *const ::std::os::raw::c_char,
+        on_conf_dup: rd_kafka_interceptor_f_on_conf_dup_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_conf_interceptor_add_on_conf_destroy(conf:
-                                                             *mut rd_kafka_conf_t,
-                                                         ic_name:
-                                                             *const ::std::os::raw::c_char,
-                                                         on_conf_destroy:
-                                                             rd_kafka_interceptor_f_on_conf_destroy_t,
-                                                         ic_opaque:
-                                                             *mut ::std::os::raw::c_void)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_conf_interceptor_add_on_conf_destroy(
+        conf: *mut rd_kafka_conf_t,
+        ic_name: *const ::std::os::raw::c_char,
+        on_conf_destroy: rd_kafka_interceptor_f_on_conf_destroy_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_conf_interceptor_add_on_new(conf: *mut rd_kafka_conf_t,
-                                                ic_name:
-                                                    *const ::std::os::raw::c_char,
-                                                on_new:
-                                                    rd_kafka_interceptor_f_on_new_t,
-                                                ic_opaque:
-                                                    *mut ::std::os::raw::c_void)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_conf_interceptor_add_on_new(
+        conf: *mut rd_kafka_conf_t,
+        ic_name: *const ::std::os::raw::c_char,
+        on_new: rd_kafka_interceptor_f_on_new_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_interceptor_add_on_destroy(rk: *mut rd_kafka_t,
-                                               ic_name:
-                                                   *const ::std::os::raw::c_char,
-                                               on_destroy:
-                                                   rd_kafka_interceptor_f_on_destroy_t,
-                                               ic_opaque:
-                                                   *mut ::std::os::raw::c_void)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_interceptor_add_on_destroy(
+        rk: *mut rd_kafka_t,
+        ic_name: *const ::std::os::raw::c_char,
+        on_destroy: rd_kafka_interceptor_f_on_destroy_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_interceptor_add_on_send(rk: *mut rd_kafka_t,
-                                            ic_name:
-                                                *const ::std::os::raw::c_char,
-                                            on_send:
-                                                rd_kafka_interceptor_f_on_send_t,
-                                            ic_opaque:
-                                                *mut ::std::os::raw::c_void)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_interceptor_add_on_send(
+        rk: *mut rd_kafka_t,
+        ic_name: *const ::std::os::raw::c_char,
+        on_send: rd_kafka_interceptor_f_on_send_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_interceptor_add_on_acknowledgement(rk: *mut rd_kafka_t,
-                                                       ic_name:
-                                                           *const ::std::os::raw::c_char,
-                                                       on_acknowledgement:
-                                                           rd_kafka_interceptor_f_on_acknowledgement_t,
-                                                       ic_opaque:
-                                                           *mut ::std::os::raw::c_void)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_interceptor_add_on_acknowledgement(
+        rk: *mut rd_kafka_t,
+        ic_name: *const ::std::os::raw::c_char,
+        on_acknowledgement: rd_kafka_interceptor_f_on_acknowledgement_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_interceptor_add_on_consume(rk: *mut rd_kafka_t,
-                                               ic_name:
-                                                   *const ::std::os::raw::c_char,
-                                               on_consume:
-                                                   rd_kafka_interceptor_f_on_consume_t,
-                                               ic_opaque:
-                                                   *mut ::std::os::raw::c_void)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_interceptor_add_on_consume(
+        rk: *mut rd_kafka_t,
+        ic_name: *const ::std::os::raw::c_char,
+        on_consume: rd_kafka_interceptor_f_on_consume_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t;
 }
 extern "C" {
-    pub fn rd_kafka_interceptor_add_on_commit(rk: *mut rd_kafka_t,
-                                              ic_name:
-                                                  *const ::std::os::raw::c_char,
-                                              on_commit:
-                                                  rd_kafka_interceptor_f_on_commit_t,
-                                              ic_opaque:
-                                                  *mut ::std::os::raw::c_void)
-     -> rd_kafka_resp_err_t;
+    pub fn rd_kafka_interceptor_add_on_commit(
+        rk: *mut rd_kafka_t,
+        ic_name: *const ::std::os::raw::c_char,
+        on_commit: rd_kafka_interceptor_f_on_commit_t,
+        ic_opaque: *mut ::std::os::raw::c_void,
+    ) -> rd_kafka_resp_err_t;
 }
 pub type __builtin_va_list = [__va_list_tag; 1usize];
 #[repr(C)]
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct __va_list_tag {
     pub gp_offset: ::std::os::raw::c_uint,
     pub fp_offset: ::std::os::raw::c_uint,
@@ -4685,31 +5781,54 @@ pub struct __va_list_tag {
 }
 #[test]
 fn bindgen_test_layout___va_list_tag() {
-    assert_eq!(::std::mem::size_of::<__va_list_tag>() , 24usize , concat ! (
-               "Size of: " , stringify ! ( __va_list_tag ) ));
-    assert_eq! (::std::mem::align_of::<__va_list_tag>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( __va_list_tag ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const __va_list_tag ) ) . gp_offset as * const
-                _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( __va_list_tag ) , "::"
-                , stringify ! ( gp_offset ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const __va_list_tag ) ) . fp_offset as * const
-                _ as usize } , 4usize , concat ! (
-                "Alignment of field: " , stringify ! ( __va_list_tag ) , "::"
-                , stringify ! ( fp_offset ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const __va_list_tag ) ) . overflow_arg_area as
-                * const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( __va_list_tag ) , "::"
-                , stringify ! ( overflow_arg_area ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const __va_list_tag ) ) . reg_save_area as *
-                const _ as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! ( __va_list_tag ) , "::"
-                , stringify ! ( reg_save_area ) ));
-}
-impl Clone for __va_list_tag {
-    fn clone(&self) -> Self { *self }
+    assert_eq!(
+        ::std::mem::size_of::<__va_list_tag>(),
+        24usize,
+        concat!("Size of: ", stringify!(__va_list_tag))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__va_list_tag>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__va_list_tag))
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __va_list_tag)).gp_offset as *const _ as usize },
+        0usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__va_list_tag),
+            "::",
+            stringify!(gp_offset)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __va_list_tag)).fp_offset as *const _ as usize },
+        4usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__va_list_tag),
+            "::",
+            stringify!(fp_offset)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __va_list_tag)).overflow_arg_area as *const _ as usize },
+        8usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__va_list_tag),
+            "::",
+            stringify!(overflow_arg_area)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(0 as *const __va_list_tag)).reg_save_area as *const _ as usize },
+        16usize,
+        concat!(
+            "Alignment of field: ",
+            stringify!(__va_list_tag),
+            "::",
+            stringify!(reg_save_area)
+        )
+    );
 }

@@ -50,6 +50,7 @@ pub fn primitive_to_rd_kafka_resp_err_t(error: i32) -> Option<RDKafkaRespErr> {
         -161 => Some(RD_KAFKA_RESP_ERR__VALUE_SERIALIZATION),
         -160 => Some(RD_KAFKA_RESP_ERR__KEY_DESERIALIZATION),
         -159 => Some(RD_KAFKA_RESP_ERR__VALUE_DESERIALIZATION),
+        -158 => Some(RD_KAFKA_RESP_ERR__PARTIAL),
         -100 => Some(RD_KAFKA_RESP_ERR__END),
         -1   => Some(RD_KAFKA_RESP_ERR_UNKNOWN),
         0    => Some(RD_KAFKA_RESP_ERR_NO_ERROR),
@@ -216,6 +217,7 @@ pub fn rd_kafka_resp_err_t_to_rdkafka_error(err: RDKafkaRespErr) -> RDKafkaError
         RD_KAFKA_RESP_ERR_TRANSACTIONAL_ID_AUTHORIZATION_FAILED => TransactionalIdAuthorizationFailed,
         RD_KAFKA_RESP_ERR_SECURITY_DISABLED => SecurityDisabled,
         RD_KAFKA_RESP_ERR_OPERATION_NOT_ATTEMPTED => OperationNotAttempted,
+        RD_KAFKA_RESP_ERR__PARTIAL => Partial,
         RD_KAFKA_RESP_ERR_END_ALL => EndAll,
     }
 }
